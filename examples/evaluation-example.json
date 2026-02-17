@@ -1,0 +1,20 @@
+{
+  "title": "Context7 MCP Server",
+  "source": "https://github.com/upstash/context7",
+  "type": "mcp_server",
+  "description": "Provides version-specific documentation for libraries and frameworks.",
+  "discovered_at": "2026-02-15",
+  "keywords": ["documentation", "library docs", "version-specific", "context"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 80,
+      "capability_expansion": 75,
+      "maintenance_burden": 85,
+      "community_validation": 70
+    },
+    "total": 80.25,
+    "decision": "APPROVED",
+    "reasoning": "Drop-in MCP server with 2k+ stars. Reduces hallucination of outdated API usage. Low maintenance (hosted service). Novel capability - no existing library-docs integration."
+  }
+}

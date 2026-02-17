@@ -1,0 +1,8 @@
+{
+  "title": "Context7 MCP Server",
+  "source": "https://github.com/upstash/context7",
+  "type": "mcp_server",
+  "description": "Provides version-specific documentation for libraries and frameworks. Instead of hallucinating API usage, the model can look up the exact docs for the version you're using.",
+  "discovered_at": "2026-02-15",
+  "keywords": ["documentation", "library docs", "version-specific", "context"]
+}

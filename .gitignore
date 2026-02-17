@@ -1,0 +1,23 @@
+# Secrets
+.env
+.webhook-env
+
+# Runtime
+logs/
+tmp/
+*.pid
+*.lock
+
+# State (machine-specific)
+state/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
