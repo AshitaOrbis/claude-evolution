@@ -1,0 +1,37 @@
+{
+  "$schema": "../../genealogy/config/schemas/person.schema.json",
+  "id": "",
+  "names": [
+    {
+      "given": "",
+      "surname": "",
+      "type": "birth",
+      "source_id": ""
+    }
+  ],
+  "gender": "unknown",
+  "birth": {
+    "date": "",
+    "date_confidence": "unknown",
+    "place": "",
+    "source_id": ""
+  },
+  "death": {
+    "date": "",
+    "date_confidence": "unknown",
+    "place": "",
+    "source_id": ""
+  },
+  "baptism": null,
+  "burial": null,
+  "occupation": [],
+  "residence": [],
+  "father_id": "",
+  "mother_id": "",
+  "spouse_ids": [],
+  "children_ids": [],
+  "confidence_score": 0,
+  "research_status": "unverified",
+  "notes": "",
+  "last_updated": ""
+}
