@@ -1,0 +1,17 @@
+{
+  "$schema": "../../genealogy/config/schemas/family.schema.json",
+  "id": "",
+  "husband_id": "",
+  "wife_id": "",
+  "marriage": {
+    "date": "",
+    "date_confidence": "unknown",
+    "place": "",
+    "source_id": ""
+  },
+  "marriage_end": null,
+  "children": [],
+  "residences": [],
+  "notes": "",
+  "last_updated": ""
+}

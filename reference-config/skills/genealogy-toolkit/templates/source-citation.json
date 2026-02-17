@@ -1,0 +1,27 @@
+{
+  "$schema": "../../genealogy/config/schemas/source.schema.json",
+  "id": "src-",
+  "type": "",
+  "repository": "",
+  "collection": "",
+  "title": "",
+  "date_original": "",
+  "date_accessed": "",
+  "url": "",
+  "local_file": "",
+  "extracted_text": "",
+  "locator": {
+    "page": "",
+    "frame": "",
+    "entry_number": "",
+    "line": "",
+    "dwelling": "",
+    "family_number": ""
+  },
+  "reliability": "",
+  "information_quality": "",
+  "evidence_type": "",
+  "persons_referenced": [],
+  "transcription": "",
+  "notes": ""
+}
