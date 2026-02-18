@@ -20,7 +20,13 @@ done
 
 # Test 2: No private project references
 echo "--- Test 2: No private project references ---"
-PRIVATE_PROJECTS="sourcecashflow|ashitaorbis|openclaw|browserforge|brokerageextract|dcsc|wagmi"
+PRIVATE_PATTERNS_FILE="$(dirname "$0")/.private-patterns"
+if [[ ! -f "$PRIVATE_PATTERNS_FILE" ]]; then
+    echo "SKIP: .private-patterns file not found (gitignored)"
+    echo "Create scripts/.private-patterns with project patterns (line 1) and agent patterns (line 2)"
+    exit 0
+fi
+PRIVATE_PROJECTS=$(sed -n '1p' "$PRIVATE_PATTERNS_FILE")
 for f in $(find "$REFERENCE_DIR" -name "*.md" -type f); do
     matches=$(grep -niE "$PRIVATE_PROJECTS" "$f" || true)
     if [ -n "$matches" ]; then
@@ -32,7 +38,7 @@ done
 
 # Test 3: No references to private agents/skills
 echo "--- Test 3: No references to private agents/skills ---"
-PRIVATE_AGENTS="ashita-site-reviewer|ashita-writing-reviewer|blog-researcher|fact-checker|capability-discoverer|capability-evaluator|capability-integrator|evolution-orchestrator|pipeline-orchestrator|revenue-mission|water-director|qa-analyst-verifier|visual-fidelity|openclaw-dialogue|workspace-orchestrator"
+PRIVATE_AGENTS=$(sed -n '2p' "$PRIVATE_PATTERNS_FILE")
 for f in $(find "$REFERENCE_DIR" -name "*.md" -type f); do
     matches=$(grep -niE "$PRIVATE_AGENTS" "$f" || true)
     if [ -n "$matches" ]; then

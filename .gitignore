@@ -2,6 +2,9 @@
 .env
 .webhook-env
 
+# Private patterns (used by test-public-config.sh)
+scripts/.private-patterns
+
 # Runtime
 logs/
 tmp/
