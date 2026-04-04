@@ -2,30 +2,23 @@
 
 Deferred improvements and ideas tracked from development sessions.
 
-## Prompt Optimization for Review Subagents
+## ~~Prompt Optimization for Review Subagents~~ (DONE)
 
-**Source**: Model-Generation Audit (Post 037), March 2026
-**Priority**: Medium
-**Effort**: Medium
+**Completed**: 2026-03-26
+**Commits**: `b0431f5`, `9a269d8`, `47a5caa` (dspy-prompt-optimizer)
 
-The publication-review pipeline uses three models (GPT-5.4, Gemini 3.1 Pro, Opus 4.6) with hand-written review prompts. Each model has a distinct orientation (fact-checking, structural analysis, argument rigor) but the prompts were designed by intuition, not optimized.
+Deployed format instruction to all three prompts in `~/.claude/skills/publication-review/SKILL.md`. Built full optimization pipeline: data conversion from review-audit manifests, 3-signal hybrid matching metric (anchor entities + char n-grams + keyword Jaccard), model runners for Codex/Gemini/Claude CLIs, checkpoint-enabled optimization script.
 
-**Opportunity**: Use the DSPy-inspired prompt optimizer (`dspy-prompt-optimizer`) to systematically improve the review prompts. The audit produced a natural training signal: findings that were genuine errors vs false positives vs precision preferences. This labeled data could train better prompts that increase true positive rate and reduce false positives.
+**Results** (holdout, 3-signal hybrid metric):
+- Opus 4.6: 0.669 PASS (3 demos)
+- Gemini: 0.532 PASS (3 demos)
+- GPT-5.4: 0.473 PASS (3 demos)
 
-**Specific targets**:
-- GPT-5.4 fact-checking prompt: reduce precision-preference false positives (a significant fraction of GPT-only flags were downgraded during triage)
-- Gemini structural review prompt: Gemini caught 4 issues after two full GPT+Opus rounds, suggesting its structural orientation is undertapped
-- Opus adversarial prompt: only caught 10 items vs GPT's 95; may be under-prompted for fact-checking specifically (its strength is argument analysis, but the gap is large)
-
-**Training data available**:
-- 33 posts x 3 models = ~99 review files with labeled findings
-- 27 fix manifests with triage decisions (MUST/SHOULD/NICE/DISCARDED)
-- 27 fix logs with applied vs skipped items
-- Phase 1 → Phase 2 error trajectory (what was missed, what was introduced)
-
-**Approach**: Bootstrap optimization on the review prompts using the fix manifests as ground truth. The manifest triage decisions (genuine error vs precision preference vs false positive) provide the supervision signal. Optimize for recall on genuine errors while minimizing false positive rate.
-
-**Dependencies**: `dspy-prompt-optimizer` project, `publication-review` skill
+**Key learnings**:
+- Anchor-based matching (entities, numbers, tech terms) is 4-7x better than Jaccard for cross-vocabulary finding comparison — documented in `library/techniques/anchor-based-paraphrase-matching-2026-03-23.md`
+- Codex `exec` should disable MCP servers (`mcp_servers.*.enabled=false`) for text-generation tasks — saves 10K tokens/call
+- Codex has native web search independent of MCP (controlled by `search = true` in config.toml)
+- `gemini-3.1-pro-preview` has persistent capacity issues from CLI; omitting the `-m` flag uses the available default model
 
 ## Confine Agent Writes Without Bash (Security)
 
