@@ -113,10 +113,25 @@ Verified token-efficiency changes preserved quality. Publication-review holdouts
 | fact-checker | 0.667 | unchanged |
 
 **Persistent issues for future rounds**:
-- Code-reviewer holdout (3 examples) is too noisy — expand to 8-10 minimum
-- Codex timeouts on >2K word blog posts — investigate xhigh reasoning effort vs default
-- Claude fallback fails under concurrent load — serialize dataset generation
-- Pre-flight gate compares against `avg_score` (training) not previous holdout — minor bug, but currently restores correctly
+- ~~Code-reviewer holdout (3 examples) is too noisy — expand to 8-10 minimum~~ DONE Round 3
+- ~~Codex timeouts on >2K word blog posts — investigate xhigh reasoning effort vs default~~ DONE Round 3
+- ~~Claude fallback fails under concurrent load — serialize dataset generation~~ DONE Round 3
+- ~~Pre-flight gate compares against `avg_score` (training) not previous holdout~~ DONE Round 3
+
+## April 2026 Round 3 (DONE 2026-04-19)
+
+Cleanup round addressing all persistent issues from Round 2.
+
+**Quick wins**:
+- `transform_severity_demo` NoneType bug fixed (guard None severity → "Unknown")
+- Pre-flight gate now evaluates backup prompt on same holdout data (apples-to-apples), not training avg_score
+- All Round 1 + Round 2 work committed (4 commits across dspy-prompt-optimizer + claude-evolution)
+
+**Medium-effort infrastructure**:
+- **Codex timeout investigation**: reasoning_effort=medium completes 100% (137-283s), xhigh always times out, high fails on large posts. Finding documented in `dspy-prompt-optimizer/reports/codex-timeout-investigation.json`
+- **Code-reviewer holdout expanded 3 → 8** with one example per category (security, code_quality, performance, error_handling, concurrency, memory, null_safety, best_practices). New baseline 0.466 Haiku on expanded set
+- **Fact-checker dataset 9+3 → 15+5** with zero failures using medium reasoning effort + serial execution
+- 16 tests passing (added severity None regression test)
 
 ### Implementation Summary (2026-04-13)
 
