@@ -1,0 +1,2028 @@
+{
+  "last_run": "2026-06-07T00:00:00Z",
+  "processed_items": [
+    {
+      "id": "shell-conventions-2026-02-05",
+      "title": "Shell/Bash Conventions (jq mandates, set -euo pipefail)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 86.25,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "e2e-testing-convention-2026-02-05",
+      "title": "E2E Test Suite After Implementation",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 85.45,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "pipefail-exit-codes-2026-02-05",
+      "title": "Explicit Exit Code Handling in Bash",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 86.25,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md (merged with shell-conventions)",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "shellcheck-hook-2026-02-05",
+      "title": "Shellcheck Pre-commit Hook",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": 86.25,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md (shell conventions section)",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "self-healing-pipeline-2026-02-05",
+      "title": "Self-Healing Pipeline (Autonomous Test-Fix Loops)",
+      "category": "feature_skill",
+      "source_section": "on_the_horizon",
+      "score": 80.55,
+      "decision": "integrated",
+      "integration_target": "~/.claude/skills/self-healing-pipeline/SKILL.md",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "session-end-verification-2026-02-05",
+      "title": "Session-End E2E Verification Pattern",
+      "category": "claude_md_addition",
+      "source_section": "usage_patterns",
+      "score": 85.45,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "json-helpers-lib-2026-02-05",
+      "title": "Shared JSON Helpers Library (lib/json_helpers.sh)",
+      "category": "feature_library",
+      "source_section": "usage_patterns",
+      "score": 67.0,
+      "decision": "deferred",
+      "reason": "Treats symptom not root cause; prefer TypeScript/Python migration for complex JSON",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "custom-skills-suggestion-2026-02-05",
+      "title": "Custom Skills (generic suggestion)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have 15+ skills in ~/.claude/skills/",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "headless-mode-suggestion-2026-02-05",
+      "title": "Headless Mode (generic suggestion)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already use claude -p in heartbeat scripts",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "task-agents-suggestion-2026-02-05",
+      "title": "Task Agents for Codebase Exploration",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have Explore subagent + dispatching-parallel-agents skill",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "article-to-code-pipeline-2026-02-05",
+      "title": "Autonomous Article-to-Code Knowledge Pipeline",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "This IS the claude-evolution system (discover → evaluate → integrate)",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "parallel-agent-pipelines-2026-02-05",
+      "title": "Parallel Agent Pipelines for Feature+Test",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have dispatching-parallel-agents skill + test-writer subagent",
+      "date": "2026-02-05"
+    },
+    {
+      "id": "root-cause-identification-2026-02-22",
+      "title": "Root Cause Identification Before Fixing",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 82.75,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Execution Defaults",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "priority-preservation-2026-02-22",
+      "title": "Preserve User-Stated Priority Order",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 79.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Execution Defaults",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "implementation-over-planning-2026-02-22",
+      "title": "Implementation Over Planning on Continue/Implement",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 85.25,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Execution Defaults",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "d1-yaml-rule-2026-02-22",
+      "title": "D1 YAML Rule (REPLACE not json_set)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 66.5,
+      "decision": "deferred",
+      "reason": "Project-specific (Ashita Orbis blog), belongs in project CLAUDE.md not global",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "implement-skill-2026-02-22",
+      "title": "Custom /implement Skill",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by implementation-over-planning CLAUDE.md rule",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "auto-format-hooks-2026-02-22",
+      "title": "Auto-format/Typecheck afterEdit Hooks",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": 64.5,
+      "decision": "deferred",
+      "reason": "Per-project config, would slow multi-edit sessions; session-end verification already covers",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "headless-batch-content-2026-02-22",
+      "title": "Headless Mode for Batch Content Changes",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already use claude -p in heartbeat scripts (same as 2026-02-05)",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "continuation-session-guidance-2026-02-22",
+      "title": "Break Continuation Sessions Into Explicit Tasks",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by implementation-over-planning CLAUDE.md rule",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "specify-controlling-field-2026-02-22",
+      "title": "Specify Controlling Field Upfront in Prompts",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by root-cause-identification CLAUDE.md rule",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "task-agents-separation-2026-02-22",
+      "title": "Task Agents for Exploration Separately From Implementation",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have Explore subagent + dispatching-parallel-agents (same as 2026-02-05)",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "test-driven-fix-loops-2026-02-22",
+      "title": "Autonomous Test-Driven Bug Fix Loops",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": 66.25,
+      "decision": "deferred",
+      "reason": "Generalizes self-healing-pipeline to non-bash; not mature enough to formalize yet",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "parallel-plan-execute-2026-02-22",
+      "title": "Parallel Agents for Plan-Then-Execute",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have dispatching-parallel-agents skill + Agent Teams (same as 2026-02-05)",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "self-correcting-content-migrations-2026-02-22",
+      "title": "Self-Correcting Multi-File Content Migrations",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": 58.75,
+      "decision": "deferred",
+      "reason": "Too narrow (content migration specific), high implementation complexity, project-specific",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "deployment-conventions-2026-03-01",
+      "title": "Deployment Conventions (replace previous version, no stale URLs)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 71.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Personal Conventions (archive exception)",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "plan-mode-confirmation-2026-03-01",
+      "title": "Plan Mode Pre-Exit Confirmation",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 72.75,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Plan Mode Quality → Pre-Exit Confirmation",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "blog-meansEndsRatio-2026-03-01",
+      "title": "Blog meansEndsRatio Field Rule",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 57.0,
+      "decision": "deferred",
+      "reason": "Project-specific (Ashita Orbis blog); should go in project CLAUDE.md, not global",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "content-analysis-guidelines-2026-03-01",
+      "title": "Content & Analysis Guidelines (temporal awareness, source bias)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 57.5,
+      "decision": "deferred",
+      "reason": "Narrow domain (psychometric/personality evaluation); could be project-level rule for psyche project",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "post-edit-astro-hooks-2026-03-01",
+      "title": "Post-edit Astro Build Hooks",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": 64.5,
+      "decision": "deferred",
+      "reason": "Reoccurrence of auto-format-hooks-2026-02-22; per-project config, session-end verification already catches",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "d1-yaml-rule-2026-03-01",
+      "title": "D1 YAML Rule (reoccurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Same as d1-yaml-rule-2026-02-22; still project-specific",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "custom-skills-deploy-post-2026-03-01",
+      "title": "Custom /deploy-post Skill",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already have 15+ skills (same as custom-skills-suggestion-2026-02-05)",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "headless-pipeline-stages-2026-03-01",
+      "title": "Headless Pipeline Stages with Checkpointing",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already use claude -p in heartbeat scripts (3rd occurrence)",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "plan-mode-exits-pattern-2026-03-01",
+      "title": "Plan Mode Exits as Usage Pattern",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Merged with plan-mode-confirmation-2026-03-01 (same suggestion, different section)",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "numbered-phases-pattern-2026-03-01",
+      "title": "Numbered Phases for Large Requests",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": 62.0,
+      "decision": "deferred",
+      "reason": "User-side prompting advice; covered by spec-driven-dev skill and Plan Mode Completion",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "agent-verification-step-2026-03-01",
+      "title": "Agent Infrastructure Claim Verification",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": 59.5,
+      "decision": "deferred",
+      "reason": "Single incident; output-validator subagent already exists for untrusted agent output",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "autonomous-pipelines-2026-03-01",
+      "title": "Autonomous Planning-to-Execution Pipelines",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by self-healing-pipeline + dispatching-parallel-agents + plan-mode-completion",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "parallel-agent-swarms-2026-03-01",
+      "title": "Parallel Agent Swarms for Enrichment",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Same as parallel-agent-pipelines-2026-02-05 (3rd occurrence)",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "test-driven-iteration-2026-03-01",
+      "title": "Test-Driven Iteration for Recurring Friction",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by test-driven-development skill + test-driven-fix-loops-2026-02-22",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "ai-source-exclusion-2026-03-15",
+      "title": "AI-Generated Source Exclusion Rule",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 57.5,
+      "decision": "deferred",
+      "reason": "Project-specific (psyche/corpus analysis); improvement of content-analysis-guidelines-2026-03-01 but still narrow domain",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "deployment-versioning-2026-03-15",
+      "title": "Deployment Versioning (replace old versions)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already integrated as deployment-conventions-2026-03-01",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "privacy-checker-mandate-2026-03-15",
+      "title": "Privacy Checker Before Blog Deploy",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 57.0,
+      "decision": "deferred",
+      "reason": "Project-specific (Ashita Orbis blog pipeline); belongs in ashitaorbis project CLAUDE.md",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "approach-first-planning-2026-03-15",
+      "title": "Approach-First Planning (promote plan-for-a-plan to CLAUDE.md)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 80.0,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Plan Mode Quality → Approach-First Planning",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "blog-meansEndsRatio-2026-03-15",
+      "title": "Blog meansEndsRatio Field Rule (3rd occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Same as blog-meansEndsRatio-2026-03-01; still project-specific",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "pre-deploy-privacy-hooks-2026-03-15",
+      "title": "Pre-Deploy Privacy Check Hooks",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": 57.0,
+      "decision": "deferred",
+      "reason": "Project-specific (Ashita Orbis blog); same underlying need as post-edit-astro-hooks-2026-03-01",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "deploy-blog-skill-2026-03-15",
+      "title": "/deploy-blog Skill (one-command pipeline)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Project-specific; same as custom-skills-deploy-post-2026-03-01",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "plan-skill-2026-03-15",
+      "title": "/plan Skill (constrain exploration)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Addressed by approach-first-planning CLAUDE.md rule + existing plan mode quality section",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "upfront-confirmation-pattern-2026-03-15",
+      "title": "Upfront Confirmation Before Changes",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Root cause identification + mechanism confirmation already in Execution Defaults; full approval gate conflicts with 80/20 coding philosophy",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "checkpoint-execution-2026-03-15",
+      "title": "Checkpoint Execution Pattern (steps 1-3 then stop)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "2nd occurrence of numbered-phases-pattern-2026-03-01; spec-driven-dev covers",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "bash-dryrun-pattern-2026-03-15",
+      "title": "Bash Dry-Run Pattern for Deployments",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Validate Before Irreversible Operations already covers deployments and database operations",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "test-driven-pipeline-2026-03-15",
+      "title": "Test-Driven Autonomous Pipeline Execution",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by self-healing-pipeline skill + iterative-improve skill",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "parallel-subagents-review-2026-03-15",
+      "title": "Parallel Sub-Agents for Research and Review",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence across runs; dispatching-parallel-agents + Agent Teams already cover",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "checkpoint-recovery-2026-03-15",
+      "title": "Self-Correcting Plans with Checkpoint Recovery",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Plan-tracker skill + session-handoff skill + session snapshot/restore system already cover",
+      "date": "2026-03-15"
+    },
+    {
+      "id": "no-sudo-rule-2026-03-22",
+      "title": "No Sudo Rule (output for user, never execute)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 73.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Development Environment",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "privacy-pipeline-mandate-2026-03-22",
+      "title": "Privacy Pipeline Mandate Before Blog Deploy (3rd occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "3rd occurrence (2026-03-01, 2026-03-15). Still project-specific — belongs in ashitaorbis project CLAUDE.md, not global. Escalated as recurring pattern note.",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "session-continuation-context-2026-03-22",
+      "title": "Session Continuation — Read Checkpoint Files First",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by implementation-over-planning rule + plan-tracker skill + session-handoff skill",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "simplest-solution-first-2026-03-22",
+      "title": "Prefer Simplest Solution First",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "System prompt: 'Try the simplest approach first' + CLAUDE.md 'Avoid over-engineering'",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "version-cleanup-deploy-2026-03-22",
+      "title": "Version Cleanup on Deploy (3rd occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already integrated as deployment-conventions-2026-03-01",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "deploy-blog-skill-2026-03-22",
+      "title": "Custom /deploy-blog Skill (3rd occurrence)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "3rd occurrence. Project-specific (Ashita Orbis). deploy-staging skill already exists.",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "post-edit-hooks-2026-03-22",
+      "title": "Post-Edit Hooks for Linters/Privacy (4th occurrence)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. Session-end verification + iterative-improve already cover.",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "headless-batch-pipeline-2026-03-22",
+      "title": "Headless Batch Pipeline Scripting (4th occurrence)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. Already use claude -p in heartbeat scripts.",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "planning-checkpoint-files-2026-03-22",
+      "title": "Planning with Checkpoint Files (3rd occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by spec-driven-dev + plan-tracker + session-handoff skills",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "approach-check-before-coding-2026-03-22",
+      "title": "Approach-Check Before Coding",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by approach-first-planning (integrated 2026-03-15) + root-cause rule + system prompt simplicity directive",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "parallel-subagents-validation-2026-03-22",
+      "title": "Parallel Sub-Agents for Validation (5th occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence across runs. dispatching-parallel-agents skill + Agent Teams already cover.",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "autonomous-bugfix-loops-2026-03-22",
+      "title": "Autonomous Bug Fix With Test Loops (3rd occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by self-healing-pipeline skill + test-driven-development skill",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "parallel-content-pipeline-2026-03-22",
+      "title": "Parallel Sub-Agent Content Pipeline",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Overlaps parallel agent patterns (5th occurrence) + fan-out scaling skill",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "preflight-validation-deploy-2026-03-22",
+      "title": "Pre-Flight Validation Before Every Deploy",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by Validate Before Irreversible Operations + deploy-staging skill + session-end verification",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "privacy-name-rule-2026-03-29",
+      "title": "Privacy in Generated Content (global name rule)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 74.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Privacy in Generated Content",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "sudo-rule-2026-03-29",
+      "title": "Sudo Rule (2nd occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already integrated as no-sudo-rule-2026-03-22",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "simplest-solution-2026-03-29",
+      "title": "Simplest Solution First (2nd occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "System prompt + CLAUDE.md already cover (same as simplest-solution-first-2026-03-22)",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "multi-tier-consistency-2026-03-29",
+      "title": "Multi-Tier Consistency Rule",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 64.0,
+      "decision": "deferred",
+      "reason": "Project-specific (Ashita Orbis 3-tier architecture); belongs in project CLAUDE.md, not global",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "privacy-pipeline-mandate-2026-03-29",
+      "title": "Privacy Pipeline Before Deploy (4th occurrence)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. Root cause addressed by privacy-name-rule-2026-03-29 (global behavioral rule). Project-specific pipeline step still belongs in project CLAUDE.md.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "hooks-privacy-precommit-2026-03-29",
+      "title": "Hooks for Privacy/Lint Pre-Commit (5th occurrence)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence. Session-end verification + iterative-improve + new privacy-name-rule cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "deploy-blog-skill-2026-03-29",
+      "title": "Custom /deploy-blog Skill (4th occurrence)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. Project-specific. deploy-staging skill already exists.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "headless-batch-pipeline-2026-03-29",
+      "title": "Headless Batch Pipeline (5th occurrence)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence. Already use claude -p in heartbeat scripts.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "scoped-checkpoints-2026-03-29",
+      "title": "Break Sessions Into Scoped Checkpoints (4th occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. spec-driven-dev + plan-tracker + session-handoff skills cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "frontload-constraints-2026-03-29",
+      "title": "Front-Load Wrong-Approach Prevention",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Approach-first planning + execution defaults + individual CLAUDE.md rules (sudo, privacy, root cause) already cover the specific constraints mentioned.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "parallel-tier-verification-2026-03-29",
+      "title": "Agents for Parallel Tier Verification (6th occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence of parallel subagent patterns. dispatching-parallel-agents + Agent Teams cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "self-healing-test-iteration-2026-03-29",
+      "title": "Self-Healing Pipelines with Test-Driven Iteration (4th occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "self-healing-pipeline + TDD + iterative-improve skills already cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "parallel-multi-agent-review-2026-03-29",
+      "title": "Parallel Multi-Agent Review and Synthesis (6th occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. dispatching-parallel-agents + fan-out-scaling + Agent Teams cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "autonomous-multi-phase-execution-2026-03-29",
+      "title": "Autonomous Multi-Phase Project Execution (3rd occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "plan-mode-completion + plan-tracker + session-handoff + spec-driven-dev cover.",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "privacy-security-section-2026-04-12",
+      "title": "Privacy & Security Section (5th+ occurrence of privacy rules)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Structural references already integrated (privacy-name-rule-2026-03-29). Privacy checker mandate is project-specific (5th occurrence). AI-generated data caution deferred as project-specific (ai-source-exclusion-2026-03-15).",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "deployment-checklist-2026-04-12",
+      "title": "Deployment Checklist (multi-tier, frontmatter, build checks)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Multi-tier consistency deferred as project-specific (2nd occurrence of multi-tier-consistency-2026-03-29). Build checks covered by session-end verification. Frontmatter validation is Ashita Orbis-specific.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "tool-permission-constraints-2026-04-12",
+      "title": "Tool & Permission Constraints (sudo, session state, secrets)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 64.75,
+      "decision": "deferred",
+      "reason": "Sudo already integrated. 'No session state deletion' covered by 'Archive instead of delete'. 'No hardcoding secrets when env vars fail' is partially novel but scored 64.75 — narrow single-incident pattern, system prompt security guidance covers the principle.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "hooks-privacy-build-2026-04-12",
+      "title": "Pre-Commit Hooks for Privacy/Build (6th occurrence)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. Session-end verification + iterative-improve + privacy-name-rule cover.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "custom-deploy-review-skills-2026-04-12",
+      "title": "Custom /deploy and /review Skills (5th occurrence)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence. Project-specific (Ashita Orbis). deploy-staging skill already exists.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "headless-batch-pipeline-2026-04-12",
+      "title": "Headless Batch Pipeline (6th occurrence)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. Already use claude -p in heartbeat scripts.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "checkpointed-phases-2026-04-12",
+      "title": "Break Sessions Into Checkpointed Phases (5th occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence. spec-driven-dev + plan-tracker + plan-mode-completion already cover.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "explicit-tier-enumeration-2026-04-12",
+      "title": "Explicit Tier Enumeration Before Multi-Tier Changes",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Same underlying need as multi-tier-consistency-2026-03-29 (deferred, project-specific). Ashita Orbis-specific.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "frontload-approach-2026-04-12",
+      "title": "Front-Load Approach Validation (3rd+ occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already integrated as approach-first-planning-2026-03-15. Also duplicate of frontload-constraints-2026-03-29.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "test-driven-bugfix-loops-2026-04-12",
+      "title": "Test-Driven Bug Fix Loops (4th occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. self-healing-pipeline + test-driven-development skills cover.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "parallel-subagent-guardrails-2026-04-12",
+      "title": "Parallel Sub-Agent Reviews with Guardrails (7th occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "7th occurrence. dispatching-parallel-agents + fan-out-scaling + Agent Teams cover.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "autonomous-multitier-deploy-2026-04-12",
+      "title": "Autonomous Multi-Tier Deploy and Smoke-Test (4th occurrence)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "4th occurrence. deploy-staging + iterative-improve + Validate Before Irreversible Operations cover.",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "privacy-real-names-2026-04-19",
+      "title": "Privacy & Real Names (no allowlisting, P0 leak rule)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Already integrated as privacy-name-rule-2026-03-29 (global behavioral rule). Privacy pipeline step is project-specific (5th+ occurrence).",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "multi-tier-sites-2026-04-19",
+      "title": "Multi-Tier Sites (update all tiers, re-run generators)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Same treatment as multi-tier-consistency-2026-03-29 (deferred, project-specific) + deployment-checklist-2026-04-12. Belongs in ashitaorbis project CLAUDE.md, not global.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "permissions-section-2026-04-19",
+      "title": "Permissions (no sudo, no session state deletion)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Sudo integrated as no-sudo-rule-2026-03-22. Session state deletion covered by 'Archive instead of delete' personal convention. Identical components to tool-permission-constraints-2026-04-12 (deferred).",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "verification-before-completion-2026-04-19",
+      "title": "Verification Before Completion (re-run tests, use fd/rg before claiming missing)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Session-End Verification + Validate Before Irreversible Operations + 'Trust user certainty about existence claims' (CLAUDE.md Execution Defaults) already cover all three components.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "custom-skills-deploy-tiers-2026-04-19",
+      "title": "Custom Skills (/deploy-tiers, /privacy-check, /blog-revise)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. Project-specific (Ashita Orbis 3-tier). deploy-staging + blog-editing skills already exist.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "hooks-precommit-privacy-tier-2026-04-19",
+      "title": "Pre-commit Hooks (privacy + tier verify, post-edit lint)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "7th occurrence. Session-end verification + iterative-improve + privacy-name-rule (global behavioral) cover.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "task-agents-preplan-2026-04-19",
+      "title": "Task Agents for Exploration Before Planning",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "8th occurrence across runs. dispatching-parallel-agents skill + Explore agent + Agent Teams + fan-out-scaling cover.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "plan-first-large-changes-2026-04-19",
+      "title": "Plan-First for Large Multi-File Changes",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Integrated as approach-first-planning-2026-03-15 + plan-mode-confirmation-2026-03-01 + CLAUDE.md Plan Mode Quality section.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "session-resumption-discipline-2026-04-19",
+      "title": "Session Resumption Discipline (read PLAN.md + last 3 commits)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Covered by implementation-over-planning-2026-02-22 (integrated) + plan-tracker skill + note-taker skill. Also 2nd occurrence of session-continuation-context-2026-03-22.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "headless-quota-awareness-2026-04-19",
+      "title": "Background Task + Quota Awareness (headless Python scripts)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "7th occurrence of headless batch pipeline. claude -p already used in heartbeat scripts + self-healing-pipeline skill covers checkpointing/retry.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "multi-model-review-swarms-2026-04-19",
+      "title": "Multi-Model Review & Remediation Swarms",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "8th occurrence. Covered by dispatching-parallel-agents + fan-out-scaling + codebase-review + publication-review + iterative-improve skills.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "test-driven-autonomous-loops-2026-04-19",
+      "title": "Test-Driven Autonomous Iteration Loops",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th occurrence. self-healing-pipeline + test-driven-development + iterative-improve skills cover.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "self-healing-overnight-orchestrator-2026-04-19",
+      "title": "Self-Healing Overnight Pipeline Orchestrator",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "self-healing-pipeline skill + existing heartbeat crons (workspace orchestrator, evolution-bot, openclaw-exchange) already implement the pattern.",
+      "date": "2026-04-19"
+    },
+    {
+      "id": "verification-discipline-2026-04-26",
+      "title": "Verification Discipline (privacy + sudo + multi-tier suggestions, novel: per-item evidence + X/Y reporting + subagent verification on >10-item plans)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 72.75,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Session-End Verification → Multi-Item Plan Verification subsection",
+      "date": "2026-04-26",
+      "notes": "Privacy/sudo/multi-tier components were duplicates (privacy-name-rule 2026-03-29, no-sudo-rule 2026-03-22, multi-tier-consistency deferred). Novel: per-item evidence requirement + X/Y reporting + verification subagent on >10-item plans."
+    },
+    {
+      "id": "tool-failure-circuit-breaker-2026-04-26",
+      "title": "Tool & Environment Failure Circuit Breaker (sandbox/MCP/voice → 2-attempt cap then ask user)",
+      "category": "claude_md_addition",
+      "source_section": "usage_patterns",
+      "score": 83.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Tool & Environment Failure Circuit Breaker (new section adjacent to Two-Failure Reset Rule)",
+      "date": "2026-04-26",
+      "notes": "Distinct from Two-Failure Reset (same-issue reasoning loops, session clear). This rule covers external tool/environment failures (sandbox/bwrap, MCP timeout, voice save) and mandates explicit user handoff after 2 attempts instead of session burn."
+    },
+    {
+      "id": "generator-rerun-rule-2026-04-26",
+      "title": "Generator Re-Run Rule + Generated vs Hand-Crafted File Flagging",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 67.5,
+      "decision": "deferred",
+      "reason": "Project-specific edges (Ashita Orbis 3-tier, <private-project> generators); multi-tier-consistency-2026-03-29 already deferred for same reason. Belongs in project CLAUDE.md if user wants it codified.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "privacy-secrets-section-2026-04-26",
+      "title": "Privacy & Secrets Section (privacy/PII checker, no hardcode API keys, scrub real names)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. privacy-name-rule-2026-03-29 covers real-name scrubbing globally. 'No hardcode API keys' is partial novel but tool-permission-constraints-2026-04-12 deferred this as narrow single-incident. Privacy pipeline step still belongs in project CLAUDE.md.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "sudo-sandbox-section-2026-04-26",
+      "title": "Sudo & Sandbox Section (no sudo + 2-attempt sandbox bail)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Sudo half is 3rd occurrence (no-sudo-rule-2026-03-22 integrated). Sandbox half is integrated this run as tool-failure-circuit-breaker-2026-04-26 (separate item). Splitting was correct — the two halves had different deduplication outcomes.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "long-running-plans-2026-04-26",
+      "title": "Long-Running Plans (TodoWrite for 10+ items, X/Y reporting, subagent verification)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Functionally merged into verification-discipline-2026-04-26 (integrated). Plan Mode Completion section + plan-tracker skill + new Multi-Item Plan Verification subsection together cover all components.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "deploy-tiers-skill-2026-04-26",
+      "title": "Custom /deploy-tiers Skill (8th occurrence)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "8th occurrence across runs. Project-specific (Ashita Orbis 3-tier). deploy-staging + blog-editing skills already exist.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "pre-deploy-privacy-hook-2026-04-26",
+      "title": "PreToolUse Bash Hook for Privacy Checker on git push/deploy (9th occurrence)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "9th occurrence. privacy-name-rule-2026-03-29 (global behavioral) + session-end verification + iterative-improve cover. Project-specific PII checker step belongs in project CLAUDE.md.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "task-agents-tier-verification-2026-04-26",
+      "title": "Task Agents for Per-Tier Verification (10th occurrence)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "10th occurrence across runs. dispatching-parallel-agents skill + Explore agent + Agent Teams + fan-out-scaling cover.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "verification-pushback-pattern-2026-04-26",
+      "title": "Pre-empt 'was every item implemented?' Pushback (bake verification into request)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "Functionally same as verification-discipline-2026-04-26 (integrated). Per-item evidence + verification subagent rule covers the underlying intent.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "multi-tier-checklist-pattern-2026-04-26",
+      "title": "Multi-Tier Change Checklist (Per-Tier Confirmation, 3rd occurrence)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "3rd occurrence. multi-tier-consistency-2026-03-29 deferred (project-specific). Same treatment as deployment-checklist-2026-04-12.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "self-healing-agent-swarms-2026-04-26",
+      "title": "Self-Healing Overnight Agent Swarms (SQLite job queue, retry/backoff, model fallback, schema validation)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "10th+ occurrence of parallel agent swarm pattern. self-healing-pipeline + dispatching-parallel-agents + iterative-improve skills cover. SQLite job queue + schema validation framing is novel but premature without specific use case requiring custom infra over existing skills.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "tdd-pipeline-iteration-2026-04-26",
+      "title": "Test-Driven Pipeline Iteration Loop (red-green-refactor + subagent review gate + stop-hook)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "6th occurrence. self-healing-pipeline + test-driven-development + iterative-improve skills cover. Stop-hook gating is partially novel but not enough delta over iterative-improve quality gates.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "workspace-gardener-daemon-2026-04-26",
+      "title": "Workspace-Wide Continuous Improvement Daemon (4hr cron, drift detection, auto fix-branch)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": null,
+      "decision": "duplicate",
+      "reason": "5th+ occurrence of workspace-wide cron daemon. workspace-orchestrator agent + activity-monitor.sh + heartbeat crons (evolution-bot, openclaw-exchange) + workspace-audit skill already implement the pattern. Auto-PR creation framing is novel but project-specific implementation cost outweighs benefit at current scale.",
+      "date": "2026-04-26"
+    },
+    {
+      "id": "verification-pass-multi-item-2026-05-03",
+      "title": "Verification Pass for Multi-Item Plans",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "Covered by Multi-Item Plan Verification (integrated 2026-04-26) and existing Session-End Verification rules. 5th+ occurrence of this pattern."
+    },
+    {
+      "id": "multi-tier-update-rule-2026-05-03",
+      "title": "Multi-Tier Site Update Rule (grep across tier dirs, re-run generators)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "5th occurrence; prior decisions deferred for global CLAUDE.md (belongs in blog project's local CLAUDE.md). Recurring suggests blog-specific integration may be due — still defer global."
+    },
+    {
+      "id": "long-running-provenance-validation-2026-05-03",
+      "title": "Long-Running Job Provenance Validation",
+      "category": "claude_md_addition",
+      "score": 78.75,
+      "decision": "integrated",
+      "date": "2026-05-03",
+      "note": "NOVEL — extended ## Validate Before Irreversible Operations section in ~/.claude/CLAUDE.md with 5th bullet for long-running jobs. Addresses 45-hour nanochat training loss (16.5% cache silent bug). Distinct from Session-End Verification (post-impl) and Tool Circuit Breaker (reactive)."
+    },
+    {
+      "id": "disambiguation-rule-2026-05-03",
+      "title": "Disambiguation Rule (confirm 'docs'/'project'/'session' before acting)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "Covered by existing Intent Clarification rule in ## Execution Defaults: 'When a terse instruction could map to multiple implementation paths... use AskUserQuestion to disambiguate'."
+    },
+    {
+      "id": "custom-skills-verify-tiers-2026-05-03",
+      "title": "Custom Skills (verify-tiers, multi-model-review, privacy-check)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "9th+ occurrence; existing /deploy-tiers, /privacy-check skills cover most; multi-model-review covered by review-mesh patterns."
+    },
+    {
+      "id": "posttooluse-typecheck-hook-2026-05-03",
+      "title": "PostToolUse Hook for typecheck/lint after Edit",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "7th occurrence; prior decisions deferred (auto-format-hooks-2026-02-22 64.5, post-edit-astro-hooks-2026-03-01 64.5, post-edit-hooks-2026-03-22)."
+    },
+    {
+      "id": "elevenlabs-local-mcp-wrapper-2026-05-03",
+      "title": "Local MCP Wrapper for ElevenLabs / GPT-5.4 Reliability",
+      "category": "feature_suggestion",
+      "score": 45.5,
+      "decision": "rejected",
+      "date": "2026-05-03",
+      "note": "REJECTED — score below threshold. Codex MCP wrapper already exists at ~/.claude-mcp-servers/codex-simple/. ElevenLabs wrapper specific to one project (low capability expansion 60). High maintenance burden for narrow use case."
+    },
+    {
+      "id": "plan-execute-verify-pattern-2026-05-03",
+      "title": "Plan -> Execute -> Verify Three-Phase Loop (non-skippable verify)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "Covered by Multi-Item Plan Verification (integrated) and Plan Mode Completion section in CLAUDE.md."
+    },
+    {
+      "id": "preflight-environment-check-2026-05-03",
+      "title": "Pre-flight Environment Check at Session Start (sandbox/MCP/credentials)",
+      "category": "usage_pattern",
+      "score": 62.0,
+      "decision": "deferred",
+      "date": "2026-05-03",
+      "note": "DEFERRED — score 62 (50-69 range). Preventive complement to existing Tool & Environment Failure Circuit Breaker (reactive). Most environment failures cited (bwrap/AppArmor) likely resolved by 2026-03-03 native Linux migration. Revisit if friction recurs in next insights window. Implementation would be SessionStart hook running 'claude mcp list', env var check, sandbox echo test."
+    },
+    {
+      "id": "long-running-provenance-pattern-2026-05-03",
+      "title": "Long-Running Job Provenance Discipline (usage pattern variant)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "Same content as long-running-provenance-validation-2026-05-03 (which was integrated as a CLAUDE.md rule). Treated as merged."
+    },
+    {
+      "id": "self-healing-pipelines-horizon-2026-05-03",
+      "title": "Self-Healing Long-Running Pipelines",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "Existing self-healing-pipeline skill at ~/.claude/skills/self-healing-pipeline/SKILL.md (integrated 2026-02-05). Horizon framing is more ambitious (watchdog subagents, invariant checks) but delta is incremental, not novel."
+    },
+    {
+      "id": "review-mesh-horizon-2026-05-03",
+      "title": "Parallel Multi-Model Review Mesh",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "7th occurrence (multi-model-review-swarms-2026-04-19, parallel-multi-agent-review-2026-03-29, parallel-subagent-guardrails-2026-04-12, etc). Pattern is in active use via codebase-review, publication-review, and methodology-review skills."
+    },
+    {
+      "id": "tdd-autonomous-loops-horizon-2026-05-03",
+      "title": "Test-Driven Autonomous Iteration Loops",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-03",
+      "note": "5th occurrence; covered by tdd-guard hook + test-driven-development skill. Iterative-improve skill already implements similar loop for <private-project>."
+    },
+    {
+      "id": "verification-protocol-2026-05-10",
+      "title": "Verification Protocol (multi-item plans, multi-tier projects, post-deploy fresh)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "6th+ occurrence. Covered by Multi-Item Plan Verification (integrated 2026-04-26), Session-End Verification (2026-02-05), and Plan Mode Completion section. Multi-tier sub-rule deferred 5x for global CLAUDE.md (belongs in blog-project local CLAUDE.md)."
+    },
+    {
+      "id": "model-reference-verification-2026-05-10",
+      "title": "Model Reference Verification (proactive check before agent config use)",
+      "category": "claude_md_addition",
+      "score": 64.5,
+      "decision": "deferred",
+      "date": "2026-05-10",
+      "note": "IMPROVEMENT vs existing Contemporary AI Models rule (which is reactive: 'use these names'). Proactive variant: 'verify model name matches table before editing/invoking agent config'. Score breakdown: integration_complexity=80, token_efficiency=60, capability_expansion=50, maintenance=90, community=50 = 64.5. Deferred reason: most stale-reference friction (gpt-5.2-xhigh, gpt-5.4) is historical — agent grep shows only 1 residual reference (intentional fallback in hermes.md). Daily heartbeat updates Contemporary AI Models table with 'Last verified' date. Revisit if new stale-model friction surfaces in next insights window."
+    },
+    {
+      "id": "project-disambiguation-2026-05-10",
+      "title": "Project Disambiguation (voice projects, 'docs' = ~/Documents)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "2nd occurrence. Covered by Disambiguation Rule (processed as duplicate 2026-05-03) which traces to existing Intent Clarification rule in ## Execution Defaults. Specific examples (voice projects, 'docs') are project-level — belong in project CLAUDE.md, not global."
+    },
+    {
+      "id": "sandbox-failure-rule-2026-05-10",
+      "title": "Sandbox/Bash Failures (escalate immediately, don't grind)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Covered by Tool & Environment Failure Circuit Breaker (integrated 2026-04-26: 2 fixes max, then STOP+present options). Native Linux migration on 2026-03-03 likely resolved AppArmor/bwrap root cause."
+    },
+    {
+      "id": "custom-skills-feature-2026-05-10",
+      "title": "Custom Skills (deploy-all-tiers, multi-model-review, audit)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "10th+ occurrence. Existing /deploy-staging, /privacy-check, /codebase-review, /publication-review, /methodology-review, /writing-review skills cover the suggested patterns. Workspace already has ~30+ skills."
+    },
+    {
+      "id": "hooks-tier-parity-privacy-2026-05-10",
+      "title": "PostToolUse Hook for Tier Parity + Privacy Check on Edit",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "8th occurrence. Multiple deferrals: auto-format-hooks-2026-02-22 (64.5), post-edit-astro-hooks-2026-03-01 (64.5), post-edit-hooks-2026-03-22, etc. Pattern is project-level (blog-specific tier parity) — belongs in blog project's .claude/settings.json, not global."
+    },
+    {
+      "id": "task-agents-frontload-2026-05-10",
+      "title": "Task Agents — Front-Load Parallel Agents (feature framing)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Covered by dispatching-parallel-agents skill at ~/.claude/skills/dispatching-parallel-agents/SKILL.md. 6th+ occurrence across digest history."
+    },
+    {
+      "id": "verify-checklist-pattern-2026-05-10",
+      "title": "Verify before declaring done — checklist with file:line citations (pattern)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Covered by Multi-Item Plan Verification ('mark each item completed with one-line evidence note (file:line, test result, or command output) — not summary'). Identical formulation. 5th+ occurrence."
+    },
+    {
+      "id": "escalate-env-pattern-2026-05-10",
+      "title": "Escalate Environment Failures Within 5 Minutes (pattern variant)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Identical to Tool & Environment Failure Circuit Breaker (integrated 2026-04-26: '2 fixes max, then STOP'). Time-box variant (5 min) is functionally equivalent to 2-fix cap."
+    },
+    {
+      "id": "frontload-parallel-pattern-2026-05-10",
+      "title": "Front-Load Parallel Agents on Large Plans (pattern)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "6th+ occurrence. Covered by dispatching-parallel-agents skill. Pattern in active use — 164 Agent invocations and parallel-agent-strategy section already in coding-philosophy/spec-driven-dev skills."
+    },
+    {
+      "id": "use-claude-md-meta-2026-05-10",
+      "title": "Stop Repeating Yourself — Use CLAUDE.md (meta-suggestion)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Meta-recommendation, not actionable item. Workspace already has 11-section ~/.claude/CLAUDE.md plus per-project CLAUDE.md files. Suggestion presupposes empty USER INSTRUCTIONS — false positive in report classifier."
+    },
+    {
+      "id": "self-healing-mesh-horizon-2026-05-10",
+      "title": "Self-Healing Multi-Model Review Pipelines (horizon)",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "8th occurrence. self-healing-pipeline skill (integrated 2026-02-05) + codebase-review/publication-review/methodology-review skills cover this pattern in active production. Horizon framing (SQLite resumability, quota-aware scheduling, MCP-wrapped models) is incremental, not novel."
+    },
+    {
+      "id": "tdd-bug-hunting-horizon-2026-05-10",
+      "title": "Test-Driven Autonomous Bug Hunting (parallel git worktree fix strategies)",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "6th occurrence. Covered by tdd-guard hooks + test-driven-development skill + using-git-worktrees skill (all integrated). Iterative-improve skill implements analogous loop for <private-project> with persona testing."
+    },
+    {
+      "id": "long-horizon-pipelines-horizon-2026-05-10",
+      "title": "Long-Horizon Research-To-Production Pipelines (planner DAG, invariant checks)",
+      "category": "horizon_item",
+      "decision": "duplicate",
+      "date": "2026-05-10",
+      "note": "Provenance/invariant-check piece integrated 2026-05-03 as Long-Running Job Provenance Validation (78.75). Planner-DAG and phase checkpointing covered by spec-driven-dev skill + iterative-improve skill. Cost/quota tracking covered by event-bus + heartbeat infrastructure."
+    },
+    {
+      "id": "session-verification-2026-05-17",
+      "title": "Session Verification (tier verify, \"seems quick\" re-audit, run generators)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "verification-protocol-2026-05-10",
+        "multi-tier-update-rule-2026-05-03",
+        "verification-pass-multi-item-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "session-spawning-defaults-2026-05-17",
+      "title": "Session Spawning Defaults (interactive tmux Opus default, project disambiguation)",
+      "category": "claude_md_addition",
+      "score": 73.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Execution Defaults → Session spawning defaults bullet",
+      "date": "2026-05-17"
+    },
+    {
+      "id": "long-running-job-safety-2026-05-17",
+      "title": "Long-Running Job Safety (provenance, subagent reviewer, stale model refs)",
+      "category": "claude_md_addition",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "long-running-provenance-validation-2026-05-03",
+        "model-reference-verification-2026-05-10"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "custom-skills-2026-05-17",
+      "title": "Custom Skills (/deploy-tiers, /multi-model-review, /blog-fix)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "custom-skills-feature-2026-05-10",
+        "custom-skills-verify-tiers-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "hooks-build-and-model-ref-2026-05-17",
+      "title": "Hooks (PostToolUse build, PreToolUse model-name verify)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "hooks-tier-parity-privacy-2026-05-10",
+        "posttooluse-typecheck-hook-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "task-agents-parallel-tier-2026-05-17",
+      "title": "Task Agents (3 parallel agents per tier review)",
+      "category": "feature_suggestion",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "task-agents-frontload-2026-05-10",
+        "frontload-parallel-pattern-2026-05-10"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "preflight-pattern-2026-05-17",
+      "title": "Pre-flight checks for long-running jobs (usage pattern)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "preflight-environment-check-2026-05-03",
+        "long-running-provenance-pattern-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "user-pushback-audit-pattern-2026-05-17",
+      "title": "Treat user pushback as audit trigger (usage pattern)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "verify-checklist-pattern-2026-05-10",
+        "plan-execute-verify-pattern-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "multi-tier-deploy-skill-pattern-2026-05-17",
+      "title": "Codify multi-tier deploy as a skill (usage pattern)",
+      "category": "usage_pattern",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "custom-skills-feature-2026-05-10"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "self-healing-swarms-2026-05-17",
+      "title": "Self-Healing Overnight Agent Swarms (horizon)",
+      "category": "horizon_workflow",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "self-healing-agent-swarms-2026-04-26",
+        "self-healing-mesh-horizon-2026-05-10",
+        "self-healing-pipelines-horizon-2026-05-03"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "eval-driven-tournament-2026-05-17",
+      "title": "Parallel Eval-Driven Code Iteration / Bug-Fix Tournament (horizon)",
+      "category": "horizon_workflow",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "tdd-bug-hunting-horizon-2026-05-10",
+        "tdd-autonomous-loops-horizon-2026-05-03",
+        "tdd-pipeline-iteration-2026-04-26"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "workspace-intelligence-loop-2026-05-17",
+      "title": "Autonomous Workspace Intelligence Loop (1M-context tri-model nightly audit)",
+      "category": "horizon_workflow",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "workspace-gardener-daemon-2026-04-26",
+        "long-horizon-pipelines-horizon-2026-05-10"
+      ],
+      "date": "2026-05-17"
+    },
+    {
+      "id": "session-verification-tier-audit-2026-05-24",
+      "title": "Session Verification (multi-tier audit + 'was every X implemented' pushback signal)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "verification-discipline-2026-04-26",
+        "session-end-verification-2026-02-05",
+        "verification-protocol-2026-05-10",
+        "session-verification-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "7th+ occurrence. Multi-Item Plan Verification (integrated 2026-04-26 with per-item evidence + X/Y reporting + subagent verification on 10+ item plans) covers both the multi-tier audit and the 'was every X implemented?' pushback heuristic. Multi-tier component already 6x deferred as project-specific."
+    },
+    {
+      "id": "session-resumption-lookup-2026-05-24",
+      "title": "Session Resumption — Lookup Mechanism (tmux + mtime + CLAUDE_PROJECT_DIR before guessing)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 67.75,
+      "decision": "deferred",
+      "date": "2026-05-24",
+      "note": "IMPROVEMENT over session-spawning-defaults-2026-05-17. Adds the *mechanism* (check tmux, mtime, CLAUDE_PROJECT_DIR) on top of the *decision rule* (don't guess, confirm with user). Score breakdown: integration_complexity=90, token_efficiency=60, capability_expansion=55, maintenance=80, community_validation=60 = 67.75. Deferred: workspace already has session snapshot/restore system at ~/scripts/snapshot-sessions.py + restore-sessions.sh running on 5-min cron — Claude can just point user there. Existing rule covers the behavioral outcome (don't pick); adding the lookup mechanism is over-prescriptive."
+    },
+    {
+      "id": "interactive-vs-headless-default-2026-05-24",
+      "title": "Interactive vs Headless (default interactive, confirm Opus vs Sonnet)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "session-spawning-defaults-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "Already integrated 2026-05-17 in ## Execution Defaults → Session spawning defaults bullet. Existing rule: 'default to an interactive tmux session with Opus — not claude -p headless mode. Headless -p is only correct when the request explicitly mentions scripting, cron, batch, or one-shot prompts.'"
+    },
+    {
+      "id": "long-running-pipelines-preflight-2026-05-24",
+      "title": "Long-running Pipelines Pre-Flight (provenance + cache + config validation)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "long-running-provenance-validation-2026-05-03",
+        "long-running-job-safety-2026-05-17",
+        "preflight-pattern-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "3rd occurrence. Already integrated as long-running-provenance-validation-2026-05-03 (78.75) in CLAUDE.md ## Validate Before Irreversible Operations → Long-running jobs bullet. Same triggering incident (45-hour nanochat training run aborted)."
+    },
+    {
+      "id": "deploy-all-tiers-skill-2026-05-24",
+      "title": "Custom Skill: deploy-all-tiers",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "deploy-tiers-skill-2026-04-26",
+        "custom-skills-deploy-tiers-2026-04-19",
+        "custom-skills-feature-2026-05-10",
+        "custom-skills-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "11th+ occurrence across digest. Project-specific (Ashita Orbis 3-tier). Existing deploy-staging skill + blog-editing skill cover the workflow. Pattern has been consistently deferred — would belong in Ashita Orbis project CLAUDE.md if codified."
+    },
+    {
+      "id": "posttooluse-privacy-model-hook-2026-05-24",
+      "title": "PostToolUse Hook (privacy scanner + model-name linter on Write/Edit)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "pre-deploy-privacy-hook-2026-04-26",
+        "hooks-tier-parity-privacy-2026-05-10",
+        "hooks-build-and-model-ref-2026-05-17",
+        "posttooluse-typecheck-hook-2026-05-03"
+      ],
+      "date": "2026-05-24",
+      "note": "10th occurrence. Repeatedly deferred (auto-format-hooks-2026-02-22 64.5, post-edit-astro-hooks-2026-03-01 64.5, post-edit-hooks-2026-03-22, etc). Privacy half covered by privacy-name-rule-2026-03-29 (global behavioral). Model-name half covered by model-reference-verification-2026-05-10 (deferred 64.5; only 1 residual stale ref in agent grep). Pattern belongs in project-level .claude/settings.json, not global."
+    },
+    {
+      "id": "task-agents-tier-verification-2026-05-24",
+      "title": "Task Agents for Per-Tier Verification",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "task-agents-tier-verification-2026-04-26",
+        "task-agents-frontload-2026-05-10",
+        "task-agents-parallel-tier-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "11th+ occurrence across runs. dispatching-parallel-agents skill + Explore agent + Agent Teams + fan-out-scaling skills cover."
+    },
+    {
+      "id": "preflight-checks-skill-pattern-2026-05-24",
+      "title": "Pre-flight Checks on Long Runs (skill pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "long-running-provenance-validation-2026-05-03",
+        "preflight-environment-check-2026-05-03",
+        "preflight-pattern-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "Behavioral rule already integrated 2026-05-03. Same triggering incident (45-hour nanochat run). Pattern variant adds 'model availability ping' but contemporary-model-freshness-check + Contemporary AI Models table with 'Last verified' already cover that piece."
+    },
+    {
+      "id": "multi-tier-completion-audits-pattern-2026-05-24",
+      "title": "Multi-Tier Completion Audits (verification agent per tier)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "verification-discipline-2026-04-26",
+        "multi-tier-checklist-pattern-2026-04-26",
+        "verify-checklist-pattern-2026-05-10",
+        "user-pushback-audit-pattern-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "7th+ occurrence. Multi-Item Plan Verification (integrated 2026-04-26: 'For plans with verification/review steps... run a verification subagent (code-reviewer, debugger, or persona) before declaring completion') covers the per-tier verification subagent pattern."
+    },
+    {
+      "id": "mcp-doctor-skill-2026-05-24",
+      "title": "MCP Doctor Skill (diagnostic + known-failure workarounds catalog)",
+      "category": "feature_skill",
+      "source_section": "usage_patterns",
+      "score": 65.5,
+      "decision": "deferred",
+      "date": "2026-05-24",
+      "note": "NOVEL — no existing /mcp-doctor or MCP diagnostic skill in ~/.claude/skills/. Score breakdown: integration_complexity=75, token_efficiency=50, capability_expansion=80, maintenance=55, community_validation=65 = 65.5. Deferred (50-69 range): (1) sandbox/bwrap root cause likely resolved by 2026-03-03 native Linux migration on requiem, (2) Tool & Environment Failure Circuit Breaker (integrated 2026-04-26) already mandates 2-attempt cap then handoff, (3) known workarounds (ChatGPT Pro 20-char truncation, Browser MCP serializer, ElevenLabs voice-saving) rot quickly as MCP servers update. Revisit if new MCP friction surfaces in next insights window. If integrated, would be a thin Markdown skill catalogging (mcp-server → known-failure → workaround) mappings + a 'first run /mcp doctor before debugging an MCP issue' prompt."
+    },
+    {
+      "id": "self-healing-overnight-swarms-2026-05-24",
+      "title": "Self-Healing Overnight Agent Swarms (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "self-healing-agent-swarms-2026-04-26",
+        "self-healing-mesh-horizon-2026-05-10",
+        "self-healing-pipelines-horizon-2026-05-03",
+        "self-healing-swarms-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "12th+ occurrence. self-healing-pipeline skill (integrated 2026-02-05) + iterative-improve skill + heartbeat crons cover. Watchdog subagent + remediation framing is incremental, not novel."
+    },
+    {
+      "id": "test-driven-agent-iteration-2026-05-24",
+      "title": "Test-Driven Agent Iteration Loop (red-green-refactor horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": [
+        "tdd-bug-hunting-horizon-2026-05-10",
+        "tdd-autonomous-loops-horizon-2026-05-03",
+        "tdd-pipeline-iteration-2026-04-26",
+        "eval-driven-tournament-2026-05-17"
+      ],
+      "date": "2026-05-24",
+      "note": "8th occurrence. tdd-guard hooks + test-driven-development skill + iterative-improve skill (red-green-refactor loop with persona testing) cover. Pattern in active production."
+    },
+    {
+      "id": "parallel-worktree-campaign-orchestration-2026-05-24",
+      "title": "Parallel Worktree Campaign Orchestration (N worktrees + merge-orchestrator + quota tracking)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "score": 63.25,
+      "decision": "deferred",
+      "date": "2026-05-24",
+      "note": "NOVEL/IMPROVEMENT over existing skills. using-git-worktrees skill handles isolation per-agent (declarative isolation: worktree frontmatter v2.1.68+). dispatching-parallel-agents handles parallel dispatch. fan-out-scaling handles 3-phase scaling. The NEW piece is: (a) campaign-scoped slicing with explicit file boundaries to prevent overlap, (b) quota tracking across workers with redistribution, (c) merge-orchestrator that rebases all branches + resolves conflicts intelligently + runs full multi-tier build. Score breakdown: integration_complexity=50, token_efficiency=60, capability_expansion=75, maintenance=60, community_validation=70 = 63.25. Deferred (50-69 range): (1) the merge-orchestrator is the genuinely hard part and would need real-world validation, (2) campaign-style work is intermittent (38-post blog campaigns happen quarterly), (3) existing fan-out-scaling + using-git-worktrees probably cover 80% of value. Revisit if a future blog campaign or 20+ item audit explicitly stalls on sequential 8-wave fixes hitting quota limits."
+    },
+    {
+      "id": "prose-generation-claude-p-2026-05-31",
+      "title": "Prose Generation via claude -p (suppress meta-response system prompt + generous Opus timeouts)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 71.25,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Development Environment → Prose generation bullet",
+      "date": "2026-05-31",
+      "note": "NOVEL — first novel item in 6 weeks. Report cmd-4 (## Content Generation suggestion): 'When generating prose with Claude, suppress the default Claude Code system prompt that produces meta-responses, and set generous timeouts for Opus runs.' No prior digest entry (grep prose|meta-response|content generation = 0 matches) and no registry coverage. Score breakdown: integration_complexity=85, token_efficiency=60, capability_expansion=70, maintenance=85, community_validation=60 = 71.25. Distinct from --bare flag (documents the flag for startup overhead) and existing claude -p bullet (nested-session/auth) — captures prose-specific guidance neither covered. Cross-project: blog (write-post), fiction (amnesiac-story), translation (rtw-translate). Integrated as 2nd bullet under ## Development Environment."
+    },
+    {
+      "id": "multi-tier-generators-2026-05-31",
+      "title": "Re-run generators + verify all site tiers before deploy (cmd-0)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["multi-tier-consistency-2026-03-29", "multi-tier-update-rule-2026-05-03", "session-verification-tier-audit-2026-05-24"],
+      "date": "2026-05-31",
+      "note": "7th+ occurrence. Deferred 6x as project-specific (Ashita Orbis 3-tier); belongs in blog project CLAUDE.md, not global."
+    },
+    {
+      "id": "confirm-exact-project-2026-05-31",
+      "title": "Confirm exact project before acting (cmd-1)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["project-disambiguation-2026-05-10", "session-spawning-defaults-2026-05-17", "disambiguation-rule-2026-05-03"],
+      "date": "2026-05-31",
+      "note": "Covered by Intent Clarification rule (## Execution Defaults) + Session Spawning Defaults (integrated 2026-05-17, includes 'confirm exact project' for ambiguous names)."
+    },
+    {
+      "id": "interactive-opus-session-2026-05-31",
+      "title": "Use interactive Opus session not headless claude -p (cmd-2)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["session-spawning-defaults-2026-05-17", "interactive-vs-headless-default-2026-05-24"],
+      "date": "2026-05-31",
+      "note": "Already integrated 2026-05-17 in ## Execution Defaults → Session spawning defaults bullet."
+    },
+    {
+      "id": "self-audit-multi-item-2026-05-31",
+      "title": "Self-audit each item before reporting multi-item plan completion (cmd-3)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["verification-discipline-2026-04-26", "session-end-verification-2026-02-05"],
+      "date": "2026-05-31",
+      "note": "Covered by Multi-Item Plan Verification (integrated 2026-04-26: per-item evidence + X/Y reporting + subagent verification)."
+    },
+    {
+      "id": "custom-skills-feature-2026-05-31",
+      "title": "Custom Skills (verify/deploy one-command)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["custom-skills-feature-2026-05-10", "custom-skills-2026-05-17"],
+      "date": "2026-05-31",
+      "note": "11th+ occurrence. ~30 skills exist (deploy-staging, writing-review, etc.)."
+    },
+    {
+      "id": "hooks-feature-2026-05-31",
+      "title": "Hooks (PostToolUse build, pre-commit block)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["posttooluse-privacy-model-hook-2026-05-24", "hooks-build-and-model-ref-2026-05-17"],
+      "date": "2026-05-31",
+      "note": "10th+ occurrence. Session-End Verification + iterative-improve cover; project-specific hooks belong in project settings.json."
+    },
+    {
+      "id": "task-agents-feature-2026-05-31",
+      "title": "Task Agents for self-audit/verification",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["task-agents-tier-verification-2026-05-24", "task-agents-frontload-2026-05-10"],
+      "date": "2026-05-31",
+      "note": "11th+ occurrence. dispatching-parallel-agents + Explore + Agent Teams + fan-out-scaling cover."
+    },
+    {
+      "id": "preempt-usage-limits-2026-05-31",
+      "title": "Pre-empt usage-limit interruptions (checkpoint files)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["checkpoint-recovery-2026-03-15", "preflight-pattern-2026-05-17"],
+      "date": "2026-05-31",
+      "note": "plan-tracker + session-handoff + self-healing-pipeline skills + session snapshot/restore cron cover checkpointing/resume."
+    },
+    {
+      "id": "frontload-verification-2026-05-31",
+      "title": "Front-load the verification step (bake into every multi-item plan)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["verification-discipline-2026-04-26", "user-pushback-audit-pattern-2026-05-17"],
+      "date": "2026-05-31",
+      "note": "Covered by Multi-Item Plan Verification. Same 'was every improvement implemented?' pushback heuristic."
+    },
+    {
+      "id": "standardize-mcp-sandbox-troubleshooting-2026-05-31",
+      "title": "Standardize fragile MCP/sandbox env (TROUBLESHOOTING.md of known-good fixes)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["mcp-doctor-skill-2026-05-24", "preflight-environment-check-2026-05-03"],
+      "date": "2026-05-31",
+      "note": "Maps to mcp-doctor-skill (DEFERRED 65.5 on 2026-05-24) + Tool & Environment Failure Circuit Breaker. Sandbox/bwrap root cause likely resolved by 2026-03-03 native Linux migration. No change in evidence since last week's deferral — remains deferred, not re-evaluated."
+    },
+    {
+      "id": "self-healing-orchestration-horizon-2026-05-31",
+      "title": "Self-Healing Multi-Agent Orchestration Pipelines (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-healing-overnight-swarms-2026-05-24", "self-healing-mesh-horizon-2026-05-10"],
+      "date": "2026-05-31",
+      "note": "13th occurrence. self-healing-pipeline skill (2026-02-05) + iterative-improve + heartbeat crons cover."
+    },
+    {
+      "id": "tdd-bug-eradication-horizon-2026-05-31",
+      "title": "Test-Driven Autonomous Bug Eradication (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["test-driven-agent-iteration-2026-05-24", "tdd-bug-hunting-horizon-2026-05-10"],
+      "date": "2026-05-31",
+      "note": "9th occurrence. tdd-guard hooks + test-driven-development skill + iterative-improve (red-green-refactor + persona testing) cover."
+    },
+    {
+      "id": "eval-driven-content-horizon-2026-05-31",
+      "title": "Autonomous Eval-Driven Content Production (gated stages, Playwright diff)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-correcting-content-migrations-2026-02-22", "review-mesh-horizon-2026-05-03"],
+      "date": "2026-05-31",
+      "note": "Content-pipeline gating covered by experimental-pipeline + publication-review + visual-fidelity-inspector + privacy-name-rule (global). Privacy/visual-diff stages map to existing skills/agents."
+    },
+    {
+      "id": "mcp-truncation-detection-2026-06-07",
+      "title": "Detect Silent MCP Truncation (distrust ~20-char/cut-off responses, verify length, fall back to WebFetch/JSON) (cmd-3)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 70.5,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Tool & Environment Failure Circuit Breaker → truncation-detection paragraph",
+      "date": "2026-06-07",
+      "note": "NOVEL — first novel item since prose-generation-claude-p-2026-05-31. Report cmd-3 (## Tooling Caveats): 'Distrust MCP responses that look truncated (20-char) — verify length and re-fetch or fall back to WebFetch/JSON APIs before building on them.' No prior digest entry across 12 weeks (grep 'distrust truncated'/'truncation detect' = 0). Score breakdown: integration_complexity=90, token_efficiency=55, capability_expansion=65, maintenance=90, community_validation=60 = 70.5. Distinct from maxResultSizeChars (server-side size-limit raise, not detection), mcp-doctor-skill (deferred diagnostic catalog), and the Circuit Breaker's reactive 2-attempt bail-out (assumes failure already noticed). This is the *detection* complement. Unlike sandbox/bwrap, MCP truncation NOT resolved by 2026-03-03 native-Linux migration — friction remains live (ChatGPT Pro 20-char, browser-MCP serializer)."
+    },
+    {
+      "id": "rsync-large-copy-2026-06-07",
+      "title": "rsync-with-progress / chunked-verified transfers for large file copies (avoid silent cp stalls) (cmd-4)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 66.25,
+      "decision": "deferred",
+      "date": "2026-06-07",
+      "note": "NOVEL but DEFERRED (50-69 range). Report cmd-4 (## Bash Conventions): 'For long Bash operations like large file copies, avoid commands that silently stall; use rsync with progress or chunked/verified transfers and report progress.' No prior digest entry. Score breakdown: integration_complexity=90, token_efficiency=50, capability_expansion=50, maintenance=90, community_validation=65 = 66.25. Deferred reason: narrow scope (large file copies), only 2 cited incidents (cp stalls during document saves), and the user now moves large data mostly via Syncthing + symlinks rather than manual cp. Consistent with prior narrow-Bash deferrals (json-helpers-lib 67.0, auto-format-hooks 64.5). Could be added as a one-line bullet to ## Shell/Bash Conventions if manual large-copy friction recurs."
+    },
+    {
+      "id": "multi-tier-generators-2026-06-07",
+      "title": "Re-run generators + verify ALL tiers before deploy (cmd-0)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["multi-tier-generators-2026-05-31", "multi-tier-consistency-2026-03-29", "session-verification-tier-audit-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "8th+ occurrence. Deferred 7x as project-specific (Ashita Orbis 3-tier); belongs in blog project CLAUDE.md, not global."
+    },
+    {
+      "id": "confirm-exact-project-2026-06-07",
+      "title": "Confirm exact project/session match before proceeding (cmd-1)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["confirm-exact-project-2026-05-31", "session-spawning-defaults-2026-05-17", "project-disambiguation-2026-05-10"],
+      "date": "2026-06-07",
+      "note": "Covered by Intent Clarification rule (## Execution Defaults) + Session Spawning Defaults (integrated 2026-05-17, includes 'confirm exact project' for ambiguous names)."
+    },
+    {
+      "id": "self-verify-before-done-2026-06-07",
+      "title": "Run self-verification pass / review subagent before claiming complete (cmd-2)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["self-audit-multi-item-2026-05-31", "verification-discipline-2026-04-26", "session-end-verification-2026-02-05"],
+      "date": "2026-06-07",
+      "note": "Covered by Multi-Item Plan Verification (integrated 2026-04-26: per-item evidence + X/Y reporting + subagent verification) and Session-End Verification."
+    },
+    {
+      "id": "custom-skills-feature-2026-06-07",
+      "title": "Custom Skills (deploy one-command pipeline)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["custom-skills-feature-2026-05-31", "custom-skills-feature-2026-05-10"],
+      "date": "2026-06-07",
+      "note": "12th+ occurrence. ~30 skills exist (deploy-staging, writing-review, etc.)."
+    },
+    {
+      "id": "hooks-feature-2026-06-07",
+      "title": "Hooks (PostToolUse build/verify after edits)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["hooks-feature-2026-05-31", "posttooluse-privacy-model-hook-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "11th+ occurrence. Session-End Verification + iterative-improve cover; project-specific hooks belong in project settings.json."
+    },
+    {
+      "id": "task-agents-feature-2026-06-07",
+      "title": "Task Agents (review agent to verify implementation)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["task-agents-feature-2026-05-31", "task-agents-tier-verification-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "12th+ occurrence. dispatching-parallel-agents + Explore + Agent Teams + fan-out-scaling cover."
+    },
+    {
+      "id": "verify-before-done-pattern-2026-06-07",
+      "title": "Verify before declaring done (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["frontload-verification-2026-05-31", "verify-checklist-pattern-2026-05-10", "verification-discipline-2026-04-26"],
+      "date": "2026-06-07",
+      "note": "Covered by Multi-Item Plan Verification. Same 'was every improvement implemented?' pushback heuristic."
+    },
+    {
+      "id": "provenance-preflight-pattern-2026-06-07",
+      "title": "Guard against silent data/provenance bugs (pre-flight validation)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["long-running-provenance-validation-2026-05-03", "preflight-checks-skill-pattern-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "Integrated 2026-05-03 as Long-Running Job Provenance Validation (78.75) in ## Validate Before Irreversible Operations → Long-running jobs bullet. Same 45-hour nanochat triggering incident."
+    },
+    {
+      "id": "quota-checkpointing-pattern-2026-06-07",
+      "title": "Handle usage limits proactively (quota-aware checkpointing)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["preempt-usage-limits-2026-05-31", "checkpoint-recovery-2026-03-15"],
+      "date": "2026-06-07",
+      "note": "plan-tracker + session-handoff + self-healing-pipeline skills + session snapshot/restore cron cover checkpointing/resume."
+    },
+    {
+      "id": "self-verifying-pipelines-horizon-2026-06-07",
+      "title": "Self-Verifying Overnight Agent Pipelines (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-healing-orchestration-horizon-2026-05-31", "self-healing-overnight-swarms-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "14th occurrence. self-healing-pipeline skill (2026-02-05) + iterative-improve + heartbeat crons cover."
+    },
+    {
+      "id": "tdd-bugfix-loops-horizon-2026-06-07",
+      "title": "Bug-Fix Loops That Iterate Against Tests (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["tdd-bug-eradication-horizon-2026-05-31", "test-driven-agent-iteration-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "10th occurrence. tdd-guard hooks + test-driven-development skill + iterative-improve (red-green-refactor + persona testing) cover."
+    },
+    {
+      "id": "self-healing-env-horizon-2026-06-07",
+      "title": "Resilient Self-Healing Environment Agents (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-healing-orchestration-horizon-2026-05-31", "mcp-doctor-skill-2026-05-24"],
+      "date": "2026-06-07",
+      "note": "Self-healing framing covered by self-healing-pipeline skill + Tool & Environment Failure Circuit Breaker. MCP/sandbox pre-flight diagnostic piece maps to mcp-doctor-skill (deferred 65.5, 2026-05-24); sandbox/bwrap root cause likely resolved by 2026-03-03 native-Linux migration."
+    }
+  ],
+  "stats": {
+    "total_extracted": 14,
+    "duplicates_skipped": 12,
+    "evaluated": 2,
+    "integrated": 1,
+    "deferred": 1,
+    "rejected": 0
+  },
+  "cumulative_stats": {
+    "total_processed": 188,
+    "weeks_run": 13,
+    "last_run": "2026-06-07"
+  }
+}

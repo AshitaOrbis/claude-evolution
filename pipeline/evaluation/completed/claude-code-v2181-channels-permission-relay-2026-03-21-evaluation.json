@@ -1,0 +1,29 @@
+{
+  "title": "Claude Code --channels Permission Relay Extension (v2.1.81)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.81",
+  "type": "feature",
+  "description": "Extension to the v2.1.80 --channels research preview. MCP channel servers that declare the 'permission' capability can now forward tool approval prompts to a remote device (e.g., phone via companion app). This enables human-in-the-loop approval for high-risk operations in headless/cron sessions without requiring Auto Mode's risk-based automation. Complementary to Auto Mode (auto-approve low-risk) — permission relay handles cases that need explicit human sign-off. Fills the gap: Auto Mode is all-or-nothing risk-based; permission relay provides selective remote approval.",
+  "discovered_at": "2026-03-21",
+  "keywords": ["--channels", "permission relay", "mobile approval", "remote permissions", "headless session", "human-in-loop", "tool approval forwarding", "remote approval", "companion app"],
+  "version": "v2.1.81",
+  "redundancy_check": "IMPROVEMENT — extends existing v2.1.80 --channels MONITOR entry. The base --channels feature is already in registry; this adds a specific permission relay capability that was not in the v2.1.80 entry. Warrants registry update.",
+  "evaluation": {
+    "evaluated_at": "2026-03-21",
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 60,
+      "community_validation": 100
+    },
+    "total": 70.0,
+    "decision": "APPROVED (REGISTRY UPDATE — still research preview)",
+    "reasoning": "Borderline approval at exactly 70.0. The permission relay fills a real gap: Auto Mode is all-or-nothing, but cron/headless sessions sometimes need selective human approval for specific high-risk operations. Extension to existing --channels (80 complexity) — no new infrastructure beyond what --channels already requires. Token efficiency neutral (50): no context savings, but eliminates polling-and-wait patterns for approval. Capability expansion (70): meaningful new capability within headless workflows, not a fundamental new capability class. Maintenance lower (60) due to research preview status — may change before GA. Official Anthropic (100 community). Integration action: update existing v2.1.80 --channels registry entry rather than creating a new entry. Hold full production adoption until --channels reaches GA.",
+    "integration_action": "REGISTRY UPDATE — update the existing v2.1.80 --channels MONITOR entry in registry/existing-capabilities.md to note permission relay capability. Do not create new registry section.",
+    "caveats": [
+      "Still research preview — do not build production workflows around this yet",
+      "Requires companion app / MCP server that implements permission relay protocol",
+      "Re-evaluate when --channels reaches GA stable release"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Task Budgets API Beta — Advisory Token Budget for Agentic Loops",
+  "source": "https://platform.claude.com/docs/en/build-with-claude/task-budgets",
+  "type": "technique",
+  "description": "Task Budgets are an advisory token budget covering the full agentic loop (thinking, tool calls, tool results, and output). Activated via beta header 'anthropic-beta: task-budgets-2026-03-13'. Usage: add output_config.task_budget = {type: 'tokens', total: 64000} to API calls. The model sees a running countdown and uses it to prioritize work and finish gracefully as budget runs out. Key properties: (1) Advisory (not hard stop — max_tokens is still the hard limit), (2) Carries forward across compaction cycles in long-running agents, (3) Opus 4.7 only. Distinct from CLAUDE_CODE_SCRIPT_CAPS (which limits bash invocations) and max_tokens (which is a hard cut). Enables cost governance on agentic loops without per-request max_tokens micromanagement.",
+  "discovered_at": "2026-04-18",
+  "keywords": ["task budgets", "task_budget", "output_config task_budget", "advisory token budget", "agentic loop budget", "task-budgets-2026-03-13", "token spending limit", "agentic cost control", "compaction cycle budget", "budget carry forward"],
+  "redundancy_check": "NOVEL — registry has CLAUDE_CODE_SCRIPT_CAPS (bash invocation cap) and max_tokens, but no advisory cross-loop token budget concept. Task Budgets are model-visible planning signals, not hard limits. Gap in registry under Token Efficiency Features / Reasoning & Thinking sections.",
+  "priority": "medium",
+  "action_needed": "Add to registry under Token Efficiency Features as ACTIVE (API beta). Evaluate for heartbeat/agentic pipeline use — budget carry-across compaction cycles is particularly relevant.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 20,
+      "token_efficiency": 70,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 69.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic API beta (community_validation=100, maintenance=100). Integration currently blocked: requires passing beta header 'anthropic-beta: task-budgets-2026-03-13' in API calls — not available via claude -p CLI on Max plan (complexity=20). Capability expansion (70): genuinely novel advisory budget concept not in registry; carry-across-compaction-cycles is particularly relevant for our long-running heartbeat/agentic loops. Token efficiency (70): model-visible countdown enables graceful early termination instead of hard cutoff waste. Research needed: verify whether claude -p or Claude Code Routines expose a path to pass this beta header on Max plan, or whether this remains API-key-only.",
+    "research_questions": [
+      "Can task budgets be activated via claude -p on Max plan (is there a --beta-header flag)?",
+      "Does Claude Code Routines (which doesn't require API key) support task budget headers?",
+      "Is Opus 4.7 the only model supporting task budgets or will Sonnet 4.6 be added?",
+      "Is 64000 tokens a typical budget for an agentic loop — what's the recommended value for a heartbeat run?"
+    ],
+    "evaluated_at": "2026-04-18"
+  }
+}

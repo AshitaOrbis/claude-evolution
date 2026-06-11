@@ -1,0 +1,29 @@
+{
+  "title": "Claude Code v2.1.78 — StopFailure Hook, Plugin Persistent State, Plugin Agent Frontmatter",
+  "source": "https://linux.do/t/topic/1774730",
+  "secondary_sources": [
+    "https://www.claudeupdates.dev/version/2.1.75",
+    "https://releasebot.io/updates/anthropic",
+    "https://pasqualepillitteri.it/en/news/381/claude-code-march-2026-updates"
+  ],
+  "type": "technique",
+  "description": "Claude Code v2.1.78 (released ~March 17-18, 2026) introduces three new integrable features beyond what v2.1.77 added: (1) StopFailure hook event — fires when a turn ends due to an API error (rate limit, auth failure, etc.), enabling automated error recovery workflows without polling; (2) ${CLAUDE_PLUGIN_DATA} variable — plugin-scoped persistent state that survives plugin updates; /plugin uninstall now prompts before deleting it, enabling stateful plugin behaviors across sessions; (3) effort/maxTurns/disallowedTools frontmatter support for plugin-shipped agents — allows plugin authors to constrain agent behavior at definition time rather than relying on system prompts. Additional improvements: response text now streams line-by-line as generated (UX improvement for long-running tasks); terminal notifications now reach outer terminal when running in tmux with 'set -g allow-passthrough on'. Also v2.1.77/78 boundary: memory file last-modified timestamps (Claude can reason about which memories are fresh vs stale) and modelOverrides setting (maps model picker entries to custom provider model IDs, e.g., Bedrock inference profile ARNs) — exact version needs confirmation.",
+  "discovered_at": "2026-03-18",
+  "keywords": ["StopFailure", "hook-event", "api-error-hook", "rate-limit-hook", "plugin-persistent-state", "CLAUDE_PLUGIN_DATA", "plugin-agent-frontmatter", "effort-frontmatter", "maxTurns-frontmatter", "disallowedTools-frontmatter", "memory-timestamps", "modelOverrides", "claude-code-v2178"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "Registry last updated for v2.1.77. StopFailure hook not in registry (hooks section covers through Elicitation/ElicitationResult from v2.1.76). CLAUDE_PLUGIN_DATA and plugin agent frontmatter not in registry. modelOverrides and memory timestamps not in registry. All four features appear integrable."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 60,
+      "capability_expansion": 80,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 81.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic release with multiple genuinely novel features. StopFailure hook enables automated error recovery on rate limits/auth failures — directly useful for heartbeat/cron automation. Plugin agent frontmatter (effort/maxTurns/disallowedTools) improves agent constraint architecture. Memory timestamps let Claude reason about staleness. modelOverrides enables Bedrock/proxy routing. Integration complexity is low (built-in features, registry + docs update). Token efficiency is neutral but StopFailure prevents polling waste. Bundle evaluation: treat as one registry update covering all v2.1.78 features."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Claude Code v2.1.85–v2.1.90 Minor Feature Batch",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "technique",
+  "description": "Batch of smaller CLI/UX features from v2.1.85–v2.1.90 not yet in registry: (1) /teleport and /remote-env slash commands for cross-device session bridging between web and CLI; (2) Ctrl+B now backgrounds both bash commands AND agents simultaneously; (3) ExitWorktree built-in tool completing the EnterWorktree/ExitWorktree pair; (4) claude -n flag for naming sessions at start for easier --resume identification; (5) /plan now accepts inline description argument to enter plan mode with context in one step; (6) CLAUDE_CODE_DISABLE_CRON env var to abort all scheduled cron jobs mid-session; (7) MCP_CONNECTION_NONBLOCKING=true for -p mode to skip MCP connection wait [ALREADY IN INTEGRATION]; (8) Named subagents appear in @ mention typeahead; (9) /powerup command for interactive feature tutorials [ALREADY FILED SEPARATELY]; (10) /copy 'w' key to write selection to file (bypasses clipboard, useful over SSH).",
+  "discovered_at": "2026-04-02",
+  "keywords": ["/teleport", "/remote-env", "cross-device session", "Ctrl+B backgrounding", "ExitWorktree", "claude -n session naming", "/plan description argument", "CLAUDE_CODE_DISABLE_CRON", "MCP_CONNECTION_NONBLOCKING", "named subagents typeahead", "/powerup tutorial", "/copy w file"],
+  "redundancy": "PARTIALLY_NOVEL",
+  "redundancy_notes": "MCP_CONNECTION_NONBLOCKING=true is already in pipeline/integration/mcp-connection-nonblocking.md. /powerup is filed as a separate discovery (powerup-command.md). The remaining 8 features (/teleport, /remote-env, Ctrl+B agent backgrounding, ExitWorktree, claude -n, /plan description, CLAUDE_CODE_DISABLE_CRON, named subagents typeahead, /copy w) are NOVEL — not in registry.",
+  "high_priority_items": [
+    "claude -n session naming — enables reliable --resume in heartbeat pipeline",
+    "CLAUDE_CODE_DISABLE_CRON — critical for debugging cron-triggered automation",
+    "ExitWorktree built-in — completes the EnterWorktree/ExitWorktree pair",
+    "/teleport + /remote-env — cross-device session bridging (Tailscale setup is relevant)"
+  ],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 75,
+      "token_efficiency": 60,
+      "capability_expansion": 80,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 78.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic batch from v2.1.85-v2.1.90. High capability expansion (80) for the novel subset: ExitWorktree completes the worktree built-in tool pair (significant gap fixed); claude -n session naming directly enables reliable --resume identification in heartbeat and automation pipelines; CLAUDE_CODE_DISABLE_CRON fills a debugging gap for the cron-heavy workspace (heartbeat, orchestrator, openclaw-exchange all run on cron); /teleport+/remote-env enables cross-device session bridging relevant to requiem↔orbis-1 topology. Integration complexity 75: mostly built-in commands requiring only registry documentation, but claude -n and CLAUDE_CODE_DISABLE_CRON may need wiring into existing scripts. Token efficiency 60: MCP_CONNECTION_NONBLOCKING already captured; /copy w has minor SSH workflow value. Integration action: register all 8 novel items in registry; wire claude -n into heartbeat -p invocations for session traceability; add CLAUDE_CODE_DISABLE_CRON note to cron troubleshooting docs."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Claude Code v2.1.80 — MCP Push Channels, Rate Limits Statusline, Settings Plugins, Effort for Skills",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.80",
+  "type": "technique",
+  "description": "Claude Code v2.1.80 (released March 19, 2026) introduces four integrable features: (1) --channels flag (research preview) for MCP servers to push messages to Claude sessions — MCP servers can now initiate communication rather than only responding to tool calls. Enables event-driven MCP patterns: push notifications, live data subscriptions, background task completion signals; (2) rate_limits field in statusline scripts — exposes 5-hour and 7-day Claude.ai rate limit usage. Format: {rate_limits: {hour5: {used: N, limit: N}, day7: {used: N, limit: N}}}. Critical for heartbeat scripts to back off when approaching limits; (3) source: 'settings' plugin marketplace source — inline plugin declarations directly in settings.json without using the marketplace UI. Format: {plugins: [{source: 'settings', ...}]}. Enables version-controlled plugin configuration; (4) effort frontmatter for skills and slash commands — extends the v2.1.78 effort frontmatter (previously agents-only) to skills and slash commands. Add 'effort: low|medium|high|max' to skill frontmatter to control compute allocation. Additional improvements: ~80 MB memory reduction on startup in large repos, improved @ file autocomplete in large repos, fixed --resume dropping parallel tool results, fixed voice mode WebSocket failures.",
+  "discovered_at": "2026-03-20",
+  "keywords": ["mcp-push-channels", "mcp-bidirectional", "mcp-server-push", "channels-flag", "rate-limits-statusline", "rate-limit-monitoring", "settings-plugins", "inline-plugin-config", "effort-frontmatter-skills", "effort-slash-commands", "claude-code-v2180"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "MCP --channels: No existing bidirectional MCP capability in registry. All MCP interactions are currently request-response (Claude calls tools). Push messaging is architecturally new. rate_limits statusline: No existing rate limit monitoring in statusline. helpers/navigation/hook-environment-variables.md covers env vars but not rate limit fields. source:settings plugins: No existing inline plugin config pattern. effort for skills: IMPROVEMENT — v2.1.78 added effort to agents. This extends the same pattern to skills and slash commands. Bundle is NOVEL overall."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 65,
+      "capability_expansion": 88,
+      "maintenance_burden": 80,
+      "community_validation": 100
+    },
+    "total": 81.25,
+    "decision": "APPROVED",
+    "reasoning": "Four integrable features with genuinely novel capabilities. Star feature: MCP --channels push messaging changes the MCP communication model from request-response to bidirectional. Currently research preview but architecturally significant — enables event-driven MCP patterns for heartbeat automation (push task completion, rate limit alerts, live data feeds). Integration path: add --channels flag to any MCP server that benefits from push; no immediate action needed until stable. rate_limits statusline is immediately useful: update heartbeat statusline script to surface 5h/7d usage for adaptive rate limiting in cron runs. source:settings plugins enables version-controlled plugin config — update settings.json to use inline declarations for any currently marketplace-installed plugins. effort for skills is a low-friction improvement: add 'effort: low' to discovery/routing skills to reduce token cost. Integration complexity reduced (research preview --channels deferred; three other features are settings.json/frontmatter changes). Bundle scores 81.25/100 — approve and update registry."
+  }
+}

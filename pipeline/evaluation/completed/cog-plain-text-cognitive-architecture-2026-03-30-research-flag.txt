@@ -1,0 +1,15 @@
+NEEDS_RESEARCH: cog — Plain-Text Tiered Memory Cognitive Architecture
+Score: 68.5/100 (borderline — 70 would approve)
+Date: 2026-03-30
+URL: https://github.com/marciopuga/cog
+HN: https://news.ycombinator.com/item?id=47524704 (114 points)
+
+Research needed before approval/rejection:
+1. Read cog's CLAUDE.md and .claude/commands/*.md — assess tiering model vs our user/feedback/project/reference taxonomy
+2. Are hot/warm/cold/glacier layers compatible with our MEMORY.md flat-file system, or do they require replacement?
+3. Check GitHub commit frequency — is marciopuga actively maintaining this?
+4. Is the /housekeep condensation policy something we can cherry-pick into our SessionEnd hook?
+5. Does thread synthesis conflict with our type taxonomy or complement it?
+
+If cherry-pick feasible → re-evaluate at 70+, approve for selective integration.
+If requires full replacement → defer (breaking change to working system).

@@ -1,0 +1,42 @@
+{
+  "title": "Claude Code v2.1.105–107 Version Batch",
+  "source": "https://github.com/anthropics/claude-code/releases",
+  "type": "technique",
+  "description": "Registry update batch for v2.1.105 through v2.1.107. Key capabilities not yet in registry: (1) v2.1.105 — /proactive is now an alias for /loop (autonomous task queue mode); improved stalled API stream handling (abort after 5min no data, retry non-streaming); skill description listing cap raised 250→1,536 chars; WebFetch now strips <style>/<script> content from fetched pages; improved /doctor with `f` to auto-fix reported issues; MCP large-output truncation with format-specific recipes; (2) v2.1.107 — thinking hints shown sooner during long operations (UX improvement). Also v2.1.105 bug fixes: images in queued messages, bash output garbling, alt+enter keybinding, scheduled tasks re-firing, inbound channel notifications, marketplace plugin dependency resolution, tool caching, model ID persistence, rate-limit error handling, terminal color palette.",
+  "discovered_at": "2026-04-14",
+  "keywords": [
+    "v2.1.105",
+    "v2.1.106",
+    "v2.1.107",
+    "/proactive alias",
+    "/loop alias",
+    "stalled stream retry",
+    "skill description cap",
+    "WebFetch strip scripts",
+    "doctor auto-fix",
+    "thinking hints sooner",
+    "MCP truncation format recipes",
+    "stream abort 5 minutes"
+  ],
+  "priority": "MEDIUM",
+  "redundancy_check": "NOVEL version entries — registry currently ends at v2.1.101. These are the next 6 versions requiring registry sweep.",
+  "notes": "Separate from the PreCompact/EnterWorktree/monitors discoveries already filed. This batch covers the smaller UX and reliability improvements. Most impactful for ongoing use: WebFetch stripping style/script content (reduces noise in fetched pages), skill description cap raise (may affect skill discoverability), /proactive==/loop clarification (document for users of /loop), stalled stream recovery (reliability fix for long sessions). Registry update should happen in integration phase.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 60,
+      "capability_expansion": 55,
+      "maintenance_burden": 100,
+      "community_validation": 80
+    },
+    "total": 73.75,
+    "decision": "APPROVED",
+    "reasoning": "Integration complexity (90): mostly registry documentation updates; no new config or env vars. Token efficiency (60): WebFetch stripping style/script content reduces noise in fetched pages — minor but real efficiency gain; skill description cap 250→1,536 chars improves discoverability without context cost. Capability expansion (55): incremental improvements — /proactive alias, stalled stream recovery (reliability), WebFetch cleanup, thinking hints UX. None are major unlocks but all are useful. Maintenance burden (100): registry/doc updates only; no ongoing maintenance. Community validation (80): official Anthropic v2.1.105-107 releases. Integration type: REGISTRY UPDATE — add all batch items to versions.json, registry existing-capabilities.md, and relevant skill files. Note: v2.1.102-104 features are not covered in this batch item; the v2104-permission-mode item covers some v2.1.104 behavioral changes separately.",
+    "integration_target": [
+      "registry/existing-capabilities.md: add v2.1.105-107 section with /proactive alias, stream recovery, WebFetch improvements, skill cap raise",
+      "state/versions.json: update to current known versions with notes",
+      "helpers/commands/heartbeat-commands.md: note /proactive alias if used in any heartbeat scripts"
+    ],
+    "evaluated_at": "2026-04-14"
+  }
+}

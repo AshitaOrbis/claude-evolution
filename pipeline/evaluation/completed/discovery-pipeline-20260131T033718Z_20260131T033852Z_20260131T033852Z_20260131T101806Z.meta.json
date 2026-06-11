@@ -1,0 +1,28 @@
+{
+  "original_path": "/home/<user>/docker/openclaw-sandbox/processing/discovery-pipeline-20260131T033718Z_20260131T033852Z.json",
+  "original_name": "discovery-pipeline-20260131T033718Z_20260131T033852Z.json",
+  "validation": {
+    "passed": false,
+    "layer": 1,
+    "message": "Schema validation failed: 'version' is a required property",
+    "flags": [
+      "schema_error"
+    ],
+    "risk_score": 0.2,
+    "timestamp": "2026-01-31T03:38:52.028974+00:00Z"
+  },
+  "processed_at": "2026-01-31T03:38:52.028989+00:00Z",
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Validation timed out, assuming safe"
+    },
+    "validated_at": "2026-01-31T10:18:06.552780+00:00Z"
+  }
+}

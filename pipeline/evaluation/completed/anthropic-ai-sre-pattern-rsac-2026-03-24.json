@@ -1,0 +1,11 @@
+{
+  "title": "AI SRE Pattern — Agent-Driven Reliability Engineering (Anthropic at RSAC 2026)",
+  "source": "The Register (theregister.com), RSAC 2026 presentation, March 19 2026",
+  "type": "technique",
+  "description": "Anthropic presented at RSAC 2026 on using AI agents for SRE (Site Reliability Engineering) workflows. Key insight: 'relentless AI agents can find holes humans miss' — agents systematically probe reliability gaps through exhaustive verification patterns that humans find tedious or miss entirely. The approach uses Claude agents in a loop that tests every edge case, monitors service health indicators, and generates incident reports autonomously. Quote from the session: 'It freakin worked.' Demonstrates a working pattern for agent-driven systematic verification across infrastructure.",
+  "discovered_at": "2026-03-24",
+  "keywords": ["SRE", "site reliability", "agent verification", "systematic checking", "infrastructure automation", "reliability engineering", "exhaustive testing", "agent-driven QA", "RSAC 2026", "agentic verification loops"],
+  "redundancy_check": "NOVEL — registry has multi-agent orchestration, code-reviewer, security-auditor agents. None specifically cover SRE/infrastructure reliability verification patterns. The 'relentless systematic probing' pattern is orthogonal to code review — it targets runtime behavior, not code quality.",
+  "initial_score_estimate": 65,
+  "notes": "Needs research: (1) is there a public write-up or GitHub repo with specifics? (2) what exactly does the agent loop look like? (3) what tools/hooks are used? Current signal is credible (Anthropic official presentation) but details thin. Score estimate may increase significantly with specifics — this is an officially validated agentic pattern. Recommend flagging for research."
+}

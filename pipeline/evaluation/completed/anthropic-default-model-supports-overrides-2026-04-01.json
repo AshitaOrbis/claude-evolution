@@ -1,0 +1,23 @@
+{
+  "title": "ANTHROPIC_DEFAULT_*_MODEL_SUPPORTS — Per-Model Capability Override Env Vars",
+  "source": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+  "type": "technique",
+  "description": "New env var family: ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL_SUPPORTS lets you override effort/thinking capability detection for pinned model IDs on Bedrock, Vertex, or Azure Foundry. Also adds _MODEL_NAME/_DESCRIPTION to customize /model picker labels. Enables correct capability routing when 3p-hosted pinned model versions differ from Anthropic's latest capability map.",
+  "discovered_at": "2026-04-01",
+  "keywords": ["env-var", "model-capabilities", "bedrock", "vertex", "azure", "pinned-models", "capability-detection"],
+  "redundancy": "NOVEL",
+  "priority": "low",
+  "notes": "Low priority for direct use (running native Anthropic, not 3p-hosted). Document for completeness and for future if Bedrock/Vertex is adopted.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 30,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 68.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic feature, trivial to set (env var), zero maintenance. However, capability expansion is near-zero for this workspace — we run native Anthropic (not Bedrock/Vertex/Azure), so the capability detection override has no practical application now. Decision for human: is this worth documenting in the registry for completeness, or is it noise? If Bedrock/Vertex adoption is ever planned, this becomes an APPROVED registry note. For now, human should decide whether to archive or document."
+  }
+}

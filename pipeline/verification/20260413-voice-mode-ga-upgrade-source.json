@@ -1,0 +1,22 @@
+{
+  "title": "Voice Mode GA — Registry Upgrade Trigger Met (Early Preview → Implemented)",
+  "source": "https://code.claude.com/docs/en/voice-dictation",
+  "type": "technique",
+  "description": "The re-evaluation trigger for Voice Mode (registered 2026-03-04 as EARLY_PREVIEW, ~5% rollout) has been met: official Anthropic docs at code.claude.com/docs/en/voice-dictation now document /voice with stable semantics. Features now documented: /voice command activates push-to-talk mode, configurable keybindings via ~/.claude/keybindings.json (rebind voice:pushToTalk), settings keys for voiceEnabled and language, 20-language STT support (added Russian, Polish, Turkish, Dutch, Ukrainian, Greek, Czech, Danish, Swedish, Norwegian in v2.1.69), and voice mode is fully available (not 5% rollout). This is a registry status upgrade, not a new discovery — the registry entry should be updated from EARLY_PREVIEW to IMPLEMENTED. Config: add keybinding for voice:pushToTalk if desired; activate with /voice.",
+  "discovered_at": "2026-04-13",
+  "keywords": ["voice mode", "voice dictation", "/voice command", "push-to-talk", "voice input CLI", "hands-free coding", "speech input Claude Code", "STT", "voice keybinding", "voiceEnabled"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "This is a registry status upgrade, not a new integration. The trigger has been met: official Anthropic docs confirm Voice Mode is stable and fully available (no longer 5% rollout). Integration complexity (100): only action is updating the registry status from EARLY_PREVIEW to IMPLEMENTED and optionally adding a keybinding. Token efficiency (50): neutral — voice input doesn't affect token efficiency. Capability expansion (40): capability already registered; this updates its status to reflect production readiness. Maintenance burden (100): zero, it's a documentation update. Community validation (100): official Anthropic source. Integration action: update registry/existing-capabilities.md Voice Mode entry from EARLY_PREVIEW to IMPLEMENTED, note stable config options (voiceEnabled setting, voice:pushToTalk keybinding).",
+    "integration_notes": "1. Find Voice Mode entry in registry/existing-capabilities.md. 2. Change status from EARLY_PREVIEW to IMPLEMENTED. 3. Add stable config details: settings key voiceEnabled, keybinding voice:pushToTalk via ~/.claude/keybindings.json. 4. Note 20-language support list. 5. No ~/.claude.json or settings.json changes required unless opting in."
+  },
+  "evaluated_at": "2026-04-13"
+}

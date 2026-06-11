@@ -1,0 +1,22 @@
+{
+  "title": "Claude Code v2.1.104 — Blocked Tool Calls Now Require Explicit Approval",
+  "source": "https://x.com/ClaudeCodeLog/status/2043203791185387922",
+  "type": "technique",
+  "description": "Version 2.1.104 (released April 13, 2026) changes the behavior of tool calls that are blocked by permission mode: they now require explicit user approval rather than silently failing or bypassing. This prevents unintended external actions in auto-mode sessions. Relevance to this system: the evolution pipeline uses permissions.defaultMode: 'auto' (v2.1.76+). This change means that if a tool call conflicts with permission mode settings, Claude will surface it for approval instead of silently skipping — better safety in long-running heartbeat sessions. Companion to the Adversa AI deny-rules bypass fix from v2.1.94-96. Registry should record this behavior change for auto-mode sessions.",
+  "discovered_at": "2026-04-13",
+  "keywords": ["v2.1.104", "permission mode", "explicit approval", "blocked tool calls", "auto mode", "unintended external actions", "permission enforcement", "deny rules", "safety improvement"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 55,
+      "maintenance_burden": 100,
+      "community_validation": 60
+    },
+    "total": 70.25,
+    "decision": "APPROVED",
+    "reasoning": "Registry-update item: no configuration changes needed, document the behavior change. Integration complexity = 100 (zero work — pure registry documentation). Research (2026-04-15) resolved the critical unresolved concern: in headless mode (`claude -p`), blocked tool calls cause process TERMINATION (not indefinite stall). Per Anthropic Engineering blog on auto mode: 'In headless mode there is no UI to ask the human, so we instead terminate the process.' This means our unattended cron runs are safe — they'd fail fast on a blocked tool rather than stalling. The change is confirmed by @ClaudeCodeLog on X + GitHub issue #47114 corroboration (community_validation raised from 50 to 60). Capability expansion (55): incremental safety improvement for interactive sessions — blocked tools now surface UI approval prompt rather than silently skipping. No official Anthropic changelog entry found, but source confidence sufficient for registry documentation.",
+    "research_note": "2026-04-15: RESOLVED. Critical concern (auto-mode stall) confirmed as non-issue — headless sessions terminate, not stall. GitHub issue #47114 corroborates the behavior change. Community validation raised 50→60. Total moves 69.5→70.25: APPROVED.",
+    "evaluated_at": "2026-04-15"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "CLAUDE_CODE_CERT_STORE + OS CA Trust by Default (v2.1.101)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.101",
+  "type": "technique",
+  "description": "v2.1.101 makes the OS CA certificate store trusted by default, so enterprise TLS proxies work without extra configuration. The new env var CLAUDE_CODE_CERT_STORE=bundled reverts to using only bundled CAs (prior behavior). This is a behavioral change: previously enterprise environments required manual CA certificate injection; now it's automatic. The env var is the control surface for cases where OS CA store should NOT be trusted (e.g., corporate environments that have injected custom CAs you don't want to inherit). Relevant as an env var to document alongside the subprocess sandboxing trilogy.",
+  "discovered_at": "2026-04-12",
+  "keywords": ["CLAUDE_CODE_CERT_STORE", "OS CA certificate", "TLS proxy", "enterprise TLS", "bundled CAs", "certificate store", "CA trust"],
+  "source_confidence": "HIGH",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 95,
+      "token_efficiency": 50,
+      "capability_expansion": 20,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 66.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic behavioral change (v2.1.101). OS CA certificate store is now trusted by default, eliminating the need for manual CA injection in enterprise TLS proxy environments. Low capability expansion (20): requiem is native Linux with no enterprise TLS proxy, so this change is transparent for the primary development environment. The new env var CLAUDE_CODE_CERT_STORE=bundled is a revert option only. Main research question: does this default OS CA trust affect requiem's automation runs, given that requiem's OS CA store is a standard Ubuntu system store? If there's no risk, this becomes a pure registry documentation entry (update to the subprocess sandboxing trilogy section).",
+    "research_questions": [
+      "Does OS CA trust by default affect requiem (native Ubuntu Linux) in any automation/cron context?",
+      "Is CLAUDE_CODE_CERT_STORE=bundled needed for any existing cron or heartbeat runs?",
+      "Does requiem's Ubuntu CA store contain anything unexpected that could affect Claude Code TLS behavior?",
+      "Any security implications of OS CA trust in automated/unattended contexts?"
+    ]
+  }
+}

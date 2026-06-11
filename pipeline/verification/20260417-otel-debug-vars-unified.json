@@ -1,0 +1,23 @@
+{
+  "title": "OTEL Debugging Quartet — Unified API Observability System",
+  "source": "Claude Code changelogs v2.1.101 and v2.1.111",
+  "type": "technique",
+  "description": "Four OTEL environment variables introduced across two Claude Code versions form a unified API observability system: OTEL_LOG_USER_PROMPTS (v2.1.101), OTEL_LOG_TOOL_DETAILS (v2.1.101), OTEL_LOG_TOOL_CONTENT (v2.1.101), and OTEL_LOG_RAW_API_BODIES (v2.1.111). Together they enable full API-level observability: prompts → tool decisions → tool content → raw API bodies. Useful for debugging prompt caching failures, unexpected model behavior, or tool routing issues during heartbeat development. The otel-raw-api-bodies-v2.1.111.md pending file treats only one variable in isolation — this entry proposes consolidating all four into a unified debugging system entry in the registry.",
+  "discovered_at": "2026-04-17",
+  "keywords": ["OTEL debugging", "OTEL_LOG_USER_PROMPTS", "OTEL_LOG_TOOL_DETAILS", "OTEL_LOG_TOOL_CONTENT", "OTEL_LOG_RAW_API_BODIES", "opentelemetry claude debug", "API body logging"],
+  "redundancy_check": "IMPROVEMENT:OTEL_LOG_RAW_API_BODIES pending — the existing pending file is single-variable; this proposes a consolidated unified entry covering all 4 OTEL debug vars. Merge the pending file rather than creating a separate registry entry.",
+  "action": "Registry-only update: add unified OTEL Debugging Quartet entry to existing-capabilities.md covering all four env vars with their versions and observability layer descriptions.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 70.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic env vars from verified changelogs (community_validation=100), stable API-level features (maintenance=100). Integration is registry-only — no code changes, no env var modification, just documentation of four existing debug vars in existing-capabilities.md (complexity=90). Token efficiency neutral (50): debugging aids with no per-session overhead when not active. Capability expansion low (40): these vars are already documented in changelogs; this item's value is consolidation into a coherent debugging reference, not a new capability. Integration action: single registry entry titled 'OTEL Debugging Quartet' covering OTEL_LOG_USER_PROMPTS, OTEL_LOG_TOOL_DETAILS, OTEL_LOG_TOOL_CONTENT, OTEL_LOG_RAW_API_BODIES with version introduced and observability tier for each."
+  },
+  "evaluated_at": "2026-04-17"
+}

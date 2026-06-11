@@ -1,0 +1,22 @@
+{
+  "title": "codebase-memory-mcp — Persistent Code Knowledge Graph (120x Token Reduction)",
+  "source": "https://github.com/DeusData/codebase-memory-mcp",
+  "type": "mcp_server",
+  "description": "MCP server that parses your codebase into a persistent knowledge graph — functions, classes, call chains, imports, HTTP routes — and exposes 14 tools for structural querying. Key differentiators: (1) persistence across session restarts and context compaction events, (2) benchmarked 120x token reduction (5 structural queries: ~3,400 tokens vs ~412,000 via grep/read), (3) sub-millisecond queries with no GPU requirement (single static binary, zero deps), (4) 66-language support including TypeScript/Python/Go/Rust, (5) auto-detects and configures for Claude Code, Codex CLI, Gemini CLI, and 7 other agents. Reddit thread r/LocalLLaMA benchmarked across 35 repos. MIT license. 1.3k GitHub stars. Ranked #152 on PulseMCP (#42 this week). Distinct from previously-rejected filesystem MCP and contextplus (which required Ollama): this provides structural graph traversal of call chains — not file read/write, not semantic text search.",
+  "discovered_at": "2026-04-13",
+  "keywords": ["codebase memory", "knowledge graph", "code intelligence", "token reduction", "persistent graph", "call chains", "function graph", "import graph", "structural queries", "blast radius", "code indexing", "DeusData", "MCP code analysis"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 75,
+      "token_efficiency": 90,
+      "capability_expansion": 85,
+      "maintenance_burden": 70,
+      "community_validation": 80
+    },
+    "total": 81.25,
+    "decision": "APPROVED",
+    "reasoning": "Strong case on all axes. Token efficiency (90): 120x reduction claim is extraordinary; even conservative 10x real-world performance is 'major savings' by scoring guide — structural graph queries are fundamentally cheaper than grep+read chains across large repos. Capability expansion (85): genuinely novel — persistent knowledge of call chains and import graphs across session restarts cannot be replicated with grep/read. The cross-session persistence is the key differentiator vs in-session exploration. Integration complexity (75): drop-in MCP server, auto-detects Claude Code. Community validation (80): 1.3k stars, Reddit r/LocalLLaMA benchmarks across 35 repos, PulseMCP #152. Maintenance burden (70): active development, MIT, no runtime deps (static binary). Integration action: add to ~/.claude.json MCP section, verify auto-configuration, test against <private-project>-v2 or claude-evolution repos.",
+    "integration_notes": "1. Install: npm install -g codebase-memory-mcp OR npx. 2. Verify auto-config is triggered for Claude Code (check docs). 3. If not auto-configured, add to ~/.claude.json mcpServers. 4. Test 14 tools against a known repo (e.g., claude-evolution). 5. Benchmark actual token savings on a representative structural query. 6. Update registry/existing-capabilities.md with new entry."
+  },
+  "evaluated_at": "2026-04-13"
+}

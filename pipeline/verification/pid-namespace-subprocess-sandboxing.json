@@ -1,0 +1,22 @@
+{
+  "title": "PID Namespace Subprocess Sandboxing (Linux, v2.1.98)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.98, April 9 2026)",
+  "type": "technique",
+  "description": "When CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 is set (already active on requiem), Claude Code now additionally applies PID namespace isolation to subprocesses on Linux. Processes spawned by Bash tool run in a PID namespace, preventing them from seeing or signaling processes outside their sandbox. Meaningful security hardening for requiem (native Linux) where the existing env-scrub is active.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["PID namespace", "subprocess sandboxing", "Linux sandbox", "process isolation", "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB"],
+  "classification": "IMPROVEMENT",
+  "comparison_notes": "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB is already in registry (v2.1.88). This adds PID namespace isolation as an additional security layer when that env var is set — same config key, meaningfully stronger behavior. Registry entry needs updating to note the v2.1.98 PID namespace addition.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 80.0,
+    "decision": "APPROVED",
+    "reasoning": "Automatic security hardening — CLAUDE_CODE_SUBPROCESS_ENV_SCRUB is already active on requiem, so PID namespace isolation is already in effect as of v2.1.98. Action required: update registry entry for CLAUDE_CODE_SUBPROCESS_ENV_SCRUB to document v2.1.98 PID namespace addition. No new config needed."
+  }
+}

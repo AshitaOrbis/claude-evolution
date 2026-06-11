@@ -1,0 +1,23 @@
+{
+  "title": "Antigravity Awesome Skills — 1,326+ Installable Agent Skills via npx CLI",
+  "source": "https://github.com/sickn33/antigravity-awesome-skills",
+  "type": "skill",
+  "description": "A GitHub library of 1,326+ agentic SKILL.md playbooks for Claude Code (and Cursor, Codex CLI, Gemini CLI) with a single-command installer: `npx antigravity-awesome-skills --claude` installs selected skills directly to `~/.claude/skills/`. Plugin marketplace compatible via `/plugin marketplace add sickn33/antigravity-awesome-skills`. Skill bundles cover engineering, marketing, product, compliance, and advisory domains. Cross-platform compatibility means skills work across Claude Code, Codex, and Gemini CLI simultaneously. The novel angle is the unified installer CLI — currently adding community skills requires manual copy-paste or per-repo cloning.",
+  "discovered_at": "2026-03-31",
+  "keywords": ["antigravity skills", "npx skills installer", "cross-platform skills", "1326 skills", "skills marketplace CLI"],
+  "redundancy_check": "PARTIALLY NOVEL. The skills ecosystem section of the registry covers community repos (obra/superpowers, ComposioHQ/awesome-claude-skills etc.) but not a unified installer CLI. The novel value is the npx single-command installer pattern. Possible overlap with VoltAgent/awesome-agent-skills (filed 2026-03-30, in pending, NEEDS_RESEARCH) — both should be evaluated together and compared before integrating either.",
+  "preliminary_score": 60,
+  "notes": "Compare against VoltAgent/awesome-agent-skills (pipeline/evaluation/pending/awesome-agent-skills-voltAgent-2026-03-30.json) before evaluation. Key differentiation to assess: (1) installer CLI quality, (2) skill quality/relevance vs quantity, (3) active maintenance, (4) cross-platform advantage. Avoid redundancy — if VoltAgent covers the same use case, one should be preferred over the other.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 55,
+      "maintenance_burden": 55,
+      "community_validation": 60
+    },
+    "total": 57.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "npx installer is a genuinely useful pattern (avoids manual copy-paste), but 1326 skills is quantity over quality — overlap with existing 20+ workspace-specific skills unknown. Star count not in discovery file. Evaluate alongside VoltAgent/awesome-agent-skills (both in NEEDS_RESEARCH) and pick one. Neither should be adopted without: (1) auditing which skills add value vs overlap, (2) confirming maintenance activity, (3) verifying the npx installer doesn't auto-install unwanted skills. COMPARISON evaluation needed before either is approved."
+  }
+}

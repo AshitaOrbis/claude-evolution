@@ -1,0 +1,24 @@
+{
+  "title": "Piebald-AI/claude-code-system-prompts — Internal System Prompt Tracker",
+  "source": "https://github.com/Piebald-AI/claude-code-system-prompts",
+  "type": "reference",
+  "description": "Repository tracking all of Claude Code's internal system prompts across 136+ versions since v2.0.14, updated with each release. Contains: main system prompt, 18 builtin tool descriptions, sub-agent prompts (Plan/Explore/Task), utility prompts (CLAUDE.md, compact, statusline, magic docs, WebFetch, Bash cmd, security review, agent creation). Maintained by Piebald-AI, updated to v2.1.87 as of March 28, 2026. Primary value: understanding what Claude Code 'knows' about itself by default so CLAUDE.md instructions can complement rather than duplicate built-in context.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["system prompt tracking", "Claude Code internals", "built-in prompt changelog", "tool description tracking", "internal prompts", "system prompt evolution", "version system prompt diff", "Piebald-AI", "claude-code-system-prompts"],
+  "redundancy_check": "No existing capability in registry tracks Claude Code's internal system prompt evolution. This is a reference resource with no equivalent. NOT a duplicate.",
+  "integration_notes": "Add to registry as reference resource under a 'Meta-Tooling / Internal Reference' section. Use when writing skills/agents to verify what context Claude already has built-in. Zero maintenance overhead — reference only.",
+  "evaluation": {
+    "date": "2026-03-30",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 90,
+      "community_validation": 70
+    },
+    "total": 74.0,
+    "decision": "APPROVED",
+    "reasoning": "This is a high-value zero-cost reference. Integration is a single registry entry — no code, no MCP, no configuration. The value is qualitative: when writing new skills or agents, consulting this repo reveals what Claude already knows by default, preventing instructions that duplicate built-in context or, worse, contradict it. The tracker covers v2.0.14 through v2.1.87 with per-version diffs, making it useful for understanding what changed in new releases (e.g., 'what tool descriptions changed in v2.1.84?'). Token efficiency is neutral — this is reference material consulted occasionally, not loaded into context. Capability expansion is incremental: it doesn't add a new tool, but it improves the quality of everything we write by grounding it in actual Claude Code behavior rather than assumptions. Maintenance burden is minimal — Piebald-AI maintains the repo independently. Community validation at 70 reflects active maintenance (updated 2 days ago to v2.1.87) by a credible tracker, though not official Anthropic.",
+    "action": "REGISTRY_UPDATE: Add 'Piebald-AI/claude-code-system-prompts' to registry/existing-capabilities.md under a new 'Meta-Tooling / Reference' section. Note: consult when writing new skills/agents to avoid duplicating or contradicting built-in system prompt context."
+  }
+}

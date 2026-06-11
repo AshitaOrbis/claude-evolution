@@ -1,0 +1,27 @@
+{
+  "title": "/team-onboarding Command (v2.1.101)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.101",
+  "type": "technique",
+  "description": "New slash command that generates a teammate ramp-up guide from the current user's local Claude Code usage patterns. The guide is synthesized from local usage history, CLAUDE.md files, agent definitions, and command patterns — producing onboarding documentation tailored to how the specific repo is actually used. Reduces onboarding friction for new team members or returning users. High relevance: the evolution workspace has extensive CLAUDE.md hierarchy, custom agents, and workflow patterns that have never been documented in a synthesized ramp-up format. One-shot command replaces what currently requires manual documentation of agent usage, helper patterns, and workflow conventions.",
+  "discovered_at": "2026-04-12",
+  "keywords": ["/team-onboarding", "team onboarding", "ramp-up guide", "teammate onboarding", "usage-based docs", "onboarding automation", "claude code docs generation"],
+  "source_confidence": "HIGH",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 80.0,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic slash command (v2.1.101) requiring zero setup — built-in to Claude Code. Generates teammate ramp-up guides from local CLAUDE.md files, agent definitions, and usage patterns, which is directly valuable for the claude-evolution workspace with its 59-project CLAUDE.md hierarchy, 40+ custom agents, and workflow conventions. Token efficiency is neutral (generates docs, doesn't reduce session costs). Built-in means zero maintenance burden. Community validation is 100 (official Anthropic). Integration complexity is 100 (drop-in, already available). Action: run /team-onboarding in the claude-evolution workspace to generate a ramp-up guide and evaluate output quality.",
+    "integration_actions": [
+      "Run /team-onboarding in ~/claudeworkspace/claude-evolution to generate ramp-up guide",
+      "Evaluate guide completeness vs the existing CLAUDE.md hierarchy and helpers/index.md",
+      "Determine if output is committable (save to docs/) or ephemeral",
+      "Add /team-onboarding to registry as available built-in command (v2.1.101+)"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "title": "HCOM — Hook-Based Inter-Agent Communication for Claude Code",
+  "source": "https://github.com/aannoo/hcom",
+  "type": "mcp_server",
+  "description": "HCOM (Hook Communications, v0.7.1) is a lightweight CLI tool that enables real-time communication between concurrent Claude Code agent instances using hooks. 206 GitHub stars, MIT license, actively maintained. Core capabilities: (1) Agents can message each other mid-turn (injected between tool calls) or wake idle agents immediately. (2) @-mention targeting for specific agent instances by name or tag. (3) Cross-agent transcript inspection (hcom transcript <name>) for handoff context. (4) PTY screen injection (hcom term <name>) for viewing/interacting with agent terminal. (5) SQLite-backed event log for messages, file edits, and lifecycle events. (6) Zero-dependency Python — no external API calls. (7) Works with Claude Code, Gemini CLI, Codex, and OpenCode. Agent spawning, forking, resuming, and killing across terminals. Install: 'uv tool install hcom' or 'pip install hcom'. Distinct from Agent Teams (autonomous parallel coordination, experimental, token-intensive) and Task tool (hierarchical subagent spawning). HCOM enables peer-to-peer agent communication — agents as flat collaborators, not hierarchy. Novel capability gap: our current multi-agent setup (Task tool + evolution-orchestrator) has no mechanism for sibling agents to communicate directly without routing through the orchestrator.",
+  "discovered_at": "2026-04-16",
+  "keywords": ["inter-agent communication", "hook comms", "agent messaging", "real-time agent coordination", "HCOM", "agent-to-agent", "subagent communication", "peer agent communication", "agent pub/sub", "@-mention agents", "SQLite agent bus", "zero-dependency agent comms"],
+  "stars": 206,
+  "official": false,
+  "notes": "Appeared in HN and awesome-claude-code. Complementary to existing Agent Teams (which has autonomous coordination but is token-intensive and experimental) and the agent-event-bus MCP (which is an event store, not a real-time messaging bus). Key differentiator: mid-turn message injection — messages arrive between tool calls without interrupting agent flow. Low stars (206) but focused niche, zero-dependency, actively maintained (v0.7.1, fork 25).",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 80,
+      "maintenance_burden": 70,
+      "community_validation": 60
+    },
+    "total": 66.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Genuinely novel peer-to-peer agent communication (capability_expansion=80): mid-turn message injection and @-mention targeting between concurrent Claude Code instances fills a real gap — our existing multi-agent setup (Task tool hierarchy + agent-event-bus) has no mechanism for sibling agents to communicate directly without routing through an orchestrator. Integration (70): uv tool install hcom, minimal hook configuration — low friction. Maintenance (70): MIT, actively maintained (v0.7.1), zero-dependency Python reduces future breakage risk. Token efficiency neutral (50): coordination is external to session context. Community validation (60): 206 stars is 100-1k range but on the lower side; niche tool with focused use case. Research needed: hands-on test to verify mid-turn injection works with Claude Code v2.1.108 and doesn't conflict with our existing hook setup.",
+    "research_questions": [
+      "Does HCOM's hook-based injection work with Claude Code v2.1.108? (test: uv tool install hcom)",
+      "What Claude Code hook event does HCOM intercept for message injection?",
+      "Does HCOM conflict with or complement the agent-event-bus MCP?",
+      "Is the SQLite event log durable across sessions or session-scoped?",
+      "What's the latency of mid-turn injection vs. orchestrator-routed coordination?"
+    ],
+    "evaluated_at": "2026-04-16"
+  }
+}

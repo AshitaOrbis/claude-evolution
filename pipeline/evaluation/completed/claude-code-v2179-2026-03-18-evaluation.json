@@ -1,0 +1,24 @@
+{
+  "title": "Claude Code v2.1.79 — Console Auth, Turn Duration, VSCode Session Titles",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.79",
+  "type": "technique",
+  "description": "Claude Code v2.1.79 (released March 18, 2026) introduces minor UX and developer experience improvements: (1) --console flag for 'claude auth login' enables Anthropic Console authentication flow as alternative to OAuth (useful for service accounts and headless setups); (2) 'Show turn duration' toggle added to /config menu — displays per-turn timing in status bar; (3) /remote-control command added to VSCode extension for bridging local sessions to claude.ai/code (extends the already-approved remote-control feature); (4) VSCode session tabs now receive AI-generated titles based on first message (reduces 'untitled session' clutter in multi-session VSCode workflows). Bug fixes: claude -p no longer hangs when spawned as subprocess (critical fix for automation scripts), /btw now correctly answers side questions without leaking main agent output, voice mode activates properly on startup.",
+  "discovered_at": "2026-03-20",
+  "keywords": ["console-auth", "claude-auth-login", "turn-duration", "session-titles", "vscode-remote-control", "claude-code-v2179", "btw-fix", "subprocess-hang-fix"],
+  "redundancy_check": {
+    "status": "IMPROVEMENT",
+    "notes": "Remote-control already approved (73.25/100, 2026-02-28). VSCode improvements extend that approval. Console auth is novel minor utility. Turn duration and AI session titles are built-in UX improvements requiring no integration. The claude -p subprocess hang fix is critical for heartbeat automation scripts."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 95,
+      "token_efficiency": 50,
+      "capability_expansion": 45,
+      "maintenance_burden": 95,
+      "community_validation": 100
+    },
+    "total": 69.25,
+    "decision": "REGISTRY_UPDATE",
+    "reasoning": "Mostly minor improvements and bug fixes. Primary value: (1) claude -p subprocess hang fix is directly relevant to heartbeat automation — verify fix applies to our cron scripts; (2) VSCode /remote-control improvements extend already-approved capability; (3) --console auth could simplify service account setup. No novel capability warranting full integration. Update registry with v2.1.79 version marker and note the subprocess fix. Score reflects limited novel expansion (45/100) pulling the bundle below 70, but still approved as registry update given official release status."
+  }
+}

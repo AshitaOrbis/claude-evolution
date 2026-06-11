@@ -1,0 +1,26 @@
+{
+  "title": "Claw — SSH MCP Server: Extend Claude Code Tools to Remote Machines",
+  "source": "https://github.com/opsyhq/claw",
+  "type": "mcp_server",
+  "description": "Claw (opsyhq/claw, v0.1.7, npm @opsyhq/claw) is an MCP server that extends Claude Code's native tools (bash, read, write, edit, grep, glob) to any machine accessible via SSH. Ships a small Go binary to the remote machine over SSH; the binary serves as a tool execution proxy. No ports to open, no daemons, no root required — connection is pure SSH. Install: 'claw init --from-ssh' imports machines from ~/.ssh/config. 'claw install claude-code' writes MCP config. Use cases: (1) Check logs on prod without copy-paste. (2) Grep for errors across services. (3) Edit configs on staging. (4) Run scripts on GPU servers. Highly relevant for Tailscale topology: requiem (desktop, primary), orbis-1 (laptop WSL), dashi (phone Termux) — Claw would let Claude Code running on requiem directly operate on orbis-1 or remote servers. Published ~7 days ago. HN Show HN with active discussion. Stars not confirmed but recently launched.",
+  "discovered_at": "2026-04-16",
+  "keywords": ["SSH MCP", "remote machine agent", "remote bash", "remote file operations", "multi-machine agent", "SSH tool proxy", "claw MCP", "remote Claude Code", "opsyhq claw", "cross-machine agent", "remote operations MCP"],
+  "stars": null,
+  "official": false,
+  "notes": "Published ~7 days ago. Highly relevant for the Tailscale device mesh (requiem/orbis-1/dashi). Potential overlap: the existing Tailscale/SSH setup already lets Claude Code SSH into other machines via Bash tool. Claw's value-add is a structured MCP interface vs raw SSH commands — evaluate whether structured tool calls vs 'ssh user@host cmd' is worth the MCP overhead. Check stars after 2 weeks to see traction.",
+  "status": "moved_to_completed",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 65,
+      "token_efficiency": 60,
+      "capability_expansion": 70,
+      "maintenance_burden": 45,
+      "community_validation": 40
+    },
+    "total": 58.25,
+    "decision": "REJECTED",
+    "reasoning": "DUPLICATE — Claw (opsyhq/claw) is already in registry/existing-capabilities.md under 'Remote Machine Access' section, evaluated April 1, 2026 with score 73.0/100, status PENDING_GO_INSTALL. This re-discovery adds one new datapoint: an npm package (@opsyhq/claw) is available in addition to the Go install path — this may resolve the Go installation blocker without requiring 'sudo apt install golang-go'. Registry has been updated with npm install note. No further evaluation needed.",
+    "new_information": "npm package @opsyhq/claw available — may bypass Go installation requirement (PENDING_GO_INSTALL blocker in registry). Registry updated with this note.",
+    "evaluated_at": "2026-04-16"
+  }
+}

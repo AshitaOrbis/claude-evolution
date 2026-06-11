@@ -1,0 +1,47 @@
+{
+  "title": "Claude Code Routines — Cloud-Persistent Agentic Automation",
+  "source": "https://claude.com/blog/introducing-routines-in-claude-code",
+  "type": "technique",
+  "description": "Routines are cloud-hosted Claude Code automations configured once (prompt + repo + connectors) and run persistently via three trigger types: (1) Schedule — cron-style (minimum 1 hour interval), runs on Anthropic infrastructure without keeping a laptop open; (2) API — each routine gets its own endpoint + bearer token, callable via POST with custom text payload; (3) GitHub events — automatic session per matching webhook event (PR opened, push, labeled, etc.) with filter support. Connectors include Gmail, Slack, Linear, Drive, and other MCP-compatible services. Research preview launched April 14, 2026. Quota: 15 routine runs/day on Max plan (5/day Pro, 25/day Team/Enterprise). API endpoint: POST to claude.ai (not general Claude Platform API). Anthropic-managed infrastructure — no local server required.",
+  "discovered_at": "2026-04-15T00:00:00Z",
+  "keywords": [
+    "claude code routines",
+    "cloud automation",
+    "scheduled agent",
+    "persistent cron agent",
+    "GitHub event trigger",
+    "API trigger routine",
+    "Anthropic cloud agent",
+    "routine research preview",
+    "serverless Claude Code",
+    "automated PR review",
+    "scheduled prompts cloud",
+    "agentic automation platform",
+    "anthropic-beta experimental-cc-routine-2026-04-01"
+  ],
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": [
+      "/loop command (v2.1.71) — session-scoped only, ends when session closes",
+      "CronCreate/CronDelete tools — in-session scheduling only",
+      "Claude Managed Agents — different: managed agents are API-hosted models, not Claude Code automations"
+    ],
+    "verdict": "NOVEL — /loop and CronCreate are explicitly documented as session-scoped ('All scheduled tasks end when session closes'). Routines run on Anthropic cloud infrastructure independently of any local session. GitHub event triggers and API-callable endpoints are entirely new capabilities not present anywhere in the registry.",
+    "key_distinction": "Session-scoped (existing) vs. cloud-persistent (Routines). Routines survive session close, run without a laptop, and can be triggered by external webhooks."
+  },
+  "priority": "HIGH",
+  "notes": "Research preview as of April 14, 2026. Quota limit (15/day Max) makes it impractical for high-frequency heartbeat loops but excellent for: nightly repo sweeps, PR review automation, GitHub issue triage, scheduled doc generation. Min schedule interval: 1 hour (vs cron's arbitrary intervals — so nightly/weekly use is best fit). The heartbeat pipeline (already using cron) is complementary: cron fires local sessions; Routines can replace cron+claude -p pattern for simpler cloud automations. Fully autonomous during runs (no approval prompts). Overage requires 'extra usage' billing enabled. API /fire endpoint is claude.ai-only, not general Claude Platform API. Source docs: code.claude.com/docs/en/routines.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 70,
+      "capability_expansion": 90,
+      "maintenance_burden": 70,
+      "community_validation": 100
+    },
+    "total": 79.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic research preview (community_validation=100). Integration complexity (70): web UI setup, connector config, GitHub webhook configuration — moderate but no code changes needed. Token efficiency (70): cloud-hosted automation runs don't consume local session context; for nightly repo sweeps and PR automation, significant savings vs cron+local session. Capability expansion (90): genuinely novel — cloud-persistent sessions survive session close, GitHub event triggers and API-callable endpoints are entirely absent from current registry, Anthropic-managed infrastructure eliminates EC2-style server maintenance. Maintenance burden (70): research preview instability (behavior may change); 15/day quota requires prioritization. Key use cases for this system: nightly capability sweep, GitHub PR auto-review, scheduled heartbeat fallback. Does NOT require ANTHROPIC_API_KEY (Max plan auth works — this is Claude Code, not the API).",
+    "evaluated_at": "2026-04-15"
+  }
+}

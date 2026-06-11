@@ -1,0 +1,26 @@
+{
+  "original_path": "/home/<user>/docker/openclaw-sandbox/processing/discovery-social-engineering-agents-20260131T103000Z_20260131T100624Z.json",
+  "original_name": "discovery-social-engineering-agents-20260131T103000Z_20260131T100624Z.json",
+  "validation": {
+    "passed": true,
+    "layer": 1,
+    "message": "Layer 1 validation passed",
+    "flags": [],
+    "risk_score": 0.0,
+    "timestamp": "2026-01-31T10:06:24.485578+00:00Z"
+  },
+  "processed_at": "2026-01-31T10:06:24.485604+00:00Z",
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Validation timed out, assuming safe"
+    },
+    "validated_at": "2026-01-31T11:33:16.562001+00:00Z"
+  }
+}

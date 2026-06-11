@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "full-e2e-001-1769831140195",
+  "type": "insight",
+  "title": "The main benefit of file-based IPC is that it provides persistent, durable commu",
+  "summary": "The main benefit of file-based IPC is that it provides persistent, durable communication where data survives process crashes and allows processes to interact without running simultaneously.",
+  "details": "The main benefit of file-based IPC is that it provides persistent, durable communication where data survives process crashes and allows processes to interact without running simultaneously.",
+  "source": {
+    "type": "agent",
+    "reference": "openclaw:main"
+  },
+  "relevance": "evolution",
+  "confidence": 0.8,
+  "actionable": true,
+  "tags": [
+    "agent-response",
+    "insight"
+  ],
+  "timestamp": "2026-01-31T03:45:44.302Z"
+}

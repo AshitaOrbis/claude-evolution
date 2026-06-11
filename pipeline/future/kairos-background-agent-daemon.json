@@ -1,0 +1,29 @@
+{
+  "title": "KAIROS — Unreleased Always-On Background Agent Daemon",
+  "source": "https://arstechnica.com/ai/2026/04/heres-what-that-claude-code-source-leak-reveals-about-anthropics-plans/",
+  "type": "agent",
+  "description": "KAIROS (Ancient Greek: 'at the right time') is an unreleased feature-gated mode found 150+ times in the Claude Code source leak from v2.1.88. It implements a persistent daemon that can operate in the background even when the Claude Code terminal window is closed. Key mechanisms: (1) Periodic <tick> prompts that regularly review whether new actions are needed without user prompt; (2) PROACTIVE flag for surfacing insights the user hasn't asked for and needs to see now; (3) 15-second blocking budget — shell commands running longer than 15s get auto-backgrounded so the agent unblocks; (4) Append-only daily logs (logs/YYYY/MM/YYYY-MM-DD.md) instead of rewriting MEMORY.md — prevents context thrash in long-running sessions; (5) Access to tools not available in normal Claude Code sessions. Internal comments suggest a teaser for April 1-7 and a full launch target of May 2026. Currently gated behind feature('KAIROS') flag — not user-activatable. Distinct from existing background agent patterns (Agent Teams, cron heartbeat) because it's a persistent daemon with autonomous tick-based proactivity, not a user-invoked session.",
+  "discovered_at": "2026-04-12",
+  "keywords": ["KAIROS", "background daemon", "always-on agent", "persistent agent", "proactive agent", "tick-based agent", "autonomous daemon", "background AI", "unreleased feature", "feature flag KAIROS", "append-only memory", "blocking budget", "PROACTIVE flag"],
+  "source_confidence": "MEDIUM",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 30,
+      "token_efficiency": 50,
+      "capability_expansion": 90,
+      "maintenance_burden": 80,
+      "community_validation": 40
+    },
+    "total": 59.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Unreleased feature discovered via Ars Technica coverage of a Claude Code source code leak. Extremely high capability expansion (90): a persistent autonomous daemon with tick-based proactivity, 15-second blocking budget, and append-only memory logs is conceptually transformative compared to the current cron-based heartbeat. However, integration complexity is low (30) because the feature is currently behind a server-side feature gate — not user-activatable regardless of version. Source confidence MEDIUM (secondary source; Ars Technica article, not official Anthropic documentation). The append-only log pattern (logs/YYYY/MM/YYYY-MM-DD.md) is independently valuable and could be adopted for the current heartbeat without KAIROS activation. Research: verify whether the gate is client-side (env var hackable) or server-side (not), watch for official May 2026 launch announcement, investigate Coordinator Mode as companion feature.",
+    "research_questions": [
+      "Is the KAIROS feature gate client-side (env var) or server-side (Anthropic-controlled)? Can it be activated on v2.1.101+?",
+      "What specific tools does KAIROS have access to that normal sessions don't?",
+      "What is Coordinator Mode — does it orchestrate multiple KAIROS instances across sessions?",
+      "Is the append-only log pattern (logs/YYYY/MM/YYYY-MM-DD.md) extractable for immediate use in the heartbeat?",
+      "Watch for official Anthropic May 2026 KAIROS launch announcement — revisit this evaluation then."
+    ],
+    "revisit_trigger": "Official Anthropic announcement of KAIROS launch (expected May 2026)"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Agents as MCP Servers — Architectural Inversion Pattern",
+  "source": "https://news.ycombinator.com/item?id=44053754",
+  "type": "technique",
+  "description": "New pattern where AI agents themselves can act as MCP servers, not just MCP clients. Any MCP-compatible client (Claude Code, Cursor, etc.) can invoke agents by connecting to them as MCP servers. Enables agent-to-agent composition: orchestrator agents expose themselves as callable services that downstream agents can invoke via standard MCP protocol.",
+  "discovered_at": "2026-04-11T00:00:00Z",
+  "evaluated_at": "2026-04-11T00:00:00Z",
+  "keywords": ["agents as MCP servers", "agent composition", "MCP server agent", "agent-to-agent", "composable agents", "MCP inversion", "agent exposure", "callable agent"],
+  "classification": "NOVEL",
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": ["Agent Teams (CONDITIONAL)", "Agent Spawn Restrictions", "Task tool multi-agent"],
+    "verdict": "NOVEL — existing capabilities handle agent coordination within Claude Code but cannot expose agents as externally-callable MCP servers. This pattern enables cross-tool and cross-session agent invocation via standard protocol.",
+    "key_distinction": "Our current agents are invoked via Task tool internally. This pattern makes agents addressable by any MCP client externally — different composition scope."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 40,
+      "token_efficiency": 60,
+      "capability_expansion": 85,
+      "maintenance_burden": 50,
+      "community_validation": 70
+    },
+    "total": 62.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "High capability expansion (85): cross-session and cross-tool agent invocation is genuinely novel — not achievable via current Task tool. Integration complexity is low (40): requires wrapping agents in an MCP server framework, adding ongoing maintenance. Source confidence is MEDIUM (HN secondary source). Research needed: verify whether this is a shipped pattern or a spec/proposal, find reference implementation, assess actual complexity of exposing a Claude Code agent as MCP server.",
+    "research_questions": [
+      "What framework/library enables this? Is there a reference implementation on GitHub?",
+      "Does Anthropic officially support this pattern or is it community-driven?",
+      "Can Claude Code Task-spawned agents be exposed as MCP servers without external framework?",
+      "What's the latency/overhead vs native Task tool invocation?",
+      "Is the HN item summarizing a working implementation or a proposal?"
+    ]
+  },
+  "source_confidence": "MEDIUM — HN secondary source, verify original post and any linked implementation",
+  "final_decision": {
+    "decision": "REJECTED",
+    "decided_at": "2026-04-30",
+    "decided_by": "user (interactive walkthrough)",
+    "reasoning": "Pattern is too vague to integrate (single HN comment, no reference implementation). Workspace has no external MCP client wanting to invoke its agents — value prop is hypothetical here. The hermes agent already covers external-agent delegation. Will re-surface naturally if Anthropic ships an official spec."
+  }
+}

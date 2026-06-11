@@ -1,0 +1,38 @@
+{
+  "title": "Anthropic Advisor Tool — Executor+Advisor Mid-Generation Model Consultation",
+  "source": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool",
+  "type": "technique",
+  "description": "Official Anthropic API feature (beta, `advisor-tool-2026-03-01`) that pairs a faster executor model (Haiku 4.5 or Sonnet 4.6) with a higher-intelligence advisor model (Opus 4.6) within a SINGLE /v1/messages request. No extra round trips. When the executor invokes the advisor, the full transcript is forwarded server-side, Opus produces a plan/course-correction (400-700 text tokens), and the executor continues. Inverts typical sub-agent patterns: the smaller model drives end-to-end and escalates rather than decomposing work. Benchmarked for coding agents, computer use, multi-step research pipelines. Suggested system prompt for consistent advisor timing documented. 35-45% advisor output token reduction via conciseness instruction. Key trade-off: advisor doesn't stream (pause in SSE), no built-in conversation-level cap (track client-side). Announced April 9, 2026.",
+  "discovered_at": "2026-04-14",
+  "keywords": [
+    "advisor tool",
+    "advisor_20260301",
+    "executor advisor pattern",
+    "advisor strategy",
+    "mid-generation consultation",
+    "sonnet haiku executor",
+    "opus advisor",
+    "advisor-tool-2026-03-01",
+    "single request multi-model",
+    "strategic guidance mid-generation",
+    "executor escalation pattern",
+    "cost-efficient agentic intelligence"
+  ],
+  "priority": "HIGH",
+  "redundancy_check": "NOVEL — existing dynamic model selection (v2.1.81 Agent tool `model` parameter) routes tasks to different models but requires separate agent invocations. Codex integration routes entire tasks to GPT-5.4. The Advisor Tool is distinct: same executor runs end-to-end, consulting Opus within a SINGLE API call for strategic guidance only. No equivalent in registry. Different from model-router (which routes whole tasks) and different from multi-model orchestration (which delegates sub-tasks).",
+  "notes": "API-only feature (not a Claude Code built-in). Requires ANTHROPIC_API_KEY. Could be used in external scripts or evolution pipeline automation. Integration path: use in heartbeat or codex-equivalent scripts calling the API directly. Cost model: executor at Sonnet rates + advisor at Opus rates (only 400-700 tokens per consultation). `max_uses` parameter limits advisor calls per request. Claude.com blog post: 'The advisor strategy: Give Sonnet an intelligence boost with Opus'. Anthropic reports Sonnet+Opus-advisor at medium effort ≈ Sonnet default effort quality at lower cost for coding tasks.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 40,
+      "token_efficiency": 80,
+      "capability_expansion": 85,
+      "maintenance_burden": 80,
+      "community_validation": 90
+    },
+    "total": 74.75,
+    "decision": "APPROVED",
+    "reasoning": "Token efficiency (80): Anthropic-documented 35-45% advisor token reduction + Sonnet+Opus-advisor ≈ Sonnet default quality at lower cost. Capability expansion (85): genuinely novel — single-request multi-model consultation with zero round-trip overhead; not achievable via model-router (which routes whole tasks) or Codex integration (which routes to different model). Community validation (90): official Anthropic API feature with documentation and April 9 announcement. Integration complexity (40): requires ANTHROPIC_API_KEY — the primary constraint on this system (Max plan, no API key). Getting an API key requires a separate Anthropic API subscription. Hard but not impossible; integration itself (build wrapper scripts with advisor_20260301 beta header) is straightforward. Maintenance burden (80): API feature with beta header; stable once wrapper built. Integration path: build a thin script wrapper or use in future external automation.",
+    "integration_note": "REQUIRES ANTHROPIC_API_KEY — Max plan keychain cannot be used for direct API calls (per --bare flag registry note). Integration deferred until API key available. Document in registry as APPROVED_PENDING_API_KEY.",
+    "evaluated_at": "2026-04-14"
+  }
+}

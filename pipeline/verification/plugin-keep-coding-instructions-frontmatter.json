@@ -1,0 +1,23 @@
+{
+  "title": "Plugin keep-coding-instructions Frontmatter Field (v2.1.94)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.94, April 7 2026)",
+  "type": "skill",
+  "description": "New keep-coding-instructions frontmatter field for plugins that controls how Claude presents its output during an agentic coding session. Allows plugin authors to customize post-task behavior — e.g., whether to pause, summarize, or continue coding. Enables workflow-specific completion patterns embedded in plugins.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "evaluated_at": "2026-04-11T00:00:00Z",
+  "keywords": ["keep-coding-instructions", "plugin frontmatter", "output style", "completion behavior", "plugin configuration"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 75,
+      "token_efficiency": 60,
+      "capability_expansion": 70,
+      "maintenance_burden": 95,
+      "community_validation": 100
+    },
+    "total": 76.75,
+    "decision": "APPROVED",
+    "reasoning": "Official v2.1.94 feature. Corrected maintenance from 70 to 95 (Anthropic-maintained built-in, zero ongoing effort) and token_efficiency from 50 to 60 (suppressing post-task summaries provides minor savings in agentic loops). Integration path: add field to relevant SKILL.md frontmatter after confirming exact accepted values from v2.1.94 release notes. The field is particularly relevant for skills used in automated loops (iterative-improve, heartbeat) where summary output adds noise.",
+    "integration_notes": "Before integrating: (1) confirm exact accepted values for keep-coding-instructions (boolean? string enum?) from v2.1.94 changelog, (2) identify which of our SKILL.md files produce unwanted post-task summaries, (3) determine whether it applies to global skills (~/.claude/skills/) or only plugin-bundled skills. Priority skills to evaluate: iterative-improve, deploy-staging, plan-tracker."
+  }
+}

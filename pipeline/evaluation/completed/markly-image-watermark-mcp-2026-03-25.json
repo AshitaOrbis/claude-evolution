@@ -1,0 +1,9 @@
+{
+  "title": "Markly – Image Watermarking MCP",
+  "source": "Hacker News (Show HN), March 2026",
+  "type": "mcp_server",
+  "description": "Zero-friction image manipulation MCP: 10-second setup, no API key required. Commands like 'Add Copyright 2026 bottom-right, semi-transparent' or 'Watermark all images in /photos with my logo.png at 20%'. Single npx command to integrate. Handles batch watermarking across directories.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["image-watermarking", "zero-setup", "npx", "image-manipulation", "batch-images", "copyright", "logo-overlay"],
+  "notes": "Novel capability — no equivalent in current stack. Document Generation section covers PDF/DOCX/PPTX/XLSX but not image manipulation. Could be useful for blog asset management (Ashita Orbis) and game asset pipeline. Zero dependency model (no API key) is a positive signal. Star count and GitHub URL unconfirmed — verify before integrating."
+}

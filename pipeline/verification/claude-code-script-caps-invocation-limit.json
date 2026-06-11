@@ -1,0 +1,21 @@
+{
+  "title": "CLAUDE_CODE_SCRIPT_CAPS — Per-Session Script Invocation Limits",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.98, April 9 2026)",
+  "type": "technique",
+  "description": "New env var that caps the number of script invocations per session. Combined with CLAUDE_CODE_SUBPROCESS_ENV_SCRUB (already active) and PID namespace subprocess sandboxing, forms a three-layer defense for untrusted or cost-sensitive agent runs. Particularly relevant for heartbeat/cron sessions where runaway Bash loops could exhaust resources. Complements CLAUDE_CODE_SIMPLE (which restricts tool types, not invocation counts).",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["CLAUDE_CODE_SCRIPT_CAPS", "script caps", "invocation limit", "per-session limit", "bash limit", "resource cap"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 80.0,
+    "decision": "APPROVED",
+    "reasoning": "Novel env var that completes the subprocess sandboxing trilogy (env scrub + PID namespace + invocation cap). Directly applicable to heartbeat/cron sessions where runaway Bash loops could exhaust resources. Zero maintenance, drop-in addition to ~/.bashrc. Complements rather than duplicates CLAUDE_CODE_SIMPLE."
+  }
+}

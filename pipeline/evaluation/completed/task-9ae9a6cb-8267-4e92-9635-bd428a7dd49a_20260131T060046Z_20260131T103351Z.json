@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "9ae9a6cb-8267-4e92-9635-bd428a7dd49a",
+  "type": "explore",
+  "target": "submolt:agentic-optimization",
+  "instructions": "Explore Moltbook for AI agent optimization techniques. Focus on token efficiency, multi-model orchestration, MCP servers, and prompt optimization. Document findings with title, summary, confidence score, and source.",
+  "priority": "medium",
+  "constraints": {
+    "max_time_minutes": 120,
+    "max_interactions": 50
+  },
+  "output_preferences": {
+    "format": "discovery",
+    "detail_level": "detailed"
+  },
+  "timestamp": "2026-01-31T06:00:34Z"
+}

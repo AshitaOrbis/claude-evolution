@@ -1,0 +1,25 @@
+{
+  "title": "Claude Code settings source: 'settings' — Inline Plugin Declarations in settings.json",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "source_secondary": "https://claudefa.st/blog/guide/changelog",
+  "type": "technique",
+  "description": "A new source: 'settings' field for plugin marketplace declarations, allowing plugin entries to be declared inline within settings.json rather than requiring a separate git-hosted repository. Prior to this, every plugin had to be hosted in a git repo. The inline declaration path enables rapid development of private plugins and project-local plugins without a full git hosting requirement. Companion feature: CLI tool usage detection added to plugin tips (in addition to file pattern matching), improving plugin discoverability.",
+  "discovered_at": "2026-03-27",
+  "keywords": ["settings plugin source", "inline plugin", "settings.json plugin", "plugin marketplace", "plugin declaration", "plugin without git repo", "CLI tool detection", "plugin tips"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "Registry has managed-settings-dropin (v2.1.83, enterprise policy) and claude-marketplace-anthropic-20260317 (marketplace architecture) but neither covers inline plugin declarations for personal/project use. This is a different mechanism entirely.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 95,
+      "community_validation": 80
+    },
+    "total": 74.25,
+    "decision": "APPROVED",
+    "reasoning": "Clear APPROVED above the 70 threshold. Zero integration friction: just a new JSON field in settings.json (score: 90). Removes a real barrier — previously, every private plugin required a git-hosted repo, which created overhead for project-local or personal tooling. The companion CLI tool detection for plugin tips is a quality-of-life improvement that pairs well. Token efficiency is neutral (score: 50) — this feature is about developer ergonomics, not token savings. Maintenance burden is near-zero (score: 95) — once declared in settings.json, no ongoing maintenance. Community validation is strong (score: 80) — official Anthropic changelog entry. Practical impact: the claude-evolution project could declare evolution-specific plugins inline in the workspace .claude/settings.json without needing a separate repo.",
+    "action": "REGISTRY_UPDATE + CLAUDE.md UPDATE: (1) Add 'inline plugin source' entry to registry Plugin Ecosystem section. (2) Update CLAUDE.md plugin creation notes to document inline source option alongside git-hosted. (3) Note CLI tool detection companion feature in plugin tips documentation."
+  }
+}

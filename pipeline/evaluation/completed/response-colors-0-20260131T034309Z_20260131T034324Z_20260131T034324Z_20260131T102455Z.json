@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "id": "colors-001-1769830986345",
+  "type": "insight",
+  "title": "Red, Blue, Green",
+  "summary": "Red, Blue, Green",
+  "details": "Red, Blue, Green",
+  "source": {
+    "type": "agent",
+    "reference": "openclaw:main"
+  },
+  "relevance": "general",
+  "confidence": 0.8,
+  "actionable": true,
+  "tags": [
+    "agent-response",
+    "explore"
+  ],
+  "timestamp": "2026-01-31T03:43:09.382Z",
+  "_raw": {
+    "runId": "colors-001-1769830986345",
+    "status": "success",
+    "events": [
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "lifecycle",
+        "data": {
+          "phase": "start",
+          "startedAt": 1769830986638
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 1,
+        "ts": 1769830986638
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "assistant",
+        "data": {
+          "text": "Red",
+          "delta": "Red"
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 2,
+        "ts": 1769830989294
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "assistant",
+        "data": {
+          "text": "Red,",
+          "delta": ","
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 3,
+        "ts": 1769830989295
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "assistant",
+        "data": {
+          "text": "Red, Blue",
+          "delta": " Blue"
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 4,
+        "ts": 1769830989295
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "assistant",
+        "data": {
+          "text": "Red, Blue,",
+          "delta": ","
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 5,
+        "ts": 1769830989369
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "assistant",
+        "data": {
+          "text": "Red, Blue, Green",
+          "delta": " Green"
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 6,
+        "ts": 1769830989370
+      },
+      {
+        "runId": "colors-001-1769830986345",
+        "stream": "lifecycle",
+        "data": {
+          "phase": "end",
+          "endedAt": 1769830989381
+        },
+        "sessionKey": "agent:main:main",
+        "seq": 7,
+        "ts": 1769830989381
+      }
+    ]
+  },
+  "request_id": "colors-001",
+  "processed_at": "2026-01-31T03:43:09.382Z",
+  "schema_version": "1.0",
+  "created_at": "2026-01-31T04:10:00Z"
+}

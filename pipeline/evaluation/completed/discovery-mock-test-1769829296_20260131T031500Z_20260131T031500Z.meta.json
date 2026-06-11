@@ -1,0 +1,13 @@
+{
+  "original_path": "/home/<user>/docker/openclaw-sandbox/processing/discovery-mock-test-1769829296_20260131T031500Z.json",
+  "original_name": "discovery-mock-test-1769829296_20260131T031500Z.json",
+  "validation": {
+    "passed": true,
+    "layer": 1,
+    "message": "Layer 1 validation passed",
+    "flags": [],
+    "risk_score": 0.0,
+    "timestamp": "2026-01-31T03:15:00.471525+00:00Z"
+  },
+  "processed_at": "2026-01-31T03:15:00.471548+00:00Z"
+}

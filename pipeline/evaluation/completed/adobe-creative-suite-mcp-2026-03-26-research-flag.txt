@@ -1,0 +1,21 @@
+NEEDS_RESEARCH: Adobe Creative Suite MCP — Photoshop and Premiere Pro control
+Score: 57.0/100
+Evaluated: 2026-03-26
+
+Research required before re-evaluation:
+1. Verify recency: HN item ID 43613545 appears to be from 2024/early 2025, not March 2026.
+   Confirm actual publication date and whether the project is still maintained.
+2. Official Adobe vs community MCP: Does Adobe publish an official SDK/MCP, or is this community-built?
+   Official = integration complexity 70+, community validation 90+. Community-only = stays at 50.
+3. GitHub repo URL and star count — need ≥100 stars to cross approval threshold.
+4. Installation requirements: Does it require Adobe CC desktop app? Which CC apps are supported?
+   CC subscription dependency is a real adoption barrier (unlike open-source MCPs).
+5. Re-assess use case fit: game asset pipeline (batch layer operations on sprites) vs
+   Ashita Orbis (single image adjustments). Is automation at the Photoshop API level
+   worth the CC dependency when ImageMagick/Sharp can handle most batch ops?
+
+Re-evaluation trigger: Confirmed active maintenance (2025 or later commits) AND
+GitHub repo found with ≥100 stars AND installation requirements clarified.
+
+If stale (last commit 2024 or earlier): move to archive/rejected/.
+Source: pipeline/evaluation/completed/adobe-creative-suite-mcp-2026-03-26-evaluation.json

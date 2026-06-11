@@ -1,0 +1,21 @@
+{
+  "title": "CLAUDE_CODE_USE_MANTLE — Amazon Bedrock Mantle Support (v2.1.94)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.94, April 7 2026)",
+  "type": "technique",
+  "description": "New env var enabling Claude Code to use Amazon Bedrock powered by Mantle (AWS's next-gen inference routing layer). Set CLAUDE_CODE_USE_MANTLE=1 alongside Bedrock credentials. Relevant for enterprise teams on AWS infrastructure seeking lower latency or reserved capacity routing. Not applicable to Max plan users (different auth path).",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["CLAUDE_CODE_USE_MANTLE", "Bedrock Mantle", "AWS Mantle", "inference routing", "Bedrock"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 0,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 42.5,
+    "decision": "REJECTED",
+    "reasoning": "Explicitly not applicable to Max plan users (different auth path). Zero integration complexity and zero capability expansion for this stack. Enterprise-only feature with no reconsideration trigger unless switching to Bedrock auth."
+  }
+}

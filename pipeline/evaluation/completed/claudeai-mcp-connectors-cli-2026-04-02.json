@@ -1,0 +1,23 @@
+{
+  "title": "claude.ai MCP Connectors Accessible from CLI (v2.1.89)",
+  "source": "https://claudelog.com/claude-code-changelog/",
+  "type": "technique",
+  "description": "MCP servers authenticated via the claude.ai web interface (OAuth flow) are now accessible from Claude Code CLI sessions. Deduplication logic: local config wins when the same server appears in both local and web config. Enables OAuth-based MCP integrations (Atlassian, Salesforce, Google Workspace) to authenticate once via browser and then be used in terminal workflows without separate credential management.",
+  "discovered_at": "2026-04-02",
+  "keywords": ["claude.ai MCP connectors", "web MCP in CLI", "OAuth MCP terminal", "web authenticated MCP", "connector deduplication", "MCP OAuth flow"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No existing mechanism for web-authenticated MCPs to be accessible in CLI sessions. Workspace has mcp__claude_ai_Gmail__authenticate, mcp__claude_ai_Google_Calendar__authenticate, mcp__claude_ai_Scholar_Gateway__authenticate in deferred tools — these are claude.ai-connected MCPs directly relevant to this feature.",
+  "workspace_relevance": "HIGH — workspace deferred tools include claude.ai Gmail, Google Calendar, and Scholar Gateway MCP connectors, which use this feature for OAuth authentication bridging.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 65,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 75.25,
+    "decision": "APPROVED",
+    "reasoning": "Zero configuration required — when authenticated via claude.ai web, connectors automatically appear in CLI. High workspace relevance: the workspace already has claude.ai Gmail, Google Calendar, and Scholar Gateway MCPs in its deferred tool list, meaning this feature may already be active (or becomes active once authenticated). Capability expansion 65: directly enables OAuth-gated MCPs (Gmail, Calendar) without maintaining separate API credentials — meaningful expansion, not pipeline-critical. Local config deduplication is a useful safety property (local override wins). Official Anthropic v2.1.89 feature, zero maintenance after initial web auth. Integration action: document in registry, verify current authentication state of claude.ai connector MCPs."
+  }
+}

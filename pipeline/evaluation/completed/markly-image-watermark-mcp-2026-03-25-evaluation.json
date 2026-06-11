@@ -1,0 +1,24 @@
+{
+  "title": "Markly – Image Watermarking MCP",
+  "source": "Hacker News (Show HN), March 2026",
+  "type": "mcp_server",
+  "description": "Zero-friction image manipulation MCP: 10-second setup, no API key required. Supports natural language commands like 'Add Copyright 2026 bottom-right, semi-transparent' or 'Watermark all images in /photos with my logo.png at 20%'. Single npx command to integrate. Handles batch watermarking across directories.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["image-watermarking", "zero-setup", "npx", "image-manipulation", "batch-images", "copyright", "logo-overlay"],
+  "redundancy_status": "NOVEL",
+  "redundancy_comparison": "Document generation stack covers PDF, DOCX, PPTX, XLSX but has zero image manipulation capability. No watermarking, overlay, or image batch processing tools anywhere in the registry. Genuinely novel.",
+  "evaluation": {
+    "date": "2026-03-25",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 100,
+      "maintenance_burden": 70,
+      "community_validation": 50
+    },
+    "total": 75.5,
+    "decision": "APPROVED",
+    "reasoning": "Fills a genuine gap: no image manipulation capability in the current stack. Zero-setup model (no API key, single npx command) is a strong integration signal. Practical use cases are concrete: blog asset management for Ashita Orbis (watermarking published images), game asset pipeline (batch logo overlays on game screenshots). Natural language command interface aligns well with Claude Code workflows. Maintenance burden moderate (npm package, monthly check). Community validation unconfirmed — integration is contingent on verifying GitHub repo exists with meaningful adoption.",
+    "action": "VERIFY_THEN_INTEGRATE: (1) Confirm GitHub repo URL and star count before adding to ~/.claude.json. (2) If 100+ stars and actively maintained, add via npx transport. (3) Test batch watermarking on sample Ashita Orbis image assets."
+  }
+}

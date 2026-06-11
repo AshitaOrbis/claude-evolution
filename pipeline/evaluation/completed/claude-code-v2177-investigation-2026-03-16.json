@@ -1,0 +1,12 @@
+{
+  "title": "Claude Code v2.1.77 — Breaking Changes & claude-agent-sdk Migration",
+  "source": "https://github.com/anthropics/claude-code/commit/48b1c6c0ba0b0644c97d2014d68f0c94ef157904",
+  "type": "technique",
+  "description": "Evidence of a Claude Code release beyond v2.1.76 with two significant changes: (1) Breaking change removing deprecated Windows managed settings path at C:\\ProgramData\\ClaudeCode\\managed-settings.json in favor of C:\\Program Files\\ClaudeCode\\managed-settings.json. (2) Legacy SDK entrypoint removed — migration to @anthropic-ai/claude-agent-sdk required. The claude-agent-sdk formalization may be the public release of the SDK powering Claude Code agents as a standalone npm package. Additional: releasebot.io reports bug fixes for hangs, deadlocks, and remote control glitches. Version number not confirmed as v2.1.77 — needs verification from GitHub Releases.",
+  "discovered_at": "2026-03-16T00:00:00Z",
+  "keywords": ["claude-code", "version", "v2.1.77", "claude-agent-sdk", "breaking-change", "managed-settings", "legacy-sdk"],
+  "redundancy_check": "Not in registry. registry_updates_pending in versions.json covers v2.1.73–v2.1.76 features but not this. claude-agent-sdk is a new npm package distinct from existing Claude Code SDK patterns.",
+  "preliminary_score": "NEEDS_INVESTIGATION — version not confirmed, claude-agent-sdk public release impact unclear",
+  "signals_from_yesterday": "2026-03-15 report flagged: 'Check v2.1.77+ tomorrow'. GitHub commit 48b1c6c confirms CHANGELOG activity.",
+  "action": "Verify v2.1.77 tag on https://github.com/anthropics/claude-code/releases. Confirm @anthropic-ai/claude-agent-sdk npm package exists and what it exposes. Evaluate impact on claude-api skill and agent templates."
+}

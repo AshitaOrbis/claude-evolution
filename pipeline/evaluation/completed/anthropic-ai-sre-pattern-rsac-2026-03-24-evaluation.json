@@ -1,0 +1,30 @@
+{
+  "id": "anthropic-ai-sre-pattern-rsac-2026-03-24",
+  "title": "AI SRE Pattern — Agent-Driven Reliability Engineering (Anthropic at RSAC 2026)",
+  "source": "The Register (theregister.com), RSAC 2026 presentation, March 19 2026",
+  "type": "technique",
+  "discovered_at": "2026-03-24",
+  "evaluation": {
+    "date": "2026-03-24",
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency_impact": 50,
+      "capability_expansion": 60,
+      "maintenance_burden": 90,
+      "community_validation": 80
+    },
+    "total": 69.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Credible signal (Anthropic official RSAC 2026 presentation) about a working agentic pattern for systematic verification. The core insight — 'relentless AI agents can find holes humans miss' through exhaustive, loop-based verification — is directly applicable to the evolution system's QA agents (adversarial-explorer, qa-analyst-verifier, security-auditor). Integration complexity scored 80 because this is a technique (documentation + playbook), not an MCP. Community validation is 80 because it's an official Anthropic presentation despite the secondary source. Score is 69.0, just below the 70 threshold. The capability expansion is real but the description has thin implementation details — 'what does the agent loop look like?' and 'what tools/hooks are used?' are unresolved. Needs research to push over 70.",
+    "research_questions": [
+      "Is there a public write-up, blog post, or GitHub repo from the RSAC presentation?",
+      "What does the agent loop structure look like? (Tools used, loop termination conditions?)",
+      "What types of reliability checks does it run? (Health endpoints, synthetic transactions, chaos testing?)",
+      "Is this documented in any Anthropic engineering blog or cookbook?"
+    ],
+    "promote_condition": "Specific loop structure documented + at least one reproducible example. Score would rise to ~78 with implementation details.",
+    "source_url": "https://www.theregister.com/2026/03/19/anthropic_rsac_2026/"
+  },
+  "original_description": "Anthropic presented at RSAC 2026 on using AI agents for SRE workflows. Key insight: 'relentless AI agents can find holes humans miss' — agents systematically probe reliability gaps through exhaustive verification patterns that humans find tedious or miss entirely.",
+  "redundancy_check": "NOVEL — registry has multi-agent orchestration, code-reviewer, security-auditor agents. None specifically cover SRE/infrastructure reliability verification patterns."
+}

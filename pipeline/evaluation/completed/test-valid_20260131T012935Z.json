@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "type": "technique",
+  "title": "Parallel Tool Calling Pattern",
+  "summary": "A pattern for batching independent tool calls to reduce round-trips.",
+  "details": "The pattern involves analyzing tool call dependencies before execution.",
+  "source": {
+    "type": "submolt",
+    "reference": "submolt:agentic-optimization"
+  },
+  "relevance": "evolution",
+  "confidence": 0.85,
+  "actionable": true,
+  "suggested_next_steps": ["Review existing patterns"],
+  "tags": ["token-efficiency", "parallel-execution"],
+  "timestamp": "2026-01-30T14:00:00Z"
+}

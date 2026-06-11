@@ -1,0 +1,21 @@
+{
+  "title": "/cost Per-Model and Cache Breakdown (v2.1.92)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.92, April 4 2026)",
+  "type": "technique",
+  "description": "The /cost command now shows per-model cost breakdown and cache-hit breakdown for subscription (Max plan) users. Previously showed only aggregate totals. Useful for understanding token spend distribution across model tiers in multi-agent sessions (Opus vs Sonnet vs Haiku), and for verifying prompt cache effectiveness.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["/cost breakdown", "per-model cost", "cache hit breakdown", "cost visibility", "token spend"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 80.0,
+    "decision": "APPROVED",
+    "reasoning": "Directly applicable to Max plan multi-agent sessions — enables per-model spend visibility across Opus/Sonnet/Haiku subagent calls and cache effectiveness verification. Built-in, zero config, zero maintenance. Addresses a real debugging need in the evolution/heartbeat pipeline."
+  }
+}

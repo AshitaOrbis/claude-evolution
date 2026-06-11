@@ -1,0 +1,41 @@
+{
+  "title": "PreCompact Hook Blocking + Background Plugin Monitors (v2.1.105)",
+  "source": "https://github.com/anthropics/claude-code/releases",
+  "type": "technique",
+  "description": "Two related v2.1.105 hook system expansions. (1) PreCompact Hook Blocking: hooks can now block compaction entirely by exiting with code 2 OR returning JSON `{\"decision\":\"block\"}`. Previously, PreCompact hooks could inspect/modify compaction state but not veto it. This enables quality gates: block compaction if critical state would be lost, if active subagents are running, or if mid-task context must be preserved. (2) Background Plugin Monitors: a new top-level `monitors` key in the plugin manifest that auto-arms background monitor scripts at session start or on skill invoke. Enables persistent background monitoring (test watchers, file change detectors, cost monitors) without manual hook setup. Related: /proactive is now an alias for /loop (autonomous task mode). Released April 2026.",
+  "discovered_at": "2026-04-14",
+  "keywords": [
+    "PreCompact hook block",
+    "block compaction hook",
+    "hook decision block",
+    "precompact exit code 2",
+    "plugin monitors manifest",
+    "background monitor plugin",
+    "monitors manifest key",
+    "auto-arm session monitor",
+    "plugin background process",
+    "compaction veto hook",
+    "/proactive alias /loop"
+  ],
+  "priority": "MEDIUM",
+  "redundancy_check": "IMPROVEMENT over existing PreCompact hook (already in registry). PreCompact hook existed but was observational only. Exit code 2 blocking is a meaningful capability expansion — matches PreToolUse/PermissionRequest blocking semantics, brings PreCompact to full parity. Background monitors manifest is NOVEL — no existing mechanism for auto-armed persistent background processes in plugins.",
+  "notes": "PreCompact blocking is directly useful for the iterative-improve pipeline: block compaction when loop state is active. Background monitors could replace manual hook setup for clauditor-style session monitoring patterns. The `monitors` manifest key is new infrastructure for plugin ecosystem — worth documenting in hook-lifecycle skill as the 22nd+ hook mechanism. Verify exact manifest schema from Anthropic docs before integrating.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 60,
+      "capability_expansion": 75,
+      "maintenance_burden": 80,
+      "community_validation": 80
+    },
+    "total": 73.75,
+    "decision": "APPROVED",
+    "reasoning": "Integration complexity (80): moderate — update existing PreCompact hook scripts to use exit code 2 for veto logic; background monitors requires new manifest key but is straightforward config. Token efficiency (60): blocking compaction when critical iterative-improve state is active prevents expensive context reconstruction; minor but real saving. Capability expansion (75): PreCompact blocking upgrades an observational hook to a gating hook (aligns with PreToolUse/PermissionRequest blocking semantics, brings parity); background monitors is genuinely novel infrastructure with no existing equivalent. Maintenance burden (80): hook scripts are static once configured; monitors manifest is stable. Community validation (80): official Anthropic v2.1.105 release. Integration type: TECHNIQUE — update hook-lifecycle skill to add blocking decision return, add monitors manifest documentation, and document /proactive alias.",
+    "integration_target": [
+      "Update ~/.claude/skills/hook-lifecycle/SKILL.md to add PreCompact blocking (§ PreCompact) and background monitors manifest",
+      "Update registry/existing-capabilities.md: Hook Development Patterns table — add PreCompact blocking row, monitors row",
+      "Document /proactive as alias for /loop in registry"
+    ],
+    "evaluated_at": "2026-04-14"
+  }
+}

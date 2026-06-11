@@ -1,0 +1,11 @@
+{
+  "title": "mTarsier — Open-Source Unified MCP Server Configuration Manager",
+  "source": "https://www.openpr.com/news/4425366/mtarsier-launches-free-open-source-tool-to-unify-mcp-server",
+  "type": "technique",
+  "description": "mTarsier (by MCP360) is a free, open-source desktop application released March 16, 2026 for managing Model Context Protocol server configurations across multiple AI clients from a single interface. Requires no account and runs locally. Aims to solve 'MCP sprawl' as the client ecosystem grows (Claude Code, Claude Desktop, Cursor, Windsurf, etc. all maintain separate MCP configs). Related tools in same space: MCPSM (macOS-only native app, lobehub), mcp2cli (CLI package manager).",
+  "discovered_at": "2026-03-16T00:00:00Z",
+  "keywords": ["mcp", "config-management", "mcp-manager", "desktop-app", "mtarsier", "mcp360", "mcp-sprawl"],
+  "redundancy_check": "No match in registry. Closest: disabledMcpjsonServers (settings.json toggle) and defer_loading (manual per-server config). Neither is a unified multi-client GUI manager. mTarsier is additive, not redundant — different abstraction layer.",
+  "preliminary_score": "35–45 (likely below threshold). GUI tools for managing config files have low integration value for an automated evolution system that manages configs via direct file editing and CLI tools. Useful for less technical users but not for this workflow.",
+  "action": "Quick evaluation only. Check if mTarsier provides any programmatic/CLI interface (not just GUI). If CLI-only interface exists, rescore upward. Otherwise reject as low-value for headless/automated use."
+}

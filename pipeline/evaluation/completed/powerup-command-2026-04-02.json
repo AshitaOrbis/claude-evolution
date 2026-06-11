@@ -1,0 +1,22 @@
+{
+  "title": "/powerup Interactive Feature Tutorial Command",
+  "source": "Claude Code v2.1.90 changelog",
+  "type": "built_in_command",
+  "description": "/powerup is a new built-in slash command in Claude Code v2.1.90 that provides interactive lessons teaching Claude Code features through animated demos. Designed for hands-on onboarding — users explore capabilities interactively rather than reading static documentation. Not scriptable or automatable (interactive UI only). Primarily an education/discoverability tool for surfacing built-in features that may slip through the heartbeat investigation.",
+  "discovered_at": "2026-04-02",
+  "keywords": ["/powerup", "interactive tutorial", "onboarding", "feature discovery", "Claude Code demos", "animated lessons", "built-in command"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No existing interactive tutorial system in registry. Closest overlap: helpers/playbooks (static docs), CLAUDE.md instructions — not interactive. Classification: NOVEL.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Zero integration cost — built-in command, nothing to install or configure. Full community validation as official Anthropic v2.1.90 feature. Capability expansion is moderate (40): /powerup is educational/discoverability only, not a pipeline tool or automatable capability. Value is indirect — running it periodically may surface built-in features that slip through the heartbeat. Token efficiency neutral. Integration action: document in registry as available command, run /powerup once to check for capabilities not yet in the registry. Maintenance: zero (built-in)."
+  }
+}

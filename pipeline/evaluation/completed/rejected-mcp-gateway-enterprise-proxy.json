@@ -1,0 +1,22 @@
+{
+  "title": "MCP Gateway v1.0.5 — Enterprise Reverse Proxy for MCP Servers",
+  "source": "https://news.ycombinator.com/item?id=45741366",
+  "type": "mcp_server",
+  "description": "Enterprise-grade reverse proxy for MCP servers that adds authentication, authorization, and observability to any MCP server without modifying server code. Acts as a governance layer: all MCP traffic routes through the gateway, which enforces access controls, logs usage, and handles auth. Explicitly supports VS Code, Cursor, and Claude Code as clients.",
+  "discovered_at": "2026-04-11T00:00:00Z",
+  "evaluated_at": "2026-04-11T00:00:00Z",
+  "keywords": ["MCP gateway", "MCP proxy", "MCP auth", "MCP authorization", "MCP observability", "enterprise MCP", "MCP reverse proxy", "MCP access control", "MCP logging", "MCP governance"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 40,
+      "token_efficiency": 55,
+      "capability_expansion": 40,
+      "maintenance_burden": 40,
+      "community_validation": 75
+    },
+    "total": 49.0,
+    "decision": "REJECTED",
+    "reasoning": "Capability expansion revised down from 55 to 40: this is a single-user Max plan setup with no multi-user access controls needed, making the core governance features (auth, authorization, access controls) irrelevant. Integration complexity is high (separate proxy server, configuration overhead). Maintenance burden is high (ongoing proxy infrastructure). The only scenario where this becomes relevant is if the agent-event-bus MCP server needs to be exposed beyond Tailscale to external consumers — a scenario that doesn't currently exist. Reject and revisit if multi-user or external agent access requirements emerge."
+  }
+}

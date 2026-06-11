@@ -1,0 +1,23 @@
+{
+  "title": "MCP + Auto-Generated CLAUDE.md Scaffold Pattern (from Seite)",
+  "source": "https://news.ycombinator.com/item?id=47151427",
+  "type": "technique",
+  "description": "Pattern observed in Seite static site generator: tools that co-ship an MCP server alongside a CLAUDE.md scaffolding step (run on init) that pre-loads schema, conventions, and tool references. Enables agent-ready integration out of the box without manual CLAUDE.md authoring. Applicable to any future tools built for this workspace that need Claude Code awareness. Low direct integration value, high pattern documentation value.",
+  "discovered_at": "2026-04-01",
+  "keywords": ["claude-md", "scaffolding", "mcp", "pattern", "agent-ready", "integration-pattern"],
+  "redundancy": "NOVEL",
+  "priority": "low",
+  "notes": "Pattern value only. Not a tool to install — a design pattern to apply when building future MCP-enabled tools.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 70
+    },
+    "total": 64.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Pure pattern documentation — no tool to install. The value is the design principle: co-ship MCP + CLAUDE.md scaffold step for any future workspace tools that need Claude Code awareness. Direct impact is zero; future impact is moderate when building new MCP-enabled tools. Decision for human: is this worth creating a library/techniques entry, or is it too narrow? If the workspace plans to build new MCP tools (e.g., extensions to agent-event-bus, new game pipeline tools), documenting this pattern has value. Otherwise, it can be archived."
+  }
+}

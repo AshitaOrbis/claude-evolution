@@ -1,0 +1,19 @@
+{
+  "title": "X-Claude-Code-Session-Id Request Header (v2.1.86) — Proxy Session Aggregation",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.86",
+  "type": "claude_feature",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 35,
+      "maintenance_burden": 100,
+      "community_validation": 95
+    },
+    "total": 70.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature, zero integration friction (already injected automatically). Capability expansion is low for the current Max plan setup (no custom proxy), but this is forward-useful knowledge when LiteLLM or Cloudflare proxy is introduced for cost accounting. The session ID enables per-session token cost tracking at the proxy layer — relevant to heartbeat cost monitoring and future bloat-metrics integration. Action: registry note only. Document in existing-capabilities.md under a new 'API Headers' or 'Proxy Integration' row. No settings change needed; the header is automatic. Reference this when evaluating any future proxy setup."
+  }
+}

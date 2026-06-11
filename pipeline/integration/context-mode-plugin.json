@@ -1,0 +1,16 @@
+{
+  "title": "context-mode Plugin Install (PostToolUse Output Sandboxing)",
+  "type": "plugin-install",
+  "source_item": "pipeline/integration/20260415-context-mode-posttooluse-sandbox.json",
+  "proposed_command": "/plugin marketplace add mksglu/context-mode",
+  "requires_version": "Claude Code v1.0.33+",
+  "reason": "PostToolUse hooks intercept large tool outputs (Playwright snapshots 56KB\u2192300B, grep dumps, curl responses) and route them to filesystem, injecting only compact summaries into the context window. Claims 98% per-tool token reduction. Directly relevant: persona testing pipeline uses Playwright heavily. Lossless \u2014 full data preserved on disk for retrieval. 7.3k GitHub stars. Elastic License 2.0.",
+  "risk_note": "Plugin marketplace install modifies Claude Code plugin config. No env vars proposed. Hooks register automatically \u2014 no manual settings.json editing needed. All 5 hook types supported for Claude Code.",
+  "license": "Elastic License 2.0 \u2014 free to use and modify, cannot resell as managed service",
+  "evaluation_score": 81.25,
+  "evaluated_at": "2026-04-15",
+  "status": "pending_approval",
+  "created_at": "2026-04-16",
+  "approved_by_human": true,
+  "approved_at": "2026-06-02T13:00:16Z"
+}

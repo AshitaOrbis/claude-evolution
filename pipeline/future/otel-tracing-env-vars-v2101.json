@@ -1,0 +1,28 @@
+{
+  "title": "OTEL Tracing Opt-In Env Vars: OTEL_LOG_USER_PROMPTS, OTEL_LOG_TOOL_DETAILS, OTEL_LOG_TOOL_CONTENT (v2.1.101)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.101",
+  "type": "technique",
+  "description": "Claude Code's beta OTEL (OpenTelemetry) tracing now honors three new opt-in env vars that control what sensitive data is included in trace spans. By default, user prompt text and tool content are redacted from spans. Setting OTEL_LOG_USER_PROMPTS=1 includes prompt text, OTEL_LOG_TOOL_CONTENT=1 includes tool invocation content, and OTEL_LOG_TOOL_DETAILS=1 includes detailed tool metadata. Additionally, v2.1.101 adds W3C TRACEPARENT env var to Bash subprocesses when OTEL tracing is enabled, allowing child-process spans to correctly parent to the Claude Code trace tree. Together these enable full distributed tracing of Claude Code sessions for debugging and cost analysis in observability pipelines. A community repo (ColeMurray/claude-code-otel) with guidance already exists. Relevant for heartbeat/pipeline cost monitoring.",
+  "discovered_at": "2026-04-12",
+  "keywords": ["OTEL_LOG_USER_PROMPTS", "OTEL_LOG_TOOL_DETAILS", "OTEL_LOG_TOOL_CONTENT", "OTEL tracing", "TRACEPARENT", "OpenTelemetry", "claude code observability", "distributed tracing", "CLAUDE_CODE_ENABLE_TELEMETRY"],
+  "source_confidence": "HIGH",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 60,
+      "token_efficiency": 60,
+      "capability_expansion": 75,
+      "maintenance_burden": 60,
+      "community_validation": 90
+    },
+    "total": 68.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic feature (v2.1.101) with community quickstart (ColeMurray/claude-code-otel). Novel capability: full distributed tracing of Claude Code sessions including subagent spans, Bash subprocess spans, and MCP tool invocations. Token efficiency benefit is indirect: enables identifying which heartbeat phases, subagents, or MCP tools consume disproportionate context. Capability expansion 75: genuinely novel — no equivalent in current monitoring stack. Integration complexity 60: requires OTLP endpoint setup, CLAUDE_CODE_ENABLE_TELEMETRY=1, and running an OTEL collector. Maintenance burden 60: collector process needs to stay up. Research: check if ColeMurray/claude-code-otel has a local-only quickstart (e.g., OTLP→local file), determine whether this integrates with the existing agent-event-bus monitoring pipeline, and estimate the overhead cost.",
+    "research_questions": [
+      "Does CLAUDE_CODE_ENABLE_TELEMETRY=1 need to be set alongside the OTEL_LOG_* vars for tracing to work?",
+      "What OTLP endpoint configuration is needed? Does ColeMurray/claude-code-otel provide a local-only (no external service) quickstart?",
+      "Can OTEL trace data be written to a local file or SQLite without running a full collector stack?",
+      "Integration path with the agent-event-bus: can trace spans be published to the event bus for analysis?",
+      "Performance overhead of tracing enabled for every heartbeat/cron run?"
+    ]
+  }
+}

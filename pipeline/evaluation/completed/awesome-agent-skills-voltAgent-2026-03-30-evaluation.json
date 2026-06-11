@@ -1,0 +1,30 @@
+{
+  "title": "VoltAgent/awesome-agent-skills — Cross-Platform Agent Skill Repository",
+  "source": "https://github.com/VoltAgent/awesome-agent-skills",
+  "type": "reference",
+  "description": "Curated repository of 1000+ agent skills compatible across Claude Code, Codex (OpenAI), Gemini CLI, Cursor, and other coding agents. Includes official dev team skills and community contributions. An MCP server auto-fetches and updates skills from the repository. Cross-platform compatibility is the key differentiator — skills work across model providers.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["cross-platform skills", "Codex skills", "Gemini CLI skills", "Cursor skills", "community skills", "agent skills repository", "multi-platform agent skills", "skill marketplace", "VoltAgent", "awesome-agent-skills"],
+  "redundancy_check": "Our skill system is entirely workspace-specific (20+ skills in ~/.claude/skills/). This repository offers community-validated, cross-platform skills. Cross-platform compatibility is novel — not covered by existing skill infrastructure. Distinct from awesome-claude-code-subagents (agents vs skills).",
+  "research_questions": [
+    "How much overlap exists with our existing 20+ skills?",
+    "Which skills in this repo address capability gaps we currently lack?",
+    "Is cross-platform compatibility (Codex/Gemini CLI) a priority for this workspace?",
+    "What does the MCP auto-fetch server look like — is it safe to install?",
+    "Are there specific skills in this repo better than our existing equivalents?"
+  ],
+  "evaluation": {
+    "date": "2026-03-30",
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 60,
+      "maintenance_burden": 70,
+      "community_validation": 60
+    },
+    "total": 61.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "The repository claims 1000+ community skills, but the value depends entirely on overlap with our existing 20+ workspace skills. Integration complexity is moderate — individual skill files can be selectively adopted without taking the full MCP auto-fetch server (which raises unverified security concerns). Token efficiency is neutral; skills are invoked on-demand and don't add baseline token load. Capability expansion is unclear without knowing which skills exist and what they cover — this is the central research question. Community validation at 60 reflects the claimed cross-platform community but unverified GitHub star count. The MCP auto-fetch server is a flag: before installing any server from this repo, verify it doesn't auto-update files or have network side effects. Primary research task: skim the skill list for 10-15 most relevant-looking skills vs our existing equivalents.",
+    "action": "RESEARCH: Browse https://github.com/VoltAgent/awesome-agent-skills — (1) check star count and recent commit activity, (2) skim skill list for gaps vs our existing skills (git-workflow, testing, deployment, coding-philosophy, session-handoff, etc.), (3) security-audit the MCP auto-fetch server before considering installation. If 3+ skills address genuine gaps, re-evaluate at 70+ for selective cherry-pick integration."
+  }
+}

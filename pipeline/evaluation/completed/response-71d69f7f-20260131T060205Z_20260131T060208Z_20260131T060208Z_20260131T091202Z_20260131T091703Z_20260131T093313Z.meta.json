@@ -1,0 +1,15 @@
+{
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Could not parse response, assuming safe"
+    },
+    "validated_at": "2026-01-31T09:33:13.898915+00:00Z"
+  }
+}

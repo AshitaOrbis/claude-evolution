@@ -1,0 +1,37 @@
+{
+  "title": "code-review-graph — Persistent codebase knowledge graph MCP (49x token reduction)",
+  "source": "https://github.com/tirth8205/code-review-graph",
+  "secondary_sources": [
+    "https://tirthkanani18.medium.com/i-built-a-knowledge-graph-that-cuts-claude-codes-token-usage-by-49x-9260d3cd1069"
+  ],
+  "type": "mcp_server",
+  "description": "Local knowledge graph MCP server for Claude Code. Builds a persistent structural map of the codebase so Claude reads only relevant files rather than scanning everything. Measured results: 6.8x fewer tokens on code reviews; up to 49x fewer tokens on daily coding tasks (Next.js monorepo: 739K tokens → 15K tokens, 27,700+ files excluded). Installable as a Claude Code plugin via `claude plugin add tirth8205/code-review-graph`. Active development, March 2026. Targets the context-pollution problem for large monorepos specifically.",
+  "discovered_at": "2026-03-19",
+  "keywords": ["knowledge-graph", "token-reduction", "codebase-map", "persistent", "MCP", "49x", "code-exploration", "plugin", "token-efficiency", "monorepo", "context-reduction"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "No match in registry or completed evaluations. Existing context management (batch-orchestrator, Tool Search Tool, context chunking) all reduce context overhead through different mechanisms. code-review-graph uniquely builds a PERSISTENT structural knowledge graph of the codebase that persists between sessions. The deusdata codebase-memory-mcp (evaluated 2026-03-13) was rejected — check that evaluation to understand how they differ before full evaluation."
+  },
+  "evaluation": {
+    "status": "NEEDS_RESEARCH",
+    "evaluated_at": "2026-03-19",
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 80,
+      "capability_expansion": 65,
+      "maintenance_burden": 50,
+      "community_validation": 40
+    },
+    "total": 65.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Token efficiency claims (49x) are plausible for large monorepos but need verification. Plugin installation mechanism (`claude plugin add`) is novel and simpler than MCP config. Scored lower on maintenance (50) and community (40) due to no star count mentioned — this is the critical unknown. The deusdata codebase-memory-mcp comparison is key: that tool focuses on AST structural queries (call graphs, dead code); this one focuses on file-relevance filtering (which files to read). Conceptually different use cases. Score would cross 70 if community validation is ≥70 (i.e., 100+ GitHub stars).",
+    "research_questions": [
+      "What is the current GitHub star count for tirth8205/code-review-graph?",
+      "Is the plugin mechanism (`claude plugin add`) stable across Claude Code versions?",
+      "Are there known stability issues, OOM problems, or session interference (similar to codebase-memory-mcp)?",
+      "How does it compare to codebase-memory-mcp architecturally — file-relevance filter vs AST structural queries?",
+      "Does the 49x benchmark apply to our actual workspace (~59 projects, mixed sizes) or only to large monorepos (27k+ files)?"
+    ],
+    "re_evaluation_trigger": "When star count is confirmed ≥100 stars, or when someone tests it on the workspace and reports results."
+  }
+}

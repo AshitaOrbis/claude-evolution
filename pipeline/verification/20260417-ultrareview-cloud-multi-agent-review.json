@@ -1,0 +1,24 @@
+{
+  "title": "/ultrareview — Cloud Multi-Agent Code Review",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "technique",
+  "description": "New /ultrareview command (v2.1.111, research preview) launches a fleet of reviewer agents in a remote cloud sandbox to find and independently verify bugs before merge. Takes 5-10 min, runs in background. Reports only verified findings — eliminating false positive noise. Works on local diffs or by PR number (GitHub required for PR mode). Costs $5-$20 per review after 3 free runs. Requires claude.ai auth. Multi-agent parallel verification is fundamentally distinct from local code-reviewer subagent (single-pass, local resources). The /tasks command tracks running and completed reviews.",
+  "discovered_at": "2026-04-17",
+  "keywords": ["ultrareview", "cloud code review", "multi-agent review", "pre-merge review", "verified findings", "parallel reviewer agents", "cloud sandbox review"],
+  "redundancy_check": "NOVEL — code-reviewer subagent is local/single-pass; this is cloud multi-agent with independent verification",
+  "version_introduced": "v2.1.111",
+  "limitations": "Research preview, requires claude.ai account + GitHub, not available on Bedrock/Vertex/Foundry, no ZDR orgs. Costs $5-$20/review beyond 3 free runs.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 85,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 77.75,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature (community_validation=100), Anthropic-maintained (maintenance=100). Integration is straightforward — invoked by /ultrareview command, requires existing claude.ai auth, no local setup beyond GitHub token for PR mode (complexity=70; research preview and GitHub requirement reduce from 100). Token efficiency neutral (50): cloud-side execution doesn't affect local token budget. Capability expansion high (85): fleet of independent reviewer agents with cross-verification eliminates false positives — fundamentally different from local code-reviewer subagent which does single-pass analysis. Integration action: registry entry documenting command, use cases (pre-merge review, PR-number scanning), and cost model ($5-20/review, 3 free)."
+  },
+  "evaluated_at": "2026-04-17"
+}

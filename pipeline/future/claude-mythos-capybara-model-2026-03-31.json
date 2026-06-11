@@ -1,0 +1,20 @@
+{
+  "title": "Claude Mythos / Capybara — Next-Generation Anthropic Model (Testing Phase)",
+  "source": "https://fortune.com/2026/03/26/anthropic-says-testing-mythos-powerful-new-ai-model-after-data-leak-reveals-its-existence-step-change-in-capabilities/",
+  "type": "claude_feature",
+  "description": "Anthropic's upcoming model, internally called 'Claude Mythos' (codenamed Capybara), was revealed via an accidental content management leak on March 27, 2026. Anthropic confirmed it is in testing and described as a 'step change in capabilities' — their most capable model to date. Leaked materials indicate significant outperformance of Opus 4.6 on coding, academic reasoning, and cybersecurity benchmarks. Currently available to select early access customers. Represents a new model tier above the current Opus series.",
+  "discovered_at": "2026-03-31",
+  "status": "FUTURE — awaiting GA release",
+  "keywords": ["Claude Mythos", "Capybara model", "next Anthropic model", "step change capabilities", "above Opus 4.6"],
+  "routing": {
+    "decision": "FUTURE",
+    "reason": "Model is in testing phase with limited early access. No GA release date confirmed. Integration is impossible until public availability.",
+    "when_to_revisit": "When Anthropic announces GA availability — monitor anthropic.com/news and Claude Code changelog.",
+    "integration_actions_on_ga": [
+      "Update Contemporary AI Models table in ~/.claude/CLAUDE.md — add Mythos above Opus 4.6",
+      "Evaluate model-router agent to prefer Mythos for complex reasoning tasks",
+      "Assess security-auditor subagent given documented cybersecurity benchmark improvements",
+      "Note: Anthropic internal docs flagged elevated cybersecurity risk potential — review deployment policies on release"
+    ]
+  }
+}

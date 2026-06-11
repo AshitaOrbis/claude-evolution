@@ -1,0 +1,24 @@
+{
+  "title": "/less-permission-prompts — Automatic Permission Allowlist Builder",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "skill",
+  "description": "New built-in /less-permission-prompts skill (v2.1.111) that scans session transcripts and proposes a permission allowlist based on detected patterns. Automates the manual process of building an allowlist for Auto Mode — instead of adding allow rules one by one after encountering prompts, Claude analyzes transcripts and drafts the full allowlist in one pass. Directly complements the Auto Mode feature already in the registry (permissions.defaultMode: 'auto'). Removes the last friction point in Auto Mode adoption: knowing which rules to add. Already available as a local skill in ~/.claude/skills/less-permission-prompts/ — evaluate whether built-in version supersedes the local one.",
+  "discovered_at": "2026-04-17",
+  "keywords": ["less-permission-prompts", "permission allowlist", "auto mode setup", "permission rules scan", "transcript analysis", "allowlist builder"],
+  "redundancy_check": "IMPROVEMENT:Claude Code Auto Mode — Auto Mode is already in registry; this is the companion that automates allowlist creation. Also check against local ~/.claude/skills/less-permission-prompts/ to determine if built-in supersedes it.",
+  "version_introduced": "v2.1.111",
+  "priority": "high — closes the Auto Mode adoption friction loop",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 50,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 75.0,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic built-in skill (community_validation=100), Anthropic-maintained (maintenance=100). Integration is zero-effort — built-in command, no configuration (complexity=100). Token efficiency neutral (50): one-time setup benefit for allowlist creation, no ongoing per-session effect. Capability expansion moderate (50): IMPROVEMENT classification — the local ~/.claude/skills/less-permission-prompts/ skill already provides this, but the built-in version is officially maintained and may have improved transcript analysis logic. Integration action: (1) verify whether local skill at ~/.claude/skills/less-permission-prompts/ can be retired or if it has custom logic worth preserving; (2) update registry entry for Auto Mode to reference /less-permission-prompts as companion; (3) document that local skill may be superseded."
+  },
+  "evaluated_at": "2026-04-17"
+}

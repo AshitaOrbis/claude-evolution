@@ -1,0 +1,23 @@
+{
+  "title": "Opus 4.7 Context Window Fix — 1M Correctly Applied (v2.1.117)",
+  "source": "Official Claude Code v2.1.117 changelog (code.claude.com/docs/en/changelog)",
+  "type": "technique",
+  "description": "In v2.1.117, a bug was fixed where Opus 4.7 sessions were computing context usage against 200K tokens instead of the model's native 1M context window. This caused `/context` to show inflated percentages and triggered autocompaction far too early on Opus 4.7. With the fix, Opus 4.7 sessions correctly use the 1M context limit, preventing premature compaction in long iterative-improve and heartbeat sessions. No configuration change needed — automatic with v2.1.117.",
+  "discovered_at": "2026-04-22",
+  "keywords": ["Opus 4.7 context", "context window bug", "autocompact too early", "1M context fix", "context percentage inflated", "v2.1.117"],
+  "redundancy_check": "IMPROVEMENT — existing registry entry for Opus 4.7 (v2.1.111) documents the model but does not mention this context calculation bug. Registry update needed to note the fix.",
+  "preliminary_notes": "Score 70-75 (registry-update only — no config change needed, fix is automatic). High relevance for sessions using Opus 4.7. Action: Update registry Opus 4.7 entry to note that v2.1.117 fixes premature autocompaction; update workspace to v2.1.117 if not already on it.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 70,
+      "capability_expansion": 40,
+      "maintenance_burden": 95,
+      "community_validation": 100
+    },
+    "total": 76.75,
+    "decision": "APPROVED",
+    "reasoning": "Automatic bug fix with zero config overhead. Integration complexity (100): ships automatically with v2.1.117, nothing to configure. Token efficiency (70): prevents premature autocompaction on Opus 4.7 — compaction wastes tokens and truncates context unnecessarily; this fix allows sessions to run to their full 1M context capacity efficiently. Capability expansion (40): bug fix restoring correct behavior, not a new feature; but restores the full 1M window benefit for Opus 4.7. Maintenance (95): Anthropic-managed permanent fix. Community validation (100): official release. Integration action: registry update to existing Opus 4.7 entry (v2.1.111) noting that v2.1.117 fixes the 200K→1M context calculation bug; verify workspace is on v2.1.117+."
+  },
+  "evaluated_at": "2026-04-22"
+}

@@ -1,0 +1,34 @@
+{
+  "title": "tweakcc — Claude Code System Prompt Customizer (Community, 1.3k Stars)",
+  "source": "https://github.com/Piebald-AI/tweakcc",
+  "type": "technique",
+  "description": "CLI tool from Piebald-AI (same team as claude-code-system-prompts) that patches Claude Code's system prompts at the local install level. Features: (1) modify any section of Claude Code's system prompt via markdown files, (2) create custom toolsets and input pattern highlighters, (3) add themes, thinking verbs, spinners, (4) opusplan[1m] model alias combining Opus for planning with Sonnet 1M context for execution — the team calls it reducing 'context anxiety', (5) ~50% startup speedup via non-blocking parallel MCP connections with configurable batch size (1-20) — distinct from and superset of native MCP_CONNECTION_NONBLOCKING env var (confirmed via GitHub issue #406), (6) CLAUDE_CODE_CONTEXT_LIMIT env var for custom API context sizes, (7) supports AGENTS.md format, (8) unlocks private/unreleased features. 1.3k GitHub stars, 101 forks, updated for v2.1.100+. No existing capability in registry does system-prompt-level patching — our CLAUDE.md hierarchy is user-level config, not system prompt injection. Note: community tool, patches internal install, may break on major Claude Code updates. Evaluate risk vs. reward for specific use cases like opusplan[1m].",
+  "discovered_at": "2026-04-13",
+  "keywords": ["tweakcc", "system prompt customization", "opusplan", "1M context planning", "Piebald", "Claude Code patching", "thinking verbs", "custom toolsets", "AGENTS.md", "startup optimization", "CLAUDE_CODE_CONTEXT_LIMIT"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 40,
+      "token_efficiency": 70,
+      "capability_expansion": 70,
+      "maintenance_burden": 30,
+      "community_validation": 70
+    },
+    "total": 58.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "High maintenance burden (30) is the score killer: tweakcc patches internal Claude Code install files, requiring re-application after every CC update. Integration complexity (40) follows. Token efficiency revised upward to 70: confirmed tweakcc's parallel MCP batch tuning is NOT the same as MCP_CONNECTION_NONBLOCKING — tweakcc adds configurable parallel batch size (1-20, default 3) that the native env var doesn't expose (confirmed via GitHub issue #406). The speedup is differentiated, not a duplicate. Additionally opusplan[1m] would save tokens on complex planning tasks. Capability expansion (70): opusplan[1m] (Opus planning + 1M Sonnet execution) is genuinely new; batch size tuning adds real control beyond native. Community validation (70): 1.3k stars, active Piebald-AI track record. Core blocker: the patch approach is fragile and requires ongoing maintenance after each CC update. Research needed: Is there a 'safe' subset achievable without patching? Does CLAUDE_CODE_CONTEXT_LIMIT work standalone?",
+    "research_questions": [
+      "Does CLAUDE_CODE_CONTEXT_LIMIT work without tweakcc (is it a native CC env var)?",
+      "Is there a 'safe' subset of tweakcc features that doesn't require patching internal files (e.g., env vars only)?",
+      "How fragile is the patch in practice — how many CC updates have broken it and how quickly was it fixed?",
+      "Can opusplan[1m] be replicated via current model-router + 1M context window (now default on Max plan)?"
+    ],
+    "research_note": "2026-04-14: Confirmed MCP parallel batch tuning is NOT a duplicate of MCP_CONNECTION_NONBLOCKING (tweakcc adds configurable batch size 1-20 via GitHub issue #406). Token efficiency score revised 65→70."
+  },
+  "evaluated_at": "2026-04-13",
+  "final_decision": {
+    "decision": "REJECTED",
+    "decided_at": "2026-04-30",
+    "decided_by": "user (interactive walkthrough)",
+    "reasoning": "Patches internal Claude Code install files — fragile, breaks on every CC update, conflicts with workspace 'no system file modification' principle. Headline features mostly redundant: 1M context is GA default on Max plan, MCP_CONNECTION_NONBLOCKING is native. Maintenance burden 30/100 not justified by remaining incremental features."
+  }
+}

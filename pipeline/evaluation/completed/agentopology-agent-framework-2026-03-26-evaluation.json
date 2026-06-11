@@ -1,0 +1,22 @@
+{
+  "title": "AgenTopology — Agent Topology and Orchestration Framework",
+  "source": "https://github.com/hesreallyhim/awesome-claude-code/issues/1010",
+  "type": "agent",
+  "description": "Community-nominated agent framework gaining traction as of March 2026. Referenced in a request to add it to the awesome-claude-code list, suggesting it provides topology-aware agent orchestration — potentially including visualization of agent dependency graphs, dynamic routing based on topology, and structured agent relationship mapping. Distinct from flat Task tool delegation if it provides explicit topology constructs (parent/child/sibling agent relationships with named edges).",
+  "discovered_at": "2026-03-26T00:00:00Z",
+  "keywords": ["agentopology", "agent-framework", "topology", "orchestration", "agent-routing", "agent-graph", "multi-agent", "dependency-graph"],
+  "notes": "LOW CONFIDENCE: Source is a GitHub issue requesting list inclusion, not a product announcement. Very limited information available. Critical unknowns: (1) actual GitHub repo URL, (2) star count, (3) what 'topology' means in this context vs existing Task tool hierarchy, (4) whether it integrates with Claude Code or is a standalone framework. Should remain NEEDS_RESEARCH until the GitHub repo can be found and assessed. High prior probability of being a DUPLICATE (registry already has comprehensive multi-agent orchestration via Task tool + evolution-orchestrator + agent spawn restrictions). Only worth pursuing if topology constructs provide genuinely novel routing or visualization capabilities.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 30,
+      "token_efficiency": 50,
+      "capability_expansion": 30,
+      "maintenance_burden": 30,
+      "community_validation": 30
+    },
+    "total": 34.5,
+    "decision": "REJECTED",
+    "reasoning": "Source is a GitHub issue requesting list inclusion — not a product announcement, not a repo with stars, not a documented feature. Zero verified information about the actual GitHub repo, star count, or what 'topology' actually provides. The registry already covers multi-agent orchestration comprehensively: Task tool (native), evolution-orchestrator (15+ specialized agents), agent spawn restrictions (frontmatter), agent worktree isolation, SendMessage auto-resume, Claude Squad (5.6k stars). For AgenTopology to be worth integrating, it would need to provide genuinely novel topology primitives (named edges, dynamic routing graphs, sibling agent relationships) that go beyond the existing Task tool hierarchy — and there is no evidence it does. Integration complexity at 30: no known integration path (can't integrate what we can't find). Community validation at 30: single GitHub issue reference with no stars verified. Capability expansion at 30: registry coverage is comprehensive; marginal novel value assumed at best. Maintenance at 30: community-only with no verification. Reject — if the repo is later found with substantial evidence of novelty, re-evaluate with a proper research flag.",
+    "evaluated_at": "2026-03-26T00:00:00Z"
+  }
+}

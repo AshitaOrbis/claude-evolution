@@ -1,0 +1,28 @@
+{
+  "title": "everything-claude-code: mcp-server-patterns Skill (April 2026 expansion)",
+  "source": "https://github.com/affaan-m/everything-claude-code",
+  "type": "skill",
+  "description": "The affaan-m/everything-claude-code repo has added a new mcp-server-patterns skill (patterns for building and configuring MCP servers from within Claude Code) plus pytorch-patterns, documentation-lookup, bun-runtime, nextjs-turbopack, and 8 operational domain skills. The mcp-server-patterns skill is directly applicable to claude-evolution's MCP integration work — patterns for discovering, configuring, and debugging MCP servers.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["mcp-server-patterns", "everything-claude-code", "pytorch-patterns", "documentation-lookup", "domain skills", "skill library"],
+  "classification": "IMPROVEMENT",
+  "comparison_notes": "everything-claude-code repo is already tracked in registry. However, the new mcp-server-patterns skill is not documented — it's a novel addition worth cherry-picking for integration into the MCP integration workflow.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 90
+    },
+    "total": 68.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Repo is already tracked in registry; this adds a specific new skill (mcp-server-patterns) that is directly relevant to the MCP integration workflow. Score of 68 is just below the 70 threshold — research needed to determine if the skill content justifies cherry-picking into our stack. Research: (1) fetch and read the mcp-server-patterns SKILL.md from the repo, (2) identify which patterns are not already covered by our MCP navigation helpers, (3) determine if other new skills (pytorch-patterns, bun-runtime, etc.) are relevant.",
+    "research_questions": [
+      "What specific patterns does mcp-server-patterns contain? Fetch the actual SKILL.md.",
+      "Which patterns are not already in our helpers/navigation/mcp-inventory.md?",
+      "Is pytorch-patterns or bun-runtime relevant to any active projects?",
+      "How many stars does the repo have now and is it actively maintained?"
+    ]
+  }
+}

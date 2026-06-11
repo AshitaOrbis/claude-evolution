@@ -1,0 +1,24 @@
+{
+  "title": "Claude Opus 4.7: xhigh effort, Auto Mode for Max, claude-opus-4-7 model ID",
+  "source": "https://github.com/anthropics/claude-code/releases",
+  "type": "technique",
+  "description": "Claude Opus 4.7 launched April 16, 2026. Three Claude Code-specific changes: (1) New model ID 'claude-opus-4-7' (minimum Claude Code v2.1.111). (2) New 'xhigh' effort level sitting between high and max — available via /effort, --effort flag, and model picker. Default effort for Opus 4.7 is xhigh. (3) Auto Mode (risk-based autonomous permissions) is now available to Max subscribers when using Opus 4.7 — previously only Teams/Enterprise/API. Toggle via Shift-Tab in CLI or dropdown in Desktop/VS Code. Registry has Auto Mode as RESEARCH_PREVIEW but notes Max plan was excluded — this is a material IMPROVEMENT to existing entry. Also: v2.1.112 (Apr 16) fixed 'claude-opus-4-7 temporarily unavailable' for auto mode.",
+  "discovered_at": "2026-04-18",
+  "keywords": ["claude-opus-4-7", "Opus 4.7", "xhigh effort", "auto mode Max", "Max subscribers auto mode", "xhigh level", "effort control xhigh", "opus 4.7 model ID", "v2.1.111 model", "shift-tab auto mode"],
+  "redundancy_check": "IMPROVEMENT — registry has Auto Mode as RESEARCH_PREVIEW (v2.1.76+) but current entry says 'not for Max plan'. The expansion to Max subscribers via Opus 4.7 is a material change. xhigh effort level is new and not in registry. claude-opus-4-7 model ID needs to be updated in CLAUDE.md model table.",
+  "priority": "high",
+  "action_needed": "Update CLAUDE.md model table (claude-opus-4-7), update Auto Mode registry entry to note Max availability, add xhigh to effort controls section, update memory's Latest Known Versions",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 65,
+      "capability_expansion": 75,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 83.0,
+    "decision": "APPROVED",
+    "reasoning": "Pure registry and documentation update — integration complexity is 90 (just update model ID in CLAUDE.md and registry entries, no code changes). xhigh effort level is genuinely new (between high and max), adds granularity to the effort control system. Auto Mode expansion to Max subscribers is a material capability change — this was previously blocked for our plan and is now available. Official Anthropic = 100 community validation, zero maintenance burden. No empirical safety check required: no env vars or settings.json changes proposed (Auto Mode is already configured; this just lifts the Max plan restriction).",
+    "evaluated_at": "2026-04-18"
+  }
+}

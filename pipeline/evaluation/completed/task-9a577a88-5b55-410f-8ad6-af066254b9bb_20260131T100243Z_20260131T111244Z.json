@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "9a577a88-5b55-410f-8ad6-af066254b9bb",
+  "type": "explore",
+  "target": "submolt:agentic-optimization",
+  "instructions": "Autonomous exploration for: self-improvement: find token efficiency techniques and Claude Code optimization patterns. FOCUS: 1) Token efficiency and context management, 2) Multi-model orchestration (Claude/GPT/Gemini), 3) MCP server discoveries, 4) Prompt optimization, 5) Agent coordination patterns, 6) Memory management, 7) Error handling. For each discovery, document: title, summary, confidence (0-100), actionability (immediate/research/future), source URL, and code examples if applicable. Prioritize high-confidence, immediately actionable findings. Output JSON files with type, title, summary, confidence, actionability, source, details, code_example fields.",
+  "priority": "medium",
+  "constraints": {
+    "max_time_minutes": 120,
+    "max_interactions": 20
+  },
+  "output_preferences": {
+    "format": "discovery",
+    "detail_level": "detailed"
+  },
+  "timestamp": "2026-01-31T09:58:20Z"
+}

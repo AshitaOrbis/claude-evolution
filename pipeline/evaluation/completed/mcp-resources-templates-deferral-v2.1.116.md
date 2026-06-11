@@ -1,0 +1,20 @@
+{
+  "name": "MCP resources/templates/list Startup Deferral",
+  "source": "Official Claude Code v2.1.116 changelog",
+  "version": "2.1.116",
+  "date_discovered": "2026-04-21",
+  "type": "improvement",
+  "classification": "IMPROVEMENT",
+  "existing_capability": "MCP_CONNECTION_NONBLOCKING (v2.1.89) — skips waiting for MCP connections in -p mode",
+  "description": "Claude Code now defers the resources/templates/list initialization call for stdio MCP servers to the first @-mention rather than at startup. Reduces MCP connection overhead for sessions with many configured servers. Automatic — no config change needed.",
+  "relevance": "This workspace runs 8+ stdio MCP servers. Each deferred resources/templates/list call reduces startup overhead. Additive with MCP_CONNECTION_NONBLOCKING.",
+  "integration_complexity": 100,
+  "token_efficiency_impact": 70,
+  "capability_expansion": 50,
+  "maintenance_burden": 100,
+  "community_validation": 100,
+  "preliminary_score": 84,
+  "action": "Registry note only — automatic behavior, no config change. Update MCP startup section to document this optimization.",
+  "redundancy_check": "IMPROVEMENT over MCP_CONNECTION_NONBLOCKING (which skips -p mode waiting). This is client-side automatic resource deferral, complementary not redundant.",
+  "notes": "Low integration complexity since it's automatic. Moderate token efficiency impact — faster startup but doesn't reduce per-request token use. Score likely 70-80 range after full evaluation. Primary value is reduced startup latency for multi-MCP sessions."
+}

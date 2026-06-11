@@ -1,0 +1,38 @@
+{
+  "title": "Pare — Token-efficient MCP servers for dev tools (git, npm, Docker, test runners)",
+  "source": "https://github.com/Dave-London/Pare",
+  "secondary_sources": [
+    "https://mcpserver.space/mcp/Pare/"
+  ],
+  "type": "mcp_server",
+  "description": "Suite of 9 open-source MCP servers wrapping common developer tools (git, npm, Docker, test runners, search) with structured, agent-optimized output. Returns typed JSON instead of raw CLI output. Claimed up to 95% fewer tokens vs. raw CLI output per command. Design philosophy: reduce unstructured noise in responses so less room for misinterpretation. MIT license, actively maintained as of March 2026. Tools included: git, npm, Docker, test runner(s), search. Each server returns structured JSON with typed fields rather than raw terminal output.",
+  "discovered_at": "2026-03-19",
+  "keywords": ["token-efficiency", "git-mcp", "npm-mcp", "docker-mcp", "structured-output", "JSON", "CLI-wrapper", "dev-tools", "95-percent-reduction", "Pare", "typed-output"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "No match in registry or completed evaluations. Existing dev tool integrations use raw Bash tool output. The Cloudflare Code Mode pattern (token-efficient API representation) is conceptually related but applies to MCP server design patterns, not bundled dev tool MCPs. Requires COMPARISON evaluation: measure actual token savings vs. using Bash tool directly for git/npm/docker commands, assess setup overhead."
+  },
+  "evaluation": {
+    "status": "NEEDS_RESEARCH",
+    "evaluated_at": "2026-03-19",
+    "scores": {
+      "integration_complexity": 65,
+      "token_efficiency": 70,
+      "capability_expansion": 40,
+      "maintenance_burden": 60,
+      "community_validation": 50
+    },
+    "total": 57.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "The 95% token reduction claim is directionally plausible (raw npm/docker output is very verbose) but needs measurement against actual Bash patterns used in this system. Capability expansion is low (40) because these servers don't add new actions — they reformatted existing ones. The 9-server suite introduces installation and configuration overhead. Score of 57 is in the middle of NEEDS_RESEARCH range. Would need both verified star count AND measured token savings vs Bash baseline to cross 70.",
+    "research_questions": [
+      "What is the GitHub star count for Dave-London/Pare?",
+      "Can individual servers be installed selectively (e.g., just git and npm, skip Docker)?",
+      "Run benchmark: `git status` via Bash vs. Pare git server — actual token comparison on this workspace.",
+      "Run benchmark: `npm list` via Bash vs. Pare npm server — token comparison.",
+      "Are there known conflicts with existing Bash-based git workflows (e.g., hooks, gh CLI)?",
+      "Does Tool Search Tool adequately defer the 9-server context overhead when they're not needed?"
+    ],
+    "re_evaluation_trigger": "When benchmark comparison (Bash vs Pare) is measured on actual workspace commands, or when star count confirms community validation."
+  }
+}

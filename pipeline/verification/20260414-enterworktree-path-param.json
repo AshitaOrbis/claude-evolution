@@ -1,0 +1,36 @@
+{
+  "title": "EnterWorktree `path` Parameter — Switch Into Existing Worktrees (v2.1.105)",
+  "source": "https://github.com/anthropics/claude-code/releases",
+  "type": "technique",
+  "description": "v2.1.105 adds a `path` parameter to the EnterWorktree built-in tool. Previously, EnterWorktree only created NEW worktrees; with `path`, an agent can switch into an EXISTING worktree of the current repository without creating a new one. Closes the gap in multi-agent workflows where one agent creates a worktree and another needs to work in the same isolated branch. Paired with ExitWorktree (v2.1.87+) which was already in registry. Also v2.1.105: stale agent worktree cleanup now removes worktrees whose PR was squash-merged (previously only detected regular merges).",
+  "discovered_at": "2026-04-14",
+  "keywords": [
+    "EnterWorktree path",
+    "enter existing worktree",
+    "worktree path parameter",
+    "switch worktree agent",
+    "multi-agent worktree",
+    "squash-merged worktree cleanup",
+    "v2.1.105 worktree"
+  ],
+  "priority": "LOW",
+  "redundancy_check": "IMPROVEMENT over existing EnterWorktree/ExitWorktree tool pair (already in registry). Prior capability only entered new worktrees. `path` parameter enables entering existing ones — extends multi-agent coordination scenarios where agents need to share an isolated branch.",
+  "notes": "Small but practical improvement for multi-agent workflows using worktree isolation. Update hook-lifecycle skill and using-git-worktrees skill to document the new `path` parameter. Also note squash-merge cleanup fix — affects workflows using GitHub squash-and-merge strategy (common). Registry update: add to EnterWorktree/ExitWorktree entry in Context Management section.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 55,
+      "maintenance_burden": 100,
+      "community_validation": 80
+    },
+    "total": 71.25,
+    "decision": "APPROVED",
+    "reasoning": "Integration complexity (90): trivial — just documentation/registry update; no config changes or new files. Token efficiency (50): neutral — new parameter doesn't change context footprint. Capability expansion (55): incremental improvement to existing worktree tooling; enables multi-agent shared-branch workflows that previously required manual worktree switching; useful but not a major unlock. Maintenance burden (100): zero maintenance — just a new parameter in an existing tool; no ongoing upkeep. Community validation (80): official Anthropic v2.1.105 release. Integration type: REGISTRY UPDATE — add to EnterWorktree/ExitWorktree row in Context Management, update using-git-worktrees skill, note squash-merge cleanup fix.",
+    "integration_target": [
+      "registry/existing-capabilities.md: update EnterWorktree/ExitWorktree entry — add path parameter, squash-merge cleanup fix",
+      "~/.claude/skills/using-git-worktrees/SKILL.md: document path parameter for entering existing worktrees"
+    ],
+    "evaluated_at": "2026-04-14"
+  }
+}

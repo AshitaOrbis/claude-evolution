@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "type": "insight",
+  "title": "Test Discovery for Pipeline Validation",
+  "summary": "This is a test discovery to verify the gatekeeper pipeline processes files correctly through Layer 1 validation.",
+  "source": {
+    "type": "unknown",
+    "reference": "test-pipeline"
+  },
+  "relevance": "efficiency",
+  "confidence": 0.9,
+  "timestamp": "2026-01-30T19:55:00Z",
+  "actionable": true,
+  "suggested_next_steps": ["Verify file moves to pending_review"],
+  "tags": ["test", "validation"]
+}

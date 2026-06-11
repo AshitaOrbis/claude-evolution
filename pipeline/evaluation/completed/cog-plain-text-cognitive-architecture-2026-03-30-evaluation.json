@@ -1,0 +1,31 @@
+{
+  "title": "cog — Plain-Text Tiered Memory Cognitive Architecture for Claude Code",
+  "source": "https://github.com/marciopuga/cog",
+  "type": "technique",
+  "description": "Conventions-only (no code) cognitive architecture implemented via CLAUDE.md and custom slash commands. Introduces: (1) tiered memory model with hot/warm/cold layers plus glacier archival; (2) thread synthesis — when a topic recurs across observations, cog promotes it to a synthesized 'thread' file; (3) /reflect workflow — reviews recent activity, extracts patterns, updates memory; (4) /foresee workflow — forward planning from memory state; (5) /housekeep — condenses and archives memory layers; (6) self-evolution — framework can update its own conventions. All implemented as CLAUDE.md conventions + .claude/commands/*.md files + .claude/memory/ directory.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["cognitive architecture", "tiered memory", "hot memory", "warm memory", "cold memory", "glacier archival", "memory condensation", "self-reflection", "foresight planning", "memory housekeeping", "thread synthesis", "Claude Code memory system", "plain-text conventions", "memory tiers", "cog"],
+  "hacker_news": "https://news.ycombinator.com/item?id=47524704",
+  "hn_score": 114,
+  "redundancy_check": "Our existing memory system (auto-memory in MEMORY.md) uses flat files with user/feedback/project/reference types. cog introduces architecturally distinct concepts: tiered layers, automatic condensation policies, thread synthesis, foresight/reflection workflows, glacier archival. NOT a duplicate — genuinely novel architectural patterns.",
+  "research_questions": [
+    "Which specific patterns (tiering, condensation, glacier) can be cherry-picked into our existing MEMORY.md system without full replacement?",
+    "Does the tiering model conflict with the current user/feedback/project/reference taxonomy?",
+    "How does memory condensation interact with context compaction?",
+    "Is the author actively maintaining this? What is the bus factor?"
+  ],
+  "evaluation": {
+    "date": "2026-03-30",
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 70,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 60
+    },
+    "total": 68.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "cog introduces genuinely novel patterns — tiered memory (hot/warm/cold/glacier), thread synthesis, and /reflect /foresee /housekeep workflows — that don't exist in the current flat-file MEMORY.md system. The patterns are conventions-only (no code), making integration complexity moderate rather than hard. HN score of 114 provides community signal, but maintainer activity and bus factor are unknown. The key uncertainty is whether specific patterns can be cherry-picked without replacing the existing user/feedback/project/reference taxonomy wholesale. Memory condensation (housekeep/glacier) is particularly interesting for managing context load. Score of 68.5 is borderline — 70 would trigger approval — so research is warranted before committing. Specific questions: read the cog CLAUDE.md and commands/, assess taxonomy compatibility, check GitHub commit frequency.",
+    "action": "RESEARCH: Read https://github.com/marciopuga/cog — focus on (1) tiering model specifics vs our type taxonomy, (2) housekeep/condensation mechanics, (3) recent commit activity. If cherry-pick is feasible, re-evaluate at 70+ and approve for selective integration into MEMORY.md system."
+  }
+}

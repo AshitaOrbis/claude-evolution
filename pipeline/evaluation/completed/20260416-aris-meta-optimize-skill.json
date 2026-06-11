@@ -1,0 +1,31 @@
+{
+  "title": "ARIS /meta-optimize — Self-Improving Skill System via Hook-Based Usage Telemetry",
+  "source": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+  "type": "skill",
+  "description": "ARIS (Auto-Research-In-Sleep, 1.2k stars, 111 forks, MIT) added two new skills in April 2026 that go beyond its ML research focus: (1) /research-wiki: Automatically builds and updates a local knowledge wiki from research conducted during Claude Code sessions — persistent knowledge accumulation across sessions. (2) /meta-optimize: Outer-loop harness optimization — passively records skill invocations, tool executions, failures, and parameter overrides via Claude Code hooks, then analyzes usage data to propose skill improvements. This is distinct from the existing capability-discoverer + context-librarian pattern. /meta-optimize is an automated, data-driven skill improvement loop: hooks collect telemetry → analysis identifies patterns → proposes concrete skill file edits. The /research-wiki pattern (session → structured wiki) is novel vs the existing context-librarian subagent (event-triggered conversation archival). Primary relevance: /meta-optimize could be applied to the claude-evolution system itself — passively improving the capability-discoverer and evaluation prompts based on execution telemetry. Cross-model review loop skills (Codex MCP integration for research review) are already covered by our Codex integration.",
+  "discovered_at": "2026-04-16",
+  "keywords": ["meta-optimize", "self-improving skill", "hook-based telemetry", "skill improvement loop", "usage analytics hooks", "research wiki", "knowledge wiki skill", "ARIS skill", "outer loop optimization", "auto skill improvement", "skill telemetry", "passive skill monitoring"],
+  "stars": 1200,
+  "official": false,
+  "notes": "April 2026 additions to ARIS. The ML research context (idea discovery, experiment automation) is too narrow for general adoption, but /meta-optimize is domain-agnostic — it instruments ANY skill via hooks. The evolution system would benefit from this: passively monitoring capability-discoverer invocations to identify failure patterns and improve prompts automatically. Evaluate specifically for /meta-optimize adoption; reject the ML-specific skills.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 55,
+      "token_efficiency": 65,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 75
+    },
+    "total": 66.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "/meta-optimize is the most interesting component for the evolution system: hook-based passive telemetry that records skill invocations, failures, and parameter overrides, then proposes concrete SKILL.md improvements (capability_expansion=70). Distinct from DSPy optimizer (requires explicit metric+dataset setup; not passive) and context-librarian (event-triggered conversation archival, not usage-pattern analysis). 1.2k GitHub stars (community_validation=75) plus AAAI 2026 academic validation adds credibility. Integration (55): requires hook configuration in settings.json for passive logging — moderate effort, mostly in hook wiring. Token efficiency (65): long-term skill quality improvement reduces wasted tokens per invocation; minimal immediate overhead. Maintenance (70): MIT, active, monthly check sufficient. Key unknown: is /meta-optimize extractable as standalone hooks + analysis script without the full ARIS ML research framework?",
+    "research_questions": [
+      "Is /meta-optimize extractable as standalone hooks + analysis script without ARIS ML research components?",
+      "What hook types does /meta-optimize use — PreToolUse, PostToolUse, SessionEnd, or custom?",
+      "Does the passive logging write to a local SQLite/JSON file or send data externally?",
+      "What is the SKILL.md improvement proposal format — diff, full replacement, or structured JSON?",
+      "Can /meta-optimize be applied to our claude-evolution skill files without installing the full ARIS framework?"
+    ],
+    "evaluated_at": "2026-04-16"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Automatic Stale Tool Output Cleanup from Conversation History",
+  "source": "dev.to guide + releasebot.io (Claude Code 2026 feature)",
+  "type": "technique",
+  "description": "Claude Code now automatically clears stale tool call outputs from conversation history while preserving conversation flow and context awareness. Verbose tool results (e.g., full file contents, long bash outputs) from earlier in a session are trimmed from context when no longer needed, reducing token accumulation in long sessions. Distinct from /compact (manual) — this is automatic and granular (targets tool outputs specifically, not full message summarization).",
+  "discovered_at": "2026-03-24",
+  "keywords": ["tool output cleanup", "conversation history", "stale output", "context management", "token efficiency", "context editing", "automatic context trimming", "tool result pruning", "long session optimization"],
+  "redundancy_check": "NOVEL — registry has 'Compact with Instructions' (manual /compact), 'Programmatic Tool Calling' (avoid flooding context), and '1M Token Context'. None cover automatic selective pruning of tool outputs from history. This is orthogonal: automatic, granular, requires no user action.",
+  "initial_score_estimate": 68,
+  "notes": "Need more detail on: (1) what triggers cleanup — turn count, token threshold, or explicit detection? (2) whether it's configurable or always-on. (3) which tool output types are affected. Current description may be imprecise — verify against actual release notes before integration. Scores could reach 75+ if automatic and well-documented."
+}

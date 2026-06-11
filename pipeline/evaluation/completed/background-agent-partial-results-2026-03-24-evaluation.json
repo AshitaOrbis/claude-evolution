@@ -1,0 +1,24 @@
+{
+  "id": "background-agent-partial-results-2026-03-24",
+  "title": "Background Agent Partial Result Preservation",
+  "source": "releasebot.io/updates/anthropic (Claude Code v2.1.81+, March 2026)",
+  "type": "technique",
+  "discovered_at": "2026-03-24",
+  "evaluation": {
+    "date": "2026-03-24",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency_impact": 60,
+      "capability_expansion": 65,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 81.25,
+    "decision": "APPROVED",
+    "reasoning": "Automatic behavior requiring zero configuration. When a background agent is killed or interrupted, completed work is now preserved in conversation context instead of being lost. This is distinct from Autonomous Subagent Resume (v2.1.81, registry entry) — Resume is for cleanly stopped agents that the model decides to re-use; Partial Results is for forcibly killed agents where work is salvaged. Official Anthropic feature (releasebot tracks Claude Code releases). Integration complexity is 100 because there is no integration — it's behavior that already applies. Capability expansion is moderate (65) because the primary benefit is fault tolerance in long heartbeat runs, not a new workflow capability class. Token efficiency improves because less work is re-done on agent failure.",
+    "action": "Document in registry under Agent Orchestration section. Add playbook: helpers/playbooks/background-agent-partial-results.md with checkpoint recovery patterns for automation scripts. No configuration required."
+  },
+  "original_description": "When a background agent is killed or interrupted mid-task, its partial results are now preserved in the conversation context instead of being lost. Previously, killing a background agent discarded all in-progress work. Now, work completed before the kill is recoverable, enabling checkpoint-resume patterns. Complements the Autonomous Subagent Resume feature (v2.1.81) where the model decides to resume vs spawn fresh.",
+  "redundancy_check": "NOVEL — registry has 'SendMessage Auto-Resume' and 'Autonomous Subagent Resume' but these are for resuming stopped agents. This is specifically about preserving partial output when an agent is killed (not stopped cleanly).",
+  "integration_action": "1. Add registry entry under Agent Orchestration: 'Background Agent Partial Result Preservation | ACTIVE (v2.1.81+) | Partial work preserved in context when agent killed/interrupted; distinct from Autonomous Subagent Resume'. 2. Add heartbeat playbook documenting checkpoint recovery pattern."
+}

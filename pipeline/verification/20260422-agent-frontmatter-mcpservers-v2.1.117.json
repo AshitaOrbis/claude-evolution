@@ -1,0 +1,16 @@
+{
+  "title": "Agent Frontmatter mcpServers Field for --agent Sessions (v2.1.117)",
+  "integrated_at": "2026-04-22",
+  "type": "technique",
+  "score": 76.25,
+  "actions_taken": [
+    "Registry entry created in 'Claude Code v2.1.117 Features' section",
+    "Redundancy triggers added: 'agent mcpServers frontmatter', 'frontmatter mcpServers field', 'agent bundled mcp', 'self-contained agent mcp', 'agent --agent mcp servers'",
+    "Proposal written to pipeline/pending-approval/agent-mcpservers-index-md.proposal.md for ~/.claude/agents/INDEX.md documentation (requires manual application — outside ~/claudeworkspace/)"
+  ],
+  "pending": [
+    "INDEX.md section addition pending human approval (pipeline/pending-approval/agent-mcpservers-index-md.proposal.md)"
+  ],
+  "verification": "Registry search for 'agent mcpServers frontmatter' returns this entry. Technique is automatic in v2.1.117 — no further action required beyond awareness.",
+  "status": "success_partial"
+}

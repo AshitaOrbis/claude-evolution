@@ -1,0 +1,28 @@
+{
+  "title": "Seeing Like an Agent — Anthropic Tool Design Philosophy (First-Party)",
+  "source": "https://claude.com/blog/seeing-like-an-agent",
+  "type": "technique",
+  "description": "Official Anthropic engineering post by Thariq Shihipar (published April 10, 2026) documenting the internal methodology for designing AI agent tools. Key principles: (1) 'progressive disclosure' — tools should surface just enough information for the agent to act without flooding context; (2) 'seeing like an agent' — design tools by reasoning through the agent's perceptual model, not a human's; (3) even well-designed tools fail if Claude can't discover or invoke them correctly. Concrete case studies: AskUserQuestion (blocking modal that prevents conversation-buried clarifications), Task tool (context-isolated delegation). Primary source, not a third-party summary. High integration value: the progressive disclosure principle directly applies to agent/skill SKILL.md design, MCP tool description authoring, and the 2KB cap strategy.",
+  "discovered_at": "2026-04-20",
+  "keywords": ["tool design", "progressive disclosure", "agent perception", "AskUserQuestion", "Task tool", "anthropic engineering", "agent tool principles", "seeing like an agent"],
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": ["advanced-tool-use skill (tool efficiency patterns)", "SKILL.md design conventions in CLAUDE.md"],
+    "verdict": "NOVEL — existing tool-use skill covers selection and efficiency; this provides first-party design philosophy for authoring tools and SKILL.md descriptions (the progressive disclosure principle). Different problem: how to write tool descriptions that Claude can perceive and use correctly.",
+    "key_distinction": "advanced-tool-use covers which tools to use and when; this covers how to design tools so agents can discover and invoke them reliably."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 95,
+      "token_efficiency": 65,
+      "capability_expansion": 70,
+      "maintenance_burden": 95,
+      "community_validation": 100
+    },
+    "total": 82.0,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic engineering post, primary source. Progressive disclosure principle is directly actionable for SKILL.md authoring, MCP tool description writing, and agent design. Complexity=95 (read-once philosophy, no software to install). Token efficiency improvement (65): applying progressive disclosure to SKILL.md reduces irrelevant context loaded per skill. Capability expansion (70): concrete framework for improving tool discoverability — fills a gap in our existing skill authoring practice. Maintenance=95 (evergreen design principles). Integrate as a technique document in library/techniques/ and cross-link from advanced-tool-use skill.",
+    "action": "Create library/techniques/seeing-like-an-agent-tool-design-2026-04-10.md with key principles. Add reference to advanced-tool-use SKILL.md under a new 'Tool & Skill Authoring' section.",
+    "evaluated_at": "2026-04-20"
+  }
+}

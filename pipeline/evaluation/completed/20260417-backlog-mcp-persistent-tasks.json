@@ -1,0 +1,29 @@
+{
+  "title": "backlog MCP — Persistent Cross-Session Task Management",
+  "source": "https://glama.ai/mcp/servers/backloghq/backlog",
+  "type": "mcp_server",
+  "description": "Persistent, cross-session task management MCP server for Claude Code. 24 MCP tools covering tasks, projects, tags, dependencies, and docs. 7 skills for planning, standups, and handoffs. Event-sourced storage (pure TypeScript, zero external dependencies) so tasks survive session close and can be picked up by another agent. Key distinction from TodoWrite: TodoWrite is in-session only and lost on /clear or session end; backlog persists across sessions and enables agent-to-agent task handoffs. Could replace the manual BACKLOG.md convention for projects needing multi-agent coordination. Listed in ComposioHQ/awesome-claude-plugins (April 2026).",
+  "discovered_at": "2026-04-17",
+  "keywords": ["backlog mcp", "persistent tasks", "cross-session tasks", "task management mcp", "agent coordination tasks", "event-sourced tasks", "multi-agent handoff"],
+  "redundancy_check": "IMPROVEMENT:TodoWrite — TodoWrite is in-session only; backlog survives sessions and supports agent-to-agent coordination. Fundamentally different persistence model.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 65,
+      "token_efficiency": 55,
+      "capability_expansion": 70,
+      "maintenance_burden": 60,
+      "community_validation": 50
+    },
+    "total": 60.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Cross-session persistence is a genuine gap (TodoWrite is session-only) and the capability_expansion (70) reflects real utility for multi-agent task handoffs. Integration (65): requires MCP server config in settings.json, npm package install. Token efficiency slight positive (55): eliminates manual BACKLOG.md maintenance. Maintenance (60): pure TypeScript, zero external deps is a good sign, but activity level unconfirmed. Community validation low (50): listed in awesome-claude-plugins but no star count confirmed. The item itself flags: 'Verify star count, maintenance activity, npm package name, and actual install path before recommending integration.' Research needed before promoting to APPROVED.",
+    "research_questions": [
+      "What is the npm package name and install command for backlog MCP?",
+      "What is the GitHub star count and last commit date (active maintenance)?",
+      "Does the glama.ai listing provide npm install path or only source?",
+      "Is there a GitHub repo — backloghq/backlog or different org name?",
+      "How does the event-sourced SQLite storage interact with existing BACKLOG.md convention?"
+    ]
+  },
+  "evaluated_at": "2026-04-17"
+}

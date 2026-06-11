@@ -1,0 +1,21 @@
+NEEDS_RESEARCH — ECC Tools (ecc.tools / everything-claude-code)
+Score: 54.5
+Date: 2026-03-16
+
+The item is too broad to evaluate wholesale. Spin off dedicated evaluations for:
+
+1. AgentShield (102-rule security scanner)
+   - Question: Does it cover more than our existing security-auditor agent?
+   - Research: Compare rule categories against security-auditor capabilities
+   - Source: https://ecc.tools (AgentShield section) or https://github.com/affaan-m/everything-claude-code
+
+2. GitHub App pattern (auto-extracting team conventions)
+   - Question: Can this concept be implemented as a standalone Claude Code skill?
+   - Research: Review GitHub App source code for what patterns it extracts
+   - Source: https://github.com/affaan-m/everything-claude-code/releases/tag/v1.6.0
+
+3. Skill/agent registry gap analysis
+   - Question: Which of ECC's 65+ skills address gaps not in our registry?
+   - Research: Compare ECC skill list to registry/existing-capabilities.md
+
+Re-evaluation trigger: When dedicated sub-items are created and evaluated.

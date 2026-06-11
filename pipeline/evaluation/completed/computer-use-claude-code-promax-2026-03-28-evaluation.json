@@ -1,0 +1,47 @@
+{
+  "title": "Computer Use in Claude Code (Pro/Max plans, March 2026)",
+  "source": "https://claude.com/blog/dispatch-and-computer-use + Anthropic Help Center release notes (March 23, 2026)",
+  "type": "feature",
+  "description": "Claude Code users on Pro and Max plans can enable native computer use — Claude can open files, run dev tools, point, click, and navigate GUI elements to perform tasks on the user's screen. First-party Anthropic feature (not an MCP). Operates at OS level: controls Terminal, Finder, any native app. Distinct from Bash tool (terminal-only), Better Playwright MCP (web browser only), and Terminator MCP (Windows third-party). Launched March 23, 2026 as a research preview.",
+  "discovered_at": "2026-03-28",
+  "version_introduced": "~v2.1.83 (March 23, 2026 launch); v2.1.85 first named changelog entry (bug fix for switch_display on multi-monitor)",
+  "platform_support": {
+    "macOS": true,
+    "Windows": "roadmap (near-term per secondary sources)",
+    "Linux": false
+  },
+  "keywords": ["computer use", "GUI automation", "desktop control", "click", "native app control", "macOS", "Pro/Max plans", "research preview"],
+  "redundancy_status": "NOVEL — fills genuine gap in desktop GUI automation (no existing first-party equivalent)",
+  "redundancy_comparison": "Terminator MCP (2026-03-23, Windows-only third-party) and Better Playwright MCP (web browser only) are closest but fundamentally different in scope. This is first-party, OS-level, cross-application desktop control.",
+  "research": {
+    "date": "2026-03-28",
+    "findings": [
+      "Confirmed first-party Anthropic feature — announced on claude.com/blog",
+      "macOS ONLY at launch — no Linux support, Windows on near-term roadmap per secondary sources",
+      "Full desktop GUI control, not browser-only — controls any macOS application",
+      "Requires Claude desktop app to be running; research preview status",
+      "Distinct from Computer Use API (consumer-facing, zero setup vs. developer API with beta headers)"
+    ],
+    "sources": [
+      "https://claude.com/blog/dispatch-and-computer-use",
+      "https://support.claude.com/en/articles/12138966-release-notes (March 23, 2026 entry)",
+      "https://github.com/anthropics/claude-code/releases (v2.1.85 bug fix entry)",
+      "Engadget, Ars Technica, CNBC, Computerworld (March 23-24, 2026)"
+    ]
+  },
+  "platform_blocker": "PRIMARY DEVELOPMENT MACHINE (requiem) IS LINUX. macOS-only launch means this capability is completely unavailable on the current platform. No Linux timeline confirmed.",
+  "evaluation": {
+    "date": "2026-03-28",
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 58.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "The capability is genuinely novel and officially Anthropic-first-party, but it is completely unavailable on the primary development platform (Linux/requiem). Integration complexity scores 0 because macOS-only = impossible to integrate. Capability expansion scores 70 (high potential when available, but 0 practical value now). Community validation is 100 (official Anthropic). Platform blocker is definitive, not speculative — no Linux support was announced and no timeline exists. Scoring 58.5 = NEEDS_RESEARCH, but the research is complete: the blocker is known and binary.",
+    "action": "DEFERRED TO FUTURE: Move to pipeline/future/. Re-evaluate when Linux support is announced. Trigger: GitHub release notes or Anthropic blog post mentioning Linux computer use. No registry update needed now."
+  }
+}

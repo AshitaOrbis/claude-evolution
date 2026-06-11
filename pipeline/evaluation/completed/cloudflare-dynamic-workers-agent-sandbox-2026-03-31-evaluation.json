@@ -1,0 +1,20 @@
+{
+  "title": "Cloudflare Dynamic Workers — 100x Faster AI Agent Code Sandboxing (Open Beta)",
+  "source": "https://blog.cloudflare.com/dynamic-workers/",
+  "type": "technique",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 50,
+      "capability_expansion": 80,
+      "maintenance_burden": 85,
+      "community_validation": 80
+    },
+    "total": 74.25,
+    "decision": "APPROVED",
+    "reasoning": "Official Cloudflare open beta (March 24, 2026). V8 isolate-based sandboxing with <5ms startup (vs ~500ms for Linux containers), priced at $0.002/unique Worker/day (free during beta). Genuinely novel infrastructure primitive for agent-generated code execution at the edge — distinct from Deno sandbox (local, single-runtime) and AIO Sandbox (multi-runtime Docker). The 100x startup advantage is directly relevant to agentic loops that need rapid code execution feedback. No direct Claude Code integration required — this is a companion architectural pattern. Capability expansion 80: novel category (edge-deployed code sandbox) not covered by existing capabilities. Integration complexity 85: documentation technique, no workspace code changes. Action: document in library/techniques/ as edge code sandbox pattern. Reference from agent design patterns when building code-executing agents. Monitor beta-to-GA announcement.",
+    "action": "INTEGRATE: Create library/techniques/cloudflare-dynamic-workers-sandbox.md. Add to registry under Infrastructure Primitives. Reference from agent-embassy and games pipeline documentation as sandboxing option."
+  }
+}

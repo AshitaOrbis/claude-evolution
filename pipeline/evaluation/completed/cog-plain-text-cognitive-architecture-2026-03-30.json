@@ -1,0 +1,31 @@
+{
+  "title": "cog — Plain-Text Tiered Memory Cognitive Architecture for Claude Code",
+  "source": "https://github.com/marciopuga/cog",
+  "type": "technique",
+  "description": "Conventions-only (no code) cognitive architecture implemented via CLAUDE.md and custom slash commands. Introduces: (1) tiered memory model with hot/warm/cold layers plus glacier archival; (2) thread synthesis — when a topic recurs across observations, cog promotes it to a synthesized 'thread' file; (3) /reflect workflow — reviews recent activity, extracts patterns, updates memory; (4) /foresee workflow — forward planning from memory state; (5) /housekeep — condenses and archives memory layers; (6) self-evolution — framework can update its own conventions. All implemented as CLAUDE.md conventions + .claude/commands/*.md files + .claude/memory/ directory.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["cognitive architecture", "tiered memory", "hot memory", "warm memory", "cold memory", "glacier archival", "memory condensation", "self-reflection", "foresight planning", "memory housekeeping", "thread synthesis", "Claude Code memory system", "plain-text conventions", "memory tiers", "cog"],
+  "estimated_score": 64,
+  "status": "NEEDS_RESEARCH",
+  "redundancy_check": "Our existing memory system (auto-memory in MEMORY.md) uses flat files with user/feedback/project/reference types. cog introduces architecturally distinct concepts: tiered layers, automatic condensation policies, thread synthesis, foresight/reflection workflows, glacier archival. NOT a duplicate — genuinely novel architectural patterns.",
+  "hacker_news": "https://news.ycombinator.com/item?id=47524704",
+  "hn_score": 114,
+  "research_questions": [
+    "Which specific patterns (tiering, condensation, glacier) can be cherry-picked into our existing MEMORY.md system without full replacement?",
+    "Does the tiering model conflict with the current user/feedback/project/reference taxonomy?",
+    "How does memory condensation interact with context compaction?",
+    "Is the author actively maintaining this? What is the bus factor?"
+  ],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 65,
+      "token_efficiency": 55,
+      "capability_expansion": 80,
+      "maintenance_burden": 80,
+      "community_validation": 65
+    },
+    "total": 68.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Thread synthesis and tiering are genuinely novel architectural ideas not present in the current flat MEMORY.md system. High capability expansion. However, cherry-picking vs full adoption is unresolved — need to map cog patterns against user/feedback/project/reference taxonomy before committing. Memory condensation could conflict with auto-compaction behavior. Author maintenance status unknown. Research questions must be answered before scoring into APPROVED range. 114 HN points is encouraging but GitHub star count and maintenance status are unknown."
+  }
+}

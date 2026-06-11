@@ -1,0 +1,25 @@
+NEEDS_RESEARCH — Context Mode MCP (Tool Output Compression)
+Evaluated: 2026-03-23 | Score: 68.25/100
+
+RESEARCH QUESTIONS:
+1. GitHub star count — verify at github.com/mksglu/claude-context-mode
+   Target: >= 200 for APPROVED threshold
+
+2. Hook conflict — does PostToolUse interception conflict with tdd-guard?
+   Test: run alongside tdd-guard in a test project
+
+3. Latency overhead — sandboxed subprocess per tool call
+   Target: < 500ms overhead acceptable
+
+4. BM25 retrieval quality — test on real Playwright snapshots
+   Does it surface the right elements vs raw DOM?
+
+5. 98% token reduction — verify on actual tool outputs we use:
+   - Playwright getOutline snapshots
+   - Brave Search results
+   - GitHub MCP API responses
+
+PROMOTE CONDITION: Stars >= 200 AND hook conflicts resolvable AND latency < 500ms
+REJECT CONDITION: Hook conflict unresolvable OR stars < 50 OR latency > 2s
+
+Source file: context-mode-mcp-output-compression-2026-03-23.json

@@ -1,0 +1,19 @@
+NEEDS_RESEARCH: GPT-5.4-nano cheap coding subagent delegation pattern
+Score: 66.75/100
+Evaluated: 2026-03-22
+
+This is the highest-scoring NEEDS_RESEARCH item (66.75/100 — just 3.25 points below approval).
+
+Research required before re-evaluation:
+1. Confirm GPT-5.4-nano model ID is accepted by ~/.claude-mcp-servers/codex-simple/server.js
+2. Test quality on 5 representative simple coding tasks (variable renaming, boilerplate, test scaffolding, formatting, simple functions)
+3. Actual cost comparison: GPT-5.4-nano vs GPT-5.4-mini vs Claude Haiku per simple task
+4. Define routing rules: what exactly qualifies as "simple well-scoped coding" for nano delegation?
+
+Implementation plan (when research complete):
+- Create ~/.claude/agents/codex-coder-mini.md with gpt-5.4-nano config
+- Update model-router to route simple-coding tasks to it
+- Register in registry under Multi-Model Orchestration
+
+Re-evaluation trigger: GPT-5.4-nano quality tested on 5 representative simple coding tasks.
+Source: pipeline/evaluation/completed/discord-inbox-20260320-twitter-2034666936383213600.md

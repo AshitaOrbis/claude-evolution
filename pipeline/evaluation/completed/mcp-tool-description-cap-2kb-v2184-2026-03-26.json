@@ -1,0 +1,12 @@
+{
+  "title": "Claude Code MCP Tool Description Cap (2KB) — v2.1.84",
+  "source": "Claude Code v2.1.84 release notes (2026-03-26)",
+  "type": "technique",
+  "description": "Claude Code v2.1.84 automatically caps MCP tool descriptions and server-level instruction text at 2KB per tool/server. Prevents OpenAPI-generated MCP servers from bloating context with verbose auto-generated documentation (parameter schemas, response examples, exhaustive parameter descriptions). No configuration required — enforced at the protocol layer after tool loading/selection. Orthogonal to Tool Search Tool (deferred loading) and disabledMcpjsonServers (full exclusion).",
+  "integration_target": "registry/existing-capabilities.md — Token Efficiency Features > Tool Loading Optimization table",
+  "integration_action": "Add new row to the Tool Loading Optimization table: '| MCP Tool Description Cap (2KB) | **ACTIVE (v2.1.84)** | Automatic protocol-layer cap: MCP tool descriptions and server-level instruction text truncated at 2KB per tool/server. No configuration needed. Prevents OpenAPI-generated MCPs from bloating context. |'. Then add a Details block and redundancy triggers: 'tool description truncation', 'MCP description cap', 'openapi mcp context bloat', '2KB limit MCP', 'server instruction cap', 'verbose MCP docs truncation'. Registry edit was deferred due to permissions — integrate in next authorized session.",
+  "status": "PENDING_REGISTRY_UPDATE",
+  "registry_edit_deferred": true,
+  "evaluation_score": 85.0,
+  "approved_at": "2026-03-26T00:00:00Z"
+}

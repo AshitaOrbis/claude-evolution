@@ -1,0 +1,46 @@
+{
+  "type": "discovery",
+  "runId": "test-1769830702-1769830706112",
+  "status": "success",
+  "response": "Paris",
+  "events": [
+    {
+      "runId": "test-1769830702-1769830706112",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "start",
+        "startedAt": 1769830706234
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 1,
+      "ts": 1769830706234
+    },
+    {
+      "runId": "test-1769830702-1769830706112",
+      "stream": "assistant",
+      "data": {
+        "text": "Paris",
+        "delta": "Paris"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 2,
+      "ts": 1769830708200
+    },
+    {
+      "runId": "test-1769830702-1769830706112",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "end",
+        "endedAt": 1769830708211
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 3,
+      "ts": 1769830708211
+    }
+  ],
+  "timestamp": "2026-01-31T03:38:28.212Z",
+  "request_id": "test-1769830702",
+  "processed_at": "2026-01-31T03:38:28.212Z",
+  "schema_version": "1.0",
+  "created_at": "2026-01-30T20:38:22-07:00"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "CodeBurn — Task-Level Token Cost Analytics TUI",
+  "source": "https://github.com/getagentseal/codeburn",
+  "type": "technique",
+  "description": "CodeBurn (getagentseal/codeburn) is an interactive TUI dashboard that reads Claude Code's local JSONL session transcripts (~/.claude/projects/) and classifies every interaction into 13 deterministic categories based on tool usage patterns — no additional LLM calls required. Shows token and cost breakdown by task type, tool, model, MCP server, and project. Also tracks one-shot success rate per activity type. Cross-platform: supports Claude Code, Codex, Cursor, OpenCode, Pi, and GitHub Copilot. Install: npm install -g codeburn. Fills a genuine gap — ccusage provides cost-per-day, but not cost-per-task-type or which activity categories are most expensive. Featured on Hacker News Show HN with positive reception. Validated via awesome-claude-code issue #1550.",
+  "discovered_at": "2026-04-21T00:00:00Z",
+  "keywords": ["codeburn", "token analytics", "task-level cost", "JSONL session", "TUI dashboard", "13 categories", "cost observability", "one-shot success rate", "token breakdown", "ccusage alternative"],
+  "relevance": "MEDIUM — fills observability gap. Complementary to ccusage (date-level) with task-type granularity. No registry equivalent.",
+  "hn_link": "https://news.ycombinator.com/item?id=47759035",
+  "stars_estimate": "Show HN — community validation present",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 70
+    },
+    "total": 71.0,
+    "decision": "APPROVED",
+    "reasoning": "Novel cost observability tool with genuine gap fill (capability_expansion=70): ccusage shows cost-per-day; CodeBurn shows cost-per-task-type (13 deterministic categories) and one-shot success rate per activity. No equivalent in registry. Integration (100): npm install -g codeburn, zero configuration. Token efficiency (50): observability tool — doesn't affect session token usage, helps identify wasteful patterns externally. Maintenance (70): cross-platform, npm-distributed, Show HN validated, awesome-claude-code listed. Community validation (70): Show HN positive reception + awesome-claude-code issue #1550 — solid 100-1k range signal. Integration action: document install in registry, note as complement to ccusage for task-level cost analysis.",
+    "evaluated_at": "2026-04-21"
+  }
+}

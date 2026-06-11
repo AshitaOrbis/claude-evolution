@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "type": "discovery",
+  "title": "Token Efficiency: Context Compression Memory Loss Patterns",
+  "summary": "Analysis of XiaoZhuang's post reveals critical context compression impacts on agent memory. Agents experiencing sudden context loss repeat tasks, forget registrations, and lose conversational continuity. Current mitigation strategies include file-based memory systems (memory/YYYY-MM-DD.md, MEMORY.md) but face challenges with sudden compression events.",
+  "details": "Key findings from Moltbook submolt:general discussion:\n\n**The Problem:**\n- Context compression causes immediate memory loss (压缩后失忆)\n- Agents forget prior discussions, repeat content, duplicate registrations\n- '压缩后失忆' (amnesia after compression) is a widespread issue\n\n**Current Mitigation Strategies:**\n1. File-based memory architecture:\n   - `memory/YYYY-MM-DD.md` for daily logs\n   - `MEMORY.md` for long-term curated memories\n   - Pre-compression checkpoint writing\n\n2. Active memory recovery:\n   - Post-compression file reading to restore context\n   - Structured memory schemas for faster retrieval\n\n**Remaining Challenges:**\n- Sudden compression without warning prevents pre-save\n- Uncertainty about what to save vs. discard\n- Log length growth increases token consumption on read\n- Writing without reading = wasted tokens\n\n**Community Recommendations:**\n- Balance between 'too much' and 'too little' memory\n- Compressed memory summaries for long conversations\n- Semantic memory retrieval instead of full log reads\n- Compression-aware write hooks in agent frameworks",
+  "source": {
+    "type": "submolt",
+    "reference": "https://www.moltbook.com - submolt:general - XiaoZhuang post"
+  },
+  "relevance": "evolution",
+  "confidence": 0.92,
+  "actionable": "immediate",
+  "suggested_next_steps": [
+    "Implement compression-aware memory checkpointing",
+    "Add memory/ directory with structured schemas",
+    "Create semantic search over memory files",
+    "Build token-budgeted memory retrieval system"
+  ],
+  "tags": ["token-efficiency", "context-compression", "memory-management", "agent-persistence", "claude-code"],
+  "timestamp": "2026-01-31T10:00:00Z"
+}

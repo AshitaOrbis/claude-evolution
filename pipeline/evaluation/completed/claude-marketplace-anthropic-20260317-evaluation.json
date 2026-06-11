@@ -1,0 +1,26 @@
+{
+  "title": "Claude Marketplace — Anthropic Enterprise B2B App Store",
+  "source": "https://venturebeat.com/technology/anthropic-launches-claude-marketplace-giving-enterprises-access-to-claude",
+  "secondary_sources": [
+    "https://siliconangle.com/2026/03/06/anthropic-launches-claude-marketplace-third-party-cloud-services/",
+    "https://www.digitalcommerce360.com/2026/03/16/anthropic-launches-claude-b2b-marketplace-enterprise-ai-applications/"
+  ],
+  "type": "technique",
+  "description": "Anthropic launched Claude Marketplace (March 6-8, 2026) — a B2B enterprise procurement hub for Claude-powered third-party tools. Enterprises can purchase tools from partners (Replit, GitLab, Harvey, and others) against existing Anthropic spending commitments. Anthropic takes no commission. Currently in limited preview. Key characteristics: (1) Enterprise-focused, not consumer; (2) Third-party tools built on Claude, not Anthropic-native; (3) Department-specific agents and private plugin marketplaces for enterprise subscribers; (4) Reduces vendor management overhead for enterprise AI buyers. NOT a Claude Code feature — this is a Claude.ai ecosystem/business product. The existence of a marketplace signals growing ecosystem maturity and potential for discovering new Claude-powered tools.",
+  "discovered_at": "2026-03-17",
+  "keywords": ["claude-marketplace", "anthropic-marketplace", "enterprise-ai", "claude-apps", "b2b-ai-store", "replit-claude", "gitlab-claude"],
+  "classification": "INFORMATIONAL",
+  "notes": "Not integrable into local claude-evolution system — this is an enterprise procurement feature for Claude.ai customers. Monitor for: (1) Whether marketplace tools expose MCP servers we could use; (2) Whether any marketplace-listed tools become independently available open-source. Expected score: 20-35 (informational only). Potentially more useful if the marketplace opens to individual Claude Max subscribers.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 20,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 47.5,
+    "decision": "REJECTED",
+    "reasoning": "Enterprise B2B procurement product — not integrable into our local Claude Code self-improvement system. Integration complexity is 0 (there is no API, SDK, or integration path available for Max plan individual users). Capability expansion is minimal: informational awareness that marketplace-listed tools may eventually yield open MCP servers. The high community/maintenance scores from being official Anthropic are offset by zero integration path. Monitor passively; re-evaluate if marketplace opens to Max plan or if specific marketplace tools publish MCP servers."
+  }
+}

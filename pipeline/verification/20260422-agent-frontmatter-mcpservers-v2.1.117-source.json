@@ -1,0 +1,23 @@
+{
+  "title": "Agent Frontmatter mcpServers Field for --agent Sessions (v2.1.117)",
+  "source": "Official Claude Code v2.1.117 changelog (code.claude.com/docs/en/changelog)",
+  "type": "technique",
+  "description": "In v2.1.117, `mcpServers` declared in agent frontmatter are now loaded when the agent runs as a main-thread agent via `claude --agent agent-name`. Previously, agent-level MCP server declarations only worked in subagent (Task tool) mode. This enables self-contained agents that bundle their own MCP server dependencies — an agent can declare a specific MCP server in its frontmatter and it will be available whether invoked via Task tool or `--agent` flag. Distinct from existing global `~/.claude.json` mcpServers and from the Plugin bin/ executables pattern (v2.1.91). Companion to the v2.1.116 improvement that made frontmatter hooks: fire in --agent mode.",
+  "discovered_at": "2026-04-22",
+  "keywords": ["agent frontmatter", "mcpServers frontmatter", "agent MCP servers", "--agent flag", "self-contained agent", "agent bundled MCP", "v2.1.117"],
+  "redundancy_check": "NOVEL — registry documents agent frontmatter fields (effort, maxTurns, disallowedTools, hooks) but NOT mcpServers. This is a new frontmatter key with meaningfully different capability: agents can now carry their own MCP server configurations.",
+  "preliminary_notes": "Score likely 75-85. Enables self-contained agent packaging — heartbeat agent could declare its own event-bus MCP rather than relying on global config. High integration complexity (automatic), good capability expansion for agent portability. Action: evaluate whether any existing agents would benefit from bundled mcpServers declarations.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 55,
+      "capability_expansion": 75,
+      "maintenance_burden": 85,
+      "community_validation": 100
+    },
+    "total": 76.25,
+    "decision": "APPROVED",
+    "reasoning": "New frontmatter field enables self-contained agents that bundle their own MCP server dependencies — distinct from global ~/.claude.json config. Heartbeat/orchestrator agents (pipeline-orchestrator, game-heartbeat-orchestrator) could declare event-bus MCP directly in frontmatter rather than requiring it in global config, improving portability and reducing global config surface. Integration complexity (80): YAML edit to agent frontmatter — trivial. Token efficiency (55): slight positive, reduces config fragmentation. Capability expansion (75): genuinely new agent packaging pattern, complementary to plugin bin/ executables. Maintenance (85): Anthropic-maintained frontmatter API, stable. Community validation (100): official release. Integration action: document new frontmatter key in INDEX.md + CLAUDE.md agent design patterns; evaluate which existing agents (event-bus-publisher, event-bus-reader, pipeline-orchestrator) would benefit from bundled mcpServers."
+  },
+  "evaluated_at": "2026-04-22"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "PAL MCP Server — Unified Multi-Model Orchestration (10k+ stars)",
+  "source": "https://github.com/BeehiveInnovations/pal-mcp-server",
+  "type": "mcp_server",
+  "description": "Provider Abstraction Layer — MCP server (10,200+ stars) that lets Claude Code spawn subagents on Gemini, GPT-5, OpenRouter, Ollama, Grok, Azure, and 50+ other models within a single conversation. Maintains conversation continuity across model handoffs. Key improvement over current setup: unifies all cross-model delegation under one MCP (vs. managing Codex MCP + Gemini CLI MCP separately), and explicitly supports the 'offload to fresh context' pattern for context management.",
+  "discovered_at": "2026-04-01",
+  "keywords": ["multi-model", "orchestration", "gemini", "gpt", "openrouter", "context-offload", "mcp", "cross-model"],
+  "redundancy": "IMPROVEMENT",
+  "redundancy_notes": "Overlaps with Codex MCP (GPT-5.4) and Gemini CLI MCP. Potential advantage: unified interface vs. two separate MCPs. Migration cost: would need to replace both existing MCPs. Evaluate whether consolidation benefit outweighs migration risk.",
+  "priority": "medium",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 65,
+      "capability_expansion": 70,
+      "maintenance_burden": 65,
+      "community_validation": 90
+    },
+    "total": 67.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "10,200+ stars is excellent community validation and the unified interface is appealing. However, this is an IMPROVEMENT evaluation — both existing MCPs (Codex MCP with custom CLI wrapper, Gemini CLI MCP) are working reliably. Migration complexity is real: replacing two proven custom integrations, testing continuity, updating all subagent definitions. The 'offload to fresh context' pattern is the strongest novel capability — currently requires switching between two separate tools. Research question: does PAL maintain tool-call fidelity equivalent to the existing custom Codex wrapper (which handles session IDs and CLI routing)? If migration risk is low, this could APPROVE at next evaluation."
+  }
+}

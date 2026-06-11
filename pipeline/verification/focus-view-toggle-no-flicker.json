@@ -1,0 +1,22 @@
+{
+  "title": "Focus View Toggle (Ctrl+O in NO_FLICKER Mode, v2.1.97)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.97, April 8 2026)",
+  "type": "technique",
+  "description": "In CLAUDE_CODE_NO_FLICKER=1 mode, pressing Ctrl+O toggles a distraction-free Focus View that shows only: current prompt, one-line tool summary with edit diffstats, and the final response. All intermediate tool output is hidden. Useful for reviewing Claude's decisions without scrolling through verbose tool calls. The NO_FLICKER env var is already active in the system.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["Focus View", "Ctrl+O", "NO_FLICKER", "distraction-free", "tool summary", "diffstats"],
+  "classification": "IMPROVEMENT",
+  "comparison_notes": "NO_FLICKER is already in registry (v2.1.88). Focus View is an additive UX capability within that mode — registry entry should note Ctrl+O toggle added in v2.1.97.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "NO_FLICKER already active; Focus View is a zero-config keybinding addition. Action: update registry CLAUDE_CODE_NO_FLICKER entry to note Ctrl+O focus view available in v2.1.97. No workflow change needed — just a useful interactive feature to know about."
+  }
+}

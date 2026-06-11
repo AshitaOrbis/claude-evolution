@@ -1,0 +1,24 @@
+{
+  "title": "Claude Code rate_limits Field for Statusline Scripts (v2.1.82)",
+  "source": "state/versions.json v2.1.82 release notes",
+  "type": "technique",
+  "description": "New rate_limits field in statusline script data, providing 5-hour and 7-day usage windows with used_percentage and resets_at timestamps. Format: {rate_limits: {5h_used_percentage: N, 5h_resets_at: ISO, 7d_used_percentage: N, 7d_resets_at: ISO}}. Enables statusline scripts to display rate limit proximity warnings.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["rate-limits", "statusline", "usage-monitoring", "5h-window", "7d-window", "automation", "cron", "heartbeat", "used-percentage"],
+  "redundancy_status": "IMPROVEMENT",
+  "redundancy_comparison": "Registry has 'rate_limits statusline field' as ACTIVE (v2.1.80+) with old format {hour5: {used: N, limit: N}, day7: {used: N, limit: N}}. The v2.1.82 format uses percentages and resets_at timestamps — more actionable and different schema. Registry format documentation is outdated and needs updating.",
+  "evaluation": {
+    "date": "2026-03-25",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Not a new discovery — rate_limits statusline field was already integrated from v2.1.80. However, the format changed in v2.1.82: raw counts (hour5.used/limit) replaced by percentages + resets_at timestamps. The registry format documentation is now outdated. Approving as registry update only. Percentages are more directly actionable for threshold checks (>80% → warn). resets_at timestamps enable scheduling awareness. Zero integration cost for single-user setup.",
+    "action": "REGISTRY_UPDATE: Update Statusline System table in registry (v2.1.82 format: 5h_used_percentage, 5h_resets_at, 7d_used_percentage, 7d_resets_at). Update helpers/navigation/hook-environment-variables.md statusline section with new format and example snippets."
+  }
+}

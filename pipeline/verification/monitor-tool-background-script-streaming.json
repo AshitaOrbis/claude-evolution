@@ -1,0 +1,21 @@
+{
+  "title": "Monitor Tool — Background Script Streaming",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.98, April 9 2026)",
+  "type": "technique",
+  "description": "New built-in tool that spawns a background process and streams each stdout line into the active session without blocking it. Claude can point it at any long-running script (e.g., `kubectl logs -f | grep ..`) and receive output as it arrives, then act on events. Eliminates the pattern of polling Bash commands in a loop or opening a second session for log tailing. Use cases: CI log monitoring, test runner output, build watchers, log stream analysis.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["monitor tool", "background script", "streaming events", "log streaming", "background process", "async events"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 70,
+      "capability_expansion": 100,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 92.5,
+    "decision": "APPROVED",
+    "reasoning": "Genuinely novel built-in tool — no equivalent exists in the stack. Eliminates the Bash polling loop anti-pattern for long-running processes (CI logs, test runners, build watchers). Official v2.1.98, zero config, zero maintenance. Token efficiency boost from replacing polling loops. Highest-priority item in this batch."
+  }
+}

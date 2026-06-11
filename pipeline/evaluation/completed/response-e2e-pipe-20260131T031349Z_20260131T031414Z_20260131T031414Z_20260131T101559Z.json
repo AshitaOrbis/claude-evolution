@@ -1,0 +1,12 @@
+{
+  "type": "event",
+  "event": "connect.challenge",
+  "payload": {
+    "nonce": "5805c362-fd20-401d-8adf-73cca0c98e5c",
+    "ts": 1769829229868
+  },
+  "request_id": "e2e-pipeline-test-002",
+  "processed_at": "2026-01-31T03:13:49.874Z",
+  "schema_version": "1.0",
+  "created_at": "2026-01-31T03:20:00Z"
+}

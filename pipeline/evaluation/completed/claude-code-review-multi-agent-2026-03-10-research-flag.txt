@@ -1,0 +1,11 @@
+NEEDS_RESEARCH — claude-code-review-multi-agent-2026-03-10.md
+Score: 55/100
+Date flagged: 2026-03-10
+Window: 7 days (due 2026-03-17)
+
+Research questions:
+1. Is there published documentation on the multi-agent review architecture (dispatch pattern, aggregation, PR comment formatting)?
+2. Does the blog post / announcement contain enough to design an equivalent system locally?
+3. Would PR-triggered multi-agent review materially improve over single-agent code-reviewer?
+
+If no usable implementation details found → re-score CE from 50 to 20 → drops to ~47.5 → REJECTED (same as Claude Code Security).

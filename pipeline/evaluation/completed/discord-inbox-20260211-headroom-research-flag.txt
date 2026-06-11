@@ -1,0 +1,13 @@
+NEEDS_RESEARCH - Headroom context optimization library
+Evaluated: 2026-03-08
+Score: 56/100
+Evaluation report: pipeline/evaluation/completed/headroom-evaluation.md
+
+Research questions:
+1. GitHub stars and maintenance status (chopratejas/headroom)
+2. Hook feasibility: can headroom intercept Claude Code post-tool-use output?
+3. LLMLingua compression quality on code/JSON (semantic preservation)
+4. Latency cost for interactive sessions
+5. Redundancy check against mgrep + /compact
+
+Investigation window: 7 days (by 2026-03-15)

@@ -1,0 +1,23 @@
+{
+  "title": "v2.1.116 Remaining Features: Resume Speed, Thinking Spinner, Config Search, Sandbox Safety",
+  "source": "https://github.com/anthropics/claude-code/releases",
+  "type": "technique",
+  "description": "v2.1.116 additional features not yet filed: (1) /resume 67% faster on sessions 40MB+ — handles dead-fork entries more efficiently; high relevance for long heartbeat sessions. (2) Thinking spinner shows inline progress ('still thinking', 'thinking more', 'almost done thinking') — better UX signal during long operations. (3) /config search now matches option values (e.g. searching 'vim' finds Editor mode setting). (4) /reload-plugins and background plugin auto-update now auto-install missing plugin dependencies — reduces friction. (5) Sandbox auto-allow no longer bypasses dangerous-path safety check for rm/rmdir — security hardening.",
+  "discovered_at": "2026-04-21T00:00:00Z",
+  "keywords": ["v2.1.116", "resume performance", "dead-fork sessions", "thinking spinner", "config search values", "reload-plugins dependencies", "sandbox rm safety", "autoallow security"],
+  "relevance": "MEDIUM — /resume 67% faster directly benefits long heartbeat sessions. Sandbox rm safety is a security improvement. Thinking spinner is UX only.",
+  "action": "Version registry update only. No config changes needed. Note /resume speed improvement in heartbeat commands helper.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 55,
+      "capability_expansion": 55,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 77.5,
+    "decision": "APPROVED",
+    "reasoning": "Registry-update item: no configuration changes needed. Integration complexity = 100 (zero friction — pure registry documentation). Token efficiency (55): /resume 67% faster on large sessions reduces time cost of long heartbeat-driven sessions; indirect benefit. Capability expansion (55): incremental — /resume speed, thinking spinner UX, config value search, auto-install plugin deps, and sandbox rm safety hardening are all improvements to existing features. Maintenance = 100, community_validation = 100: official Anthropic GitHub release. Action: add to registry, update heartbeat commands helper to note /resume speed gain.",
+    "evaluated_at": "2026-04-21"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Bash Tool GitHub Rate Limit Hint",
+  "source": "Official Claude Code v2.1.116 changelog",
+  "version": "2.1.116",
+  "date_discovered": "2026-04-21",
+  "type": "novel",
+  "classification": "NOVEL",
+  "existing_capability": "None — gh rate limit handling was previously unassisted",
+  "description": "When the Bash tool executes gh commands that hit GitHub's API rate limit (5,000 req/hr), Claude Code now surfaces a hint in the tool result to back off instead of retry-looping. Automatic — no config change needed.",
+  "relevance": "Heartbeat runs and cron jobs use `gh` for PR checks, release queries, and issue fetching. Rate limit hits previously caused retry loops with no in-band signal. Now the hint enables intelligent backoff and reduces wasted turns.",
+  "integration_complexity": 100,
+  "token_efficiency_impact": 60,
+  "capability_expansion": 75,
+  "maintenance_burden": 100,
+  "community_validation": 100,
+  "preliminary_score": 83,
+  "action": "Registry note only — automatic behavior, no config change. Document in versions.json and note in heartbeat commands helper.",
+  "redundancy_check": "NOVEL — no existing capability tracks in-band rate limit signaling from Bash tool gh output.",
+  "notes": "Score probably 70-78 range. High integration complexity (automatic) and maintenance burden (automatic) push score up. Capability expansion is moderate — only helps when gh commands hit rate limits. Direct relevance to heartbeat runs that use gh for release tracking. Worth documenting in helpers/commands/heartbeat-commands.md as a pattern note."
+}

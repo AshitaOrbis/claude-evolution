@@ -1,0 +1,48 @@
+{
+  "title": "Plain-Text Cognitive Architecture for Claude Code (HN Show HN — marciopuga/cog)",
+  "source": "https://news.ycombinator.com/item?id=47524704 + https://github.com/marciopuga/cog",
+  "type": "technique",
+  "description": "HN 'Show HN' by marciopuga presenting 'Cog' — a three-tier plain-text memory architecture for Claude Code: Hot (always-loaded, <50 lines), Warm (contextually loaded domain files), Glacier (archived YAML-frontmatter files). Includes a progressive retrieval protocol (L0: one-line relevance comments → L1: header scan → L2: full read), a Zettelkasten-inspired Thread synthesis system, and slash commands (/reflect, /evolve, /foresight, /housekeeping). Explicitly credits: Zep/Graphiti, Mem0, Zettelkasten, Basic Memory, Claude Memory as prior art.",
+  "discovered_at": "2026-03-28",
+  "keywords": ["cognitive architecture", "plain text memory", "tiered memory", "Zettelkasten", "memory retrieval protocol", "directed memory", "agent memory", "progressive retrieval", "hot/warm/cold"],
+  "redundancy_status": "OVERLAPPING — substantial prior art acknowledged by author; mostly incremental over existing MEMORY.md + CLAUDE.md hierarchy",
+  "redundancy_comparison": "Existing system: file-based MEMORY.md index + typed .md files (user/feedback/project/reference) with frontmatter, organized by domain. Cog's hot/warm/glacier tiers map onto existing global/project/local CLAUDE.md hierarchy. The Q&A memory framing described in the discovery was misattributed — it's a commenter's insight (user Real_Egor), not the project's design. The /foresight cross-domain synthesis command and L0/L1/L2 retrieval protocol are the most novel elements, both unproven.",
+  "research": {
+    "date": "2026-03-28",
+    "community_metrics": {
+      "hn_score": 152,
+      "hn_comments": 49,
+      "github_stars": 260,
+      "github_commits": 8,
+      "last_commit": "2026-03-15",
+      "community_sentiment": "Mixed — several skeptics invoked XKCD #927 (standards proliferation); substantive debate about whether it solves a real problem over structured CLAUDE.md"
+    },
+    "key_findings": [
+      "The Q&A memory framing in the discovery was a commenter's elaboration (user Real_Egor), NOT the project's architecture",
+      "The project explicitly credits Zep/Graphiti, Mem0, Zettelkasten, Basic Memory as prior art — author acknowledges this is synthesis",
+      "No empirical evidence for hallucination reduction — no benchmarks, no ablation studies",
+      "The /foresight command (cross-domain strategic synthesis) is the author's claimed differentiator; unproven",
+      "L0/L1/L2 retrieval protocol is a practical pattern but incremental over existing context management techniques",
+      "Three-tier hot/warm/glacier maps closely to existing global/project/local CLAUDE.md hierarchy",
+      "Community skeptical: XKCD 927 reference indicates perceived redundancy"
+    ],
+    "sources": [
+      "https://news.ycombinator.com/item?id=47524704",
+      "https://github.com/marciopuga/cog"
+    ]
+  },
+  "evaluation": {
+    "date": "2026-03-28",
+    "scores": {
+      "integration_complexity": 65,
+      "token_efficiency": 40,
+      "capability_expansion": 25,
+      "maintenance_burden": 80,
+      "community_validation": 55
+    },
+    "total": 49.5,
+    "decision": "REJECTED",
+    "reasoning": "The core novelty claim (Q&A-directed memory) was misattributed in the discovery — it belongs to a commenter, not the project. The actual Cog architecture is a well-structured synthesis of prior art that the author explicitly acknowledges (Zettelkasten, Mem0, Graphiti, Basic Memory). Three-tier storage, SSOT, and append-only observation logs all have prior art with no demonstrated advantage over the existing MEMORY.md + CLAUDE.md hierarchy. The /foresight synthesis command is the most plausible novel element but has zero empirical support. Community validation is modest (152 HN upvotes, 260 stars, mixed reception). Token efficiency may be neutral-to-negative: adding L0/L1/L2 retrieval overhead doesn't clearly outperform direct file reads. Rejecting on grounds of insufficient novelty relative to existing capability, no empirical evidence, and weak community signal.",
+    "action": "ARCHIVE — no integration. The L0/L1/L2 retrieval protocol description is the one extractable technique worth noting if context efficiency becomes a documented gap; flag that possibility in the rejection note rather than integrating now."
+  }
+}

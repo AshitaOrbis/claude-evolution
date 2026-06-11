@@ -1,0 +1,25 @@
+{
+  "title": "Google Search Console MCP — SEO Analytics via Natural Language",
+  "source": "https://github.com/AminForou/mcp-gsc",
+  "source_secondary": "https://suganthan.com/blog/google-search-console-mcp-server/",
+  "type": "mcp_server",
+  "description": "Two independent MCP server implementations (AminForou/mcp-gsc and ahonn/mcp-server-gsc) connecting Google Search Console to Claude. Enables natural language queries against GSC data: traffic, rankings, content performance, click-through rates. The ahonn/mcp-server-gsc version syncs data to local SQLite for offline access and runs entirely locally (privacy-first). Both support Claude Desktop, Cursor, and Claude Code via npx install. Tutorial from March 22, 2026 confirms recent community activity.",
+  "discovered_at": "2026-03-27",
+  "keywords": ["Google Search Console", "GSC MCP", "SEO analytics", "search performance", "keyword analysis", "traffic analysis", "natural language SEO"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No SEO/GSC tooling in registry. No analytics MCPs beyond DuckDB (OLAP). Workspace has ashitaorbis (3-tier blog, active) and <private-project>-v2 (SaaS app) — both have public web presence that could benefit from SEO monitoring. Genuine capability gap.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 75,
+      "token_efficiency": 50,
+      "capability_expansion": 65,
+      "maintenance_burden": 70,
+      "community_validation": 60
+    },
+    "total": 63.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Score of 63.25 in NEEDS_RESEARCH band. The capability is genuinely useful for ashitaorbis (active blog needing SEO monitoring) and <private-project>-v2, but several unknowns need resolution before APPROVED. Integration complexity is moderate (score: 75): npx install is easy, but one-time OAuth GSC setup adds friction. Token efficiency is neutral (score: 50) — this is a data access MCP, not an efficiency tool. Community validation scores 60 due to uncertainty in star counts across two competing implementations; the existence of two independent implementations suggests organic demand but also fragmentation. Key questions: (1) Which implementation is better maintained (star counts, last commit date)? (2) Is SEO monitoring currently a priority for ashitaorbis, or a nice-to-have? (3) Does the SQLite-backed offline version have acceptable freshness guarantees? If star count for either repo crosses 100 and ashitaorbis SEO is an active priority, this should be re-evaluated toward APPROVED.",
+    "action": "NEEDS_RESEARCH: (1) Check GitHub star counts and last commit dates for AminForou/mcp-gsc and ahonn/mcp-server-gsc. Prefer the more maintained one. (2) Assess whether SEO analytics is a current ashitaorbis priority (check blog CLAUDE.md). (3) Verify GSC OAuth flow works with claude code npx pattern. Re-evaluate when SEO becomes active priority."
+  }
+}

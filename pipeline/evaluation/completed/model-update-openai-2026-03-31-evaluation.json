@@ -1,0 +1,19 @@
+{
+  "title": "OpenAI GPT-5.4 Mini/Nano Model Update",
+  "source": "https://openai.com/index/introducing-gpt-5-4-mini-and-nano/ (March 17, 2026)",
+  "type": "model_update",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 70,
+      "capability_expansion": 50,
+      "maintenance_burden": 85,
+      "community_validation": 100
+    },
+    "total": 77.75,
+    "decision": "APPROVED",
+    "reasoning": "Official OpenAI GA release. Integration is trivial: model IDs added to CLAUDE.md Contemporary AI Models table and state/contemporary-models.json. Token efficiency score elevated because mini/nano offer cost-sensitive alternatives to base GPT-5.4 for routing and discovery tasks (direct substitution in Codex MCP calls). Capability expansion is incremental — variants of GPT-5.4, not new capability categories. Action: update CLAUDE.md model table to add mini (optimized for coding/subagent tasks) and nano (ultra-lightweight routing/classification). Base GPT-5.4 remains primary for code review and research."
+  }
+}

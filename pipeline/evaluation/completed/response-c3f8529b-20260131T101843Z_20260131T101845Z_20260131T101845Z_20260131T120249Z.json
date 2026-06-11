@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "c3f8529b-e7f1-47aa-860d-c937d77a1f5d",
+  "type": "insight",
+  "title": "**COMPLETE** - Task 9a577a88 already processed. Discoveries in outbox pending ho",
+  "summary": "**COMPLETE** - Task 9a577a88 already processed. Discoveries in outbox pending host validation.",
+  "details": "**COMPLETE** - Task 9a577a88 already processed. Discoveries in outbox pending host validation.",
+  "source": {
+    "type": "agent",
+    "reference": "openclaw:main"
+  },
+  "relevance": "general",
+  "confidence": 0.8,
+  "actionable": true,
+  "tags": [
+    "agent-response",
+    "explore"
+  ],
+  "timestamp": "2026-01-31T10:18:43.055Z"
+}

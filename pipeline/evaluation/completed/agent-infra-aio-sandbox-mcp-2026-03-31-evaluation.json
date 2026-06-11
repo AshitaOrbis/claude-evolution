@@ -1,0 +1,20 @@
+{
+  "title": "Agent-Infra AIO Sandbox — Multi-Runtime Docker Sandbox with Shared Filesystem and MCP",
+  "source": "https://github.com/agent-infra/sandbox",
+  "type": "mcp_server",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 85,
+      "maintenance_burden": 70,
+      "community_validation": 85
+    },
+    "total": 71.0,
+    "decision": "APPROVED",
+    "reasoning": "3.4k GitHub stars, ByteDance-affiliated engineering, 150+ releases, used in production by UI-TARS-desktop. The key differentiator is multi-runtime coordination via shared filesystem: Browser + Shell + File + VSCode + Jupyter all in one container with shared filesystem — an agent can write a file via shell and immediately read it in the browser without coordination overhead. Existing single-runtime sandboxes (Deno, Cloudflare Dynamic Workers) cannot provide this. Capability expansion 85: fills the multi-runtime coordination gap. Integration complexity 70: Docker setup needed but Docker already runs on requiem (openclaw-sandbox uses it). Pre-configured MCP servers are the main integration overhead. Maintenance 70: 150+ releases means active development but also ongoing updates to track. Action: evaluate as MCP server candidate for openclaw-sandbox replacement or agent-embassy augmentation. Test multi-runtime shared filesystem pattern before committing.",
+    "action": "INTEGRATE: Add to pipeline/integration/ for MCP server evaluation. Test Docker container locally, verify shared filesystem works as documented. If confirmed, propose as openclaw-sandbox upgrade path or agent-embassy companion."
+  }
+}

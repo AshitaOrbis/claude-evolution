@@ -1,0 +1,23 @@
+{
+  "title": "MCP 2026 Official Roadmap — Stateless Servers & .well-known Metadata",
+  "source": "https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/",
+  "secondary_source": "https://thenewstack.io/model-context-protocol-roadmap-2026/",
+  "type": "technique",
+  "description": "The official MCP maintainers published the 2026 roadmap (March 5-6, 2026) outlining the next protocol evolution. Key planned features: (1) Stateless server architecture — evolve transport/session model so MCP servers scale horizontally without maintaining per-machine state (directly relevant to cloud-native deployments); (2) .well-known metadata format — a standard endpoint so server capabilities are discoverable without a live connection (enables MCP registries and discovery tools); (3) Enhanced streaming — richer async operations; (4) Richer resource types; (5) Improved sampling for multi-agent workflows — MCP servers can trigger model calls themselves, enabling server-side agentic behaviors. AWS's Bedrock AgentCore Runtime (announced March 10, 2026 in 14 regions) already implements a 'managed MCP' interpretation requiring stateless streamable-HTTP servers. This is the authoritative direction signal for the MCP ecosystem through 2026.",
+  "discovered_at": "2026-03-17",
+  "keywords": ["mcp-roadmap", "stateless-mcp", "well-known-metadata", "mcp-2026", "horizontal-scaling", "multi-agent-sampling", "mcp-discovery"],
+  "classification": "FUTURE",
+  "notes": "Not immediately actionable — features are planned, not released. Monitor blog.modelcontextprotocol.io for spec publication. High architectural significance: stateless servers would allow our MCP servers to be deployed without sticky sessions. .well-known metadata would enable automated MCP discovery without manual config. Re-evaluate when any of these features ship in Claude Code.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 70,
+      "capability_expansion": 90,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": "N/A (FUTURE — cannot integrate planned features)",
+    "decision": "FUTURE",
+    "reasoning": "Authoritative roadmap for MCP evolution through 2026. Features are not yet released — stateless servers and .well-known metadata are planned, not available. When released: stateless MCP would improve our agent-event-bus and MCP server deployments significantly; .well-known metadata would enable automated discovery instead of manual config. Re-evaluate each feature individually when Claude Code ships support. Monitor: blog.modelcontextprotocol.io and claude-code releases for these features."
+  }
+}

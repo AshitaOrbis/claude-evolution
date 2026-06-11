@@ -1,0 +1,11 @@
+{
+  "title": "Computer Use in Claude Code (Pro/Max plans, March 2026)",
+  "source": "https://releasebot.io/updates/anthropic/claude + pasqualepillitteri.it/en/news/381/claude-code-march-2026-updates",
+  "type": "feature",
+  "description": "Claude Code users on Pro and Max plans now have access to native computer use capabilities — Claude can open files, run dev tools, point, click, and navigate GUI elements to perform tasks directly on the user's screen. Distinct from: (1) the existing Bash tool (terminal-only control), (2) Better Playwright MCP (web browser only), (3) Terminator MCP (Windows-only third-party). This is first-party GUI automation integrated into the Claude Code session.",
+  "discovered_at": "2026-03-28",
+  "keywords": ["computer use", "GUI automation", "click", "desktop control", "native computer use", "screen interaction", "point and click", "claude code computer use", "pro plan computer use", "max plan computer use"],
+  "preliminary_notes": "Needs verification: (1) exact version introduced, (2) whether available on Linux (requiem), (3) overlap with Better Playwright for web tasks, (4) how it differs from existing Bash + Better Playwright stack. If it enables native app GUI control (non-browser), that fills a genuine gap. If it's browser-only, overlap with Better Playwright is high.",
+  "registry_check": "Not in registry. Terminator (Windows-only third-party MCP, 2026-03-23) is the closest but fundamentally different. Better Playwright covers web browser only. Native computer use for desktop GUI control is uncovered.",
+  "preliminary_score_range": "55-75/100 — depends on Linux availability and non-browser scope"
+}

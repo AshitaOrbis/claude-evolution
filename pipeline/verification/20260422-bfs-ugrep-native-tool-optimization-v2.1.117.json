@@ -1,0 +1,14 @@
+{
+  "title": "bfs + ugrep Native Tool Replacement for Glob/Grep (v2.1.117)",
+  "integrated_at": "2026-04-22",
+  "type": "technique",
+  "score": 71.0,
+  "actions_taken": [
+    "Registry entry created in 'Claude Code v2.1.117 Features' section",
+    "Behavioral note documented: ugrep has edge-case regex differences vs ripgrep (PCRE lookaheads may differ)",
+    "Redundancy triggers added: 'bfs glob backend', 'ugrep grep backend', 'native tool backend replacement', 'bfs breadth-first', 'ugrep parallel grep'"
+  ],
+  "pending": [],
+  "verification": "Automatic backend change in v2.1.117 — no config needed. Awareness documentation complete in registry. Pattern is transparent to normal usage; edge cases only arise with PCRE-specific regex patterns.",
+  "status": "success"
+}

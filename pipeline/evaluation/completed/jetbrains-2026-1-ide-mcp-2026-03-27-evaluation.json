@@ -1,0 +1,25 @@
+{
+  "title": "JetBrains 2026.1 IDE MCP — Database Access and IDE Actions for Agents",
+  "source": "https://blog.jetbrains.com/idea/2026/03/intellij-idea-2026-1/",
+  "source_secondary": "https://blog.jetbrains.com/phpstorm/2026/03/phpstorm-2026-1-is-now-out/",
+  "type": "mcp_server",
+  "description": "JetBrains released IntelliJ IDEA 2026.1 and PhpStorm 2026.1 in March 2026, adding significant new MCP capabilities: (1) database access for AI agents — Claude Agent and Codex can now query and modify IDE-connected data sources natively, (2) access to IDE actions — agents can trigger arbitrary IDE actions (setup, customization, refactoring), (3) structural search — agents can use IntelliJ's semantic code pattern matching, (4) a companion Claude Code plugin providing Claude Code context and instructions for using PhpStorm MCP tools. The ACP Agent Registry (launched Jan 2026 with JetBrains + Zed) provides discovery of compatible agents.",
+  "discovered_at": "2026-03-27",
+  "keywords": ["JetBrains MCP", "IntelliJ MCP", "PhpStorm MCP", "IDE actions", "database access agent", "ACP registry", "structural search", "refactoring tools", "IDE integration"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No JetBrains/IntelliJ entry in registry. However, workspace uses VS Code (confirmed in CLAUDE.md development environment) — platform dependency makes this low-priority. Monitor for VS Code equivalent.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 20,
+      "token_efficiency": 50,
+      "capability_expansion": 65,
+      "maintenance_burden": 70,
+      "community_validation": 85
+    },
+    "total": 56.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Score of 56 sits in NEEDS_RESEARCH band, but the primary blocker is a platform incompatibility, not missing information. Current dev environment is VS Code on native Linux (requiem) — integrating JetBrains MCP would require switching IDEs, making integration_complexity effectively very high (score: 20). The capabilities themselves are genuinely valuable: IDE-native structural search, DB access from agents, and arbitrary IDE action triggering would all expand capability (score: 65). Community validation is strong — JetBrains is a major IDE vendor, official 2026.1 release (score: 85). This item is NEEDS_RESEARCH rather than REJECTED because: (1) the ACP Agent Registry mentioned in this discovery is independently valuable and worth tracking, (2) a VS Code equivalent from JetBrains or Microsoft may be imminent. If VS Code equivalent launches, re-evaluate immediately.",
+    "action": "MONITOR: (1) Watch for VS Code equivalent of JetBrains MCP capabilities (structural search, IDE actions from agents). (2) Track ACP Agent Registry (JetBrains + Zed, launched Jan 2026) as a separate discovery candidate. (3) Re-evaluate if workspace switches to JetBrains or if VS Code ships equivalent tooling."
+  }
+}

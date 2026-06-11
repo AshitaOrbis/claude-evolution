@@ -1,0 +1,24 @@
+{
+  "title": "Agents CLI – Unified MCP Config Sync",
+  "source": "Hacker News (Show HN), March 2026",
+  "type": "technique",
+  "description": "CLI tool that unifies MCP configuration across Cursor, Claude Desktop, GitHub Copilot, and CLI tools. Solves the fragmentation problem of managing separate config files for each AI assistant. Single source of truth for MCP servers across tools. No more manually duplicating server entries across ~/.claude.json, .mcp.json, and Cursor settings.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["mcp-config", "config-sync", "cursor", "copilot", "claude-desktop", "multi-tool", "config-management", "single-source-of-truth"],
+  "redundancy_status": "NOVEL",
+  "redundancy_comparison": "No unified MCP config management in registry. Current stack manages MCPs via ~/.claude.json (global) and project .mcp.json files manually. Agents CLI would provide single-source-of-truth management across tools.",
+  "evaluation": {
+    "date": "2026-03-25",
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 50,
+      "community_validation": 50
+    },
+    "total": 59.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Addresses a real maintenance pain point — MCP configs are currently maintained manually across global ~/.claude.json and project .mcp.json files. A unified sync tool would reduce friction when adding new servers. However, critical unknowns: (1) Does it support Claude Code's ~/.claude.json format, or only Cursor/GitHub Copilot? (2) How does it handle project-level vs global config separation (important for this workspace's per-project MCP scoping)? (3) GitHub URL and star count unconfirmed. (4) Config format drift risk — Claude Code schema changes could break sync or lag behind. Maintenance burden medium for this reason.",
+    "action": "NEEDS_RESEARCH: Verify GitHub repo + star count. Test whether Claude Code ~/.claude.json is explicitly supported. Assess project-level .mcp.json handling. Check version compatibility documentation against recent Claude Code releases."
+  }
+}

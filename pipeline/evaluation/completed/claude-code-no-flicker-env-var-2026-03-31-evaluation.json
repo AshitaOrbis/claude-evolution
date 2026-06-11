@@ -1,0 +1,20 @@
+{
+  "title": "CLAUDE_CODE_NO_FLICKER=1 — Flicker-Free Alt-Screen Rendering (v2.1.88)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.88",
+  "type": "claude_feature",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 95
+    },
+    "total": 71.75,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature (v2.1.88). Drop-in env var addition to ~/.bashrc or workspace startup script. Capability expansion scored 40 (QoL improvement to existing capability): directly addresses display artifacts in tmux panes, which is the primary interface for Claude Code on requiem. The workspace script at ~/workspace already manages tmux session setup — CLAUDE_CODE_NO_FLICKER=1 should be added there. Zero maintenance burden (env var). Action: add CLAUDE_CODE_NO_FLICKER=1 to ~/.bashrc (global) and document in existing-capabilities.md under Environment Variables section.",
+    "action": "INTEGRATE: Add CLAUDE_CODE_NO_FLICKER=1 to ~/.bashrc. Add entry to existing-capabilities.md env var table. No settings.json change needed."
+  }
+}

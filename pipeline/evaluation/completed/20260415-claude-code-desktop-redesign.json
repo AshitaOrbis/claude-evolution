@@ -1,0 +1,44 @@
+{
+  "title": "Claude Code Desktop Redesign — Parallel Session Management UI",
+  "source": "https://claude.com/blog/claude-code-desktop-redesign",
+  "type": "technique",
+  "description": "Major redesign of the Claude Code desktop app (part of Claude macOS app) announced April 14-15, 2026. Key changes: (1) New sidebar for managing multiple concurrent Claude Code sessions in one window; (2) Drag-and-drop layout for arranging workspace panes; (3) Integrated terminal and file editor (replaces switching to external terminal); (4) Faster diff viewer; (5) Expanded preview area for running code inline. Designed for orchestrator workflows — 'many things in flight, you in the orchestrator seat.' Allows working across multiple repositories simultaneously. Co-released with Claude Code Routines.",
+  "discovered_at": "2026-04-15T00:00:00Z",
+  "keywords": [
+    "claude code desktop redesign",
+    "parallel sessions sidebar",
+    "multi-session Claude Code",
+    "drag-and-drop workspace",
+    "integrated terminal desktop app",
+    "file editor desktop app",
+    "orchestrator UI",
+    "concurrent Claude sessions",
+    "multi-repo Claude Code",
+    "session management sidebar",
+    "april 2026 desktop update"
+  ],
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": [
+      "Agent Teams (CONDITIONAL) — parallel agents exist but require terminal/CLI juggling",
+      "claude-squad — CLI-based multi-agent terminal management"
+    ],
+    "verdict": "NOVEL — existing multi-agent tools (Agent Teams, claude-squad) operate at the CLI level. This is a first-party desktop UI redesign providing session management, drag-and-drop layout, integrated terminal/editor, and multi-repo support in one window. Different layer: UI/UX redesign vs. agent coordination mechanism.",
+    "key_distinction": "Not a new agent coordination mechanism — a first-party UI that makes orchestrating multiple parallel agents significantly more ergonomic."
+  },
+  "priority": "MEDIUM",
+  "notes": "This is a macOS-only feature (part of the Claude macOS app). Primary development environment is native Linux (requiem) using the Claude Code CLI. Desktop app redesign does not apply to the Linux CLI workflow.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 20,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 47.5,
+    "decision": "REJECTED",
+    "reasoning": "Platform mismatch: macOS desktop app only. Primary system is native Linux (requiem) using the Claude Code CLI. Integration complexity = 0 (impossible — there is no Linux desktop app). Capability expansion = 20 (marginal — no usable capability expansion for our system, even though the feature is ergonomically useful on macOS). The feature itself is legitimately novel and high-quality, but it cannot be used in our CLI-on-Linux setup. REJECTED with informational note: if development shifts to a macOS machine, this UI redesign significantly improves multi-session orchestration ergonomics. Document in registry for future reference.",
+    "evaluated_at": "2026-04-15"
+  }
+}

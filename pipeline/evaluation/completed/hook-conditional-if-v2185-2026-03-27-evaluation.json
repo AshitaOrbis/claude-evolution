@@ -1,0 +1,24 @@
+{
+  "title": "Conditional `if` Field for Hooks (v2.1.85)",
+  "source": "Claude Code v2.1.85 changelog — claudeupdates.dev (2026-03-27)",
+  "type": "technique",
+  "description": "Hooks now support a declarative `if` field using permission rule syntax (same as allow/deny rules). When the condition evaluates to false, the hook subprocess is never spawned — filtering happens at the config layer with zero process overhead. Previously, every hook fired for every matching event and required the hook script itself to check conditions and exit early. Example: `{\"if\": \"tool_name == 'Bash'\", \"hooks\": [{\"type\": \"command\", \"command\": \"~/.claude/hooks/bash-guard.sh\"}]}`. Conditions can match on tool_name, file_path, command, and other event fields.",
+  "discovered_at": "2026-03-27T00:00:00Z",
+  "keywords": ["hooks", "conditional", "if-field", "permission-rule-syntax", "process-spawning", "performance", "PreToolUse", "hook-optimization", "declarative"],
+  "redundancy_status": "NOVEL",
+  "redundancy_comparison": "No existing conditional hook execution mechanism in registry. Hook Lifecycle Skill documents 19 hooks but all fire unconditionally (conditions must be handled inside scripts). The `if` field is a new config-layer primitive that enables declarative filtering before subprocess spawn.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 80,
+      "capability_expansion": 85,
+      "maintenance_burden": 90,
+      "community_validation": 90
+    },
+    "total": 88.25,
+    "decision": "APPROVED",
+    "reasoning": "High-value config primitive. Zero integration cost: existing hooks continue to work unchanged, `if` is additive only. Performance benefit is real — eliminates subprocess spawning for non-matching events on every tool call. Simplicity benefit: moves condition logic from bash scripts (where it's hard to read) into settings.json (declarative, self-documenting). Direct improvement to our hook pattern: TDD guard, bloat-audit hook, and others could all benefit from tool_name filtering. Community validation: official Anthropic feature. Minor caveat: permission rule syntax for `if` field is not yet fully documented — need to verify exact field names available (tool_name, file_path, command, etc.) against changelog/docs before rewriting existing hooks.",
+    "action": "REGISTRY_UPDATE + SKILL_UPDATE: (1) Add conditional `if` field to Hook Lifecycle Architecture table in registry. (2) Update hook-lifecycle SKILL.md to document the `if` field with examples. (3) Audit existing hook configs and note optimization opportunities. Do NOT rewrite existing hooks until exact syntax is confirmed empirically."
+  }
+}

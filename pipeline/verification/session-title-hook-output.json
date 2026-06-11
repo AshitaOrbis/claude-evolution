@@ -1,0 +1,21 @@
+{
+  "title": "Session Title Hooks via hookSpecificOutput.sessionTitle (v2.1.94)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.94, April 7 2026)",
+  "type": "technique",
+  "description": "UserPromptSubmit hooks can now return hookSpecificOutput.sessionTitle to programmatically set or override the session title. Enables hooks to auto-tag sessions based on prompt content, project context, or time-of-day. Useful for evolution heartbeat sessions — could auto-title them 'Heartbeat 2026-04-10' without manual naming, making /resume picker navigation cleaner.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["sessionTitle hook", "hookSpecificOutput", "UserPromptSubmit", "session naming", "auto-title", "session management"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 100
+    },
+    "total": 70.5,
+    "decision": "APPROVED",
+    "reasoning": "UserPromptSubmit hook is already active; adding sessionTitle return field is low-effort. Directly solves the /resume picker navigation problem for heartbeat sessions ('Heartbeat 2026-04-10' instead of UUID-style names). Implementation: update ~/.claude/hooks/user-prompt-submit.sh to detect heartbeat prompts and return hookSpecificOutput.sessionTitle."
+  }
+}

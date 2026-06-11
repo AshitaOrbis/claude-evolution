@@ -1,0 +1,1 @@
+NEEDS_RESEARCH: 2026-03-11. Score 52.25/100. Research questions in pipeline/evaluation/completed/claudia-kbanc85-evaluation.md. Key question: can SQLite+Ollama memory pattern be extracted without the full daemon stack? Reconsider if project removes Ollama/daemon dependency.

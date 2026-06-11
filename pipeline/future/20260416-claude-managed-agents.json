@@ -1,0 +1,31 @@
+{
+  "title": "Claude Managed Agents — Hosted Agent Execution Environment (Public Beta)",
+  "source": "https://dev.to/bean_bean/claude-managed-agents-deep-dive-anthropics-new-ai-agent-infrastructure-2026-3286",
+  "type": "technique",
+  "description": "Claude Managed Agents (public beta, April 8, 2026) is Anthropic's hosted agent execution environment. Developers build and deploy AI agents on Anthropic's cloud infrastructure without managing their own runtime, sandboxing, or tool execution environment. Key features: (1) Cloud-hosted agent execution — agents run on Anthropic's servers, not the developer's machine. (2) Beta API header: managed-agents-2026-04-01. (3) Eliminates five pain points: no self-managed runtime, no custom sandboxing, no tool execution plumbing, no state management infrastructure, no scaling concerns. Distinct from Claude Code Routines (event-triggered automation) — Managed Agents is an always-on hosted execution substrate for arbitrary agent logic. Distinct from our current Task tool pattern (in-session subagents) — Managed Agents hosts external, standalone agents with their own lifecycle. Use cases: external-facing agents, production agent deployments, agents that need to run 24/7 without a local laptop.",
+  "discovered_at": "2026-04-16",
+  "keywords": ["managed agents", "hosted agent", "cloud agent execution", "agent infrastructure", "managed-agents-2026-04-01", "Anthropic cloud agents", "agent hosting", "serverless agent", "agent runtime"],
+  "version": "API: managed-agents-2026-04-01",
+  "stars": null,
+  "official": true,
+  "notes": "Announced April 8, 2026 alongside ant CLI. Requires ANTHROPIC_API_KEY (not available on Max plan). Cannot be tested directly. Evaluate for documentation value and future API key adoption. Not duplicating Task tool (in-session) or Routines (event-triggered) — this is external agent hosting.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 20,
+      "token_efficiency": 50,
+      "capability_expansion": 65,
+      "maintenance_burden": 80,
+      "community_validation": 100
+    },
+    "total": 59.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic feature (community_validation=100), Anthropic-managed runtime (maintenance=80). Integration is currently blocked: requires ANTHROPIC_API_KEY which is unavailable on Max plan (complexity=20). Capability expansion (65): genuinely novel — external hosted agent execution, always-on lifecycle, different from in-session Task tool and from Routines (event-triggered). Token efficiency neutral (50) — different execution substrate, no direct per-session token effect. Research needed: confirm whether Max plan will expose API key access, assess whether Managed Agents supports claude -p-style invocation, track public beta progress toward GA.",
+    "research_questions": [
+      "Is there a path to using Managed Agents on Max plan without ANTHROPIC_API_KEY?",
+      "Does the managed-agents-2026-04-01 beta API authenticate via claude.ai session or requires API key only?",
+      "What is the pricing model compared to Max plan flat fee?",
+      "Is the dev.to source reliable — cross-verify with official Anthropic docs or blog post?"
+    ],
+    "evaluated_at": "2026-04-16"
+  }
+}

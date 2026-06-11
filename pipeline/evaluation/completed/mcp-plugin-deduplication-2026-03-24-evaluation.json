@@ -1,0 +1,24 @@
+{
+  "id": "mcp-plugin-deduplication-2026-03-24",
+  "title": "MCP Plugin Server Deduplication",
+  "source": "code.claude.com changelog (March 2026)",
+  "type": "technique",
+  "discovered_at": "2026-03-24",
+  "evaluation": {
+    "date": "2026-03-24",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency_impact": 60,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 90
+    },
+    "total": 73.5,
+    "decision": "APPROVED",
+    "reasoning": "Already shipped automatic behavior — MCP servers provided by plugins that match a manually-configured server (same command/URL) are now silently skipped, preventing duplicate tool exposure. Integration complexity 100 (no action needed). Community validation 90 (official Claude Code changelog). Capability expansion 40 reflects the narrow applicability (only affects setups with both plugin AND manual MCP config for the same server), making it an infrastructure fix rather than a capability class expansion. Token efficiency 60 because reducing duplicate tools reduces context noise and tool disambiguation overhead. Registry annotation is the correct action.",
+    "action": "Add to registry under Plugin System section (near existing Plugin System entry for v2.1.80). Entry: 'MCP Plugin Deduplication | ACTIVE | Plugin-provided MCP servers matching a manually-configured server (same command/URL) are automatically skipped; manual config takes precedence.'"
+  },
+  "original_description": "MCP servers provided by plugins that duplicate a manually-configured server (matching on command/URL) are now automatically skipped. Manual config takes precedence. Prevents duplicate connections and duplicate tool sets.",
+  "redundancy_check": "NOVEL — registry has Plugin System entries (v2.1.80) but no entry for deduplication logic.",
+  "integration_action": "Update registry/existing-capabilities.md: add MCP Plugin Deduplication to Plugin System section."
+}

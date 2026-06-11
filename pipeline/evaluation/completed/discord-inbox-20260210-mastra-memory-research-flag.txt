@@ -1,0 +1,1 @@
+Research needed: portability of Mastra OM threshold-based compression to Claude Code hooks. See pipeline/evaluation/completed/mastra-observational-memory-evaluation.md for questions.

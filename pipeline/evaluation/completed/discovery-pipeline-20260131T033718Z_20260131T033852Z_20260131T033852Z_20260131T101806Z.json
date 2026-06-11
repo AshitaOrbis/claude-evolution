@@ -1,0 +1,46 @@
+{
+  "type": "discovery",
+  "runId": "pipeline-final-001-1769830635546",
+  "status": "success",
+  "response": "4",
+  "events": [
+    {
+      "runId": "pipeline-final-001-1769830635546",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "start",
+        "startedAt": 1769830635752
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 1,
+      "ts": 1769830635752
+    },
+    {
+      "runId": "pipeline-final-001-1769830635546",
+      "stream": "assistant",
+      "data": {
+        "text": "4",
+        "delta": "4"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 2,
+      "ts": 1769830638447
+    },
+    {
+      "runId": "pipeline-final-001-1769830635546",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "end",
+        "endedAt": 1769830638483
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 3,
+      "ts": 1769830638483
+    }
+  ],
+  "timestamp": "2026-01-31T03:37:18.484Z",
+  "request_id": "pipeline-final-001",
+  "processed_at": "2026-01-31T03:37:18.484Z",
+  "schema_version": "1.0",
+  "created_at": "2026-01-31T03:50:00Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "claude-code-organizer — MCP Tool Poisoning Scanner + Accurate Token Budget",
+  "source": "https://github.com/mcpware/claude-code-organizer",
+  "type": "mcp_server",
+  "description": "mcpware/claude-code-organizer (npx @mcpware/claude-code-organizer) provides two novel capabilities not in registry: (1) MCP tool poisoning security scanner — scans installed MCP server configs using the same content-signature algorithm as Claude Code to detect prompt injection attempts in tool descriptions; distinct from mcp-guard which focuses on vulnerability scanning (not prompt injection detection). (2) Accurate context token budget tracker — corrects autocompact buffer from displayed 33K to real 13K tokens, adds 20K warning threshold and 32K output reservation. Also includes: memory/config/hook management across scope hierarchy (user/project/local), scope migration, duplicate MCP server detection. Validation flag: accuracy claims sourced from March 31 2026 leaked Claude Code source — needs independent verification before integration.",
+  "discovered_at": "2026-04-21T00:00:00Z",
+  "keywords": ["claude-code-organizer", "tool poisoning", "MCP security", "prompt injection", "context budget", "token budget", "autocompact buffer", "13K tokens", "scope management", "duplicate MCP detection", "mcp-guard complement"],
+  "relevance": "HIGH for security angle — prompt injection detection via tool description analysis is novel vs existing mcp-guard entry. Context budget correction is independently verifiable.",
+  "validation_flag": "CAUTION: Some accuracy claims derived from leaked source code (March 31 2026). Verify context budget numbers empirically before treating as authoritative.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 60,
+      "capability_expansion": 70,
+      "maintenance_burden": 50,
+      "community_validation": 40
+    },
+    "total": 56.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Tool poisoning scanner fills a genuine security gap (capability_expansion=70): prompt injection detection in tool descriptions is distinct from mcp-guard (which focuses on vulnerability scanning). Context budget correction claims are novel but sourced from leaked code — unverified. Integration (50): MCP server install requires approval gate (MCP config change per INTEGRATE-APPROVED.md), adds moderate setup overhead. Token efficiency (60): context budget correction (if accurate) would improve autocompact decisions. Maintenance (50): unknown star count, unconfirmed maintenance activity, caution flag on accuracy claims. Community validation (40): no confirmed star count, CAUTION flag on core accuracy claims. Research needed: (1) verify GitHub star count and maintenance activity, (2) empirically test context budget numbers against observed autocompact behavior, (3) independently confirm tool poisoning scanner logic is not itself a security risk.",
+    "research_questions": [
+      "What is the GitHub star count and last commit date for mcpware/claude-code-organizer?",
+      "Empirically test: does autocompact actually trigger at 33K displayed vs 13K real? Compare against observed behavior.",
+      "Is the tool poisoning scanner logic itself auditable — does it send tool description data externally or run locally?",
+      "Cross-reference: does mcp-guard (in registry) already cover prompt injection in tool descriptions?",
+      "What scope does 'memory/config/hook management' cover — does it auto-modify ~/.claude/settings.json?"
+    ],
+    "evaluated_at": "2026-04-21"
+  }
+}

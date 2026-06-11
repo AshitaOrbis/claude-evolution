@@ -1,0 +1,40 @@
+{
+  "title": "claude_code_agent_farm — 20+ parallel Claude Code sessions with lock coordination",
+  "source": "https://github.com/Dicklesworthstone/claude_code_agent_farm",
+  "type": "agent",
+  "description": "External orchestration framework for running 20+ Claude Code sessions in parallel. Uses lock-based coordination to prevent conflicts, real-time tmux monitoring for visibility, and systematic progress tracking across sessions. Two modes: (1) automated bug-fixing sweeps and (2) cooperative multi-agent feature development. Automatically backs up .claude settings before starting. Each session works through guidelines incrementally with honest completion percentages persisted between runs. Distinct from Agent Teams (internal to Claude Code) — this is an external wrapper that spawns independent Claude Code processes.",
+  "discovered_at": "2026-03-19",
+  "keywords": ["agent-farm", "parallel-agents", "tmux", "lock-coordination", "multi-session", "orchestration", "bug-fixing", "cooperative-agents", "batch-processing", "external-orchestration"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "No match in registry or completed evaluations. Existing multi-agent: Task tool (internal Claude Code subagents), Agent Teams (experimental shared-context), evolution-orchestrator (workflow coordination). Agent farm is DIFFERENT: spawns independent full Claude Code processes externally via tmux, for tasks requiring full session isolation. Closer to Claude Flow in concept (evaluated 51.75/100, rejected) but simpler and code-focused rather than general orchestration. Needs careful comparison against Claude Flow rejection rationale."
+  },
+  "evaluation": {
+    "status": "NEEDS_RESEARCH",
+    "evaluated_at": "2026-03-19",
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 70,
+      "capability_expansion": 75,
+      "maintenance_burden": 70,
+      "community_validation": 60
+    },
+    "total": 65.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "This avoids the Claude Flow trap: it's external (zero MCP overhead), simpler (lock coordination vs queen/worker hierarchy), and code-focused. The 75/100 capability score reflects genuine novelty — true process isolation that Task tool can't provide. The 65.75 total sits just below the threshold. Key unknowns: star count (scored 60 assuming ~200 stars based on Dicklesworthstone's community presence), and whether the bug-fixing sweep use case is actually useful for our projects. Integration complexity (50) is the anchor — it requires tmux setup and behavior change. This is NOT another Claude Flow: it has zero token overhead and a specific well-defined use case.",
+    "comparison_notes": {
+      "vs_claude_flow": "Claude Flow rejected (51.75) for MCP overhead (87 tools), 75% overlap, v3alpha. Agent farm: no MCP overhead, minimal overlap with Task tool, external process isolation. These are categorically different tools.",
+      "vs_task_tool": "Task tool spawns internal subagents with shared context. Agent farm spawns independent full Claude Code processes. Useful when context isolation is needed (parallel large codebases, concurrent session experiments).",
+      "vs_agent_teams": "Agent Teams experimental feature shares context between agents. Agent farm provides the opposite: full isolation per session."
+    },
+    "research_questions": [
+      "What is the current GitHub star count?",
+      "Does it work on native Linux (requiem desktop) or does it assume WSL/macOS?",
+      "What's the actual cost model — does running 20 parallel sessions cost 20x tokens?",
+      "Which use case is most relevant: bug-fixing sweeps or cooperative feature development?",
+      "Can it be configured for 2-5 sessions instead of 20+ for targeted parallel work?",
+      "Does it conflict with existing tmux workspace sessions?"
+    ],
+    "re_evaluation_trigger": "When star count is confirmed (target: ≥100 for 70 community score), or when a concrete use case emerges requiring batch parallel sessions."
+  }
+}

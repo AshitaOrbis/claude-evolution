@@ -1,0 +1,15 @@
+{
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Validation timed out, assuming safe"
+    },
+    "validated_at": "2026-01-31T11:28:32.986796+00:00Z"
+  }
+}

@@ -1,0 +1,15 @@
+NEEDS_RESEARCH — discord-inbox-20260310-gemini-embedding-2.md
+Score: 62.5/100 (Claude: 63.0, Codex: 62.0)
+Date flagged: 2026-03-12
+Window: GA release or Q2 2026 re-evaluation (due ~2026-06-01)
+
+Research questions:
+1. Is there a lightweight MCP server wrapping Gemini Embedding 2 API?
+2. Is there a concrete use case in the current project stack requiring multimodal embeddings?
+   - historical-nanochat: mixed text+image documents?
+   - genealogy: scanned document search?
+3. Does GA release stabilize the incompatibility with gemini-embedding-001?
+4. Is mgrep (Mixedbread) replaceable or would Gemini Embedding 2 serve a different niche?
+
+Re-evaluation trigger: Gemini Embedding 2 GA release (expected Q2 2026)
+Note: model-update-google-gemini-embedding-2-2026-03-11.md covers the same discovery — evaluate that file next run, may provide additional technical detail that changes routing.

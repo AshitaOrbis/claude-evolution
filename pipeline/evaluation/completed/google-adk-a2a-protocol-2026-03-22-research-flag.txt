@@ -1,0 +1,14 @@
+NEEDS_RESEARCH: Google ADK + A2A Protocol — Cross-Framework Agent Interop
+Score: 64.75/100
+Evaluated: 2026-03-22
+
+Research required before re-evaluation:
+1. Has Anthropic made any public statements about A2A protocol support for Claude Code?
+2. Are any existing MCP servers implementing A2A as a transport layer?
+3. Is there a working Claude Code + A2A integration example in the community?
+4. Current A2A spec version and broader industry adoption rate (beyond Google)?
+
+Re-evaluation trigger: Claude Code announces A2A protocol support, OR a working Claude Code + A2A integration is published.
+At that point, integration complexity score rises significantly → likely crosses 70.
+
+Source: pipeline/evaluation/completed/google-adk-a2a-protocol-2026-03-22-evaluation.md

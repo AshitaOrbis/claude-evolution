@@ -1,0 +1,24 @@
+{
+  "title": "Claude Code managed-settings.d/ Drop-In Directory (v2.1.83)",
+  "source": "state/versions.json v2.1.83 release notes",
+  "type": "technique",
+  "description": "New managed-settings.d/ drop-in directory that allows teams to deploy independent policy fragments, merged alphabetically. Instead of one monolithic managed-settings.json, multiple files can be dropped in and they merge automatically. Complements new permissions.disableBypassPermissionsMode lockdown in managed settings.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["managed-settings", "enterprise", "policy-fragments", "drop-in", "team-settings", "configuration-management", "disableBypassPermissionsMode"],
+  "redundancy_status": "NOVEL",
+  "redundancy_comparison": "No existing managed-settings.d/ or modular enterprise policy management in registry. The managed-settings.json is referenced in context but not documented as a registry entry. This is the first modular enterprise policy feature.",
+  "evaluation": {
+    "date": "2026-03-25",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 30,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 70.0,
+    "decision": "APPROVED",
+    "reasoning": "Marginally approved. Genuine enterprise policy management capability — drop-in directory enables teams to layer policies without merge conflicts, alphabetical merge order ensures deterministic conflict resolution. For this single-user desktop setup (requiem), practical value is near zero: no teams, MDM policies, or admin layers to coordinate. The companion permissions.disableBypassPermissionsMode field has mild security relevance for personal use (locking Auto Mode so users can't override to bypassPermissions). Approving as registry documentation entry; no active integration steps needed. Re-evaluate if workspace involves multi-user or enterprise deployment.",
+    "action": "REGISTRY_UPDATE: Add managed-settings.d/ to registry under new 'Enterprise Policy' subsection within Claude Code Features. Document drop-in merge order (alphabetical), conflict resolution, and disableBypassPermissionsMode companion field. Note single-user relevance is low."
+  }
+}

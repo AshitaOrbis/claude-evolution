@@ -1,0 +1,24 @@
+{
+  "title": "TaskCreated Hook Event (v2.1.84)",
+  "source": "Claude Code v2.1.84 changelog — claudeupdates.dev (2026-03-27)",
+  "type": "technique",
+  "description": "New `TaskCreated` hook event fires when a Task (subagent) is spawned via the Task tool. Fires at spawn time, before the agent consumes compute — distinct from SubagentStart (which fires when execution begins). Enables task lifecycle monitoring: logging spawns for cost tracking, injecting context before the agent runs, monitoring parallel execution patterns, and rate-limiting expensive agent spawns. Standard hook payload with agent_id, agent_type, worktree fields. This is the 20th hook in the Claude Code hook system.",
+  "discovered_at": "2026-03-27T00:00:00Z",
+  "keywords": ["hooks", "TaskCreated", "task-lifecycle", "subagent-monitoring", "cost-tracking", "hook-system", "v2.1.84"],
+  "redundancy_status": "NOVEL",
+  "redundancy_comparison": "SubagentStart/SubagentStop exist for agent execution lifecycle, but TaskCreated is a distinct pre-execution event. No existing hook fires at Task tool invocation time (before agent starts). AgentTeammate hooks (TeammateIdle, TaskCompleted) are for multi-agent coordination under the experimental Agent Teams feature — different scope.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 85
+    },
+    "total": 77.25,
+    "decision": "APPROVED",
+    "reasoning": "Approved with moderate priority. Genuine new capability: the gap between task spawn and agent execution is a monitoring blind spot — SubagentStart fires later, after the agent has already initialized. TaskCreated enables precise cost attribution and spawn-time context injection. Practical use: evolution pipeline heartbeat could log task spawns to event bus, enabling per-task cost tracking. No integration complexity — same pattern as all other hooks. Priority is lower than conditional `if` field (which has immediate performance impact); TaskCreated is a monitoring/observability enhancement.",
+    "action": "REGISTRY_UPDATE + SKILL_UPDATE: (1) Add TaskCreated to Subagent Management section in hook-lifecycle SKILL.md. (2) Update hook count 19→20 in SKILL.md and registry. (3) Add entry to registry Hook Lifecycle Architecture table. (4) Consider adding TaskCreated handler to evolution pipeline's event-bus publisher for spawn tracking."
+  }
+}

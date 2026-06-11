@@ -1,0 +1,31 @@
+{
+  "id": "stale-tool-output-auto-cleanup-2026-03-24",
+  "title": "Automatic Stale Tool Output Cleanup from Conversation History",
+  "source": "dev.to guide + releasebot.io (Claude Code 2026 feature)",
+  "type": "technique",
+  "discovered_at": "2026-03-24",
+  "evaluation": {
+    "date": "2026-03-24",
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency_impact": 80,
+      "capability_expansion": 60,
+      "maintenance_burden": 90,
+      "community_validation": 50
+    },
+    "total": 73.0,
+    "decision": "APPROVED",
+    "reasoning": "If the description is accurate, this is a high-value automatic behavior: verbose tool results (full file contents, bash output) from earlier in long sessions are trimmed from context without user action. Token efficiency impact is 80 because this directly addresses the #1 cause of context overflow in agentic sessions (tool output accumulation). Integration complexity 90 because no configuration is needed if automatic. Maintenance burden 90 because Anthropic maintains it. Community validation scored 50 (not 100) because the source is secondary (dev.to + releasebot, not official Anthropic changelog or announcement) — the exact behavior details 'may be imprecise'. Distinct from /compact (manual summarization of entire session) — this targets specific stale tool outputs automatically.",
+    "action": "APPROVED WITH VERIFICATION REQUIREMENT. Before adding to registry: verify trigger conditions (what threshold triggers cleanup? Is it configurable?), verify which tool output types are affected, and confirm against official Anthropic release notes. Registry entry should include: 'Automatic Stale Tool Output Cleanup | ACTIVE (verify version) | Claude Code automatically clears stale tool call outputs from history; distinct from /compact — automatic and granular.'",
+    "verification_needed": true,
+    "verification_questions": [
+      "What triggers cleanup — turn count, token threshold, or time-based?",
+      "Is this configurable or always-on?",
+      "Which tool output types are affected? (Read results, Bash output, MCP responses?)",
+      "Official release notes reference?"
+    ]
+  },
+  "original_description": "Claude Code now automatically clears stale tool call outputs from conversation history while preserving conversation flow and context awareness. Verbose tool results from earlier in a session are trimmed from context when no longer needed.",
+  "redundancy_check": "NOVEL — registry has 'Compact with Instructions' (manual /compact), 'Programmatic Tool Calling' (avoid flooding context), '1M Token Context'. None cover automatic selective pruning of tool outputs.",
+  "integration_action": "Document in registry under Context Management section after verification of trigger conditions."
+}

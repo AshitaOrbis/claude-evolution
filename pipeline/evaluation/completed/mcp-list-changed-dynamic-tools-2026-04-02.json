@@ -1,0 +1,22 @@
+{
+  "title": "MCP list_changed Notification Support (v2.1.89)",
+  "source": "https://claudelog.com/claude-code-changelog/",
+  "type": "technique",
+  "description": "Claude Code now handles MCP list_changed notifications from MCP servers, allowing servers to dynamically update their available tools, prompts, and resources mid-session without requiring a disconnect and reconnect. Enables MCP servers that add tools after user actions (e.g., after authentication, after selecting a project). Complements existing tool loading optimizations.",
+  "discovered_at": "2026-04-02",
+  "keywords": ["MCP list_changed", "dynamic tool updates", "MCP tools without reconnect", "real-time tool registration", "MCP notification", "dynamic MCP tools"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No existing dynamic MCP tool registration mechanism in registry. Previously, tool list changes required session restart. NOVEL — enables a new server design pattern. Particularly relevant for claude.ai connector MCPs that authenticate lazily.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 95,
+      "token_efficiency": 55,
+      "capability_expansion": 60,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 77.75,
+    "decision": "APPROVED",
+    "reasoning": "Zero configuration required — Claude Code automatically handles list_changed notifications from compliant MCP servers. Official Anthropic v2.1.89 feature. Capability expansion 60: enables MCP servers to add tools post-auth without reconnect — directly relevant for the claude.ai connector MCPs (Gmail, Calendar, Scholar) which authenticate lazily and likely use this pattern to expose their full tool set after auth. Token efficiency 55: minor improvement by eliminating reconnect overhead; also prevents stale tool caches. Zero maintenance (protocol-level behavior). Integration action: document in registry as active behavior; note that claude.ai connector MCPs are the primary beneficiary in this workspace."
+  }
+}

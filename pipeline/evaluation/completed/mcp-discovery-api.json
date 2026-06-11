@@ -1,0 +1,42 @@
+{
+  "title": "MCP Discovery API — Dynamic MCP Server Discovery via Semantic Search",
+  "source": "https://news.ycombinator.com/item?id=46661173",
+  "type": "technique",
+  "description": "A protocol or service that allows AI agents to dynamically discover and select MCP servers at runtime via semantic search, rather than requiring all servers to be pre-configured in .mcp.json or settings.json. Agents query a discovery endpoint with intent ('I need to access calendar data') and get back a list of matching MCP servers with connection instructions.",
+  "discovered_at": "2026-04-11T00:00:00Z",
+  "evaluated_at": "2026-04-11T00:00:00Z",
+  "keywords": ["MCP discovery", "dynamic MCP", "MCP registry", "semantic MCP selection", "runtime tool discovery", "MCP service discovery", "autonomous tool selection", "MCP catalog"],
+  "classification": "NOVEL",
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": ["Tool Search Tool (automatic semantic tool selection)", "disabledMcpjsonServers (manual control)"],
+    "verdict": "NOVEL — Tool Search Tool selects among already-loaded tools; this pattern selects which MCP servers to LOAD in the first place. Different problem scope.",
+    "key_distinction": "Tool Search Tool: which of the loaded tools to call. MCP Discovery: which servers to connect to before the session starts. Complementary, not redundant."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 55,
+      "token_efficiency": 65,
+      "capability_expansion": 75,
+      "maintenance_burden": 60,
+      "community_validation": 55
+    },
+    "total": 63.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Novel capability that complements Tool Search Tool by operating at a different level (server selection vs tool selection). Token efficiency benefit is real: dynamic loading of only relevant MCP servers reduces the tool schema overhead even before Tool Search Tool activates. Source confidence is MEDIUM (HN secondary source). Research needed: determine whether this is a specification, prototype, or shipping service; verify whether Claude Code supports dynamic MCP injection at runtime (post-startup).",
+    "research_questions": [
+      "Is there a reference implementation (npm package, hosted service, specification)?",
+      "Does Claude Code support dynamic MCP server injection after session startup?",
+      "What's the security model — how does the agent verify MCP servers from a discovery endpoint?",
+      "Is this the same as the Anthropic MCP registry proposal announced in 2026 roadmap?",
+      "Is HN item ID 46661173 a plausible April 2026 ID? (verify via HN)"
+    ]
+  },
+  "source_confidence": "MEDIUM — HN secondary source. Verify before full evaluation.",
+  "final_decision": {
+    "decision": "REJECTED",
+    "decided_at": "2026-04-30",
+    "decided_by": "user (interactive walkthrough)",
+    "reasoning": "Tool Search Tool already covers most token-efficiency benefit. Claude Code doesn't support runtime MCP injection post-startup. HN ID 46661173 is implausibly large for April 2026 (suggests hallucinated source). Will re-surface naturally if Anthropic ships an official MCP registry."
+  }
+}

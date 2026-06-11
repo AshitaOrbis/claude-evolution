@@ -1,0 +1,50 @@
+{
+  "title": "context-mode — PostToolUse Hook Output Sandboxing (98% Context Reduction)",
+  "source": "https://github.com/mksglu/context-mode",
+  "type": "skill",
+  "description": "Open-source tool (7.3k stars, created Feb 2026) that uses PostToolUse hooks to intercept tool outputs BEFORE they enter the context window, routing raw data to filesystem and injecting only compact summaries. Achieves 98% token reduction on tool outputs: 315 KB → 5.4 KB in reported benchmarks (Playwright snapshot 56.2 KB → 299 B; GitHub Issues 58.9 KB → 1.1 KB). Works on 12 platforms including Claude Code (full support: all 5 hook types). Installs via Claude Code plugin marketplace: `/plugin marketplace add mksglu/context-mode`. Requires Claude Code v1.0.33+. Mechanism: hooks route large tool results (curl responses, Playwright snapshots, grep dumps) to a managed store; LLM receives only a reference token + summary. License: Elastic License 2.0 (source-available, no managed service resale).",
+  "discovered_at": "2026-04-15T00:00:00Z",
+  "keywords": [
+    "context-mode",
+    "PostToolUse sandbox",
+    "tool output sandboxing",
+    "hook output routing",
+    "context window optimization",
+    "98% token reduction",
+    "tool result compression",
+    "sandbox tool output hooks",
+    "context saving hooks",
+    "315 KB to 5.4 KB",
+    "large tool response handling",
+    "playwright snapshot context",
+    "curl response context",
+    "grep output context",
+    "mksglu context-mode"
+  ],
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": [
+      "maxResultSizeChars / _meta annotation — MCP-level result truncation (different: cuts data, doesn't sandbox it)",
+      "Tool Search Tool — reduces tool schemas loaded, not tool output size",
+      "CLAUDE_CODE_SIMPLE — restricts which tools are available, not their output size",
+      "Context chunking / 80% rule — session management heuristic, not automatic output interception"
+    ],
+    "verdict": "NOVEL — no existing capability intercepts tool outputs post-execution and routes them to filesystem before context injection. maxResultSizeChars truncates data (lossy); context-mode sandboxes the full data to disk while injecting only a summary (lossless with retrieval). Fundamentally different mechanism.",
+    "key_distinction": "Lossless output routing via PostToolUse hooks. Data is preserved on disk and retrievable; context window sees only summary tokens. Not truncation, not restriction — active redirection."
+  },
+  "priority": "HIGH",
+  "notes": "Install via Claude Code plugin marketplace: `/plugin marketplace add mksglu/context-mode`. Requires Claude Code v1.0.33+. All 5 hook types supported for Claude Code (PreToolUse, PostToolUse, PreCompact, SessionStart, UserPromptSubmit). Hooks register automatically via plugin system — no manual settings.json editing needed. 98% claim is per-tool measured (Playwright, GitHub Issues) — lighter-output sessions (simple file edits) will see lower gains. Elastic License 2.0: free to use and modify, cannot resell as managed service. Empirical safety check: not required (installs via plugin marketplace, no env vars proposed). Star count 7.3k confirmed (April 2026).",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 80,
+      "token_efficiency": 85,
+      "capability_expansion": 80,
+      "maintenance_burden": 70,
+      "community_validation": 90
+    },
+    "total": 81.25,
+    "decision": "APPROVED",
+    "reasoning": "Strong approval. Integration complexity (80): plugin marketplace install — `/plugin marketplace add mksglu/context-mode` — significantly simpler than expected; no manual hook configuration. Token efficiency (85): directly relevant — persona testing pipeline uses Playwright heavily (snapshots: 56KB → 300B per tool call). The 98% claim is per-tool (not full session), but even 60-70% real-world session savings is substantial. Capability expansion (80): novel lossless output routing via PostToolUse hooks — fundamentally different from truncation (maxResultSizeChars); full data preserved on disk for retrieval. Maintenance burden (70): external plugin dependency, monthly check for Claude Code version compatibility; OpenCode support is partial (PostToolUse works, SessionStart doesn't — not our concern). Community validation (90): 7.3k stars qualifies for 1k+ tier. License is compatible (Elastic 2.0: use and modify freely). No empirical safety test required (plugin system, no new env vars).",
+    "evaluated_at": "2026-04-15"
+  }
+}

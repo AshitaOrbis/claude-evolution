@@ -1,0 +1,27 @@
+{
+  "title": "Claude Code Desktop Redesign — Multi-Session Sidebar & Integrated Terminal",
+  "source": "https://www.macrumors.com/2026/04/15/anthropic-rebuilds-claude-code-desktop-app/",
+  "type": "technique",
+  "description": "Anthropic shipped a complete redesign of the Claude Code desktop experience on April 14, 2026 (v2.1.108). Key features: (1) Session sidebar for managing multiple parallel Claude Code sessions from a single window — replaces cmd-tabbing between terminal tabs. (2) Drag-and-drop workspace layout for arranging session panels. (3) Integrated terminal pane within the Claude Code UI. (4) Faster diff viewer for reviewing file changes. (5) Expanded preview area. This is a client-side UX upgrade — no API key required, works on Max plan. Distinct from Routines (cloud automation) and Agent Teams (parallel programmatic agents). Primary value: visibility into parallel sessions without external tooling like tmux or the community 'Claude Control' macOS app (HN #47765520).",
+  "discovered_at": "2026-04-16",
+  "keywords": ["desktop redesign", "multi-session sidebar", "parallel sessions UI", "integrated terminal", "diff viewer", "session management UI", "Claude Code desktop", "v2.1.108 desktop", "drag-and-drop workspace"],
+  "version": "v2.1.108",
+  "stars": null,
+  "official": true,
+  "notes": "Released same day as Routines (April 14). MacRumors, SiliconAngle, and MikeGingerich.com all confirmed. Primarily relevant for Mac/Windows desktop app users. On requiem (native Linux CLI workflow), tmux handles parallel session management equivalently — direct impact is limited unless the Linux desktop app ships with same features.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 35,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 71.25,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic release (community_validation=100), zero integration needed — it's an automatic app update (complexity=100), Anthropic-maintained (maintenance=100). Token efficiency is neutral — pure UX change, no effect on context consumption. Capability expansion (35): meaningful for Mac/Windows desktop app users managing parallel sessions; limited for our Linux/tmux CLI workflow on requiem where the desktop app is not the primary interface. Our tmux session management achieves equivalent parallel-session visibility natively. Integration action: registry entry only — add to existing-capabilities.md as a documented official feature under a 'Desktop App' section. No configuration changes required.",
+    "integration_action": "registry_entry_only",
+    "integration_target": "registry/existing-capabilities.md — add Desktop App section with v2.1.108 multi-session sidebar, integrated terminal, drag-drop workspace",
+    "evaluated_at": "2026-04-16"
+  }
+}

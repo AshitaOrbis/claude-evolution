@@ -1,0 +1,22 @@
+{
+  "title": "Default Effort Level Change: Medium → High (v2.1.94)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.94, April 7 2026)",
+  "type": "technique",
+  "description": "The default effort level for API-key users, Bedrock/Vertex/Foundry users, Team plan, and Enterprise users has been raised from Medium to High. Claude Max plan users are unaffected (already had higher defaults). This changes the baseline compute allocation for all -p (headless) mode calls. Heartbeat and pipeline agents will now run at High effort by default — potentially improving quality but increasing latency and cost. Override with /effort in interactive mode or effort: frontmatter in agents.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["default effort", "effort level", "medium to high", "effort change", "compute allocation", "v2.1.94"],
+  "classification": "IMPROVEMENT",
+  "comparison_notes": "Effort controls are already in registry (v2.1.76-80). This is a behavioral default change — not a new feature, but a materially different baseline that affects all existing agent runs. Registry entry needs a note about the v2.1.94 default change and that Max plan users are unaffected.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Max plan users are unaffected — no workflow change needed. Documentation value only: update effort controls registry entry to note v2.1.94 raised the default from Medium to High for API/Bedrock/Team/Enterprise users. Prevents future confusion when sharing agent configs with non-Max users."
+  }
+}

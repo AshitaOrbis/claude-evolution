@@ -1,0 +1,145 @@
+{
+  "type": "discovery",
+  "runId": "protocol-test-001-1769830678705",
+  "status": "success",
+  "response": "HelloHello!Hello! I'mHello! I'm workingHello! I'm working andHello! I'm working and readyHello! I'm working and ready toHello! I'm working and ready to helpHello! I'm working and ready to help.Hello! I'm working and ready to help. 👋",
+  "events": [
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "start",
+        "startedAt": 1769830678865
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 1,
+      "ts": 1769830678865
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello",
+        "delta": "Hello"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 2,
+      "ts": 1769830680789
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello!",
+        "delta": "!"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 3,
+      "ts": 1769830680790
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm",
+        "delta": " I'm"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 4,
+      "ts": 1769830680790
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working",
+        "delta": " working"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 5,
+      "ts": 1769830680886
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and",
+        "delta": " and"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 6,
+      "ts": 1769830680887
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and ready",
+        "delta": " ready"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 7,
+      "ts": 1769830680888
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and ready to",
+        "delta": " to"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 8,
+      "ts": 1769830680888
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and ready to help",
+        "delta": " help"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 9,
+      "ts": 1769830680888
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and ready to help.",
+        "delta": "."
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 10,
+      "ts": 1769830680889
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "assistant",
+      "data": {
+        "text": "Hello! I'm working and ready to help. 👋",
+        "delta": " 👋"
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 11,
+      "ts": 1769830680889
+    },
+    {
+      "runId": "protocol-test-001-1769830678705",
+      "stream": "lifecycle",
+      "data": {
+        "phase": "end",
+        "endedAt": 1769830680899
+      },
+      "sessionKey": "agent:main:main",
+      "seq": 12,
+      "ts": 1769830680899
+    }
+  ],
+  "timestamp": "2026-01-31T03:38:00.900Z",
+  "request_id": "protocol-test-001",
+  "processed_at": "2026-01-31T03:38:00.900Z",
+  "schema_version": "1.0",
+  "created_at": "2026-01-31T03:30:00Z"
+}

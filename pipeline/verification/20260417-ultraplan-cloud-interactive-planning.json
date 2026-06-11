@@ -1,0 +1,24 @@
+{
+  "title": "/ultraplan — Cloud-Based Interactive Planning with Browser Review",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "technique",
+  "description": "New /ultraplan command (research preview, v2.1.91+) hands a planning task from the local CLI to a Claude Code web session. Plan drafts in the cloud while terminal stays free. In the browser, users can leave inline comments on specific plan sections, emoji-react, iterate with Claude, then either: (A) execute on the web and open a PR, or (B) teleport the approved plan back to the local terminal. 'Teleport back' injects the plan into the current conversation or starts a fresh session. Triggered via /ultraplan command, the keyword 'ultraplan' in any prompt, or 'Refine with Ultraplan' when declining a local plan. Requires claude.ai account + GitHub repo. Complementary to /ultrareview — plan first, review last.",
+  "discovered_at": "2026-04-17",
+  "keywords": ["ultraplan", "cloud planning", "interactive plan review", "plan teleport", "browser plan editing", "inline plan comments", "remote plan mode"],
+  "redundancy_check": "NOVEL — local plan mode is terminal-only single-pass; this is cloud-hosted with browser review interface, section-level inline comments, and two-way sync",
+  "version_introduced": "v2.1.91+ (research preview, documented in v2.1.111 changelog)",
+  "limitations": "Research preview, requires claude.ai account + GitHub repo, not available on Bedrock/Vertex/Foundry.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 75,
+      "token_efficiency": 65,
+      "capability_expansion": 80,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 81.25,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature (community_validation=100), Anthropic-maintained (maintenance=100). Integration is low-friction — triggered by /ultraplan command or keyword, requires existing claude.ai auth + GitHub repo (complexity=75). Token efficiency positive (65): off-loads planning work to cloud session, keeping local terminal context budget free during planning phase. Capability expansion high (80): browser-based inline comment review, section-level annotation, and bidirectional plan teleport are genuinely novel — terminal plan mode has none of these collaboration features. Three trigger modes (explicit /ultraplan, keyword, decline-and-refine) provide seamless local↔cloud workflow. Integration action: registry entry + note in Plan Mode Quality CLAUDE.md section documenting /ultraplan as complement to local plan mode."
+  },
+  "evaluated_at": "2026-04-17"
+}

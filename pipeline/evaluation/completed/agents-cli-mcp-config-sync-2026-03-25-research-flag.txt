@@ -1,0 +1,14 @@
+NEEDS_RESEARCH: Agents CLI – Unified MCP Config Sync
+Score: 59.0/100
+Evaluated: 2026-03-25
+Due: 2026-04-01
+
+Research required before re-evaluation:
+1. Verify GitHub repository URL and star count (not confirmed in HN Show HN discovery)
+2. Test Claude Code ~/.claude.json format support — tool claims Cursor/Claude Desktop/Copilot; Claude Code config format may differ
+3. Assess project-level .mcp.json vs global ~/.claude.json handling — this workspace uses both and needs both supported
+4. Check version compatibility: does the tool document compatibility with recent Claude Code releases? Config schema has changed.
+
+Re-evaluation trigger: GitHub repo confirmed with 200+ stars AND Claude Code ~/.claude.json format is explicitly documented as supported.
+
+Source: pipeline/evaluation/completed/agents-cli-mcp-config-sync-2026-03-25-evaluation.json

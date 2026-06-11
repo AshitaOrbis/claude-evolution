@@ -1,0 +1,23 @@
+{
+  "title": "v2.1.115 Four Production-Critical Bug Fixes",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "technique",
+  "description": "v2.1.115 (released ~2026-04-19) contains four fixes affecting common workflows: (1) --resume regression: sessions created before v2.1.85 failing with 'tool_use ids were found without tool_result blocks'; (2) outside-root edit regression: Write/Edit/Read failing on files outside project root (e.g. ~/.claude/CLAUDE.md) when conditional skills or rules are configured — directly affects this workspace since CLAUDE.md files live outside project roots; (3) config write storm: unnecessary config disk writes on every skill invocation causing performance degradation; (4) --bare regression: --bare mode dropping MCP tools in interactive sessions and silently discarding enqueued messages.",
+  "discovered_at": "2026-04-21T00:00:00Z",
+  "keywords": ["v2.1.115", "resume regression", "outside root edit", "conditional skills", "config write storm", "bare mode", "skill invocation regression", "config corruption"],
+  "relevance": "HIGH — outside-root edit regression directly affects ~/.claude/CLAUDE.md editing patterns used by every session on this workspace. Should verify current Claude Code version is >= v2.1.115.",
+  "action": "Version registry update only. Verify workspace is on v2.1.115+. No config changes needed.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Registry-update item: no configuration changes needed. Integration complexity = 100 (zero friction — pure registry documentation). Token efficiency neutral (50): fixes restore broken functionality, no direct token impact. Capability expansion (40): four regressions fixed — most impactful is outside-root edit regression which directly affected ~/.claude/CLAUDE.md patterns on this workspace; restoring functionality, not adding new capability. Maintenance = 100, community_validation = 100: official Anthropic changelog. Action: verify version is >=2.1.115 and add to registry.",
+    "evaluated_at": "2026-04-21"
+  }
+}

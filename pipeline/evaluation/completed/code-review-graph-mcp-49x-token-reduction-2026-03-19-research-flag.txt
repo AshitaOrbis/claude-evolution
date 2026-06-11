@@ -1,0 +1,12 @@
+NEEDS_RESEARCH: code-review-graph — Persistent codebase knowledge graph MCP (49x token reduction)
+Score: 65.75/100
+Evaluated: 2026-03-22
+
+Research required before re-evaluation:
+1. GitHub star count for tirth8205/code-review-graph (need ≥100 stars for 70 community score → crosses approval threshold)
+2. Is the `claude plugin add` mechanism stable across Claude Code versions?
+3. Known stability issues, OOM problems, or session interference (compare vs codebase-memory-mcp which was rejected)?
+4. Does the 49x benchmark apply to multi-project workspace (~59 projects, mixed sizes) or only large monorepos (27k+ files)?
+
+Re-evaluation trigger: Star count confirmed ≥100 OR someone tests it on the workspace and reports results.
+Source: pipeline/evaluation/completed/code-review-graph-mcp-49x-token-reduction-2026-03-19.json

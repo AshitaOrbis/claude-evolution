@@ -1,0 +1,26 @@
+RESEARCH FLAG
+=============
+Item: Autonomous Agent-Triggered Memory Compression (LangChain Deep Agents)
+Score: 59.75/100 (NEEDS_RESEARCH)
+Flagged: 2026-03-15
+Investigation window: 7 days (by 2026-03-22)
+
+BLOCKING QUESTIONS:
+1. Does v2.1.76+ have a PostCompact or PreCompact hook for injecting content-evaluation logic?
+2. What is LangChain's content-value scoring algorithm (token-count / semantic / recency)?
+3. Can this be implemented as a Claude Code hook without LangChain dependency?
+4. Does Letta framework offer a more portable implementation?
+
+RESEARCH SOURCES:
+- LangChain Deep Agents SDK changelog / GitHub
+- Letta memory framework docs (letta.ai)
+- Claude Code v2.1.76+ release notes for PostCompact hook details
+- PostCompact hook: library/techniques/ or pipeline/evaluation/completed/configchange-hook-event-v2.1.60-evaluation.md
+
+SCORE IMPROVEMENT PATH:
+If PostCompact hook exists AND algorithm is portable:
+  integration_complexity: 50 → 65
+  revised total: ~63-65 → edge of APPROVE
+
+If no hook and pattern-only:
+  Document in library/techniques/ only; score stays 59.75

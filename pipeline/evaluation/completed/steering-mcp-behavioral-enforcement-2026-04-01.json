@@ -1,0 +1,23 @@
+{
+  "title": "steering-mcp — Claude Code Behavioral Enforcement at Runtime",
+  "source": "https://github.com/intelligentcode-ai/steering-mcp",
+  "type": "mcp_server",
+  "description": "MCP server for enforcing behavioral constraints on Claude Code agents at runtime — ensures agents follow specific coding standards, review patterns, or workflow rules. Differs from CLAUDE.md (passive context) by actively intercepting and validating agent behavior. NEEDS VERIFICATION: unclear whether this offers capabilities beyond what PreToolUse hooks with exit 2 already provide. Star count and community validation not confirmed.",
+  "discovered_at": "2026-04-01",
+  "keywords": ["behavioral-enforcement", "constraints", "standards", "runtime-validation", "agent-behavior"],
+  "redundancy": "NEEDS_VERIFICATION",
+  "redundancy_notes": "May overlap with PreToolUse hooks (already in registry) for blocking operations. Need to verify whether it provides capabilities beyond existing hook enforcement before evaluating score.",
+  "priority": "low",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 60,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 50,
+      "community_validation": 30
+    },
+    "total": 46.5,
+    "decision": "REJECTED",
+    "reasoning": "Likely duplicates PreToolUse hooks (already in registry and active) which handle blocking/denying tool calls at runtime. No confirmed star count — low community validation. Medium integration complexity with no clear advantage over the hook system we already have. Capability expansion is low because the core enforcement pattern (intercept tool calls, apply constraints, allow/deny) is already covered by PreToolUse hooks. Community validation is unconfirmed. If the repo demonstrates genuinely novel behavioral enforcement beyond what PreToolUse provides, reconsider."
+  }
+}

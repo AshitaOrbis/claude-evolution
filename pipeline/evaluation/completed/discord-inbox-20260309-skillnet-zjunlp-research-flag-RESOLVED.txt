@@ -1,0 +1,16 @@
+NEEDS_RESEARCH — discord-inbox-20260309-skillnet-zjunlp.md
+Score: 60.25/100 (Claude: 54.5, Codex: 66.0)
+Date flagged: 2026-03-12
+Window: 7 days (due 2026-03-19)
+
+Research questions:
+1. How many stars does the main SkillNet repo (zjunlp/SkillNet) have? (needed for community validation)
+2. Is the CycleChain/skillnet-mcp wrapper stable? Check stars, issues, last commit date.
+3. What does the SkillNet skill corpus contain — Claude/Anthropic-specific skills or general LLM skills?
+4. Does `get_skill_rules` provide a token-safe path for routine Claude Code use?
+5. Review arXiv 2603.04448 for integration architecture details.
+
+Score upgrade path:
+If MCP wrapper has 100+ stars + maintained → re-score IC from 50 to 70 → final score ~67+ → still NEEDS_RESEARCH
+If MCP wrapper is stable AND corpus has Claude-relevant skills → re-score CE from 65 to 80 → final score ~73 → APPROVED (pilot mode)
+If MCP wrapper has <50 stars and no Claude-specific content → re-score CE to 50 → drops to ~52 → borderline, NEEDS_RESEARCH still

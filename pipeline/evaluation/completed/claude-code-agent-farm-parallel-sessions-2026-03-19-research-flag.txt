@@ -1,0 +1,13 @@
+NEEDS_RESEARCH: claude_code_agent_farm — 20+ parallel Claude Code sessions with lock coordination
+Score: 65.75/100
+Evaluated: 2026-03-22
+
+Research required before re-evaluation:
+1. GitHub star count for Dicklesworthstone/claude_code_agent_farm (need ≥100 stars → community score 70 → likely crosses threshold)
+2. Does it work on native Linux (requiem desktop) or assume WSL/macOS?
+3. Cost model — does 20 parallel sessions cost 20x tokens? (affects token efficiency score)
+4. Can it be configured for 2-5 sessions instead of 20+ for targeted parallel work?
+5. Does it conflict with existing tmux workspace sessions?
+
+Re-evaluation trigger: Star count confirmed (target ≥100), or concrete use case emerges requiring batch parallel sessions.
+Source: pipeline/evaluation/completed/claude-code-agent-farm-parallel-sessions-2026-03-19.json

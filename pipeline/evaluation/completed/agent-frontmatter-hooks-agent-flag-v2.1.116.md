@@ -1,0 +1,20 @@
+{
+  "name": "Agent Frontmatter hooks: Fires with --agent Flag",
+  "source": "Official Claude Code v2.1.116 changelog",
+  "version": "2.1.116",
+  "date_discovered": "2026-04-21",
+  "type": "improvement",
+  "classification": "IMPROVEMENT",
+  "existing_capability": "Agent frontmatter hooks: — already fires in subagent mode (Task tool). Hook Lifecycle skill documents all 20+ hook events.",
+  "description": "Agent frontmatter `hooks:` declarations now also fire when the agent runs as the main-thread agent via `claude --agent agent-name`, not just in subagent mode. Previously frontmatter hooks only fired in Task tool (subagent) mode.",
+  "relevance": "Most agents are invoked as subagents via Task tool (already worked). Agents invoked directly via --agent flag (e.g., as standalone automation entry points) now get frontmatter hooks too. Expands hook coverage to standalone agent invocations.",
+  "integration_complexity": 100,
+  "token_efficiency_impact": 50,
+  "capability_expansion": 65,
+  "maintenance_burden": 100,
+  "community_validation": 100,
+  "preliminary_score": 79,
+  "action": "Registry note only — automatic behavior, no config change. Add note to Hook Lifecycle section and agent frontmatter documentation.",
+  "redundancy_check": "IMPROVEMENT — extends existing agent frontmatter hooks: to main-thread --agent mode. Not a duplicate (previously only subagent mode).",
+  "notes": "Score probably 72-80 range. High integration complexity (automatic) and maintenance burden (automatic). Capability expansion is moderate — primarily affects standalone agent invocations which are less common than Task tool usage. Worth noting in agent INDEX.md so future agent authors know hooks: works in both modes."
+}

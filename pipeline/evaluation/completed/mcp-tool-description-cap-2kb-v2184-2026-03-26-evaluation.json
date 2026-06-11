@@ -1,0 +1,22 @@
+{
+  "title": "Claude Code MCP Tool Description Cap (2KB) — v2.1.84",
+  "source": "Claude Code v2.1.84 release notes (2026-03-26)",
+  "type": "technique",
+  "description": "Claude Code v2.1.84 automatically caps MCP tool descriptions and server-level instruction text at 2KB per tool/server. Prevents OpenAPI-generated MCP servers from bloating context with verbose auto-generated documentation (parameter schemas, response examples, exhaustive parameter descriptions). No configuration required — enforced at the protocol layer after tool loading/selection. Orthogonal to Tool Search Tool (deferred loading) and disabledMcpjsonServers (full exclusion).",
+  "discovered_at": "2026-03-26T00:00:00Z",
+  "keywords": ["mcp", "token-efficiency", "tool-description-cap", "2kb-limit", "context-bloat", "openapi-mcp", "mcp-description-truncation", "mcp-instruction-cap", "automatic-truncation"],
+  "notes": "Native Claude Code feature (v2.1.84). Automatic — no configuration needed. Primary use case: OpenAPI-generated MCP servers that include verbose auto-documentation per tool. Most of our existing MCPs (brave-search, exa, playwright, event-bus, discord) likely already fit within 2KB per tool description. High relevance score expected given: (1) zero integration cost, (2) automatic enforcement, (3) prevents runaway context from future OpenAPI-backed MCPs, (4) official Anthropic feature. Candidate for Token Efficiency section of registry. Should score 70+ (novel automatic protection) vs Tool Search Tool (deferred loading — those are complementary mechanisms, not substitutes).",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 70,
+      "capability_expansion": 70,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 85.0,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature in v2.1.84 requiring zero configuration — it operates automatically at the protocol layer. Integration complexity is 100 (zero config, passive enforcement). Token efficiency is 70: existing MCPs likely already under 2KB, so immediate impact is minor, but provides automatic protection as OpenAPI-backed MCP adoption grows — high forward value. Capability expansion is 70: complements but doesn't duplicate existing token efficiency stack (Tool Search Tool handles deferred loading, disabledMcpjsonServers handles full exclusion — this adds automatic truncation at the description level, a distinct mechanism). Maintenance is 100: zero maintenance, native version-tracked feature. Community validation is 100: official Anthropic release. Action: add to registry Token Efficiency section with v2.1.84 version note and redundancy triggers.",
+    "evaluated_at": "2026-03-26T00:00:00Z"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Opus 4.7 Context Window Fix — 1M Correctly Applied (v2.1.117)",
+  "integrated_at": "2026-04-22",
+  "type": "technique",
+  "score": 76.75,
+  "actions_taken": [
+    "Registry Opus 4.7 entry (v2.1.111) updated with v2.1.117 bug fix note: context window calculation corrected from 200K to 1M",
+    "Redundancy triggers added: 'opus 4.7 context bug', 'opus47 200K context', 'opus47 premature compaction', '1M context fix opus47'"
+  ],
+  "pending": [],
+  "verification": "Bug fix is automatic in v2.1.117. Verify by running an Opus 4.7 session and checking /context — percentage should now reflect usage against 1M token limit, not 200K. No configuration needed.",
+  "status": "success"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Agents CLI – Unified MCP Config Sync",
+  "source": "Hacker News (Show HN), March 2026",
+  "type": "technique",
+  "description": "CLI tool that unifies MCP configuration across Cursor, Claude Desktop, GitHub Copilot, and CLI tools. Solves the fragmentation problem of managing separate config files for each AI assistant. Single source of truth for MCP servers across tools. No more manually duplicating server entries across ~/.claude.json, .mcp.json, and Cursor settings.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["mcp-config", "config-sync", "cursor", "copilot", "claude-desktop", "multi-tool", "config-management", "single-source-of-truth"],
+  "notes": "Addresses a real pain point: this workspace manages MCPs across Claude Code (global ~/.claude.json) and project .mcp.json files. Not currently in registry. Could reduce maintenance burden when adding new MCP servers. GitHub URL and star count unconfirmed — verify authenticity. Need to check if Claude Code config format is actually supported."
+}

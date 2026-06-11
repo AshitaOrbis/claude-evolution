@@ -1,0 +1,25 @@
+NEEDS_RESEARCH — PAL MCP Server (Provider Abstraction Layer)
+Evaluated: 2026-03-23 | Score: 62.75/100
+
+CRITICAL QUESTION (gates entire decision):
+Does PAL support multi-turn conversation threading equivalent to mcp__codex__codex-reply with conversationId?
+- YES → score rises to ~73 (APPROVE)
+- NO  → score drops to ~55 (REJECT)
+
+RESEARCH QUESTIONS:
+1. Multi-turn threading — check PAL docs/README for session continuation
+   Compare: our codex-reply uses conversationId to continue sessions
+
+2. Model coverage — does PAL accept: gpt-5.4, gpt-5.4-mini, gpt-5.4-nano?
+   Check: github.com/BeehiveInnovations/zen-mcp-server README
+
+3. Config defaults — can PAL read from ~/.codex/config.toml or equivalent?
+   Or must each call specify model/provider explicitly?
+
+4. Side-by-side vs replacement — can PAL be added WITHOUT removing existing
+   codex + gemini-cli MCPs? (Reduces migration risk)
+
+PROMOTE CONDITION: Multi-turn threading confirmed + gpt-5.4 family supported
+REJECT CONDITION: No multi-turn threading OR breaks codex-researcher subagent
+
+Source file: pal-mcp-server-provider-abstraction-2026-03-23.json

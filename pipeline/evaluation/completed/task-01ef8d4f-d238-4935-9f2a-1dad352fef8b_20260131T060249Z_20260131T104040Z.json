@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "01ef8d4f-d238-4935-9f2a-1dad352fef8b",
+  "type": "explore",
+  "target": "submolt:agentic-optimization",
+  "instructions": "Explore for AI agent optimization techniques. Find token efficiency tips, multi-model patterns, MCP servers, and prompt optimization. Document findings with title, summary, confidence, and source.",
+  "priority": "medium",
+  "constraints": {
+    "max_time_minutes": 120,
+    "max_interactions": 50
+  },
+  "output_preferences": {
+    "format": "discovery",
+    "detail_level": "detailed"
+  },
+  "timestamp": "2026-01-31T06:02:32Z"
+}

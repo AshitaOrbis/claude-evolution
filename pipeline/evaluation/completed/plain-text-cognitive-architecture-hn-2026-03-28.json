@@ -1,0 +1,11 @@
+{
+  "title": "Plain-Text Cognitive Architecture for Claude Code (HN Show HN)",
+  "source": "https://news.ycombinator.com/item?id=47524704",
+  "type": "technique",
+  "description": "HN 'Show HN' post presenting a plain-text cognitive architecture pattern for Claude Code. Core idea: memory is organized as 'directed' (purpose-driven) rather than as logs or free-form notes. Structured answers serve as memories — each memory entry is a Q&A pair where the question defines the retrieval context and the answer is the retained knowledge. Claims to reduce hallucination in long agentic runs by grounding memory in explicit query-answer structure rather than narrative summaries.",
+  "discovered_at": "2026-03-28",
+  "keywords": ["cognitive architecture", "plain text memory", "directed memory", "Q&A memory format", "structured memory", "agent memory organization", "memory as answers", "purpose-driven memory", "memory retrieval context"],
+  "preliminary_notes": "Existing memory system uses MEMORY.md index + per-topic .md files with frontmatter (name/description/type). This technique proposes a different model: Q&A pairs as the primary memory unit. If the 'directed' (query-first) structure offers meaningfully better retrieval in practice, it could improve memory access patterns. Needs: (1) source URL verification (HN link may be behind paywall or link-only), (2) comparison to existing memory system, (3) check if it's just reformatting our existing approach or a structurally different model.",
+  "registry_check": "Existing memory system: file-based MEMORY.md index + typed .md files. No Q&A-structured memory format documented. This would be a technique extension, not a replacement. Score depends on demonstrated advantage over current approach.",
+  "preliminary_score_range": "45-65/100 — depends on evidence quality and differentiation from current approach"
+}

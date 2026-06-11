@@ -1,0 +1,11 @@
+{
+  "title": "Background Agent Partial Result Preservation",
+  "source": "releasebot.io/updates/anthropic (Claude Code v2.1.81+, March 2026)",
+  "type": "technique",
+  "description": "When a background agent is killed or interrupted mid-task, its partial results are now preserved in the conversation context instead of being lost. Previously, killing a background agent discarded all in-progress work. Now, work completed before the kill is recoverable, enabling checkpoint-resume patterns. Complements the Autonomous Subagent Resume feature (v2.1.81) where the model decides to resume vs spawn fresh.",
+  "discovered_at": "2026-03-24",
+  "keywords": ["background agents", "partial results", "checkpoint recovery", "context preservation", "agent kill", "interrupted agent", "resume from checkpoint", "background task", "graceful termination", "agent fault tolerance"],
+  "redundancy_check": "NOVEL — registry has 'SendMessage Auto-Resume' and 'Autonomous Subagent Resume' but these are for resuming stopped agents. This is specifically about preserving partial output when an agent is killed (not stopped cleanly). Distinct use case: the agent cannot resume (killed), but its work-in-progress is recoverable from context.",
+  "initial_score_estimate": 72,
+  "notes": "Particularly valuable for long-running discovery or integration agents that may be killed due to timeout, rate limit, or user interrupt. Means heartbeat automation loses less work on failure. No integration action required — this is automatic behavior. Documentation value: update helpers/playbooks/ with checkpoint pattern."
+}

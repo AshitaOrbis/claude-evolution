@@ -1,0 +1,22 @@
+{
+  "title": "PreToolUse 'defer' Permission Decision (v2.1.89)",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "technique",
+  "description": "Headless sessions can now pause at a specific tool call by returning 'defer' from a PreToolUse hook, then resume later with 'claude -p --resume' to have the hook re-evaluate. Enables human-in-the-loop checkpoints in otherwise fully-autonomous pipelines without abandoning session context. Distinct from: PermissionDenied hook (fires after denial), PreToolUse allow/deny (synchronous block). New pattern: automation runs unattended until a 'dangerous' tool call, pauses, human reviews and resumes.",
+  "discovered_at": "2026-04-02",
+  "keywords": ["defer permission", "PreToolUse defer", "headless pause resume", "human checkpoint", "headless automation pause", "permission defer hook", "PreToolUse hook"],
+  "redundancy": "DUPLICATE",
+  "redundancy_notes": "DUPLICATE of pipeline/integration/pretooluse-defer-permission.md — already approved (79.5/100) and in the integration pipeline as of earlier in this evaluation batch. The integration entry has full implementation sketch, use cases, and scoring. This pending file was likely added by a heartbeat run that hadn't yet seen the integration entry. No new evaluation needed.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 0,
+      "maintenance_burden": 100,
+      "community_validation": 90
+    },
+    "total": 41.0,
+    "decision": "REJECTED",
+    "reasoning": "DUPLICATE — already captured in pipeline/integration/pretooluse-defer-permission.md (approved 79.5/100). Integration complexity scored 0 (nothing to integrate, already in pipeline). Capability expansion 0 (no new capability added vs already-integrated record). The PreToolUse defer feature itself is valuable and approved — but this discovery file adds nothing to the pipeline. See pipeline/integration/pretooluse-defer-permission.md for the authoritative evaluation and implementation guide."
+  }
+}

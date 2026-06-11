@@ -1,0 +1,53 @@
+{
+  "id": "pal-mcp-server-provider-abstraction-2026-03-23",
+  "title": "PAL MCP Server — Provider Abstraction Layer (formerly Zen MCP)",
+  "source_url": "https://github.com/BeehiveInnovations/zen-mcp-server",
+  "lobehub_url": "https://lobehub.com/mcp/beehiveinnovations-pal-mcp-server",
+  "type": "mcp_server",
+  "discovered": "2026-03-23",
+  "redundancy_status": "IMPROVEMENT",
+  "redundancy_comparison": "Existing: mcp__codex__codex (GPT-5.4) + mcp__gemini-cli__ask-gemini (Gemini 3.1 Pro). PAL adds: Grok, OpenRouter, Ollama, custom models, unified interface, model aliases, provider fallback chains.",
+  "description": "Provider Abstraction Layer — a single MCP server that enables Claude Code to call Gemini, OpenAI, Grok, OpenRouter, Ollama, and custom models from within a single conversation. Claude stays in control; PAL is invoked when Claude decides another model's perspective is valuable (e.g., code review, synthesis, domain expertise). Supports model aliases, cross-model conversation threading, and a one-command setup script.",
+  "stars": "~10.8k (per scriptbyai.com claude code resource list, March 2026)",
+  "license": "MIT (inferred from repo structure)",
+  "author": "BeehiveInnovations",
+  "rebranding_note": "Previously 'Zen MCP Server'. Renamed to PAL (Provider Abstraction Layer) in early 2026. lobehub now shows the PAL name.",
+  "token_impact": "Neutral to slight increase (adds multi-model call overhead, but avoids duplicate MCP registrations for Codex + Gemini if replacing both)",
+  "capability_expansion": "Adds Grok, OpenRouter, Ollama, custom model support. Unified interface reduces cognitive overhead vs managing two separate MCP tools.",
+  "integration_effort": "Medium — replaces existing two MCPs (codex, gemini-cli) with one. Requires migration of all codex-researcher and gemini invocations.",
+  "risks": [
+    "Migration cost: all existing codex-researcher subagent + Gemini invocations would need updating",
+    "Dependency on third-party MCP vs official Anthropic Codex MCP integration we built",
+    "Provider availability: PAL passes through API keys; same availability as underlying providers",
+    "Grok/OpenRouter/Ollama support is additive value but not currently needed",
+    "The existing Codex MCP is custom-built (claude-mcp-servers/codex-simple/server.js) with multi-turn session support — PAL may not replicate this"
+  ],
+  "comparison_needed": {
+    "existing_codex": "mcp__codex__codex — custom CLI wrapper, GPT-5.4 default from ~/.codex/config.toml, multi-turn via mcp__codex__codex-reply with conversationId",
+    "existing_gemini": "mcp__gemini-cli__ask-gemini — Gemini 3.1 Pro, used for UI/visual analysis",
+    "pal_advantage": "Unified interface, Grok+Ollama+OpenRouter support, model aliases, one MCP vs two",
+    "pal_disadvantage": "Loses multi-turn session tracking of codex-reply; migration cost; community MCP vs custom-built"
+  },
+  "evaluation": {
+    "date": "2026-03-23",
+    "scores": {
+      "integration_complexity": 45,
+      "token_efficiency_impact": 55,
+      "capability_expansion": 70,
+      "maintenance_burden": 60,
+      "community_validation": 90
+    },
+    "total": 62.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "High community validation (10.8k stars) and genuine capability expansion (Grok, OpenRouter, Ollama). However, the decisive blocker is whether PAL supports multi-turn conversation threading equivalent to codex-reply with conversationId — the existing Codex MCP's core differentiator for research sessions. If PAL cannot replicate this, migration cost outweighs unified-interface benefit. Integration complexity scored 45 due to mandatory migration of all codex-researcher subagent and Gemini invocations. Current trajectory: if multi-turn is supported, score rises to ~73 (APPROVE); if not, score drops to ~55 (REJECT)."
+  },
+  "research_questions": [
+    "Does PAL support multi-turn conversation threading comparable to codex-reply with conversationId?",
+    "What is the exact model coverage? Does it support gpt-5.4, gpt-5.4-mini, gpt-5.4-nano?",
+    "Can PAL preserve the custom ~/.codex/config.toml defaults for model selection?",
+    "Is there a way to use PAL alongside existing Codex/Gemini MCPs rather than replacing them?"
+  ],
+  "status": "NEEDS_RESEARCH",
+  "promote_to_approved_if": "PAL supports multi-turn conversation threading with session IDs AND supports gpt-5.4/mini/nano model IDs",
+  "reject_if": "No multi-turn threading support OR migration breaks existing codex-researcher subagent workflow"
+}

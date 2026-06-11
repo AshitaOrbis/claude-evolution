@@ -1,0 +1,35 @@
+{
+  "title": "Bash(find:*) Security Tightening — find -exec/-delete No Longer Auto-Approved",
+  "source": "https://www.claudeupdates.dev/version/2.1.113",
+  "type": "technique",
+  "description": "Security hardening in v2.1.113: `Bash(find:*)` allow rules no longer auto-approve `find -exec` and `find -delete` subcommands. Previously, a wildcard allow rule for `find` would implicitly approve dangerous subcommands that execute arbitrary commands or delete files — a significant privilege escalation vector. Now, `find -exec` and `find -delete` require explicit separate approval even when the base `find` command is allowed. This is a behavioral change that affects existing permission configs. Additionally, running `cd <current-directory> && git ...` no longer triggers a permission prompt when the `cd` is a no-op (quality-of-life fix). Relevant to security-hardened agent configs and heartbeat sessions with broad Bash allow rules.",
+  "discovered_at": "2026-04-19T00:00:00Z",
+  "keywords": [
+    "bash find exec auto-approve",
+    "find -exec security",
+    "find -delete auto-approve",
+    "bash allow rule security",
+    "permission allow rule tightening",
+    "bash wildcard security",
+    "v2.1.113 security",
+    "bash security hardening",
+    "allow rule bypass prevention"
+  ],
+  "version": "v2.1.113",
+  "redundancy_check": "NOVEL — registry documents CLAUDE_CODE_SUBPROCESS_ENV_SCRUB and PID namespace isolation as subprocess security layers, but this is a new behavior change in the Bash permission approval logic itself. No overlap.",
+  "quick_score_estimate": 72,
+  "action_required": "Audit existing Bash(find:*) allow rules in ~/.claude/settings.json — may need to add explicit find -exec rules if agents legitimately use that pattern",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 50,
+      "capability_expansion": 50,
+      "maintenance_burden": 100,
+      "community_validation": 80
+    },
+    "total": 70.0,
+    "decision": "APPROVED",
+    "reasoning": "Security hardening awareness with immediate action item. Integration complexity (90): one-time settings audit + registry update — no code changes, no external installs. Audit result: no Bash(find:*) allow rules found in ~/.claude/settings.json, ~/claudeworkspace/.claude/settings.json, or project settings. Zero remediation needed. Token efficiency neutral (50): no per-session token impact. Capability expansion (50): not new capability, but important behavioral knowledge — prevents silent privilege escalation via existing wildcard allow rules. Maintenance zero (100): one-time version note, no ongoing upkeep. Community validation (80): claudeupdates.dev is a reliable CC version changelog tracker. Action: add registry entry under Security/Bash behavior changes documenting v2.1.113 behavior change.",
+    "evaluated_at": "2026-04-19"
+  }
+}

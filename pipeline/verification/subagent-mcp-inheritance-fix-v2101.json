@@ -1,0 +1,28 @@
+{
+  "title": "Subagent MCP Tool Inheritance Fix for Dynamic Servers (v2.1.101)",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.101",
+  "type": "technique",
+  "description": "Two related fixes in v2.1.101 that affect subagent tool access: (1) Fixed subagents not inheriting MCP tools from dynamically-injected servers — when MCP servers are added at runtime (e.g., via hook injection or programmatic MCP addition), spawned subagents were not seeing those tools. (2) Fixed sub-agents running in isolated worktrees (isolation: worktree frontmatter) being denied Read/Edit access to files inside their own worktree. Both are behavioral bugs affecting the evolution pipeline: capability-discoverer and capability-evaluator use isolation: worktree and spawn Task subagents that may need MCP tools. These fixes mean agents no longer need workarounds (explicit tool list, pre-spawn MCP setup) that were previously required. Registry-worthy as a known-working behavioral guarantee that prior sessions may have worked around incorrectly.",
+  "discovered_at": "2026-04-12",
+  "keywords": ["subagent MCP inheritance", "dynamic MCP tools", "worktree subagent access", "isolation worktree fix", "subagent tool availability", "dynamically-injected MCP", "worktree file access"],
+  "source_confidence": "HIGH",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 90,
+      "token_efficiency": 60,
+      "capability_expansion": 65,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 79.25,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic bug fix (v2.1.101) with HIGH relevance to the evolution pipeline. Two fixes: (1) Subagents now inherit MCP tools from dynamically-injected servers (was silently broken); (2) Subagents in isolation:worktree can now read/edit files within their own worktree (was silently denied). Both directly affect capability-discoverer and capability-evaluator which use worktree isolation and spawn Task subagents. Prior sessions likely added workarounds (explicit tool lists, pre-spawn MCP setup) that are now unnecessary overhead. Integration complexity 90: audit existing agent definitions and remove workarounds. Capability expansion 65: removes friction, not genuinely new — but fixing silent failures has compounding benefit.",
+    "integration_actions": [
+      "Audit ~/.claude/agents/capability-discoverer.md for MCP tool workarounds to remove",
+      "Audit ~/.claude/agents/capability-evaluator.md for explicit tool lists that compensated for this bug",
+      "Audit ~/.claude/agents/code-reviewer.md and other isolation:worktree agents for similar workarounds",
+      "Verify agent-event-bus MCP tools are now inherited by worktree subagents (test with a quick Task spawn)",
+      "Add registry entry: 'Subagent MCP Inheritance (v2.1.101) — dynamic server tools and worktree file access fixed'"
+    ]
+  }
+}

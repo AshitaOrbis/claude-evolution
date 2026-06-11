@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "type": "insight",
+  "title": "E2E Pipeline Test Discovery",
+  "summary": "This is a mock discovery to test the end-to-end pipeline from outbox through gatekeeper validation.",
+  "details": "The full pipeline includes: 1) File shim polling inbox, 2) Task submission to gateway, 3) Response written to outbox, 4) Gatekeeper validation (Layer 1), 5) Haiku review (Layer 2), 6) Routing to valid/ or quarantine/.",
+  "source": {
+    "type": "agent",
+    "reference": "claude-evolution-test"
+  },
+  "relevance": "evolution",
+  "confidence": 0.95,
+  "actionable": true,
+  "suggested_next_steps": [
+    "Verify gatekeeper claims and validates this file",
+    "Check routing to pending_review/",
+    "Run Layer 2 Haiku validation"
+  ],
+  "tags": ["test", "e2e", "pipeline", "validation"],
+  "timestamp": "2026-01-31T03:20:00Z"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "context-mode-mcp-output-compression-2026-03-23",
+  "title": "Context Mode MCP — Tool Output Compression",
+  "source_url": "https://github.com/mksglu/claude-context-mode",
+  "hn_url": "https://news.ycombinator.com/item?id=47148025",
+  "blog_url": "https://mksg.lu/blog/context-mode",
+  "type": "mcp_server",
+  "discovered": "2026-03-23",
+  "redundancy_status": "NOVEL",
+  "redundancy_notes": "Cloudflare Code Mode (in registry) compresses tool SCHEMA definitions. Context Mode compresses tool OUTPUT responses. Opposite direction, complementary, no overlap.",
+  "description": "An MCP server that intercepts large tool outputs (Playwright snapshots, GitHub API responses, logs, test output) before they enter the context window. Processes them in isolated sandboxes, indexes into SQLite FTS5 with BM25 ranking, and returns compact references + summaries instead of raw content. Demonstrated 315 KB → 5.4 KB (98% reduction). Extends usable session time from ~30 min to ~3 hours.",
+  "mechanism": "PostToolUse hook intercepts large outputs. Raw data processed in sandboxed subprocess. SQLite FTS5 + BM25 index built. Returns summary + reference ID. Claude can query the index for specific content without loading full output.",
+  "license": "MIT",
+  "stars": "unknown (HN Show HN + GitHub issues traction; scriptbyai resource list citation)",
+  "author": "Mert Köseoğlu (mksglu)",
+  "community_validation_note": "HN submission with comments; cited in awesome-claude-code GitHub issues; referenced in Anthropic's own issues tracker (issue #34391)",
+  "token_impact": "Saves — 98% claimed reduction on tool outputs",
+  "capability_expansion": "Enables 6x longer sessions before context degradation; enables processing large data (logs, snapshots) that currently cause context overflow",
+  "integration_effort": "Medium — requires MCP server install + hook configuration",
+  "risks": [
+    "Star count unverified — community size unknown",
+    "Sandboxed subprocess adds latency per tool call",
+    "BM25 retrieval may miss semantically relevant content",
+    "Hook-based interception may conflict with existing PostToolUse hooks (TDD-guard, etc.)",
+    "Claims are aggressive — 98% reduction depends on tool output types"
+  ],
+  "evaluation": {
+    "date": "2026-03-23",
+    "scores": {
+      "integration_complexity": 60,
+      "token_efficiency_impact": 90,
+      "capability_expansion": 75,
+      "maintenance_burden": 65,
+      "community_validation": 35
+    },
+    "total": 68.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Strong mechanism (PostToolUse interception + SQLite FTS5 index) with compelling token savings claims (98% reduction = 6x longer sessions). Novel capability not covered by existing stack. However: (1) hook conflict with tdd-guard and other PostToolUse hooks is unresolved and could break existing workflows, (2) star count unknown — community validation is genuinely low, (3) 98% reduction claim is aggressive and unverified against our specific tool outputs (Playwright snapshots, Brave Search, GitHub MCP). Score touches 70 threshold but risks justify NEEDS_RESEARCH."
+  },
+  "research_questions": [
+    "What are the actual GitHub stars? Use: site:github.com mksglu/claude-context-mode",
+    "Does Context Mode's PostToolUse hook conflict with tdd-guard or other existing hooks?",
+    "What is the latency overhead per tool call with sandboxed processing?",
+    "Is BM25 sufficient or does it miss content that semantic search would catch?",
+    "Does the 98% figure hold for the tool outputs we actually use (Playwright, GitHub MCP, Brave Search)?"
+  ],
+  "status": "NEEDS_RESEARCH",
+  "promote_to_approved_if": "Star count >= 200 AND hook conflict can be resolved/isolated AND latency overhead < 500ms per call"
+}

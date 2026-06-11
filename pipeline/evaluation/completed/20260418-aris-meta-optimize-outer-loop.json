@@ -1,0 +1,34 @@
+{
+  "title": "ARIS /meta-optimize — Outer-Loop Harness Optimization via Hook-Based Logging",
+  "source": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+  "type": "skill",
+  "description": "ARIS (Auto-Research-In-Sleep) is a Markdown-only skills framework for autonomous ML research. The /meta-optimize skill (added 2026-04-05) is an outer-loop harness optimizer: passively logs skill invocations, tool calls, failures, and parameter overrides via Claude Code hooks. Uses logged data to auto-tune SKILL.md parameters over time — essentially self-improving the agent's own skill definitions without manual intervention. Architecture: hooks capture execution telemetry → /meta-optimize analyzes patterns → proposes SKILL.md diffs → applies approved changes. Relevant to evolution pipeline's own prompt optimization workflow.",
+  "discovered_at": "2026-04-18",
+  "keywords": ["ARIS", "meta-optimize", "outer loop optimization", "skill self-improvement", "hook-based logging", "auto-tune skills", "SKILL.md optimization", "harness optimization", "autonomous skill improvement", "parameter override logging"],
+  "redundancy_check": "NOVEL — registry has prompt-optimizer subagent (DSPy-based, explicit invocation) and context-librarian (captures learnings from sessions). /meta-optimize is different: continuous passive hook-based telemetry feeding automatic SKILL.md tuning. No existing equivalent for automatic outer-loop skill parameter adjustment.",
+  "stars": "unknown — recent repo (Apr 2026), flagged from Apr 16 discovery run",
+  "priority": "low",
+  "action_needed": "Check star count and README quality. Evaluate whether hook-based telemetry approach is compatible with existing hook architecture. Compare with DSPy optimizer — complementary or competing approach?",
+  "duplicate_flag": "NEAR-DUPLICATE of 20260416-aris-meta-optimize-skill.json (same source, same skill). 20260416 version has confirmed 1200 stars and more detailed evaluation (66.5 score). This entry has 'unknown' stars (may be stale/inaccurate). Recommend consolidating — defer to 20260416 version which has higher-quality information.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 55,
+      "token_efficiency": 65,
+      "capability_expansion": 70,
+      "maintenance_burden": 70,
+      "community_validation": 50
+    },
+    "total": 62.75,
+    "decision": "REJECTED",
+    "rejection_reason": "NEAR-DUPLICATE — consolidated into 20260416-aris-meta-optimize-skill.json which covers the same source (wanshuiyin/Auto-claude-code-research-in-sleep) with confirmed 1200 stars, more detailed research questions, and higher-fidelity community validation (75 vs 50). This entry's 'unknown' star count is stale; the 20260416 entry is the authoritative record for /meta-optimize evaluation. All research questions carry forward to the 20260416 entry.",
+    "reasoning": "Hook-based passive telemetry for SKILL.md self-improvement is genuinely novel (capability_expansion=70) — distinct from DSPy optimizer (explicit metric+dataset) and context-librarian (event-triggered archival). Integration (55): hook configuration in settings.json is moderate effort. Token efficiency (65): long-term skill quality improvement reduces wasted invocations, minor immediate overhead. Maintenance (70): MIT, active, monthly check. Community validation (50): conservative due to 'unknown' stars in this entry — the 20260416 version confirms 1200 stars (community_validation=75 there). This entry is a near-duplicate of 20260416-aris-meta-optimize-skill.json. Consolidating into the better-documented 20260416 entry.",
+    "research_questions": [
+      "Confirm: does wanshuiyin/Auto-claude-code-research-in-sleep have ~1200 stars (per 20260416 entry)?",
+      "Consolidation: merge this entry with 20260416-aris-meta-optimize-skill.json — that entry is more complete.",
+      "What hook event types does /meta-optimize register (PreToolUse, PostToolUse, SessionEnd)?",
+      "Is hook telemetry written locally (file) or sent to external service?"
+    ],
+    "evaluated_at": "2026-04-22",
+    "originally_evaluated_at": "2026-04-18"
+  }
+}

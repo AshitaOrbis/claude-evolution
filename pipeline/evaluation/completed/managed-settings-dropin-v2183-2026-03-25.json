@@ -1,0 +1,9 @@
+{
+  "title": "Claude Code managed-settings.d/ Drop-In Directory (v2.1.83)",
+  "source": "state/versions.json v2.1.83 release notes",
+  "type": "technique",
+  "description": "New managed-settings.d/ drop-in directory that allows teams to deploy independent policy fragments, merged alphabetically. Instead of one monolithic managed-settings.json, multiple files can be dropped in (e.g., 01-security.json, 02-tool-restrictions.json, 03-team-rules.json) and they merge automatically. Complements new permissions.disableBypassPermissionsMode lockdown in managed settings.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["managed-settings", "enterprise", "policy-fragments", "drop-in", "team-settings", "configuration-management", "disableBypassPermissionsMode"],
+  "notes": "Native Claude Code feature (v2.1.83). Not yet in registry — versions.json tracks it but registry needs updating. For a single-user desktop setup (requiem), the immediate value is low. High value for teams managing Claude Code at org level. The disableBypassPermissionsMode companion setting is security-relevant: locks Auto Mode so users can't override to bypassPermissions. registry_updates_pending entry confirms this needs to be added."
+}

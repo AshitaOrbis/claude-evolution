@@ -1,0 +1,31 @@
+{
+  "title": "ant CLI — Anthropic's Official Programmatic Claude CLI (v1.0.0)",
+  "source": "https://help.apiyi.com/en/anthropic-claude-managed-agents-public-beta-launch-en.html",
+  "type": "technique",
+  "description": "ant CLI (v1.0.0, April 8, 2026) is Anthropic's official CLI tool for programmatic/scripted Claude invocations. Purpose: scriptable Claude calls from shell scripts, CI/CD pipelines, and automation workflows. Key distinction from claude -p: ant CLI is purpose-built for automation with cleaner output and native API key auth; claude -p is the interactive Claude Code tool adapted for non-interactive use. Released alongside Claude Managed Agents as the companion CLI for the Anthropic agent ecosystem. Does not require Claude Max plan — uses ANTHROPIC_API_KEY directly. If ant CLI offers better output formatting or features for scripted use compared to claude -p, it could become the preferred tool for heartbeat/cron invocations. Needs hands-on comparison to assess versus existing claude -p workflow on Max plan.",
+  "discovered_at": "2026-04-16",
+  "keywords": ["ant CLI", "anthropic CLI", "programmatic claude", "scripted claude", "CLI automation", "anthropic command line", "claude automation CLI", "ant command"],
+  "version": "v1.0.0",
+  "stars": null,
+  "official": true,
+  "notes": "Requires ANTHROPIC_API_KEY (not currently available on Max plan). Our existing workflow uses 'claude -p' with keychain auth. ant CLI may be redundant for Max plan users, or it may offer superior output control for scripted use cases. Evaluate by checking official docs for feature comparison.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 20,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 55.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic CLI (community_validation=100), Anthropic-maintained (maintenance=90). Integration blocked by ANTHROPIC_API_KEY requirement (complexity=20). Capability expansion (40): marginal — claude -p already covers programmatic invocation on Max plan. ant CLI's claimed advantages (cleaner output formatting, purpose-built automation) are incremental vs. the claude -p --bare workflow we already use. Token efficiency neutral (50). Research needed: compare ant CLI vs claude -p --bare for cron/heartbeat output parsing; determine if ant CLI offers meaningful advantages that would justify adoption when/if API key becomes available.",
+    "research_questions": [
+      "Does ant CLI offer materially better output formatting for parsing compared to 'claude -p --bare'?",
+      "Is ant CLI available on npm/pip/brew or only via direct download?",
+      "Is the apiyi.com source reliable — find the official Anthropic announcement for ant CLI?",
+      "What is the versioning relationship between ant CLI and claude -p — do they share a codebase?"
+    ],
+    "evaluated_at": "2026-04-16"
+  }
+}

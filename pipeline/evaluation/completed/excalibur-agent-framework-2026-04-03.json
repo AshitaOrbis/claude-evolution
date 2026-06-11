@@ -1,0 +1,33 @@
+{
+  "title": "Excalibur — Markdown-Configured Agent Framework",
+  "source": "https://github.com/viemccoy/excalibur",
+  "type": "technique",
+  "description": "Opinionated framework for building AI agent systems configured entirely through markdown files. Primitives include charge management (per-operation token budgeting), tiered memory layers (working to archive), security boundaries (shared vs internal surfaces), and scheduled rituals (autonomous workflows). No code — markdown guidelines only. The charge/budgeting system for tracking token cost per operation is potentially novel; the rest overlaps with existing agent architecture. Needs evaluation for IMPROVEMENT vs DUPLICATE classification. Discovered via Discord #general 2026-04-03.",
+  "discovered_at": "2026-04-03",
+  "keywords": ["excalibur", "markdown agent framework", "charge management", "token budgeting agent", "tiered memory", "security boundaries agent", "scheduled rituals agent"],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 55,
+      "capability_expansion": 45,
+      "maintenance_burden": 70,
+      "community_validation": 40
+    },
+    "total": 51.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Mixed DUPLICATE/IMPROVEMENT classification. Most primitives map directly to existing capabilities: tiered memory layers → agent-event-bus + CLAUDE.md hierarchy; security boundaries → Agent Spawn Restrictions; scheduled rituals → cron heartbeat system; markdown-only configuration → existing skills/agents pattern. The one potentially novel concept is 'charge management' — per-operation token budgeting as an explicit resource tracked alongside work. This is architecturally distinct from our token efficiency section (which focuses on context reduction techniques, not operation-level budgeting). Community validation is low (40): community project with mystical terminology, no star count surfaced in discovery, no official backing. Integration complexity is high if adopting the framework (50); lower if only extracting the charge management concept. Capability expansion is low overall (45) because majority is duplicate. Research needed: (1) Evaluate charge management pattern independently — is it worth extracting as a technique/playbook separate from Excalibur? (2) Check GitHub for star count and recent activity. (3) Compare charge management to any existing token-budget patterns in our library. If charge management is extracted as a standalone technique, that sub-item likely scores 70+.",
+    "evaluated_at": "2026-04-03",
+    "confirmed_at": "2026-04-04",
+    "research_questions": [
+      "What is the current GitHub star count and last commit date for viemccoy/excalibur?",
+      "Is the charge management (per-operation token budgeting) pattern documented anywhere in our library/techniques/?",
+      "Can the charge management concept be extracted as a standalone technique (separate from Excalibur) and evaluated independently? Expected score: 70-80.",
+      "Does Excalibur's tiered memory model add anything beyond what agent-event-bus + CLAUDE.md already provides?"
+    ],
+    "partial_answers": {
+      "library_charge_management_check": "No existing library/techniques/ entry covers per-operation token budgeting. Charge management concept is novel relative to current library.",
+      "tiered_memory_overlap": "Agent-event-bus + CLAUDE.md hierarchy covers this adequately. Excalibur's tiered memory adds nothing novel."
+    },
+    "flag": "MANUAL_REVIEW"
+  }
+}

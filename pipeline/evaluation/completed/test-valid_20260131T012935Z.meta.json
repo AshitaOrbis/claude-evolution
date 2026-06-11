@@ -1,0 +1,13 @@
+{
+  "original_path": "/tmp/test-valid.json",
+  "original_name": "test-valid.json",
+  "validation": {
+    "passed": true,
+    "layer": 1,
+    "message": "Layer 1 validation passed",
+    "flags": [],
+    "risk_score": 0.0,
+    "timestamp": "2026-01-31T01:29:35.256803Z"
+  },
+  "processed_at": "2026-01-31T01:29:35.256837Z"
+}

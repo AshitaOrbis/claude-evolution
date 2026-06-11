@@ -1,0 +1,9 @@
+{
+  "title": "Hybrid Codebase Context Compressor — Model2Vec + sqlite-vec (98% token reduction)",
+  "source": "https://news.ycombinator.com/item?id=47193064",
+  "type": "mcp_server",
+  "description": "MCP server that compresses large codebase context for Claude Code by combining Model2Vec sentence embeddings with sqlite-vec vector search. Claims 98% token reduction on large codebases. Unlike code-review-graph (knowledge graph approach, NEEDS_RESEARCH in pipeline), this uses dense vector embeddings to rank files by semantic relevance to the current query, then serves only the top-k most relevant files. Zero external API dependency — Model2Vec runs locally, sqlite-vec is a SQLite extension.",
+  "discovered_at": "2026-03-26T00:00:00Z",
+  "keywords": ["model2vec", "sqlite-vec", "vector-search", "codebase-compression", "token-reduction", "hybrid-retrieval", "embedding", "mcp", "context-management", "semantic-search"],
+  "notes": "Comparison required with code-review-graph (49x token reduction, NEEDS_RESEARCH from 2026-03-19) before full evaluation. Both target the same problem (large codebase context overflow) but via different mechanisms: knowledge graph vs vector embeddings. Key questions: (1) GitHub repo URL and star count, (2) overlap with code-review-graph — evaluate together or separately, (3) local-only is a strong advantage vs cloud-dependent alternatives. If verified, likely scores 65-75 depending on community validation."
+}

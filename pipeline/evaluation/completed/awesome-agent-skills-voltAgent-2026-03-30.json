@@ -1,0 +1,30 @@
+{
+  "title": "VoltAgent/awesome-agent-skills — Cross-Platform Agent Skill Repository",
+  "source": "https://github.com/VoltAgent/awesome-agent-skills",
+  "type": "reference",
+  "description": "Curated repository of 1000+ agent skills compatible across Claude Code, Codex (OpenAI), Gemini CLI, Cursor, and other coding agents. Includes official dev team skills and community contributions. An MCP server auto-fetches and updates skills from the repository. Cross-platform compatibility is the key differentiator — skills work across model providers.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["cross-platform skills", "Codex skills", "Gemini CLI skills", "Cursor skills", "community skills", "agent skills repository", "multi-platform agent skills", "skill marketplace", "VoltAgent", "awesome-agent-skills"],
+  "estimated_score": 61,
+  "status": "NEEDS_RESEARCH",
+  "redundancy_check": "Our skill system is entirely workspace-specific (20+ skills in ~/.claude/skills/). This repository offers community-validated, cross-platform skills. Cross-platform compatibility is novel — not covered by existing skill infrastructure. Distinct from awesome-claude-code-subagents (agents vs skills).",
+  "research_questions": [
+    "How much overlap exists with our existing 20+ skills?",
+    "Which skills in this repo address capability gaps we currently lack?",
+    "Is cross-platform compatibility (Codex/Gemini CLI) a priority for this workspace?",
+    "What does the MCP auto-fetch server look like — is it safe to install?",
+    "Are there specific skills in this repo better than our existing equivalents?"
+  ],
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 70,
+      "token_efficiency": 50,
+      "capability_expansion": 55,
+      "maintenance_burden": 60,
+      "community_validation": 70
+    },
+    "total": 59.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Cross-platform skill compatibility is novel but of limited value for this workspace (we don't actively use Codex CLI or Gemini CLI as skill targets). The MCP auto-fetch server safety is unverified. Overlap with existing 20+ skills unknown — could be mostly redundant. Research priority: compare with antigravity-awesome-skills-installer (both in pending) and pick the stronger of the two. Do not adopt both. Key question: does either offer skills that fill genuine capability gaps not covered by workspace-specific skills?"
+  }
+}

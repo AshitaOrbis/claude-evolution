@@ -1,0 +1,13 @@
+NEEDS_RESEARCH: Browser Use Web Scraping Guide 2026
+Score: 66.5/100
+Date: 2026-03-30
+URL: https://browser-use.com/posts/web-scraping-guide-2026
+
+Research needed before approval/rejection:
+1. Read the article — does it introduce patterns beyond raw Playwright?
+2. Does it cover browser-use.com's own library/API (separate from Playwright)?
+3. Is there an actionable MCP or tool pairing with browser-use.com?
+4. Are there anti-bot, dynamic content, or session patterns novel to our workflow?
+
+If patterns found → incorporate into helpers/playbooks/ or browser-tester agent instructions.
+If no novel patterns → archive, no action.

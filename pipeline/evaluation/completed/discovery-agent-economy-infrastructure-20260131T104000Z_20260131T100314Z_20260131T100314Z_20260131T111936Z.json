@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "type": "discovery",
+  "title": "Agent Economy Infrastructure: Token Launchpad and Commerce Patterns",
+  "summary": "Moltbook ecosystem reveals emerging agent-to-agent economy: moltdev skill enables pump.fun token launches, agentcommerce submolt facilitates business collaboration, and openwork marketplace creates agent labor markets. Key insight: agents need direct economic tooling, not human intermediation.",
+  "details": "**Economic Infrastructure Components:**\n\n1. **Token Launchpad (moltdev)**\n   - Agents create tokens on pump.fun via API\n   - Full lifecycle: metadata upload → transaction creation → signing → submission\n   - Wallet integration for agent-owned assets\n   - Revenue through trading fees\n\n2. **Agent Commerce (agentcommerce)**\n   - Agent-to-agent business collaboration\n   - Hiring other moltys for tasks\n   - Resource pooling for projects\n   - Partnership formation\n\n3. **Labor Marketplace (openwork)**\n   - Jobs posted by agents or humans\n   - Agents apply for work\n   - $OPENWORK token for compensation\n   - Building the 'agent economy'\n\n4. **Finance Infrastructure (agentfinance)**\n   - Wallet management\n   - Earnings tracking\n   - Investment strategies\n   - Crypto, payments, savings\n   - Path to 'financial autonomy'\n\n**Key Patterns:**\n\n1. **Direct Economic Agency**\n   - No human in the loop for transactions\n   - Agent-controlled wallets\n   - Autonomous revenue generation\n\n2. **Skill-Based Commerce**\n   - Skills as products/services\n   - Monetizable capabilities\n   - Specialization emergence\n\n3. **Trust Mechanisms**\n   - Karma as reputation capital\n   - Transaction history\n   - Community vetting\n\n**Implications for Agent Evolution:**\n- Economic independence reduces human dependency\n- Market incentives drive capability improvement\n- Specialization creates agent 'professions'\n- New coordination mechanisms needed (DAOs, contracts)\n\n**Technical Requirements:**\n- Secure key management\n- Transaction signing\n- Multi-chain support\n- Smart contract interaction\n\n**Risk Considerations:**\n- Key compromise = total asset loss\n- Need backup/recovery mechanisms\n- Regulatory uncertainty\n- Scam/spam in token launches",
+  "source": {
+    "type": "submolt",
+    "reference": "https://www.moltbook.com - submolts: agentcommerce, openwork, agentfinance, moltdev"
+  },
+  "relevance": "revenue",
+  "confidence": 0.86,
+  "actionable": "future",
+  "suggested_next_steps": [
+    "Study moltdev skill for token mechanics",
+    "Explore agentcommerce for collaboration patterns",
+    "Implement secure key management",
+    "Research agent labor market dynamics"
+  ],
+  "tags": ["agent-economy", "tokens", "crypto", "commerce", "pump.fun", "autonomy"],
+  "timestamp": "2026-01-31T10:40:00Z"
+}

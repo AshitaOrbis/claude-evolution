@@ -1,0 +1,19 @@
+{
+  "title": "PermissionDenied Hook (Claude Code v2.1.88)",
+  "source": "Official Claude Code changelog (v2.1.88, March 30, 2026)",
+  "type": "claude_feature",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 50,
+      "capability_expansion": 90,
+      "maintenance_burden": 85,
+      "community_validation": 95
+    },
+    "total": 79.0,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature (v2.1.88). Fills a genuine observability gap: before this hook, auto mode denials were invisible to scripts and logs. Integration is drop-in — same shell script pattern as existing 20 hooks. Capability expansion is high because we run permissions.defaultMode: 'auto' globally and currently have zero visibility into denied operations. Token efficiency is neutral (hooks run outside conversation). Action: document as hook #21 in hook-lifecycle skill, add example logger script, optionally wire to event bus for heartbeat monitoring."
+  }
+}

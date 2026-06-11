@@ -1,0 +1,25 @@
+{
+  "title": "PreToolUse Hook AskUserQuestion Satisfaction (v2.1.85)",
+  "source": "GitHub anthropics/claude-code releases atom feed — v2.1.85 changelog",
+  "type": "technique",
+  "description": "PreToolUse hooks can now return an `updatedInput` field alongside `permissionDecision: 'allow'` to fully satisfy a pending AskUserQuestion dialog — injecting an answer programmatically and bypassing the normal user interaction flow. Enables fully headless Claude Code operation in pipelines where unattended runs are expected.",
+  "discovered_at": "2026-03-28",
+  "version_introduced": "v2.1.85",
+  "keywords": ["hooks", "PreToolUse", "AskUserQuestion", "headless", "updatedInput", "pipeline", "unattended", "automation", "hook-system"],
+  "redundancy_status": "IMPROVEMENT",
+  "redundancy_comparison": "PreToolUse hooks with permissionDecision and additionalContext are existing capabilities. The updatedInput return value is a new schema addition enabling the hook to answer AskUserQuestion dialogs directly — not covered by any existing registry entry.",
+  "evaluation": {
+    "date": "2026-03-28",
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 50,
+      "capability_expansion": 95,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 81.75,
+    "decision": "APPROVED",
+    "reasoning": "Closes a real gap: AskUserQuestion dialogs currently stall unattended runs (heartbeat, iterative-improve, evolution pipeline). The updatedInput mechanism is purely additive — existing hooks continue unchanged, and scripts opt in only for AskUserQuestion calls. Official Anthropic release. Token efficiency is neutral (no direct context savings), but indirect efficiency gain from eliminating pipeline stalls. Practical use in evolution pipeline: capability-discoverer mid-run questions can be answered with safe defaults (proceed/skip); unexpected questions surfaced to Discord only. Combines well with the v2.1.85 conditional `if` field (score 88.25) for targeted hook activation.",
+    "action": "SKILL_UPDATE + HOOK_IMPLEMENTATION: (1) Add updatedInput return schema to Hook Lifecycle SKILL.md. (2) Create ~/.claude/hooks/headless-question-handler.sh with pattern-matching for known questions. (3) Register in hook-lifecycle section of registry. (4) Add to iterative-improve skill notes as pipeline stall mitigation."
+  }
+}

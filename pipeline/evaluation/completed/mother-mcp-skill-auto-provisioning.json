@@ -1,0 +1,43 @@
+{
+  "title": "Mother MCP — Tech Stack Detection and Auto-Provisioning of AI Coding Skills",
+  "source": "https://news.ycombinator.com/item?id=46692102",
+  "type": "mcp_server",
+  "description": "MCP server that auto-detects a project's tech stack and installs relevant AI coding skills automatically. Also consolidates fragmented AI instruction formats (CLAUDE.md, .cursorrules, copilot-instructions.md, etc.) into a unified source of truth, preventing instruction drift across tools. Addresses the CLAUDE.md monolithic file scaling problem.",
+  "discovered_at": "2026-04-11T00:00:00Z",
+  "evaluated_at": "2026-04-11T00:00:00Z",
+  "keywords": ["Mother MCP", "auto-provision skills", "tech stack detection", "CLAUDE.md consolidation", "instruction format unification", "skill auto-install", "AI coding skills", "instruction drift", "copilot-instructions", "cursor-rules unification"],
+  "classification": "NOVEL",
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": ["Rules Directory with paths: frontmatter (conditional loading)", "CLAUDE.md hierarchy (manual)", "skills in ~/.claude/skills/ (manually installed)"],
+    "verdict": "NOVEL — Rules Directory provides conditional loading but still requires manual skill creation and installation. Mother MCP's auto-detect-and-provision pattern is distinct: it reads project context and fetches/installs relevant skills without manual configuration.",
+    "key_distinction": "Rules Directory: conditionally loads already-existing rules. Mother MCP: discovers what rules/skills the project needs and fetches them from a registry automatically."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 70,
+      "capability_expansion": 70,
+      "maintenance_burden": 60,
+      "community_validation": 65
+    },
+    "total": 63.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Auto-provisioning is genuinely novel and the CLAUDE.md consolidation angle addresses real friction (we have CLAUDE.md across 59 projects + global ~/.claude/CLAUDE.md). Token efficiency benefit is real: auto-detected relevant skills means less irrelevant context loaded. Key concern: privacy risk (sending project code to skill-provisioning service) and conflict with existing CLAUDE.md hierarchy. Source confidence is MEDIUM (HN secondary source). Research needed: find GitHub repo, verify whether skills come from a public registry or are project-local, assess privacy model.",
+    "research_questions": [
+      "Is there a public GitHub repo for Mother MCP? What's the repo name/URL?",
+      "What's the source of auto-provisioned skills — public registry or project-local?",
+      "Does it overwrite CLAUDE.md or supplement it?",
+      "Is there a privacy risk from sending project code/structure to a provisioning service?",
+      "How does it interact with our ~/.claude/CLAUDE.md global + project CLAUDE.md hierarchy?",
+      "Is 'Mother MCP' the actual project name? (HN description may have renamed it)"
+    ]
+  },
+  "source_confidence": "MEDIUM — HN secondary source. The 'Mother MCP' name may be the project's actual name or the HN poster's description. Verify.",
+  "final_decision": {
+    "decision": "REJECTED",
+    "decided_at": "2026-04-30",
+    "decided_by": "user (interactive walkthrough)",
+    "reasoning": "Privacy concern: auto-provisioning implies sending project context to an external skill-fetching service. Direct conflict with already-curated CLAUDE.md hierarchy and Rules Directory paths-frontmatter conditional loading. HN ID likely hallucinated (same implausibly-large ID pattern as other April 2026 HN-sourced discoveries). No concrete repo to evaluate."
+  }
+}

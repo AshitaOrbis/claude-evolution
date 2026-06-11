@@ -1,0 +1,9 @@
+{
+  "title": "AgenTopology — Agent Topology and Orchestration Framework",
+  "source": "https://github.com/hesreallyhim/awesome-claude-code/issues/1010",
+  "type": "agent",
+  "description": "Community-nominated agent framework gaining traction as of March 2026. Referenced in a request to add it to the awesome-claude-code list, suggesting it provides topology-aware agent orchestration — potentially including visualization of agent dependency graphs, dynamic routing based on topology, and structured agent relationship mapping. Distinct from flat Task tool delegation if it provides explicit topology constructs (parent/child/sibling agent relationships with named edges).",
+  "discovered_at": "2026-03-26T00:00:00Z",
+  "keywords": ["agentopology", "agent-framework", "topology", "orchestration", "agent-routing", "agent-graph", "multi-agent", "dependency-graph"],
+  "notes": "LOW CONFIDENCE: Source is a GitHub issue requesting list inclusion, not a product announcement. Very limited information available. Critical unknowns: (1) actual GitHub repo URL, (2) star count, (3) what 'topology' means in this context vs existing Task tool hierarchy, (4) whether it integrates with Claude Code or is a standalone framework. Should remain NEEDS_RESEARCH until the GitHub repo can be found and assessed. High prior probability of being a DUPLICATE (registry already has comprehensive multi-agent orchestration via Task tool + evolution-orchestrator + agent spawn restrictions). Only worth pursuing if topology constructs provide genuinely novel routing or visualization capabilities."
+}

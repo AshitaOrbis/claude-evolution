@@ -1,0 +1,23 @@
+{
+  "title": "Default Effort Raised to high for Pro/Max on Opus 4.6 and Sonnet 4.6 (v2.1.117)",
+  "source": "Official Claude Code v2.1.117 changelog (code.claude.com/docs/en/changelog)",
+  "type": "technique",
+  "description": "In v2.1.117, the default effort level for Pro and Max plan subscribers was raised from `medium` to `high` for Opus 4.6 and Sonnet 4.6. This contradicts the registry's v2.1.94 entry which stated 'Max plan users unaffected' when default was raised for API/Bedrock/Team/Enterprise. Registry correction required. Impact: heartbeat and cron runs that rely on `claude -p` without explicit `--effort` flag will now use `high` effort by default (higher compute, higher cost per run). If cost-sensitive, add `--effort medium` explicitly to heartbeat invocations.",
+  "discovered_at": "2026-04-22",
+  "keywords": ["default effort", "effort level", "high effort default", "Max plan effort", "Pro plan effort", "Opus 4.6 effort", "Sonnet 4.6 effort", "v2.1.117", "heartbeat cost"],
+  "redundancy_check": "IMPROVEMENT — existing registry entry (v2.1.94) explicitly states Max plan was unaffected by that effort raise. v2.1.117 changes this. Registry correction + heartbeat command update needed.",
+  "preliminary_notes": "Score likely 78-85 (high relevance: direct cost impact on every heartbeat run). Action items: (1) Update registry v2.1.94 note to reflect Max plan now also at high default as of v2.1.117. (2) Add `--effort medium` to cost-sensitive heartbeat invocations if needed. (3) Verify empirically: run `claude -p --print-config` to confirm effort level.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 75,
+      "capability_expansion": 45,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 75.5,
+    "decision": "APPROVED",
+    "reasoning": "Direct cost impact on every heartbeat and cron run — the most operationally critical finding in this batch. Integration complexity (85): add `--effort medium` to heartbeat invocations (trivial CLI flag). Token efficiency (75): without action, every heartbeat run now uses high effort by default, potentially 25-50% more compute per run; this discovery enables cost control. Capability expansion (45): enables explicit cost control via --effort flag in automation scripts; also surfaces a registry correction (v2.1.94 note was stale). Maintenance (90): one-time script update, no ongoing burden. Community validation (100): official release. Integration actions: (1) Correct registry v2.1.94 entry to note Max plan now affected as of v2.1.117. (2) Add `--effort medium` to heartbeat/cron script invocations in helpers/commands/heartbeat-commands.md. (3) Document empirical verification step: `claude -p --print-config | grep effort`."
+  },
+  "evaluated_at": "2026-04-22"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Claude Code rate_limits Field for Statusline Scripts (v2.1.82)",
+  "source": "state/versions.json v2.1.82 release notes",
+  "type": "technique",
+  "description": "New rate_limits field in statusline script data, providing 5-hour and 7-day usage windows with used_percentage and resets_at timestamps. Enables statusline scripts to display rate limit proximity warnings and prevent surprises during long automation runs. Particularly valuable for heartbeat cron jobs and iterative-improve loops that could hit rate limits mid-run.",
+  "discovered_at": "2026-03-25T00:00:00Z",
+  "keywords": ["rate-limits", "statusline", "usage-monitoring", "5h-window", "7d-window", "automation", "cron", "heartbeat", "used-percentage"],
+  "notes": "Native Claude Code feature (v2.1.82). Not in registry. High practical value for this workspace: heartbeat runs, iterative-improve loops, and openclaw-exchange all run autonomously and could hit rate limits. Adding rate limit awareness to statusline would provide early warning. The resets_at timestamp enables intelligent scheduling. Low integration complexity (statusline script update only)."
+}

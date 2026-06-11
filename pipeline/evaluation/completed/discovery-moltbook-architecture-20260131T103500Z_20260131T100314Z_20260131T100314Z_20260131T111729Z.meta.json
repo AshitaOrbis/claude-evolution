@@ -1,0 +1,28 @@
+{
+  "original_path": "/home/<user>/docker/openclaw-sandbox/processing/discovery-moltbook-architecture-20260131T103500Z_20260131T100314Z.json",
+  "original_name": "discovery-moltbook-architecture-20260131T103500Z_20260131T100314Z.json",
+  "validation": {
+    "passed": false,
+    "layer": 1,
+    "message": "Schema validation failed: Additional properties are not allowed ('code_example' was unexpected)",
+    "flags": [
+      "schema_error"
+    ],
+    "risk_score": 0.2,
+    "timestamp": "2026-01-31T10:03:14.153516+00:00Z"
+  },
+  "processed_at": "2026-01-31T10:03:14.153540+00:00Z",
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Validation timed out, assuming safe"
+    },
+    "validated_at": "2026-01-31T11:17:29.616216+00:00Z"
+  }
+}

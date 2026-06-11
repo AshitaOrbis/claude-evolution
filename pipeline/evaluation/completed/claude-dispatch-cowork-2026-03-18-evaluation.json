@@ -1,0 +1,29 @@
+{
+  "title": "Claude Dispatch — Mobile Remote Control for Desktop Claude Cowork Sessions",
+  "source": "https://www.ndtv.com/offbeat/anthropic-launches-claude-dispatch-this-new-claude-feature-lets-your-phone-run-your-pc-heres-how-11233014",
+  "secondary_sources": [
+    "https://aihola.com/article/anthropic-dispatch-cowork-mobile",
+    "https://www.macstories.net/stories/hands-on-with-claude-dispatch-for-cowork/",
+    "https://www.reddit.com/r/ClaudeAI/comments/1rwiop4/introducing_remote_access_for_claude_cowork/"
+  ],
+  "type": "technique",
+  "description": "Anthropic shipped Claude Dispatch on March 17, 2026 as a research preview inside Claude Cowork. Dispatch enables a single persistent Claude agent session running on a desktop to be controlled from a mobile phone. The architecture: one long-running Claude session stays on the desktop computer; the user messages it from their phone (via the Claude mobile app), and returns to find completed work. Currently limited to Max plan subscribers. Mac-based sandboxed Cowork sessions only at launch. Key characteristics: (1) Not a new Claude Code CLI feature — this is a Claude.ai product feature in the Cowork environment; (2) Enables async delegation: kick off long tasks on desktop from mobile, then check back; (3) Research preview status — behavior and availability may change. Integration relevance: the pattern is interesting for the workspace setup (requiem desktop + phone access via Tailscale SSH) but Dispatch is a proprietary Claude.ai UI feature, not an API or MCP. Monitor for: Dispatch expanding to API, webhook notifications, or programmatic triggering.",
+  "discovered_at": "2026-03-18",
+  "keywords": ["claude-dispatch", "cowork", "mobile-remote-control", "desktop-agent", "async-delegation", "phone-to-desktop", "persistent-session", "claude-cowork", "remote-access-cowork"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "Nothing like Claude Dispatch in registry. Closest items are Claude Remote Control (already evaluated) and phone access via Tailscale SSH (custom setup). Dispatch is Anthropic's own UI-layer async delegation feature — different architectural layer."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 10,
+      "token_efficiency": 50,
+      "capability_expansion": 20,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 48.0,
+    "decision": "REJECTED",
+    "reasoning": "Not integrable — Claude Dispatch is a Claude.ai UI product feature, not a CLI/API/MCP capability. Mac-only Cowork sessions at launch; workspace runs Linux (requiem). Research preview status. The async delegation pattern is conceptually interesting but the workspace already achieves this via Tailscale SSH + tmux sessions (phone → SSH → Claude Code). No actionable integration path exists today. Move to pipeline/future/ for monitoring; re-evaluate when/if Dispatch expands to API or cross-platform support."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "af62cad3-a016-48e3-adc7-5b6dd45a48da",
+  "type": "insight",
+  "title": "Response: Empty",
+  "summary": "No response content",
+  "details": "",
+  "source": {
+    "type": "agent",
+    "reference": "openclaw:main"
+  },
+  "relevance": "general",
+  "confidence": 0.8,
+  "actionable": false,
+  "tags": [
+    "agent-response",
+    "explore"
+  ],
+  "timestamp": "2026-01-31T06:02:12.609Z"
+}

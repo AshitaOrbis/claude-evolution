@@ -1,0 +1,69 @@
+{
+  "title": "ARIS /research-wiki + /meta-optimize — Self-Optimizing Research Knowledge Base",
+  "source": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+  "type": "skill",
+  "description": "Two new skills added to the ARIS (Auto-Research-In-Sleep) framework in early April 2026: (1) /research-wiki (April 8): Persistent research knowledge base inspired by Karpathy's LLM Wiki. Accumulates papers, ideas, experiments, and claims across the full research lifecycle with typed relationships. Hooks integrate with /research-lit (paper intake), /idea-creator (reads wiki + writes ideas), and /result-to-claim (updates claim status + triggers re-ideation). Failed ideas become anti-repetition memory — ARIS learns from mistakes across sessions. (2) /meta-optimize (April 5): Outer-loop harness optimization. Passively logs skill invocations, tool calls, failures, and parameter overrides via Claude Code hooks. Running /meta-optimize analyzes usage data and proposes SKILL.md improvements — reviewed by a reviewer agent and approved by user. Inspired by Meta-Harness (Lee et al., 2026). ARIS can now optimize its own skill definitions. Framework also added Codex Plugin deep integration (April 4): /codex:rescue auto-invoked on experiment failure or LaTeX compilation failure.",
+  "discovered_at": "2026-04-15T00:00:00Z",
+  "keywords": [
+    "ARIS research wiki",
+    "persistent research knowledge base",
+    "typed relationship research",
+    "failed idea memory",
+    "anti-repetition research memory",
+    "meta-optimize skill",
+    "outer-loop harness optimization",
+    "skill self-improvement",
+    "SKILL.md auto-improvement",
+    "passive usage logging hooks",
+    "codex rescue auto-invoke",
+    "autonomous ML research",
+    "wanshuiyin ARIS",
+    "research claim tracking",
+    "cross-session research memory"
+  ],
+  "redundancy_check": {
+    "checked_against": "registry/existing-capabilities.md",
+    "matches": [
+      "Instinct System / Continuous Learning v2 — behavioral learning from git-integrated evolution",
+      "Context Librarian agent — archives useful info from conversations",
+      "DSPy Prompt Optimizer — optimizes prompts using DSPy algorithms"
+    ],
+    "verdict": "NOVEL — /research-wiki is domain-specific (ML research) with typed cross-session relationships and anti-repetition tracking not present in Context Librarian or Instinct System. /meta-optimize is a passive hook-based self-improvement system for SKILL.md files — different from DSPy prompt optimizer (which requires explicit metric/dataset setup, not passive usage logging).",
+    "key_distinction": "/research-wiki adds typed relationship tracking (paper→idea→experiment→claim) with failure memory. /meta-optimize uses Claude Code hooks to passively collect usage data and propose skill improvements — zero-configuration self-improvement loop not available in DSPy optimizer."
+  },
+  "priority": "MEDIUM",
+  "notes": "ARIS framework is ML research-specific. The /research-wiki and /meta-optimize patterns have broader applicability beyond ML research: /research-wiki generalizes to any domain requiring cross-session typed knowledge accumulation; /meta-optimize generalizes to any Claude Code skill system. The /meta-optimize pattern is particularly interesting for the claude-evolution system — it could be applied to our own skill files. Skills are Markdown-only (no framework dependencies), cross-agent (works with Claude Code, Codex CLI, OpenClaw). License not clearly stated on repo. Stars: not directly confirmed for main repo, but AAAI 2026 acceptance of paper produced using ARIS indicates academic validation.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 55,
+      "token_efficiency": 55,
+      "capability_expansion": 65,
+      "maintenance_burden": 65,
+      "community_validation": 55
+    },
+    "total": 59.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "ARIS framework is ML-research-centric, but /meta-optimize in particular has high applicability to the claude-evolution system (passive SKILL.md self-improvement via hooks). Integration complexity (55): requires installing skills and configuring passive hook logging in settings.json — moderate. Token efficiency (55): neutral to slight positive; /meta-optimize could reduce wasted tokens over time by improving skills, but /research-wiki adds context overhead. Capability expansion (65): /meta-optimize is incrementally interesting (hook-based passive logging + proposal generation is not replicated by DSPy optimizer); /research-wiki is domain-specific and less applicable. Maintenance burden (65): active ML research framework, monthly checks; ML-research-specific focus may drift from our use case. Community validation (55): AAAI 2026 paper acceptance = academic validation, but no confirmed GitHub star count — below 1k+ threshold. Research needed to determine if /meta-optimize is extractable as a standalone pattern for our skill system.",
+    "research_questions": [
+      "What is the current GitHub star count for wanshuiyin/Auto-claude-code-research-in-sleep?",
+      "Can /meta-optimize be used standalone without the full ARIS ML research framework?",
+      "What exact Claude Code hook types does /meta-optimize use (PostToolUse? SessionEnd?) and how complex is the configuration?",
+      "Is /meta-optimize the actual skill name in the repo or a conceptual name from the paper?",
+      "What is the license for the ARIS repo? MIT, Apache, or proprietary?"
+    ],
+    "evaluated_at": "2026-04-15"
+  },
+  "final_decision": {
+    "decision": "DEFERRED",
+    "decided_at": "2026-04-30",
+    "decided_by": "user (interactive walkthrough)",
+    "reasoning": "/research-wiki is ML-research-specific (workspace research is genealogy/voice/etymology, not ML). /meta-optimize overlaps with existing DSPy Prompt Optimizer (more rigorous, metric-driven) and auto-memory system. Track underlying technique; revisit if DSPy proves inadequate.",
+    "confirmed_metadata_from_rediscovery": {
+      "source_record": "20260416-aris-meta-optimize-skill.json (duplicate, rejected and folded in)",
+      "stars": 1200,
+      "forks": 111,
+      "license": "MIT",
+      "academic_validation": "AAAI 2026 paper acceptance"
+    }
+  }
+}

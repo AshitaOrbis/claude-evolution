@@ -1,0 +1,34 @@
+{
+  "title": "Godogen: Thin Training Data Compensation Pattern via Lazy-Loaded Domain Reference",
+  "source": "https://github.com/htdt/godogen",
+  "type": "technique",
+  "description": "A portable three-component pattern for compensating for LLM training data gaps in niche languages/frameworks: (1) hand-written language spec with quirks and idioms the model doesn't know well, (2) lazy-loaded API docs for all classes (on-demand to avoid context bloat), (3) quirks database cataloging known model failure modes specific to the domain (e.g., idioms that look like Python but break in GDScript). Demonstrated via Claude Code skills for Godot 4 game generation — enables generating complete working Godot 4 games from natural language descriptions. The pattern is portable to any thin-data domain: Rust async lifetimes, Solidity, Assembly, DSLs, emerging frameworks.",
+  "discovered_at": "2026-03-21",
+  "keywords": ["thin training data", "domain knowledge compensation", "lazy-loaded docs", "quirks database", "GDScript", "Godot", "skill pattern", "niche language", "LLM hallucination prevention", "domain-specific skill", "games pipeline"],
+  "hn_thread": "https://news.ycombinator.com/item?id=47400868",
+  "redundancy_check": "NOVEL — no 'thin training data compensation' or 'quirks database' technique in registry. Fan-out scaling and advanced tool use cover scaling and efficiency but not domain knowledge injection for weak-training areas.",
+  "evaluation": {
+    "evaluated_at": "2026-03-21",
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 70,
+      "capability_expansion": 75,
+      "maintenance_burden": 85,
+      "community_validation": 60
+    },
+    "total": 75.0,
+    "decision": "APPROVED",
+    "reasoning": "This is a technique/pattern integration (not a new MCP) — the valuable extract is the three-component architecture: language spec + lazy-loaded docs + quirks database. Integration is easy (85): document in library/techniques/ and apply to games pipeline GDScript skill. Token efficiency (70) improved by lazy-loading API docs rather than front-loading context. Capability expansion (75): genuinely useful for the games pipeline (<private-project>-gacha, autonomous-gamedev use GDScript/Godot 4), plus portable to any niche domain. Maintenance burden is very low (85): stable pattern, one-time documentation update. Community validation moderate (60): HN discussion, open-source project, not a high-star repo. Direct applicability to existing Godot 4 games pipeline work is the decisive factor.",
+    "integration_targets": [
+      "Document in library/techniques/thin-training-data-compensation.md",
+      "Apply to games/development/projects/ — create GDScript quirks database for <private-project>-gacha",
+      "Create ~/.claude/skills/godot-development/ skill using the three-component pattern",
+      "Add to registry under Technique section"
+    ],
+    "portable_domains": [
+      "GDScript (Godot 4) — direct application to games pipeline",
+      "Rust async lifetimes — potential for future Rust projects",
+      "Emerging frameworks with limited training data (new MCP protocols, etc.)"
+    ]
+  }
+}

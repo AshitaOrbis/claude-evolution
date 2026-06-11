@@ -1,0 +1,21 @@
+{
+  "title": "Skill Invocation Names from Frontmatter (v2.1.94)",
+  "source": "https://code.claude.com/docs/en/changelog (v2.1.94, April 7 2026)",
+  "type": "skill",
+  "description": "When using skills: ['./'] to reference a plugin-bundled skill, Claude Code now uses the skill's frontmatter name field as the invocation name rather than the directory basename. Previously a skill in ./my-dir/ was invoked as my-dir; now it uses whatever name: is in the SKILL.md frontmatter. Enables cleaner skill naming independent of directory structure.",
+  "discovered_at": "2026-04-10T00:00:00Z",
+  "keywords": ["skill invocation name", "frontmatter name", "plugin skills", "skill naming", "directory basename"],
+  "classification": "NOVEL",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Automatic behavior change with no config required. Relevant for plugin development — skills already have frontmatter name: fields, so this aligns runtime invocation with the declared name. Registry note only; no active workflow change needed for existing global skill setup."
+  }
+}

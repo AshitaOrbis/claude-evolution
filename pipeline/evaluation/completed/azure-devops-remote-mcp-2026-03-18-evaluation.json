@@ -1,0 +1,28 @@
+{
+  "title": "Azure DevOps Remote MCP Server — Microsoft Official Public Preview",
+  "source": "https://devblogs.microsoft.com/devops/azure-devops-remote-mcp-server-public-preview/",
+  "secondary_sources": [
+    "https://deepwiki.com/microsoft/azure-devops-mcp/2-getting-started",
+    "https://deepwiki.com/microsoft/azure-devops-mcp/9.5-frequently-asked-questions"
+  ],
+  "type": "mcp_server",
+  "description": "Microsoft has launched an official Azure DevOps Remote MCP Server in public preview. It exposes Azure DevOps Services data (work items, repos, pipelines, boards, test plans) to MCP clients including Claude Code, GitHub Copilot CLI, Claude Desktop, and ChatGPT. Key characteristics: (1) Remote MCP transport (not local stdio) — requires OAuth Client ID registration in Microsoft Entra for Claude Code usage; (2) Cloud-only: explicitly does NOT support on-premises Azure DevOps Server; (3) Microsoft official, not community — high maintenance confidence; (4) Complements the existing GitHub MCP but targets Azure DevOps-specific workflows (ADO pipelines, boards, sprints, work item tracking). Integration relevance: only valuable if the workspace has Azure DevOps projects. Current workspace uses GitHub (<private-account>, AshitaOrbis accounts) with no apparent Azure DevOps footprint. Score likely borderline — useful capability but low immediate relevance given GitHub-first tooling. Evaluation should assess whether OAuth setup friction is worth it for GitHub-adjacent users.",
+  "discovered_at": "2026-03-18",
+  "keywords": ["azure-devops-mcp", "ADO-mcp", "microsoft-devops-mcp", "azure-devops-remote-mcp", "azure-pipelines-mcp", "work-items-mcp", "azure-boards-mcp", "remote-mcp-server"],
+  "redundancy_check": {
+    "status": "NOVEL",
+    "notes": "No Azure DevOps MCP in registry. GitHub CLI integration (gh commands via Bash) is the current approach for version control operations. Azure DevOps MCP is a separate product family, not redundant with GitHub MCP or gh CLI."
+  },
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 50,
+      "token_efficiency": 50,
+      "capability_expansion": 30,
+      "maintenance_burden": 70,
+      "community_validation": 100
+    },
+    "total": 55.5,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Microsoft official release with solid maintenance confidence, but low immediate relevance — workspace is GitHub-first with no Azure DevOps footprint. OAuth registration friction adds integration complexity. Capability expansion is low (30) because there's no current ADO use case; the capability is real but inert without an ADO project. Research question: does any workspace project (revenue pipeline, games, <private-project>) use or plan to use Azure DevOps? If yes, re-evaluate at 70+. If no ADO projects exist or are planned, downgrade to REJECTED (~35)."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "title": "showThinkingSummaries Setting — Default-Off Thinking Summary Display (v2.1.88)",
+  "source": "https://code.claude.com/docs/en/changelog",
+  "type": "claude_feature",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 25,
+      "maintenance_burden": 100,
+      "community_validation": 95
+    },
+    "total": 68.0,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic feature (v2.1.88). Zero integration friction — behavior is already the new default (summaries off unless opted in). Capability expansion is very low (25): this is a visibility control for reasoning output, not a new capability. The main action is a documentation note: (1) workflows that parsed thinking summaries programmatically must add showThinkingSummaries: true to settings.json, (2) registry entry in existing-capabilities.md. Score of 68.0 is NEEDS_RESEARCH, primarily because the workspace needs to verify no existing scripts/hooks depend on thinking summary output being present. If no such dependency exists, this is a pure registry note.",
+    "action": "RESEARCH: Check settings.json and hooks/ for any workflow that reads thinking summary output. If none found, add registry note to existing-capabilities.md under Extended Thinking and close. If found, add showThinkingSummaries: true to settings.json before closing."
+  }
+}

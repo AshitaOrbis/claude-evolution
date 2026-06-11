@@ -1,0 +1,39 @@
+{
+  "title": "ant CLI — Official Anthropic Claude API Command-Line Tool",
+  "source": "https://platform.claude.com/docs/en/api/sdks/cli",
+  "type": "technique",
+  "description": "Official CLI tool (`ant`) for interacting with the Claude API from the terminal. Provides `resource action` command pattern for every API endpoint, YAML/JSON file input instead of hand-written JSON, `--transform` GJSON path output filtering, automatic list pagination, `@file` inline references, and native Claude Code integration. Claude Code understands how to use `ant` out of the box — developers can ask Claude Code to list agent sessions, upload files, and query events without custom integration code. Supports YAML-based API resource versioning for git-tracked agent/environment/skill definitions (CI/CD friendly). Beta resources (agents, sessions, environments) under `beta:` prefix with auto-injected beta headers. Announced April 8, 2026.",
+  "discovered_at": "2026-04-14",
+  "keywords": [
+    "ant CLI",
+    "anthropic CLI",
+    "claude API command line",
+    "YAML resource versioning",
+    "API resource management CLI",
+    "ant beta:agents",
+    "ant messages create",
+    "GJSON transform",
+    "claude API terminal",
+    "managed agents CLI"
+  ],
+  "priority": "HIGH",
+  "redundancy_check": "NOVEL — the `claude` CLI runs Claude Code sessions; `ant` targets the Claude API directly (agents, sessions, environments, messages). No existing capability for API resource management from the terminal with YAML versioning.",
+  "notes": "Requires ANTHROPIC_API_KEY (Max plan has keychain auth via `claude` CLI, but `ant` uses env var). Check if Max plan keychain can be leveraged or if API key must be set separately. Claude Code integration is native — 'Claude Code understands how to use ant out of the box'. Highly relevant to managed-agents workflows. Install: `curl` to Linux binary or `brew install anthropics/tap/ant`.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 0,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 80,
+      "community_validation": 95
+    },
+    "total": 48.75,
+    "decision": "REJECTED",
+    "reasoning": "Research confirmed (2026-04-15): `ant` CLI strictly requires ANTHROPIC_API_KEY env var. Max plan keychain credentials (CLAUDE_CODE_OAUTH_TOKEN) do NOT work — ant uses X-Api-Key header path, not OAuth bearer. Every `ant` call is billed at API token rates; Max plan subscription does not cover it. Integration complexity = 0 (impossible for Max plan users without purchasing a separate API subscription). Capability expansion revised to 40 (genuinely novel YAML versioning is real, but zero value if we can't access it). Despite official Anthropic status (community_validation=95), the auth blocker makes integration impossible for our current setup. REJECTED: revisit if Max plan adds API key issuance or `ant` gains OAuth support.",
+    "research_questions": [
+      "Future: Does Anthropic add OAuth/keychain support to `ant`, making it accessible on Max plan without separate billing?"
+    ],
+    "research_note": "2026-04-15: RESOLVED. Confirmed via official docs and GitHub issue #39903 — ANTHROPIC_API_KEY is strictly required, Max plan keychain bypassed. No workaround available. Previous NEEDS_RESEARCH blocker is now a confirmed rejection blocker."
+  },
+  "evaluated_at": "2026-04-15"
+}

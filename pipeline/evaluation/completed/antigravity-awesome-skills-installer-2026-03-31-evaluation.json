@@ -1,0 +1,20 @@
+{
+  "title": "Antigravity Awesome Skills — 1,326+ Installable Agent Skills via npx CLI",
+  "source": "https://github.com/sickn33/antigravity-awesome-skills",
+  "type": "skill",
+  "discovered_at": "2026-03-31",
+  "evaluation": {
+    "evaluated_at": "2026-03-31",
+    "scores": {
+      "integration_complexity": 85,
+      "token_efficiency": 45,
+      "capability_expansion": 55,
+      "maintenance_burden": 60,
+      "community_validation": 55
+    },
+    "total": 59.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "1,326+ skills installable via `npx antigravity-awesome-skills --claude`. The novel value is the unified installer CLI — currently adding community skills requires manual copy-paste. Cross-platform (Claude Code, Codex CLI, Gemini CLI, Cursor). Token efficiency scored 45 (slight concern: mass-installing skills adds files that load into context). Capability expansion 55: quantity doesn't equal quality — depends how many of 1,326 are relevant to this workspace vs generic or low-quality. Community validation 55: no star count provided, npx package with moderate signal. Must be compared against VoltAgent/awesome-agent-skills (also in pending) — both cover similar territory. Installing both would be redundant.",
+    "action": "RESEARCH: (1) Compare against VoltAgent/awesome-agent-skills (also NEEDS_RESEARCH in pending) — assess star count, skill quality, and overlap. (2) Check sickn33/antigravity-awesome-skills GitHub star count and recent commit activity. (3) Preview which skills would install (`npx antigravity-awesome-skills --list`?) before committing. Pick one or neither — do not install both. If the installer pattern is high quality, re-evaluate at 70+ and approve."
+  }
+}

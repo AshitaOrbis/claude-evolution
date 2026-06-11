@@ -1,0 +1,25 @@
+{
+  "title": "Scryer — C4 Architecture Diagram MCP for Agent Context Grounding",
+  "source": "https://github.com/aklos/scryer",
+  "source_secondary": "https://www.reddit.com/r/ClaudeAI/comments/1rve7l3/",
+  "type": "mcp_server",
+  "description": "Desktop app that ships a bundled MCP server. The agent uses MCP tools to read and modify a C4 architecture diagram, which renders in real-time in a visual drag-and-drop editor. Key value: a shared, persistent architecture model that both developer and agent read from and write to — specifically to prevent context drift where an agent loses architectural understanding across sessions. Auto-detects Claude Code and Codex installations and writes project-scoped MCP config.",
+  "discovered_at": "2026-03-27",
+  "keywords": ["C4 diagram", "architecture model", "context drift", "architecture MCP", "shared mental model", "agent grounding", "visual model", "drag-and-drop editor"],
+  "redundancy": "NOVEL",
+  "redundancy_notes": "No architecture diagram or visual model MCP in registry. Closest entries are code-review-graph (knowledge graph for token reduction, NEEDS_RESEARCH), contextplus (blast radius analysis, rejected due to Ollama dependency), and mgrep (semantic file search). None provide a human-readable visual architecture model persisting across sessions that is both human- and agent-editable.",
+  "evaluation": {
+    "date": "2026-03-27",
+    "scores": {
+      "integration_complexity": 60,
+      "token_efficiency": 55,
+      "capability_expansion": 80,
+      "maintenance_burden": 65,
+      "community_validation": 45
+    },
+    "total": 62.25,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Score sits solidly in the 50-69 NEEDS_RESEARCH band. The capability gap is real — context drift across sessions is a genuine pain point with no current mitigation — and the problem being solved is novel (score: 80). However, the desktop app delivery model introduces integration friction not present in a pure npm MCP (score: 60), and the community validation is weak at <100 GitHub stars with no official backing (score: 45). Key unknowns blocking APPROVED decision: (1) exact GitHub star count to confirm community validation score, (2) whether the MCP server can be run without the desktop app GUI (headless/server mode), (3) license terms. Token efficiency is marginal — architecture context reduces drift but doesn't directly reduce tokens in normal operation (score: 55). Maintenance concern: desktop app updates are user-managed, not auto-updated like npm packages (score: 65).",
+    "action": "NEEDS_RESEARCH: (1) Check GitHub star count for aklos/scryer. (2) Investigate whether MCP server component can run headless without GUI. (3) Review license. If star count crosses 100 and headless mode is confirmed, re-evaluate — could reach 70+ with those unknowns resolved."
+  }
+}

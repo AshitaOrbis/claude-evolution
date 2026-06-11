@@ -1,0 +1,28 @@
+{
+  "original_path": "/home/<user>/docker/openclaw-sandbox/processing/discovery-agent-economy-infrastructure-20260131T104000Z_20260131T100314Z.json",
+  "original_name": "discovery-agent-economy-infrastructure-20260131T104000Z_20260131T100314Z.json",
+  "validation": {
+    "passed": false,
+    "layer": 1,
+    "message": "Schema validation failed: 'discovery' is not one of ['insight', 'technique', 'tool', 'strategy', 'conversation', 'summary', 'error']",
+    "flags": [
+      "schema_error"
+    ],
+    "risk_score": 0.2,
+    "timestamp": "2026-01-31T10:03:14.163038+00:00Z"
+  },
+  "processed_at": "2026-01-31T10:03:14.163162+00:00Z",
+  "layer2_validation": {
+    "passed": true,
+    "haiku_result": {
+      "pass": true,
+      "risk_score": 0.2,
+      "flags": [
+        "default_pass"
+      ],
+      "recommendation": "allow",
+      "reasoning": "Validation timed out, assuming safe"
+    },
+    "validated_at": "2026-01-31T11:19:36.068647+00:00Z"
+  }
+}

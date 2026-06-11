@@ -1,0 +1,18 @@
+NEEDS_RESEARCH: Hybrid Codebase Context Compressor — Model2Vec + sqlite-vec
+Score: 67.0/100
+Evaluated: 2026-03-26
+
+Research required before re-evaluation:
+1. Find the actual GitHub repo URL (search for "model2vec sqlite-vec mcp codebase") and confirm star count
+2. Verify or refute the 98% token reduction claim — what benchmark, what codebase size?
+3. Compare mechanism vs code-review-graph (65.75/100, NEEDS_RESEARCH from 2026-03-19):
+   - code-review-graph: persistent knowledge graph via `claude plugin add`, AST-based
+   - this: dense vector embeddings, query-time top-k file ranking, no persistence
+   - Are these complementary or competing? Which is more practical to install?
+4. Does it work with the workspace structure (~59 projects, mixed sizes) or only large monorepos?
+
+Re-evaluation trigger: GitHub repo confirmed with ≥100 stars AND 98% claim verified on realistic codebase,
+OR someone tests it on the workspace and reports results.
+
+Source: pipeline/evaluation/completed/hybrid-codebase-retriever-model2vec-sqlite-vec-2026-03-26-evaluation.json
+Related: pipeline/evaluation/completed/code-review-graph-mcp-49x-token-reduction-2026-03-19.json (NEEDS_RESEARCH, 65.75)

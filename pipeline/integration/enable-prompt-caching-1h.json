@@ -1,0 +1,16 @@
+{
+  "title": "Enable Prompt Caching 1H (ENABLE_PROMPT_CACHING_1H=1)",
+  "type": "env-var",
+  "source_item": "pipeline/integration/enable-prompt-caching-1h-v2.1.108.md",
+  "proposed_change": "export ENABLE_PROMPT_CACHING_1H=1",
+  "target_file": "~/.bashrc",
+  "reason": "Explicitly guarantees 1-hour prompt cache TTL for all Claude Code sessions. Fixes silent bug where DISABLE_TELEMETRY users were silently getting 5-min TTL instead of 1hr. Makes cache TTL explicit and reliable rather than implicit. Official Anthropic v2.1.108 feature.",
+  "secondary_usage": "Heartbeat cron invocations: ENABLE_PROMPT_CACHING_1H=1 claude -p --exclude-dynamic-system-prompt-sections '...'",
+  "debug_var": "FORCE_PROMPT_CACHING_5M=1 \u2014 forces 5-min TTL for testing cache expiry behavior",
+  "evaluation_score": 80.7,
+  "evaluated_at": "2026-04-15",
+  "status": "pending_approval",
+  "created_at": "2026-04-16",
+  "approved_by_human": true,
+  "approved_at": "2026-06-02T13:00:16Z"
+}

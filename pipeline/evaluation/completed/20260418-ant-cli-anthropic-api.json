@@ -1,0 +1,32 @@
+{
+  "title": "ant CLI — Official Anthropic Command-Line Client for the Claude API",
+  "source": "https://platform.claude.com/docs/en/release-notes/overview",
+  "source_repo": "https://github.com/anthropics/anthropic-cli",
+  "type": "skill",
+  "description": "Official Anthropic CLI (`ant`) for the Claude API. Three key capabilities: (1) Faster interaction with the Claude API from the terminal, (2) Native integration with Claude Code sessions, (3) Versioning of API resources (prompts, tools, configurations) in YAML files. Note from memory: need to verify whether ant CLI works on Max plan (keychain auth) or requires ANTHROPIC_API_KEY. Registry notes Max plan uses 'claude -p' CLI for programmatic calls — ant CLI may offer a better path for API-level resource management.",
+  "discovered_at": "2026-04-18",
+  "keywords": ["ant CLI", "anthropic CLI", "anthropic-cli", "API CLI tool", "YAML API versioning", "Claude API client", "API resource management", "ant command", "anthropic command line"],
+  "redundancy_check": "NOVEL — registry has 'claude -p' CLI for programmatic Claude calls, but not a dedicated API management CLI with YAML resource versioning. ant CLI appears to be for API resource management (prompts, tools, configs) not just sending messages. Functional gap exists.",
+  "priority": "medium",
+  "action_needed": "Verify auth compatibility with Max plan (does keychain work or need API key?). This was flagged as a carry-forward from Apr 16 memory note. Evaluate whether YAML versioning complements or replaces current CLAUDE.md-based configuration.",
+  "duplicate_flag": "NEAR-DUPLICATE of 20260416-ant-cli.json (same tool, different source). 20260416 version scored 55.0. This version sourced from official platform docs — higher community_validation. Recommend consolidating into single entry with best available information.",
+  "evaluation": {
+    "scores": {
+      "integration_complexity": 30,
+      "token_efficiency": 50,
+      "capability_expansion": 55,
+      "maintenance_burden": 90,
+      "community_validation": 100
+    },
+    "total": 60.75,
+    "decision": "NEEDS_RESEARCH",
+    "reasoning": "Official Anthropic CLI from platform docs (community_validation=100, maintenance=90). Integration blocked if API key required (complexity=30 — slightly more optimistic than 20260416's 20 since YAML resource versioning may work with keychain). Capability expansion (55): YAML versioning of prompts/tools/configs is incrementally new beyond claude -p; not fully covered by current CLAUDE.md-based config. Token efficiency neutral (50). Note: this is a near-duplicate of 20260416-ant-cli.json which scored 55.0. This version's main addition is higher-quality source (official platform docs vs third-party apiyi.com) and the YAML versioning angle. Consolidate entries after research resolves the Max plan auth question.",
+    "research_questions": [
+      "Does ant CLI authenticate via claude.ai keychain (Max plan) or require ANTHROPIC_API_KEY only?",
+      "Is the ant CLI GitHub repo anthropics/anthropic-cli or a different path?",
+      "Does ant CLI's YAML resource versioning work with Max plan auth?",
+      "Consolidation recommendation: compare 20260416-ant-cli.json and this entry, keep the more accurate one."
+    ],
+    "evaluated_at": "2026-04-18"
+  }
+}

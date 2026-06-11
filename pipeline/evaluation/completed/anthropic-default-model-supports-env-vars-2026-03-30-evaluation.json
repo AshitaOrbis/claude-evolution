@@ -1,0 +1,24 @@
+{
+  "title": "ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL_SUPPORTS Env Vars",
+  "source": "https://github.com/anthropics/claude-code/releases/tag/v2.1.84",
+  "type": "technique",
+  "description": "Three new env vars for Bedrock, Vertex, and Foundry users that declare capability support for pinned third-party models: ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTS, ANTHROPIC_DEFAULT_SONNET_MODEL_SUPPORTS, ANTHROPIC_DEFAULT_HAIKU_MODEL_SUPPORTS. Companion vars _MODEL_NAME and _MODEL_DESCRIPTION allow customizing /model picker labels. Without these, Claude Code incorrectly assumed presence/absence of extended thinking and effort controls for custom Bedrock/Vertex/Foundry inference profiles, causing silent regressions for agents with model: opus/sonnet/haiku frontmatter on third-party providers.",
+  "discovered_at": "2026-03-30",
+  "keywords": ["ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTS", "ANTHROPIC_DEFAULT_SONNET_MODEL_SUPPORTS", "ANTHROPIC_DEFAULT_HAIKU_MODEL_SUPPORTS", "capability detection", "thinking capability", "effort capability", "Bedrock model", "Vertex model", "Foundry model", "pinned model", "model supports override", "third-party model capability", "env var"],
+  "redundancy_check": "Registry documents ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL env vars (set model IDs) and ANTHROPIC_CUSTOM_MODEL_OPTION/modelOverrides (add picker entries). The new _MODEL_SUPPORTS vars fill a different gap: capability declaration for pinned models. NOT a duplicate.",
+  "integration_notes": "Registry update — add to Multi-Model Orchestration section alongside existing ANTHROPIC_CUSTOM_MODEL_OPTION and modelOverrides entries.",
+  "evaluation": {
+    "date": "2026-03-30",
+    "scores": {
+      "integration_complexity": 100,
+      "token_efficiency": 50,
+      "capability_expansion": 40,
+      "maintenance_burden": 100,
+      "community_validation": 100
+    },
+    "total": 72.5,
+    "decision": "APPROVED",
+    "reasoning": "Official Anthropic feature from v2.1.84 changelog. Integration complexity is trivially easy — registry-only update, no code changes. Token efficiency is neutral (this is a config correctness fix, not a token savings mechanism). Capability expansion is scored marginal (40) because this workspace uses Claude Max plan, not Bedrock/Vertex/Foundry — the env vars fix silent regressions for third-party provider users, which is not a daily-driver concern here. However, the 0% maintenance and 100% community validation (official Anthropic) bring the total to 72.5, above the 70 threshold. Documenting official env vars in the registry ensures completeness even for features not currently used — they become relevant if the workspace ever switches to an enterprise provider.",
+    "action": "REGISTRY_UPDATE: Add _MODEL_SUPPORTS vars to the env var reference table in registry/existing-capabilities.md under Multi-Model Orchestration. Note: applies to Bedrock/Vertex/Foundry deployments only."
+  }
+}
