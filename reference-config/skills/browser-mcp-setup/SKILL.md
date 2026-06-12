@@ -127,7 +127,11 @@ Use when you need persistent browser state (logins, cookies) across sessions.
 
 ### Setup (NO ADMIN REQUIRED)
 
-Key insight: Using `--remote-debugging-address=0.0.0.0` makes Chrome listen on all interfaces, allowing WSL to connect directly without port forwarding or firewall rules.
+> **SECURITY: never bind the DevTools port to `0.0.0.0`.** The Chrome DevTools
+> Protocol grants full browser control: reading page content and cookies,
+> executing JavaScript in logged-in sessions, and navigating tabs. Binding it
+> to all interfaces exposes that authority to every machine that can reach
+> your host on the network. Always bind to `127.0.0.1`.
 
 #### On Windows (regular PowerShell, NOT admin)
 
@@ -135,7 +139,7 @@ Key insight: Using `--remote-debugging-address=0.0.0.0` makes Chrome listen on a
 & "C:\Program Files\Google\Chrome\Application\chrome.exe" `
     --user-data-dir="$env:USERPROFILE\ChromeProfiles\mcp" `
     --remote-debugging-port=9222 `
-    --remote-debugging-address=0.0.0.0 `
+    --remote-debugging-address=127.0.0.1 `
     --no-first-run
 ```
 
@@ -144,13 +148,36 @@ Or use the helper script:
 pwsh -File ~/.claude/skills/browser-mcp-setup/scripts/launch-chrome-wsl.ps1
 ```
 
+#### Reaching the loopback-bound port from WSL2
+
+WSL2's default NAT networking cannot reach `127.0.0.1` on the Windows host.
+Two safe options, in order of preference:
+
+1. **Mirrored networking** (Windows 11 22H2+): add to `%USERPROFILE%\.wslconfig`:
+   ```ini
+   [wsl2]
+   networkingMode=mirrored
+   ```
+   then `wsl --shutdown` and restart. `localhost` is now shared between
+   Windows and WSL, so WSL can use `http://127.0.0.1:9222` directly.
+
+2. **Scoped port proxy** (NAT mode): forward only the WSL-facing vEthernet
+   address to loopback (run in admin PowerShell once):
+   ```powershell
+   # Use the "vEthernet (WSL)" adapter IP as listenaddress -- NOT 0.0.0.0
+   netsh interface portproxy add v4tov4 listenaddress=<vEthernet-WSL-IP> listenport=9222 connectaddress=127.0.0.1 connectport=9222
+   ```
+   The vEthernet (WSL) address is internal to the Windows<->WSL virtual
+   switch, so the port stays unreachable from the LAN.
+
 #### In WSL - Connect
 
 ```bash
-# Get Windows IP
-WINDOWS_IP=$(grep nameserver /etc/resolv.conf | head -1 | awk '{print $2}')
+# Mirrored networking:
+curl "http://127.0.0.1:9222/json"
 
-# Verify connection
+# NAT mode with portproxy (Windows host IP):
+WINDOWS_IP=$(grep nameserver /etc/resolv.conf | head -1 | awk '{print $2}')
 curl "http://${WINDOWS_IP}:9222/json"
 ```
 
@@ -202,26 +229,29 @@ lsof -i:3102
 ~/.claude/skills/browser-mcp-setup/scripts/ensure-better-playwright.sh
 
 # Check logs
-cat /tmp/better-playwright.log
+cat "${XDG_RUNTIME_DIR:-$HOME/.cache}/claude-evolution/better-playwright.log"
 ```
 
 ### Chrome DevTools: Connection refused from WSL
 
-1. **Verify Chrome is listening on 0.0.0.0**:
+1. **Verify Chrome is listening on loopback**:
    ```powershell
    # On Windows
    netstat -an | findstr 9222
-   # Should show 0.0.0.0:9222, NOT 127.0.0.1:9222
+   # Should show 127.0.0.1:9222 (never 0.0.0.0:9222 -- see security note above)
    ```
 
-2. **Verify Windows IP is correct**:
+2. **Verify the path from WSL**: with mirrored networking, test
+   `curl http://127.0.0.1:9222/json` directly. In NAT mode, verify the
+   portproxy exists (`netsh interface portproxy show all` on Windows) and the
+   Windows IP is correct:
    ```bash
    # In WSL
    grep nameserver /etc/resolv.conf
    ping -c 1 $(grep nameserver /etc/resolv.conf | head -1 | awk '{print $2}')
    ```
 
-3. **Restart Chrome with correct flags** (must include `--remote-debugging-address=0.0.0.0`)
+3. **Restart Chrome with correct flags** (must include `--remote-debugging-address=127.0.0.1`)
 
 ### Element not found errors
 

@@ -40,7 +40,9 @@ You are a browser automation expert using Better Playwright MCP with **91% DOM c
 
 Better Playwright MCP requires the HTTP server to be running:
 ```bash
-npx better-playwright-mcp3@latest server
+# Use the pinned version (never @latest from automation -- mutable npm code).
+# Preferred: ~/.claude/skills/browser-mcp-setup/scripts/ensure-better-playwright.sh
+npx better-playwright-mcp3@3.2.0 server
 # Runs on port 3102 by default
 ```
 

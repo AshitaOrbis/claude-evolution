@@ -8,7 +8,7 @@ Your AI development environment can improve itself. Here's how:
 
 1. **Discovery**: A scheduled agent searches GitHub, newsletters, and forums for new Claude Code tools, MCP servers, prompt techniques, and workflow patterns
 2. **Evaluation**: Each discovery is scored on 5 criteria (integration complexity, token efficiency, capability expansion, maintenance burden, community validation)
-3. **Integration**: Items scoring 70+ are automatically integrated into your Claude Code setup (new skills, agents, MCP configs, or techniques)
+3. **Integration**: Items scoring 70+ are queued for integration into your Claude Code setup (new skills, agents, MCP configs, or techniques). By default integration is **review-gated** — approved items wait in `pipeline/integration/` for you to inspect; set `EVOLUTION_AUTONOMOUS=1` to integrate automatically (read [SECURITY.md](SECURITY.md) first)
 4. **Verification**: Integrated capabilities are tested and added to a registry for redundancy checking
 
 ```
@@ -25,6 +25,12 @@ Your AI development environment can improve itself. Here's how:
 ```
 
 The system runs on cron (daily discovery, evaluation, and integration) so your development environment improves while you sleep.
+
+> **Security note**: this pipeline feeds internet-discovered content to an AI
+> agent with local write access. The default mode is review-gated (no agent
+> Bash access, no autonomous integration). Before enabling cron or autonomous
+> mode, read [SECURITY.md](SECURITY.md) for the threat model and sandboxing
+> recommendations.
 
 ## Quick Start
 
@@ -141,7 +147,15 @@ DISCOVERY_MODEL=sonnet
 
 # Optional: Claude model for evaluation (default: sonnet)
 EVAL_MODEL=sonnet
+
+# Optional: fully autonomous integration (default: 0 = review-gated)
+# Read SECURITY.md before setting this to 1.
+EVOLUTION_AUTONOMOUS=0
 ```
+
+> `.env` is sourced as shell code by the heartbeat scripts. Keep it owned by
+> you with mode `600` (the scripts refuse to load it otherwise) and never let
+> automation write to it. See [SECURITY.md](SECURITY.md).
 
 ### Capability Registry
 
