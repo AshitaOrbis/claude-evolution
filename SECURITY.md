@@ -30,9 +30,27 @@ Write/Bash authority fully safe.
   autonomous pass after reading the queue).
 - Helper generation runs with `Read Write Glob Grep` only.
 
-Note that even in this mode the agents can write files inside areas your
-`claude` CLI permits. Review-gated mode reduces the blast radius; it does not
-eliminate it.
+**Important limitation:** review-gated mode removes Bash but the agents still
+hold **unrestricted `Write`** (and the integration step `Edit`). The
+"only write to `pipeline/` and `registry/`" rules in the prompt files are
+**soft instructions to the model, not a sandbox**. A prompt-injection payload
+in fetched content could direct the agent to write to sensitive targets
+(`~/.claude.json` or `~/.claude/agents/*.md` → code execution on the next
+`claude` start; `.env` → code execution on the next cron run; `.git/hooks/`,
+shell rc files, etc.).
+
+Path-scoped `--allowed-tools` rules (e.g. `Write(pipeline/**)`) and
+`permissions.deny` settings were evaluated as an enforcement layer and did
+**not** reliably constrain `claude -p` file writes in testing, so they are
+deliberately not relied upon here — a control that silently fails open would
+be worse than an honest warning. The only dependable containment is OS-level:
+
+Review-gated mode reduces the blast radius (no Bash, no autonomous config
+writes); it does **not** confine writes to the repo. For unattended runs,
+use the disposable-account / container guidance below rather than trusting
+the prompt-level rules. Tracking a robust fix (capture agent output via
+stdout and have the wrapper write files, removing `Write` from the
+web-fetching phases) in `BACKLOG.md`.
 
 ### Autonomous mode (`EVOLUTION_AUTONOMOUS=1`)
 
@@ -61,6 +79,12 @@ source a `.env` that is not owned by you or is writable by group/others, but
 they cannot detect malicious content in a file you own. Consequences:
 
 - Never let automation (including this tool's own agents) write to `.env`.
+  In autonomous mode the integration agent holds `Write`/`Edit`; a
+  prompt-injected run could rewrite `.env` (keeping it user-owned and `600`
+  so it passes the next-run ownership/mode guard) and thereby execute
+  arbitrary shell on the next cron run, because the scripts **source** it.
+  This is the strongest reason not to run autonomous mode outside a
+  disposable account/container.
 - Keep it `chmod 600` and out of version control (it is gitignored).
 - Put only `KEY=value` lines in it — treat any command syntax in `.env` as a
   compromise indicator.

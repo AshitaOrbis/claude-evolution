@@ -28,7 +28,12 @@ The system runs on cron (daily discovery, evaluation, and integration) so your d
 
 > **Security note**: this pipeline feeds internet-discovered content to an AI
 > agent with local write access. The default mode is review-gated (no agent
-> Bash access, no autonomous integration). Before enabling cron or autonomous
+> Bash access, no autonomous integration). **Review-gated mode still grants
+> the agent unrestricted `Write` access** — the "only write to `pipeline/`"
+> rule in the prompt files is a soft instruction, not a sandbox, so a
+> prompt-injection payload in fetched content could in principle write
+> elsewhere. The only real containment is to run inside a disposable
+> container or low-privilege account. Before enabling cron or autonomous
 > mode, read [SECURITY.md](SECURITY.md) for the threat model and sandboxing
 > recommendations.
 
@@ -153,9 +158,9 @@ EVAL_MODEL=sonnet
 EVOLUTION_AUTONOMOUS=0
 ```
 
-> `.env` is sourced as shell code by the heartbeat scripts. Keep it owned by
-> you with mode `600` (the scripts refuse to load it otherwise) and never let
-> automation write to it. See [SECURITY.md](SECURITY.md).
+> `.env` is sourced as shell code by the heartbeat scripts. The scripts refuse
+> to load it if it is not owned by you or is writable by group/others; `600` is
+> recommended. Never let automation write to it. See [SECURITY.md](SECURITY.md).
 
 ### Capability Registry
 

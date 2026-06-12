@@ -26,3 +26,29 @@ The publication-review pipeline uses three models (GPT-5.4, Gemini 3.1 Pro, Opus
 **Approach**: Bootstrap optimization on the review prompts using the fix manifests as ground truth. The manifest triage decisions (genuine error vs precision preference vs false positive) provide the supervision signal. Optimize for recall on genuine errors while minimizing false positive rate.
 
 **Dependencies**: `dspy-prompt-optimizer` project, `publication-review` skill
+
+## Confine Agent Writes Without Bash (Security)
+
+**Source**: Security review follow-up, 2026-06-11
+**Priority**: High
+**Effort**: Medium
+
+In review-gated mode the discovery/evaluation/helper agents run without Bash
+but still hold unrestricted `Write` (integration additionally holds `Edit`).
+The "only write to `pipeline/`/`registry/`" rules in the prompt files are soft
+instructions, not a sandbox, so prompt-injected content fetched from the web
+could direct a write to `~/.claude.json`, `.env`, `.git/hooks/`, etc. Path-
+scoped `--allowed-tools` rules and `permissions.deny` settings were tested and
+did **not** reliably constrain `claude -p` writes (see SECURITY.md).
+
+**Robust fix options** (pick one, validate against a real run):
+- Remove `Write` from the web-fetching phases; have each agent emit its
+  results as JSON on stdout and let the wrapper script persist them to
+  `pipeline/` via `jq` (deterministic, no agent filesystem authority).
+- Run every phase inside a disposable container / low-privilege account with a
+  bind-mounted repo and no access to the real `~/.claude` config.
+- Re-evaluate Claude Code sandbox/permission features once the path-glob
+  enforcement semantics for `Write`/`Edit` are confirmed working.
+
+Until one of these lands, unattended runs should follow the container/account
+guidance in SECURITY.md rather than trusting the prompt-level rules.
