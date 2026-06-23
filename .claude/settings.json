@@ -1,0 +1,17 @@
+{
+  "$comment": "evo-1 security mitigation. PreToolUse write-confinement hook for the discovery/evaluation agents (the `claude -p` runs driven by HEARTBEAT-DAILY.md / EVALUATE-PENDING.md). These agents hold Write + WebFetch and read attacker-controllable internet content; a prompt-injection payload could steer a write to a sensitive path. The discovery/eval agents are NOT defined as agent-frontmatter files -- they are `claude -p` invocations that cd into this project, so the hook is wired here at the project level rather than in agent frontmatter. See .claude/hooks/block-sensitive-writes.sh and SECURITY.md (interim mitigation; full Write-stripping wrapper deferred).",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/block-sensitive-writes.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

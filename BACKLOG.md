@@ -156,7 +156,7 @@ All three backlog items implemented:
 ## Confine Agent Writes Without Bash (Security)
 
 **Source**: Security review follow-up, 2026-06-11
-**Priority**: High
+**Priority**: High (interim mitigation landed; robust fix still open)
 **Effort**: Medium
 
 In review-gated mode the discovery/evaluation/helper agents run without Bash
@@ -166,6 +166,16 @@ instructions, not a sandbox, so prompt-injected content fetched from the web
 could direct a write to `~/.claude.json`, `.env`, `.git/hooks/`, etc. Path-
 scoped `--allowed-tools` rules and `permissions.deny` settings were tested and
 did **not** reliably constrain `claude -p` writes (see SECURITY.md).
+
+**Interim mitigation (IMPLEMENTED 2026-06-22)**: a `PreToolUse`
+write-confinement hook (`.claude/hooks/block-sensitive-writes.sh`, wired in
+`.claude/settings.json` for `Write|Edit|MultiEdit|NotebookEdit`) blocks
+(exit 2) any write whose resolved target is on the sensitive-path denylist
+(`~/.claude`, `~/.claude.json`, `.env`/`.env.*`, `.git/hooks/`, `~/.ssh`,
+`~/.config`) or lands outside the repo tree. This is weaker than removing
+`Write` — it is a path denylist, so it cannot catch every indirect write (new
+symlink → later write through it, TOCTOU swap, or any write funneled through
+`Bash` in autonomous mode). The robust fix below is still the target.
 
 **Robust fix options** (pick one, validate against a real run):
 - Remove `Write` from the web-fetching phases; have each agent emit its

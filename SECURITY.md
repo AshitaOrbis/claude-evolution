@@ -52,6 +52,41 @@ the prompt-level rules. Tracking a robust fix (capture agent output via
 stdout and have the wrapper write files, removing `Write` from the
 web-fetching phases) in `BACKLOG.md`.
 
+#### Interim mitigation: PreToolUse write-confinement hook (implemented)
+
+As an interim defense — weaker than removing `Write`, but better than relying
+on prompt-level rules — the project ships a `PreToolUse` hook that inspects
+every `Write`/`Edit`/`MultiEdit`/`NotebookEdit` **before** it runs and blocks
+the call (exit 2) if the resolved target is on a denylist or outside the
+repository tree.
+
+- Hook script: `.claude/hooks/block-sensitive-writes.sh`
+- Wiring: `.claude/settings.json` (`PreToolUse` matcher
+  `Write|Edit|MultiEdit|NotebookEdit`). The discovery/evaluation agents are
+  not agent-frontmatter definitions — they are `claude -p` runs that `cd` into
+  this project (see `scripts/evolution-daily.sh`), so the hook is wired at the
+  **project** level, where those runs load it automatically. It applies to
+  every `claude -p` invocation in this repo, not just the web-fetching phases.
+
+The hook denies writes to:
+
+- anything under `~/.claude/` or the `~/.claude.json` file
+- any `.env` / `.env.*` file (sourced as shell code by the scripts)
+- any `.git/hooks/` path
+- `~/.ssh` and `~/.config`
+- any absolute or `../`-escaping path **outside** the project tree (writes are
+  confined to the repo). It expands `~`, resolves relative paths against the
+  run's cwd, and canonicalizes symlinks on the existing portion of the path.
+
+**This is a mitigation, not a sandbox.** A path denylist is strictly weaker
+than not granting `Write` at all, and it cannot catch every indirect write:
+e.g. a write that *creates* a new symlink pointing outside the repo (then a
+later write through it), a TOCTOU swap of a path between the check and the
+write, or any write funneled through a tool the hook does not gate (notably
+`Bash` in autonomous mode). The robust fix — strip `Write` from the
+web-fetching phases and have the wrapper persist agent stdout to files — is
+the stronger long-term option and remains **deferred** (see `BACKLOG.md`).
+
 ### Autonomous mode (`EVOLUTION_AUTONOMOUS=1`)
 
 Restores the original fully autonomous behavior: agents get Bash, and the
