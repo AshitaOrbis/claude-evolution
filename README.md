@@ -202,7 +202,7 @@ This system emerged from noticing that Claude Code's capabilities expand faster 
 
 The first version was a simple cron job that ran a discovery search and posted results to Discord. Over time, it grew evaluation scoring (to filter noise), automatic integration (to reduce manual work), and a capability registry (to prevent duplicate effort).
 
-Read more: [Building an AI That Improves Itself](https://ashitaorbis.com/posts/building-an-ai-that-improves-itself) (coming soon)
+Read more: [Building an AI That Improves Itself](https://ashitaorbis.com/posts/022-building-an-ai-that-improves-itself)
 
 ## Acknowledgements
 
