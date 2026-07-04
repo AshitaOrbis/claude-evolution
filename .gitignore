@@ -24,3 +24,8 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Editor/runtime state (backup-mirror curation 2026-07-04)
+.cursor/
+.claude/worktrees/
+.claude/tdd-guard/
