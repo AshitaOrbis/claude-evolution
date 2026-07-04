@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-06-07T00:00:00Z",
+  "last_run": "2026-06-28T00:00:00Z",
   "processed_items": [
     {
       "id": "shell-conventions-2026-02-05",
@@ -2010,19 +2010,280 @@
       "duplicate_of": ["self-healing-orchestration-horizon-2026-05-31", "mcp-doctor-skill-2026-05-24"],
       "date": "2026-06-07",
       "note": "Self-healing framing covered by self-healing-pipeline skill + Tool & Environment Failure Circuit Breaker. MCP/sandbox pre-flight diagnostic piece maps to mcp-doctor-skill (deferred 65.5, 2026-05-24); sandbox/bwrap root cause likely resolved by 2026-03-03 native-Linux migration."
+    },
+    {
+      "id": "output-limits-2026-06-21",
+      "title": "Output & Large Artifacts (write large output to file vs inline huge blocks; chunk across messages; keep under output-token max) (cmd-3)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "score": 71.75,
+      "decision": "integrated",
+      "integration_target": "~/.claude/CLAUDE.md ## Output & Large Artifacts (new section adjacent to Tool & Environment Failure Circuit Breaker)",
+      "date": "2026-06-21",
+      "note": "NOVEL — first novel item since mcp-truncation-detection-2026-06-07. Report cmd-3 (## Output Limits): 'Keep individual responses under the output token maximum; chunk large outputs across multiple messages or write to files instead of inlining huge blocks.' Friction: multiple sessions entirely lost to '500 output token maximum' / output-limit API errors. 0 prior digest matches (grep 'output token'|'output limit'|'inline'|'chunk large' = 0). Registry has only capacity facts (64k/128k Output Token Limits) and Auto-Continuation on Token Limit (v2.1.90+, harness-level/reactive, explicitly 'verify if applies to claude -p') — neither is a behavioral preventive rule, and the gap is exactly headless/`-p` runs. Score breakdown: integration_complexity=90, token_efficiency=65, capability_expansion=60, maintenance=90, community_validation=60 = 71.75. Consistent precedent: mcp-truncation-detection integrated at 70.5 (same novel-complement-to-existing-feature profile). The 'write to files instead of inlining' guidance is the distinct durable value beyond the auto-continuation feature."
+    },
+    {
+      "id": "self-verify-before-done-2026-06-21",
+      "title": "Verification — self-review/subagent pass confirming EVERY item implemented before reporting done (cmd-0)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verify-before-done-2026-06-07", "verification-discipline-2026-04-26", "session-end-verification-2026-02-05"],
+      "date": "2026-06-21",
+      "note": "8th+ occurrence. Covered by Multi-Item Plan Verification (integrated 2026-04-26: per-item evidence + X/Y reporting + verification subagent on 10+ item plans) and Session-End Verification (2026-02-05)."
+    },
+    {
+      "id": "sessions-tools-disambiguation-2026-06-21",
+      "title": "Sessions & Tools — default interactive Opus (not headless claude -p); confirm exact target before opening similarly-named projects (cmd-1)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["session-spawning-defaults-2026-05-17", "interactive-vs-headless-default-2026-05-24", "confirm-exact-project-2026-06-07", "project-disambiguation-2026-05-10"],
+      "date": "2026-06-21",
+      "note": "Both halves already integrated/covered. Interactive-Opus-default integrated 2026-05-17 (## Execution Defaults → Session spawning defaults). Confirm-exact-project covered by Intent Clarification rule + the same Session spawning defaults bullet ('confirm the exact project before opening'). Project-specific examples (psycheeval vs orchestrator, voice-clone vs Chatterbox) belong in project CLAUDE.md."
+    },
+    {
+      "id": "long-running-jobs-2026-06-21",
+      "title": "Long-running Jobs — validate provenance/config/entry-counts before launch; partial-save checkpoints; account for usage-limit rollovers (cmd-2)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["long-running-provenance-validation-2026-05-03", "long-running-pipelines-preflight-2026-05-24", "quota-checkpointing-pattern-2026-06-07"],
+      "date": "2026-06-21",
+      "note": "Provenance/entry-count validation integrated 2026-05-03 as Long-Running Job Provenance Validation (78.75) in ## Validate Before Irreversible Operations → Long-running jobs bullet (same 45-hour nanochat triggering incident). Checkpointing/rollover-awareness covered by plan-tracker + session-handoff + self-healing-pipeline skills + session snapshot/restore cron."
+    },
+    {
+      "id": "custom-skills-feature-2026-06-21",
+      "title": "Custom Skills (/verify one-command review/verify prompt)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["custom-skills-feature-2026-06-07", "custom-skills-feature-2026-05-31"],
+      "date": "2026-06-21",
+      "note": "13th+ occurrence. ~30 skills exist (deploy-staging, writing-review, codebase-review, publication-review, etc.). Verification specifically covered by Multi-Item Plan Verification rule + verification subagents."
+    },
+    {
+      "id": "hooks-feature-2026-06-21",
+      "title": "Hooks (PostToolUse typecheck/lint after Edit|Write)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["hooks-feature-2026-06-07", "posttooluse-typecheck-hook-2026-05-03", "auto-format-hooks-2026-02-22"],
+      "date": "2026-06-21",
+      "note": "12th+ occurrence. Repeatedly deferred (auto-format-hooks-2026-02-22 64.5, post-edit-astro-hooks-2026-03-01 64.5). Session-End Verification + iterative-improve cover; per-project typecheck/lint hooks belong in project .claude/settings.json, not global."
+    },
+    {
+      "id": "task-agents-feature-2026-06-21",
+      "title": "Task Agents (dedicated verification/review subagent pass)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["task-agents-feature-2026-06-07", "task-agents-tier-verification-2026-05-24"],
+      "date": "2026-06-21",
+      "note": "13th+ occurrence. dispatching-parallel-agents skill + Explore agent + Agent Teams + fan-out-scaling cover; verification subagent codified in Multi-Item Plan Verification rule (code-reviewer/debugger/persona)."
+    },
+    {
+      "id": "self-verify-pattern-2026-06-21",
+      "title": "Self-verify before declaring done (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["verify-before-done-pattern-2026-06-07", "verification-discipline-2026-04-26"],
+      "date": "2026-06-21",
+      "note": "Covered by Multi-Item Plan Verification. Same 'was every improvement implemented?' pushback heuristic, now baked into the rule."
+    },
+    {
+      "id": "guard-long-runs-quota-2026-06-21",
+      "title": "Guard long runs against quota caps (provenance validation + checkpointing) (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["provenance-preflight-pattern-2026-06-07", "quota-checkpointing-pattern-2026-06-07", "long-running-provenance-validation-2026-05-03"],
+      "date": "2026-06-21",
+      "note": "Provenance piece integrated 2026-05-03 (78.75). Checkpointing/resume covered by plan-tracker + session-handoff + self-healing-pipeline + session snapshot/restore cron."
+    },
+    {
+      "id": "confirm-target-pattern-2026-06-21",
+      "title": "Confirm the target before opening projects/sessions (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["confirm-exact-project-2026-06-07", "session-spawning-defaults-2026-05-17", "disambiguation-rule-2026-05-03"],
+      "date": "2026-06-21",
+      "note": "Covered by Intent Clarification rule (## Execution Defaults) + Session spawning defaults bullet (integrated 2026-05-17: list candidate paths/mtimes, confirm before opening, interactive-Opus default)."
+    },
+    {
+      "id": "self-healing-review-campaigns-2026-06-21",
+      "title": "Self-Healing Multi-Agent Review Campaigns (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verifying-pipelines-horizon-2026-06-07", "self-healing-orchestration-horizon-2026-05-31", "review-mesh-horizon-2026-05-03"],
+      "date": "2026-06-21",
+      "note": "15th occurrence of the self-healing/parallel-review-mesh pattern. self-healing-pipeline skill (2026-02-05) + codebase-review/publication-review/methodology-review skills + dispatching-parallel-agents + heartbeat crons cover. Auto-resume-after-quota framing covered by session snapshot/restore + StopFailure hook."
+    },
+    {
+      "id": "test-gated-build-deploy-2026-06-21",
+      "title": "Test-Gated Autonomous Build-And-Deploy Loops (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["tdd-bugfix-loops-horizon-2026-06-07", "test-driven-agent-iteration-2026-05-24", "tdd-pipeline-iteration-2026-04-26"],
+      "date": "2026-06-21",
+      "note": "11th occurrence. test-driven-development skill + tdd-guard hooks + iterative-improve (red-green-refactor + persona testing + deploy + visual fidelity + rollback gates) cover. Deploy-with-smoke-test+rollback maps to deploy-staging + iterative-improve quality gates."
+    },
+    {
+      "id": "resilient-research-pipelines-2026-06-21",
+      "title": "Resilient Long-Running Research Pipelines (quota-aware, checkpointed, pre-flight, fallback paths) (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-healing-env-horizon-2026-06-07", "long-horizon-pipelines-horizon-2026-05-10", "preflight-environment-check-2026-05-03"],
+      "date": "2026-06-21",
+      "note": "Checkpointing/provenance integrated (Long-Running Job Provenance Validation 78.75). Pre-flight env check deferred 2026-05-03 (62) — sandbox/bwrap root cause likely resolved by native-Linux migration. Fallback-path piece (fxtwitter/WebFetch) covered by existing playbooks + Tool & Environment Failure Circuit Breaker. self-healing-pipeline skill + heartbeat crons implement the orchestrator pattern."
+    },
+    {
+      "id": "self-verify-before-done-2026-06-28",
+      "title": "Verification & Completion — re-verify every claimed change was applied before reporting done; no completion claim without proof (cmd-0)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verify-before-done-2026-06-21", "verification-discipline-2026-04-26", "session-end-verification-2026-02-05"],
+      "date": "2026-06-28",
+      "note": "9th+ occurrence. Covered by Multi-Item Plan Verification (integrated 2026-04-26: per-item evidence + X/Y reporting + verification subagent) and Session-End Verification (2026-02-05). #1 recurring insight signal — recurrence reflects an adherence gap, not a missing rule; adding more CLAUDE.md text would duplicate."
+    },
+    {
+      "id": "subagent-review-before-done-2026-06-28",
+      "title": "Verification & Completion — spawn subagents to review long-running/multi-model work for P0/P1 bugs before declaring healthy/finished (cmd-1)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verify-before-done-2026-06-28", "task-agents-feature-2026-06-21", "self-healing-review-campaigns-2026-06-21"],
+      "date": "2026-06-28",
+      "note": "Covered by Multi-Item Plan Verification rule ('run a verification subagent (code-reviewer/debugger/persona) before declaring completion ... subagent review surfaces P0/P1 bugs') + dispatching-parallel-agents skill + codebase-review/publication-review/methodology-review."
+    },
+    {
+      "id": "background-jobs-quotas-2026-06-28",
+      "title": "Background Jobs & Quotas — clean up runaway/orphaned processes; respect API quotas (GLM/Kimi/session caps); check quota before parallel reliability passes (cmd-2)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["long-running-jobs-2026-06-21", "guard-long-runs-quota-2026-06-21", "quota-checkpointing-pattern-2026-06-07", "preflight-environment-check-2026-05-03"],
+      "date": "2026-06-28",
+      "note": "Quota/checkpointing covered by Long-Running Job Provenance Validation (78.75) + plan-tracker/session-handoff/self-healing-pipeline skills + session snapshot/restore cron. Orphaned-process-cleanup sub-element maps to preflight-environment-check (DEFERRED 62, 2026-05-03, 'revisit if friction recurs'). Friction recurred this window, but it is now QUOTA + orphaned processes (covered by restart-processes skill + checkpointing) rather than the bwrap/AppArmor that motivated the deferral — root cause resolved by native-Linux migration. Decision: keep deferred, do not integrate."
+    },
+    {
+      "id": "interactive-tmux-default-2026-06-28",
+      "title": "Session Setup — default to interactive tmux session unless user explicitly requests headless claude -p (cmd-3)",
+      "category": "claude_md_addition",
+      "source_section": "claude_md_additions",
+      "decision": "duplicate",
+      "duplicate_of": ["session-spawning-defaults-2026-05-17", "sessions-tools-disambiguation-2026-06-21"],
+      "date": "2026-06-28",
+      "note": "Already integrated 2026-05-17 as Session Spawning Defaults (## Execution Defaults → 'default to an interactive tmux session with Opus — not claude -p headless ... only correct when ... scripting, cron, batch, or one-shot')."
+    },
+    {
+      "id": "task-agents-feature-2026-06-28",
+      "title": "Task Agents (independent reviewer subagent proves every claimed change)",
+      "category": "feature_suggestion",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["task-agents-feature-2026-06-21", "task-agents-tier-verification-2026-05-24"],
+      "date": "2026-06-28",
+      "note": "14th+ occurrence. dispatching-parallel-agents skill + Explore agent + Agent Teams + fan-out-scaling; verification subagent codified in Multi-Item Plan Verification."
+    },
+    {
+      "id": "custom-skills-feature-2026-06-28",
+      "title": "Custom Skills (/verify-deploy: multi-model review -> remediate tiers -> verify builds -> re-confirm changes)",
+      "category": "feature_skill",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["custom-skills-feature-2026-06-21", "custom-deploy-review-skills-2026-04-12"],
+      "date": "2026-06-28",
+      "note": "14th+ occurrence. ~30 skills exist (deploy-staging, codebase-review, publication-review, methodology-review, iterative-improve). Verification step codified in Multi-Item Plan Verification."
+    },
+    {
+      "id": "hooks-feature-2026-06-28",
+      "title": "Hooks (PostToolUse typecheck+lint after Edit|Write)",
+      "category": "feature_hook",
+      "source_section": "features_to_try",
+      "decision": "duplicate",
+      "duplicate_of": ["hooks-feature-2026-06-21", "auto-format-hooks-2026-02-22", "post-edit-astro-hooks-2026-03-01"],
+      "date": "2026-06-28",
+      "note": "13th+ occurrence. Repeatedly deferred (64.5 x2). Per-project typecheck/lint hooks belong in project .claude/settings.json, not global; would slow multi-edit sessions. Session-End Verification + iterative-improve cover. MEMORY note: prior global hooks caused problems — only add project-scoped hooks with demonstrated need."
+    },
+    {
+      "id": "preflight-quota-process-pattern-2026-06-28",
+      "title": "Pre-flight quota and process checks (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["background-jobs-quotas-2026-06-28", "guard-long-runs-quota-2026-06-21", "preflight-environment-check-2026-05-03"],
+      "date": "2026-06-28",
+      "note": "Same theme as cmd-2; see background-jobs-quotas-2026-06-28."
+    },
+    {
+      "id": "forced-completion-verification-2026-06-28",
+      "title": "Forced completion verification — prove every claimed change vs trusting summary (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verify-pattern-2026-06-21", "self-verify-before-done-2026-06-28", "verification-discipline-2026-04-26"],
+      "date": "2026-06-28",
+      "note": "Covered by Multi-Item Plan Verification. Same 'was every improvement implemented?' pushback heuristic, baked into the rule."
+    },
+    {
+      "id": "output-token-avoidance-pattern-2026-06-28",
+      "title": "Output token limit avoidance on long sessions — write large artifacts to files vs inline (usage pattern)",
+      "category": "usage_pattern",
+      "source_section": "usage_patterns",
+      "decision": "duplicate",
+      "duplicate_of": ["output-limits-2026-06-21"],
+      "date": "2026-06-28",
+      "note": "Integrated last week (2026-06-21) as Output & Large Artifacts CLAUDE.md rule (71.75) — write large output to files, split multi-part across messages."
+    },
+    {
+      "id": "overnight-build-heal-2026-06-28",
+      "title": "Overnight Autonomous Build-And-Heal Pipelines (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-verifying-pipelines-horizon-2026-06-07", "self-healing-overnight-orchestrator-2026-04-19", "self-healing-pipelines-horizon-2026-05-03"],
+      "date": "2026-06-28",
+      "note": "16th occurrence. self-healing-pipeline skill (2026-02-05) + iterative-improve + heartbeat crons + session snapshot/restore cover the supervisor/relaunch/health-check pattern."
+    },
+    {
+      "id": "parallel-multimodel-review-2026-06-28",
+      "title": "Parallel Multi-Model Review Campaigns (cross-check + synthesis + leak-scan gate) (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["self-healing-review-campaigns-2026-06-21", "review-mesh-horizon-2026-05-03", "multi-model-review-swarms-2026-04-19"],
+      "date": "2026-06-28",
+      "note": "16th occurrence. codebase-review + publication-review + methodology-review skills + dispatching-parallel-agents + fan-out-scaling + Agent Teams cover. Leak-scan gate maps to security-auditor + privacy-name-rule."
+    },
+    {
+      "id": "self-iterating-eval-loop-2026-06-28",
+      "title": "Self-Iterating Eval-Driven Optimization Loops (mutate config/prompt -> eval -> harness-artifact-vs-real-gain -> quota-aware checkpoint -> convergence stop) (horizon)",
+      "category": "horizon_workflow",
+      "source_section": "on_the_horizon",
+      "decision": "duplicate",
+      "duplicate_of": ["eval-driven-tournament-2026-05-17", "eval-driven-content-horizon-2026-05-31", "test-gated-build-deploy-2026-06-21"],
+      "date": "2026-06-28",
+      "note": "3rd occurrence of eval-driven-loop theme (both prior duplicate). Pieces covered: prompt-optimizer agent (DSPy bootstrap/copro/iterative), iterative-improve (quality-gated loop), self-healing-pipeline (checkpoint/retry), methodology-review (harness-artifact/confound detection). Quota-aware checkpointing covered by session snapshot/restore + plan-tracker. Convergence-stop is the one not-yet-codified kernel but is aspirational + composable from existing pieces — does not clear 70 for a new skill."
     }
   ],
   "stats": {
-    "total_extracted": 14,
-    "duplicates_skipped": 12,
-    "evaluated": 2,
-    "integrated": 1,
-    "deferred": 1,
+    "total_extracted": 13,
+    "duplicates_skipped": 13,
+    "evaluated": 0,
+    "integrated": 0,
+    "deferred": 0,
     "rejected": 0
   },
   "cumulative_stats": {
-    "total_processed": 188,
-    "weeks_run": 13,
-    "last_run": "2026-06-07"
+    "total_processed": 214,
+    "weeks_run": 15,
+    "last_run": "2026-06-28"
   }
 }

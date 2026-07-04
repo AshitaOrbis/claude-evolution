@@ -57,7 +57,7 @@ Regardless of the tweet content, the clearest untapped enhancement is posting He
 
 ```bash
 # After Hermes completes a task, post key findings to event bus
-hermes_result=$(ssh ashita@<tailnet-ip> "hermes chat -Q -q '$PROMPT'")
+hermes_result=$(ssh <user>@<tailscale-ip> "hermes chat -Q -q '$PROMPT'")
 # Parse and post to event bus via publish_event
 ```
 

@@ -36,6 +36,27 @@ total = (complexity * 0.20) + (token_efficiency * 0.25) + (capability * 0.25) + 
 | 50-69 | **NEEDS_RESEARCH** | Flag for manual review, keep in pending |
 | <50 | **REJECTED** | Move to `pipeline/evaluation/completed/` with reason |
 
+
+## Empirical Safety Check (MANDATORY for env vars and config changes)
+
+Before scoring, if the item proposes an environment variable or configuration change
+(check description for keywords: "env var", "export", "settings.json", ".bashrc", ".profile",
+"CLAUDE_CODE_", "sandbox", "permission"):
+
+1. Run: `bash scripts/sandbox-test-integration.sh --env "PROPOSED_VAR=value"`
+2. If the test **FAILS**:
+   - Set `integration_complexity = 0` (impossible to integrate safely)
+   - This forces the total score below threshold regardless of other criteria
+   - Add to reasoning: "FAILED empirical safety test: [failure details from JSON output]"
+   - Decision is automatically REJECTED
+3. If the test **PASSES**:
+   - Note in reasoning: "Passed empirical safety test"
+   - Score normally using the criteria above
+
+Never trust changelog descriptions for behavioral impact claims.
+Test empirically. The April 2026 incident happened because "zero workflow impact"
+was scored from a changelog read, not from running the actual change.
+
 ## Output
 
 Move each evaluated item to `pipeline/evaluation/completed/` with added fields:

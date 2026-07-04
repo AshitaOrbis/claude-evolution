@@ -36,6 +36,6 @@ APPROVED (2026-02-28) — Account qualifies. `claude remote-control --help` retu
 - Supports `--permission-mode` flag (acceptEdits, bypassPermissions, default, dontAsk, plan)
 - Research preview status — may have rough edges
 
-**Integration**: Document as alternative to Tailscale SSH for mobile access. UX improvement over `ssh ashita@<tailnet-ip>` via Termux, but not a capability unlock (SSH already fully functional).
+**Integration**: Document as alternative to Tailscale SSH for mobile access. UX improvement over `ssh <user>@<tailscale-ip>` via Termux, but not a capability unlock (SSH already fully functional).
 
 **Usage**: Run `claude remote-control` in a project directory, then connect from claude.ai/code on phone/browser.
