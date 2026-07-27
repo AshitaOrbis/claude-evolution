@@ -5,7 +5,7 @@
 - **Date Evaluated**: 2026-03-07
 - **Category**: mcp
 - **Summary**: Google's official Workspace CLI (`gws`, npm `@googleworkspace/cli`) exposes full Workspace API surface (Gmail, Drive, Calendar, Docs, Sheets, Chat, Admin) via MCP. Includes prompt injection defense via `--sanitize` (Google Cloud Model Armor) and compact tool mode (~26 tools vs 200-400).
-- **Score**: 74/100 (APPROVED — deferred to <private-account> revival)
+- **Score**: 74/100 (APPROVED — deferred to the revenue pipeline's revival)
 - **Status**: FUTURE — integrate when revenue pipeline comes back online
 
 ## Research Answers (2026-03-07)
@@ -75,9 +75,9 @@
 
 ## Decision: APPROVED — FUTURE
 
-**Why not integrate now**: v0.8.0 removed the `mcp` subcommand, creating uncertainty. Also, no active Workspace workflows in current projects. Revenue pipeline (<private-account>) is mothballed.
+**Why not integrate now**: v0.8.0 removed the `mcp` subcommand, creating uncertainty. Also, no active Workspace workflows in current projects. The revenue pipeline is mothballed.
 
-**When to integrate**: When <private-account> comes back online OR when v0.8.x restores MCP support.
+**When to integrate**: When the revenue pipeline comes back online OR when v0.8.x restores MCP support.
 
 **Integration trigger**: Revenue pipeline reactivation → check `gws` MCP status → install v0.7.x or latest with MCP → add to `~/.claude.json`
 

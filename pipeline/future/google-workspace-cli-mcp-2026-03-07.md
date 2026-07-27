@@ -1,7 +1,7 @@
 # Future: Google Workspace CLI MCP (`gws`)
 
 **Evaluated**: 2026-03-07 (Score: 74/100 — APPROVED)
-**Status**: Deferred — integrate when <private-account> revenue pipeline comes back online
+**Status**: Deferred — integrate when the revenue pipeline comes back online
 **Full evaluation**: `pipeline/evaluation/completed/google-workspace-cli-mcp-server-2026-03-07-evaluated.md`
 
 ## Quick Reference
@@ -14,7 +14,7 @@
 
 ## Integration Trigger
 
-When <private-account> comes back online:
+When the revenue pipeline comes back online:
 1. Check if `gws mcp` subcommand has been restored (removed in v0.8.0)
 2. If not, pin to v0.7.x: `npm install -g @googleworkspace/cli@0.7`
 3. Set up Google Cloud OAuth project
@@ -30,7 +30,7 @@ When <private-account> comes back online:
 }
 ```
 
-## Use Cases for <private-account>
+## Use Cases for the Revenue Pipeline
 
 - Email outreach campaigns (Gmail)
 - Customer tracking spreadsheets (Sheets)

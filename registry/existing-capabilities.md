@@ -1834,7 +1834,7 @@ These are areas where we DON'T have strong capabilities yet:
 - Real-time collaboration
 - Mobile app testing
 - **DevOps/Infrastructure** (evaluated 2026-02-06 - no platform match, see section above)
-- **Workspace/Productivity** — Google Workspace CLI MCP (`gws`) approved 74/100, deferred to <private-account> revival. See `pipeline/future/google-workspace-cli-mcp-2026-03-07.md`
+- **Workspace/Productivity** — Google Workspace CLI MCP (`gws`) approved 74/100, deferred to the revenue pipeline's revival. See `pipeline/future/google-workspace-cli-mcp-2026-03-07.md`
 
 **Database Operations are COVERED** (as of 2026-01-26):
 - See "Database Operations" section below for full details
@@ -1875,7 +1875,7 @@ These are areas where we DON'T have strong capabilities yet:
 - Personal Gmail works (needs Google Cloud OAuth project, ~45 min setup)
 - Compact mode: ~26 tools (vs 200-400 full). Use `-s gmail,drive,sheets` to limit services
 - **Caveat**: v0.8.0 removed `mcp` subcommand — pin to v0.7.x or wait for clarification
-- **Deferred to**: <private-account> revenue pipeline reactivation
+- **Deferred to**: revenue pipeline reactivation
 - **Third-party alternative**: `taylorwilsdon/google_workspace_mcp` (Python, separate project)
 
 **Redundancy triggers**: "google workspace mcp", "gmail mcp", "google drive mcp", "google calendar mcp", "google sheets mcp", "google docs mcp", "workspace cli", "gws cli", "gws mcp", "email mcp server", "taylorwilsdon google workspace"
