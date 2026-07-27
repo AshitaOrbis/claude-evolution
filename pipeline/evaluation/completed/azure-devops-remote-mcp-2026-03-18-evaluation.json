@@ -23,6 +23,6 @@
     },
     "total": 55.5,
     "decision": "NEEDS_RESEARCH",
-    "reasoning": "Microsoft official release with solid maintenance confidence, but low immediate relevance — workspace is GitHub-first with no Azure DevOps footprint. OAuth registration friction adds integration complexity. Capability expansion is low (30) because there's no current ADO use case; the capability is real but inert without an ADO project. Research question: does any workspace project (revenue pipeline, games, <private-project>) use or plan to use Azure DevOps? If yes, re-evaluate at 70+. If no ADO projects exist or are planned, downgrade to REJECTED (~35)."
+    "reasoning": "Microsoft official release with solid maintenance confidence, but low immediate relevance — workspace is GitHub-first with no Azure DevOps footprint. OAuth registration friction adds integration complexity. Capability expansion is low (30) because there's no current ADO use case; the capability is real but inert without an ADO project. Research question: does any workspace project (revenue pipeline, games, the finance app) use or plan to use Azure DevOps? If yes, re-evaluate at 70+. If no ADO projects exist or are planned, downgrade to REJECTED (~35)."
   }
 }

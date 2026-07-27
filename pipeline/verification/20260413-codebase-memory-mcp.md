@@ -11,7 +11,7 @@
 - [x] Integration report created
 - [ ] `.mcp.json` entry applied (pending user approval of sensitive file edit)
 - [ ] MCP server loads successfully in Claude Code session
-- [ ] Test structural query against a known repo (e.g., claude-evolution or <private-project>-v2)
+- [ ] Test structural query against a known repo (e.g., claude-evolution or the finance app)
 - [ ] Confirm `defer_loading: true` behavior (server not active until explicitly loaded)
 
 ## Pending

@@ -25,10 +25,10 @@ Lyria 3 represents Google's push to make music generation a first-class multimod
 
 Suno occupies a different niche: it excels at fast, consumer-accessible full-song generation with strong default quality. The web interface has become the go-to for non-technical users wanting complete tracks with vocals. Suno's limitation is the lack of programmatic API depth — it has an undocumented API but no official production-grade SDK.
 
-For **workspace music experiments**, the relevant question is: what's the goal? If generating game background music (<private-project>-gacha, etc.) programmatically, Lyria via Vertex AI or Google AI Studio is the more integrable option. If rapidly prototyping song ideas (e.g., for the blog or personal projects), Suno's web interface wins on speed-to-output. The LilyPond angle (referenced in a prior Discord message) is separate — that's notation-based composition with Opus 4.6, not latent diffusion generation.
+For **workspace music experiments**, the relevant question is: what's the goal? If generating game background music (the gacha game, etc.) programmatically, Lyria via Vertex AI or Google AI Studio is the more integrable option. If rapidly prototyping song ideas (e.g., for the blog or personal projects), Suno's web interface wins on speed-to-output. The LilyPond angle (referenced in a prior Discord message) is separate — that's notation-based composition with Opus 4.6, not latent diffusion generation.
 
 ## Relevance to Workspace
-- **Games pipeline** (<private-project>-gacha, slime-survivor): Lyria Vertex API could be used for procedural soundtrack generation — worth evaluating when those games need audio assets
+- **Games pipeline** (the gacha game, slime-survivor): Lyria Vertex API could be used for procedural soundtrack generation — worth evaluating when those games need audio assets
 - **Blog/experiments**: Lyria's image-to-music feature is a potential creative tool for multi-modal blog content
 - **LilyPond experiments**: Orthogonal — notation-based music generation via Claude Opus 4.6 and Lyria are complementary approaches (structure vs. generation)
 

@@ -110,8 +110,8 @@ MCP Apps is the first official MCP extension, announced January 26, 2026. It all
 5. **Data visualization**: Query results from DuckDB, GitHub API data
 
 **Medium-value scenarios**:
-- <private-project>: Interactive transaction table with filters
-- <private-project>: Scenario comparison with sliders
+- The statement parser: Interactive transaction table with filters
+- The finance app: Scenario comparison with sliders
 
 **Low-value scenarios**:
 - Simple text workflows (no benefit over text)

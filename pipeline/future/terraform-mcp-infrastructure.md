@@ -55,7 +55,7 @@ Searched registry for: "terraform", "infrastructure as code", "IaC", "cloud auto
 ## Evaluation Needs
 
 1. **Token Efficiency**: How much overhead for typical queries? Registry API responses?
-2. **Use Cases**: Valuable for <private-project> AWS infra? <private-project> deployment automation?
+2. **Use Cases**: Valuable for the finance app AWS infra? The statement parser deployment automation?
 3. **HCP vs OSS**: Do we need HCP Terraform or just Registry access?
 4. **Security**: How are TFE_TOKEN credentials managed? Local-only recommendation?
 5. **Skill Integration**: Should this pair with a Terraform skill for Claude?

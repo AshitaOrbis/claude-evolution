@@ -19,7 +19,7 @@ MCP server enabling AI assistants to manage and operate GitHub Actions workflows
 
 ## Stack Match Analysis
 
-**Stack Match**: ✅ **PERFECT** - We use GitHub Actions (<private-project>-v2, revenue pipeline)
+**Stack Match**: ✅ **PERFECT** - We use GitHub Actions (the finance app, revenue pipeline)
 **Current Gap**: We interact with GitHub Actions via `gh` CLI or web UI
 **Novel Capability**: MCP structured interface for workflow automation
 

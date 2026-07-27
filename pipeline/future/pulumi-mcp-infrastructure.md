@@ -66,7 +66,7 @@ Searched registry for: "pulumi", "infrastructure as code", "IaC", "cloud automat
 
 1. **Terraform vs Pulumi**: Do we pick one or both? What's our IaC preference?
 2. **Remote vs Local**: Is remote MCP acceptable (requires internet, OAuth)?
-3. **Use Cases**: Do we USE Pulumi anywhere? <private-project> AWS deployments?
+3. **Use Cases**: Do we USE Pulumi anywhere? The finance app AWS deployments?
 4. **Language Preference**: Do we prefer programming (Pulumi) vs declarative (Terraform)?
 5. **Token Efficiency**: How verbose are Pulumi API responses?
 6. **Security**: OAuth flow vs local tokens - which fits our security model?

@@ -55,7 +55,7 @@ Triggers checked:
 ## Evaluation Needs
 
 1. **Use case fit**:
-   - Is <private-project>-v2 using Next.js? (Yes, in applications/)
+   - Is the finance app using Next.js? (Yes, in applications/)
    - Are we actively developing Next.js apps? (Yes, v2 is active)
    - Would runtime diagnostics help? (Potentially for debugging)
 
@@ -68,11 +68,11 @@ Triggers checked:
    - Docs say it uses Playwright internally - duplication risk?
 
 4. **Next.js 16 requirement**:
-   - What version is <private-project>-v2 using?
+   - What version is the finance app using?
    - Migration path if using older version?
 
 5. **Key questions**:
-   - Does <private-project>-v2 need this NOW or LATER?
+   - Does the finance app need this NOW or LATER?
    - Would automated Cache Components setup save time?
    - Is the MCP runtime endpoint secure (localhost only)?
    - How much context does the knowledge base add?
@@ -84,7 +84,7 @@ Triggers checked:
 - **Maintenance burden**: Low (official Vercel package)
 - **Community validation**: Official Vercel = HIGH
 
-**Decision dependency**: Verify <private-project>-v2 is using Next.js and would benefit from runtime diagnostics.
+**Decision dependency**: Verify the finance app is using Next.js and would benefit from runtime diagnostics.
 
 ---
 
@@ -104,7 +104,7 @@ Triggers checked:
 
 ### Environment Check
 
-Verified: `<private-project>-v2/apps/web/package.json` uses **Next.js ^15.1.3**
+Verified: `<private-app>/apps/web/package.json` uses **Next.js ^15.1.3**
 
 **Issue**: Next.js DevTools MCP requires **Next.js 16+** for runtime diagnostics (`/_next/mcp` endpoint).
 

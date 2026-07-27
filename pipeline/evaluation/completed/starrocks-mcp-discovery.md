@@ -123,7 +123,7 @@ MCP server bridging AI assistants and StarRocks databases, enabling SQL executio
 1. **Infrastructure**: Do we have or plan to deploy StarRocks?
 2. **DuckDB comparison**: Can DuckDB + external Plotly cover 90% of use cases?
 3. **Data architecture**: Do we need persistent warehouse vs file-based analytics?
-4. **<private-project> v2**: Could this power analytics for production app?
+4. **The finance app**: Could this power analytics for production app?
 5. **Evolution metrics**: Could we track pipeline metrics in StarRocks?
 
 ---
@@ -152,12 +152,12 @@ MCP server bridging AI assistants and StarRocks databases, enabling SQL executio
 | Persistent data warehouse | **StarRocks** | Cloud-native, scalable |
 | Production app analytics | **StarRocks** | Multi-user, concurrency |
 | Evolution pipeline metrics | **DuckDB** | Local files, no infrastructure |
-| <private-project> v2 analytics | **PostgreSQL + DuckDB** | OLTP + OLAP hybrid |
+| Finance-app analytics | **PostgreSQL + DuckDB** | OLTP + OLAP hybrid |
 
 ### Current Architecture Assessment
 
 **Existing databases**:
-- **PostgreSQL** (<private-project> v2): OLTP workloads
+- **PostgreSQL** (the finance app): OLTP workloads
 - **DuckDB** (via MCP): OLAP workloads, file-based
 
 **Gap analysis**:
@@ -182,7 +182,7 @@ MCP server bridging AI assistants and StarRocks databases, enabling SQL executio
    - Built-in viz (but we can add Plotly externally)
 
 3. **Use case validation**: Which projects need persistent OLAP?
-   - <private-project> v2 analytics?
+   - The finance app analytics?
    - Evolution pipeline metrics?
    - Revenue tracking?
 
@@ -214,7 +214,7 @@ ELSE IF DuckDB covers our needs:
 **Current assessment**: **SKIP** (DuckDB sufficient for current scale)
 
 **Reconsideration triggers**:
-- <private-project> v2 reaches 1M+ rows (scale trigger)
+- The finance app reaches 1M+ rows (scale trigger)
 - Multi-tenant analytics needed (concurrency trigger)
 - Real-time dashboard requirements (streaming trigger)
 
@@ -240,4 +240,4 @@ ELSE IF DuckDB covers our needs:
 
 **Reason**: Infrastructure dependency - we don't have StarRocks. DuckDB (embedded) covers current OLAP needs. Valuable IF we scale to multi-user analytics or deploy StarRocks.
 
-**Adoption trigger**: If <private-project> v2 reaches 1M+ rows, multi-tenant analytics needed, or real-time dashboards required.
+**Adoption trigger**: If the finance app reaches 1M+ rows, multi-tenant analytics needed, or real-time dashboards required.

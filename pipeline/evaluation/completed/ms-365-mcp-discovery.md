@@ -145,8 +145,8 @@ ELSE IF M365 critical but not in Rube:
 
 **Questions to answer**:
 1. Do we use M365 for:
-   - Email campaigns? (<private-project> customer comms?)
-   - Document collaboration? (<private-project> documentation?)
+   - Email campaigns? (the finance app customer comms?)
+   - Document collaboration? (the statement parser documentation?)
    - Task management? (Evolution pipeline tracking?)
    - Calendar scheduling? (Client meetings?)
 
@@ -237,4 +237,4 @@ ELSE IF future M365 adoption planned:
 
 **Reason**: Limited M365 usage in current workflows. Rube MCP may already cover some M365 apps. Valuable IF we adopt M365 for business operations.
 
-**Adoption trigger**: If M365 becomes central to <private-project> or revenue pipeline (email campaigns, document automation).
+**Adoption trigger**: If M365 becomes central to the finance app or revenue pipeline (email campaigns, document automation).

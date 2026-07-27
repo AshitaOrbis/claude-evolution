@@ -1090,7 +1090,7 @@
       "source_section": "claude_md_additions",
       "score": 67.5,
       "decision": "deferred",
-      "reason": "Project-specific edges (Ashita Orbis 3-tier, <private-project> generators); multi-tier-consistency-2026-03-29 already deferred for same reason. Belongs in project CLAUDE.md if user wants it codified.",
+      "reason": "Project-specific edges (Ashita Orbis 3-tier, the finance app generators); multi-tier-consistency-2026-03-29 already deferred for same reason. Belongs in project CLAUDE.md if user wants it codified.",
       "date": "2026-04-26"
     },
     {
@@ -1308,7 +1308,7 @@
       "category": "horizon_item",
       "decision": "duplicate",
       "date": "2026-05-03",
-      "note": "5th occurrence; covered by tdd-guard hook + test-driven-development skill. Iterative-improve skill already implements similar loop for <private-project>."
+      "note": "5th occurrence; covered by tdd-guard hook + test-driven-development skill. Iterative-improve skill already implements similar loop for the finance app."
     },
     {
       "id": "verification-protocol-2026-05-10",
@@ -1413,7 +1413,7 @@
       "category": "horizon_item",
       "decision": "duplicate",
       "date": "2026-05-10",
-      "note": "6th occurrence. Covered by tdd-guard hooks + test-driven-development skill + using-git-worktrees skill (all integrated). Iterative-improve skill implements analogous loop for <private-project> with persona testing."
+      "note": "6th occurrence. Covered by tdd-guard hooks + test-driven-development skill + using-git-worktrees skill (all integrated). Iterative-improve skill implements analogous loop for the finance app with persona testing."
     },
     {
       "id": "long-horizon-pipelines-horizon-2026-05-10",

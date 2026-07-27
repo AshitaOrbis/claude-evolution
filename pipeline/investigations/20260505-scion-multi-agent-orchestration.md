@@ -35,11 +35,11 @@ The main friction points: Go is required to build the CLI; Docker on Linux is st
 - **Claude Code + Codex parallelism**: Our `codex-coder` and `codex-researcher` subagents are strictly sequential MCP calls. SCION enables truly concurrent Codex execution on separate worktrees — useful for the evolution pipeline's parallel discovery/evaluation phases.
 - **Hermes integration**: Hermes runs on `hermes-gateway-kimi.service` and is already containerized. Wrapping it as a SCION agent would formalize the interface and give it proper worktree isolation aligned with Claude Code's git state.
 - **Agent Teams alternative**: Agent Teams requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` and is token-intensive; SCION is model-agnostic and doesn't multiply a single session's token usage — it's additive across separate API quotas.
-- **Lowest-effort trial**: Point SCION at `applications/<private-project>-v2` with Claude Code + Codex as agents; see if the parallel commits are useful or create merge chaos.
+- **Lowest-effort trial**: Point SCION at `applications/<private-app>` with Claude Code + Codex as agents; see if the parallel commits are useful or create merge chaos.
 
 ## Recommended Actions
 
 1. **Evaluate against registry** — `Multi-Agent Orchestration: IMPLEMENTED` in existing-capabilities; SCION is an *augmentation* (container peers) not a replacement. Score in the 65-75 range (useful but heavy; Docker overhead; experimental status).
-2. **Pilot on <private-project>-v2** — small-scope test: spawn Claude Code + Codex via SCION on a feature branch, compare output quality and merge friction against current sequential approach.
+2. **Pilot on the finance app** — small-scope test: spawn Claude Code + Codex via SCION on a feature branch, compare output quality and merge friction against current sequential approach.
 3. **Hermes bridge design** — document how `hermes-gateway-kimi.service` would be wrapped as a SCION agent harness; check if the existing `hermes` subagent prompt can serve as the agent system prompt.
 4. **File as NEEDS_RESEARCH** in evaluation pipeline — more data needed on whether the self-coordination model works reliably or devolves into conflicting commits.

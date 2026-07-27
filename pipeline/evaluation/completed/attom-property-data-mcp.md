@@ -36,8 +36,8 @@ MCP server providing AI applications secure access to ATTOM's property data. An 
 ## Applicability Assessment
 
 **Our projects**:
-- <private-project> v2 - Financial SaaS (no real estate component)
-- <private-project> - Brokerage statements (investments, not property)
+- The finance app - Financial SaaS (no real estate component)
+- The statement parser - Brokerage statements (investments, not property)
 - Games pipeline - Game development
 - Revenue pipeline - Various SaaS products
 
@@ -73,7 +73,7 @@ MCP server providing AI applications secure access to ATTOM's property data. An 
 
 **Future Reconsideration Triggers**:
 - If we build real estate/property software
-- If <private-project> adds real estate asset tracking
+- If the finance app adds real estate asset tracking
 - If revenue pipeline targets real estate niche
 
 ## Notes
@@ -109,7 +109,7 @@ Score far below 50 threshold, zero domain overlap - clear rejection.
 
 **Classification**: DOMAIN-SPECIFIC - Only valuable for real estate applications
 
-**Our projects**: <private-project> (financial SaaS), <private-project> (investment statements), Games, Revenue pipeline
+**Our projects**: the finance app (financial SaaS), the statement parser (investment statements), Games, Revenue pipeline
 **Real estate overlap**: ZERO
 
 ### Decision
@@ -126,7 +126,7 @@ Score far below 50 threshold, zero domain overlap - clear rejection.
 
 **Future Reconsideration Triggers**:
 - If we build real estate/property software
-- If <private-project> adds real estate asset tracking
+- If the finance app adds real estate asset tracking
 - If revenue pipeline targets real estate niche
 
 ### Notes

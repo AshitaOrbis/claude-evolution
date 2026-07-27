@@ -27,4 +27,4 @@ Codex MCP unavailable during evaluation. Claude-only assessment.
 
 **Routing**: Move to `pipeline/future/` - value is real but depends on IaC adoption decision. Score is borderline (70.75) and the "generate Terraform for AWS" use case alone doesn't justify integration overhead without a commitment to Terraform.
 
-**Trigger for re-evaluation**: If we decide to adopt IaC for <private-project> AWS infrastructure, promote immediately.
+**Trigger for re-evaluation**: If we decide to adopt IaC for the finance app AWS infrastructure, promote immediately.

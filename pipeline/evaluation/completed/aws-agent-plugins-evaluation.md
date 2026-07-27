@@ -52,7 +52,7 @@ Codex scored significantly higher (90.5 vs 74.75). Key disagreements:
   - AWS credential security — enforce least-privilege
   - Review generated IaC before deployment
   - Plugin ID disambiguation: use README's `@agent-plugins-for-aws` identifier
-- **Adoption trigger**: When doing AWS deployments (<private-project>-v2 infrastructure)
+- **Adoption trigger**: When doing AWS deployments (the finance app infrastructure)
 - **Status recommendation**: FUTURE — similar to Terraform/Grafana MCPs. Approved but adopt when actively deploying AWS infrastructure.
 
 ## Redundancy Triggers

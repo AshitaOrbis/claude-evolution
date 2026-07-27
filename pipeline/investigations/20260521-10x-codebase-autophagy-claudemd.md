@@ -38,11 +38,11 @@ Document the following quote for potential incorporation into Claude.md:
 - **claude-evolution pipeline**: Directly applicable. The discovery/evaluation/integration cycle tends to accumulate stale entries, deprecated integrations, and redundant helpers. The 10x heuristic argues for dedicating one full heartbeat run per week to autophagy rather than discovery.
 - **CLAUDE.md / skills / agents**: These documents accrete guidance without corresponding pruning. Sections written for Claude 3-era limitations are still load-bearing in the current config.
 - **Historical nanochat**: Less immediate, but the principle applies to training data curation — systematic compression/canonicalization of data pipelines before the next training run.
-- **<private-project> / ashitaorbis**: Both would benefit from periodic adversarial testing passes (security, UX) that currently happen reactively rather than systematically.
+- **The finance app / ashitaorbis**: Both would benefit from periodic adversarial testing passes (security, UX) that currently happen reactively rather than systematically.
 
 ## Recommended Actions
 
 1. **Add to CLAUDE.md** (Personal Conventions section): A 1-2 line note encoding the 10x heuristic, linked to the advanced-tool-use §6 prune-constraints technique for detail.
 2. **Create a canonicalization checklist** for the claude-evolution pipeline — a single source of truth for agent/skill format standards that gets applied quarterly.
 3. **Add a standing "autophagy" item** to the workspace-audit skill or heartbeat schedule — one dedicated pass per month focused solely on deletion/compression, not discovery.
-4. **Tag the adversarial-explorer agent** as part of a recurring posture, not just a reactive tool — schedule it against <private-project> and ashitaorbis monthly.
+4. **Tag the adversarial-explorer agent** as part of a recurring posture, not just a reactive tool — schedule it against the finance app and ashitaorbis monthly.

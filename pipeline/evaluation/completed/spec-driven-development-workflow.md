@@ -165,6 +165,6 @@ From source articles:
 2. Templates: `requirements.md`, `design.md`, `tasks.md`
 3. Phase transition criteria
 4. Document in CLAUDE.md as workflow pattern
-5. Test on <private-project> feature
+5. Test on the statement parser feature
 
 **Complementarity**: Works WITH planning-with-files (defines file structure) and Plan Mode (extends to multi-phase).

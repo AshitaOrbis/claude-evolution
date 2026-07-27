@@ -19,11 +19,11 @@
     },
     "total": 74.75,
     "decision": "APPROVED",
-    "reasoning": "Cloud GPU execution is a genuinely novel capability class — the only existing notebook tool (NotebookEdit) is local-only with no compute. Integration requires Google account auth and Colab session setup (70 complexity) but is well-documented from an official Google source. Token efficiency is neutral (50) since this adds compute capability rather than saving context. Capability expansion is high (85): direct applicability to games pipeline ML training, <private-project> image generation workflows, and any future ML workloads. Official Google backing (googlecolab org) = 100 community validation. Main caveats: free tier idle timeouts, auth setup required, and free GPU quota limits.",
+    "reasoning": "Cloud GPU execution is a genuinely novel capability class — the only existing notebook tool (NotebookEdit) is local-only with no compute. Integration requires Google account auth and Colab session setup (70 complexity) but is well-documented from an official Google source. Token efficiency is neutral (50) since this adds compute capability rather than saving context. Capability expansion is high (85): direct applicability to games pipeline ML training, the art pipeline image generation workflows, and any future ML workloads. Official Google backing (googlecolab org) = 100 community validation. Main caveats: free tier idle timeouts, auth setup required, and free GPU quota limits.",
     "integration_targets": [
       "Add to ~/.claude.json mcpServers section (stdio or HTTP transport)",
       "Add to registry under new 'Cloud Compute' section",
-      "Evaluate for games pipeline — <private-project>-gacha model training",
+      "Evaluate for games pipeline — the gacha game model training",
       "Evaluate for image-gen-mcp workflow enhancement"
     ],
     "caveats": [

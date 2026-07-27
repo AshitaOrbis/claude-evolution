@@ -51,7 +51,7 @@ Searched registry for: "grafana", "prometheus", "loki", "observability mcp", "mo
 ## Evaluation Needs
 
 1. **Token Efficiency**: How much overhead for typical queries vs manual dashboard access?
-2. **Use Cases**: Is this valuable for <private-project> monitoring? Evolution pipeline health checks?
+2. **Use Cases**: Is this valuable for the finance app monitoring? Evolution pipeline health checks?
 3. **Setup Complexity**: Requires Grafana instance - do we have one? Cloud vs self-hosted trade-offs?
 4. **Alternative Value**: Could we use for monitoring OTHER services (Discord bot, heartbeat scripts)?
 5. **Security**: Credential management for Grafana API tokens

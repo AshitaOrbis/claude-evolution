@@ -87,17 +87,21 @@ claude -p \
     --max-turns 30 \
     --allowed-tools "${DISCOVERY_TOOLS[@]}" \
     -- "Execute the tasks in HEARTBEAT-DAILY.md. Current date: $(date -I). Save report to pipeline/discovery/daily/$RUN_DATE.md" \
-    >> "$LOG_FILE" 2>&1
+    >> "$LOG_FILE" 2>&1 || log "WARNING: discovery phase exited nonzero (see log)."
 
 # Phase 2: Evaluate pending items
 log "Phase 2: Running evaluations..."
+EVAL_RC=0
 EVAL_OUTPUT=$(claude -p \
     --model "${EVAL_MODEL:-sonnet}" \
     --max-turns 30 \
     --allowed-tools "${EVAL_TOOLS[@]}" \
     -- "Execute the tasks in EVALUATE-PENDING.md. Current date: $(date -I)." \
-    2>&1) || true
+    2>&1) || EVAL_RC=$?
 echo "$EVAL_OUTPUT" >> "$LOG_FILE"
+if [[ $EVAL_RC -ne 0 ]]; then
+    log "WARNING: evaluation phase exited $EVAL_RC (see log). Integration phase will be skipped this run."
+fi
 
 # Extract evaluation summary
 EVAL_COUNT=$(echo "$EVAL_OUTPUT" | python3 -c '
@@ -119,29 +123,35 @@ print(d.get("evaluated", 0))
 log "Evaluated: $EVAL_COUNT items"
 
 # Phase 3: Integrate approved items (autonomous mode only)
-if [[ "$AUTONOMOUS" == "1" ]]; then
+if [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]]; then
     log "Phase 3: Running integrations..."
+    INTEG_RC=0
     INTEG_OUTPUT=$(claude -p \
         --model "${EVAL_MODEL:-sonnet}" \
         --max-turns 35 \
         --allowed-tools Read Write Edit Bash Glob Grep \
         -- "Execute the tasks in INTEGRATE-APPROVED.md. Current date: $(date -I)." \
-        2>&1) || true
+        2>&1) || INTEG_RC=$?
     echo "$INTEG_OUTPUT" >> "$LOG_FILE"
+    [[ $INTEG_RC -ne 0 ]] && log "WARNING: integration phase exited $INTEG_RC (see log)."
+elif [[ "$AUTONOMOUS" == "1" ]]; then
+    log "Phase 3: SKIPPED — evaluation phase failed (exit $EVAL_RC); not integrating on a failed eval."
 else
     PENDING_INTEGRATIONS=$(find pipeline/integration -name '*.json' -type f 2>/dev/null | wc -l)
     log "Phase 3: SKIPPED (review-gated mode). $PENDING_INTEGRATIONS approved item(s) await human review in pipeline/integration/."
     log "         Review them, then integrate manually or re-run with EVOLUTION_AUTONOMOUS=1 (see SECURITY.md)."
 fi
 
-# Phase 4: Generate helpers (log extraction only -- no Bash needed)
+# Phase 4: Generate helpers (log extraction only -- no Bash needed).
+# Soft-fail: helper generation is best-effort and must not fail the heartbeat,
+# but a failure is logged rather than silently discarded.
 log "Phase 4: Generating helpers..."
 claude -p \
     --model haiku \
     --max-turns 20 \
     --allowed-tools Read Write Glob Grep \
     -- "Execute GENERATE-HELPERS.md. Date: $(date -I). Log: $LOG_FILE" \
-    >> "$LOG_FILE" 2>&1 || true
+    >> "$LOG_FILE" 2>&1 || log "WARNING: helper generation failed (non-fatal)."
 
 # Optional: Discord notification.
 # NOTE: this sends the start of the daily report to a third party (Discord).

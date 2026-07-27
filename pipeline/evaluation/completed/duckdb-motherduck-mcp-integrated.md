@@ -86,8 +86,8 @@ npm install @motherduckdb/mcp-server
 ☑ **Fast-track integration** - Score 87.5/100 is STRONG APPROVAL
 
 ### Immediate Value:
-1. **<private-project>**: Analyze parsed PDF data locally before PostgreSQL upload
-2. **<private-project>**: Ad-hoc analytics on exported data
+1. **The statement parser**: Analyze parsed PDF data locally before PostgreSQL upload
+2. **The finance app**: Ad-hoc analytics on exported data
 3. **Discovery tasks**: Query GitHub repos metadata, search results, etc.
 4. **Data pipeline prototyping**: Test ETL logic without database setup
 
@@ -110,12 +110,12 @@ npm install @motherduckdb/mcp-server
 ## Use Cases (Our Stack)
 
 ### High-Value Scenarios:
-1. **<private-project> development**:
+1. **Statement-parser development**:
    - Query parsed transaction data during development
    - Test aggregations without PostgreSQL setup
    - Fast iteration on data transformations
 
-2. **<private-project> analytics**:
+2. **Finance-app analytics**:
    - Query revenue data exports
    - Ad-hoc scenario analysis
    - Dashboard prototyping
@@ -202,16 +202,16 @@ npm install @motherduckdb/mcp-server
 
 ### Decision: APPROVE → Move to pipeline/integration/
 
-**Rationale**: Strong score. Fills embedded OLAP niche. High immediate value for <private-project> (analyze parsed data), <private-project> (ad-hoc analytics), and evolution pipeline (query GitHub API results).
+**Rationale**: Strong score. Fills embedded OLAP niche. High immediate value for the statement parser (analyze parsed data), the finance app (ad-hoc analytics), and evolution pipeline (query GitHub API results).
 
 **Integration Path**:
 1. Install: `npm install -g @motherduckdb/mcp-server` or `uvx motherduck-mcp-server`
 2. Add to `~/.claude.json` mcpServers section
-3. Test with sample CSV/Parquet files (<private-project> test data)
+3. Test with sample CSV/Parquet files (statement-parser test data)
 4. Document query patterns in `~/.claude/skills/duckdb-analytics/SKILL.md`
 5. Update registry under Database Operations section
 
 **Conditions**:
-- Test with real <private-project> data to validate token savings
+- Test with real statement-parser data to validate token savings
 - MotherDuck cloud tier evaluation (free tier availability)
 - Benchmark vs pandas/PostgreSQL approaches

@@ -48,7 +48,7 @@ The platform is MCP-native and works with Claude, Cursor, and other MCP-compatib
 This is TinyFish's strongest differentiator for the workspace. Better Playwright uses a regular Chrome instance — it gets blocked by Cloudflare, Imperva, and similar bot-detection layers on a significant fraction of sites. This matters for:
 
 - **Discovery/research runs** that hit news sites, Twitter embeds, or SaaS product pages with bot protection
-- **<private-project> persona testing** if any third-party integrations have bot-detection
+- **The finance app persona testing** if any third-party integrations have bot-detection
 - **Historical nanochat data sourcing** from sites that gate content behind bot detection
 
 ### Integration Paths

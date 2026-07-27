@@ -1,7 +1,7 @@
 # Existing Capabilities Registry
 
 > **Purpose**: Check against this BEFORE researching any discovery to catch redundancy early.
-> **Last Updated**: 2026-06-28 (66 integrations: weekly /insights pass — 0 new; all 13 items duplicate of already-integrated rules. Prior: +1 Output & Large Artifacts 71.75 on 2026-06-21)
+> **Last Updated**: 2026-07-26 (66 integrations: weekly /insights pass — 0 integrated directly (approval-gated); 1 CLAUDE.md rule routed to pending-approval (subagent spawn-time Write/effort grants, 72.75); 2 deferred (publish-guard hook 67.25 — blocked on the pending allow-list ruling; bug-history regression harness 60.75 — overlaps pending treetrace pilot). Cron /insights generation failed a 3rd consecutive week on the unapproved variadic --mcp-config fix (proposal 20260719, pending since 07-20); recovered in-run by manual equals-form generation of a fresh Account-B report (07-01→07-26). Prior: 2-proposal pass on 2026-07-19)
 
 ## How to Use This Document
 
@@ -534,7 +534,7 @@ If discovery appears to improve an existing capability:
 **Removed**: Standard `playwright` MCP (token-inefficient base64 screenshots)
 
 **Persona Testing & UX Validation** (IMPLEMENTED):
-- Subagents: `water-director-new-leader` (<test-persona>), `water-director-rate-advocate` (<test-persona>), `water-director-capital-planner` (<test-persona>)
+- Subagents: `water-director-new-leader`, `water-director-rate-advocate`, `water-director-capital-planner`
 - Framework: `~/claudeworkspace/applications/persona-probe/` (TypeScript)
 - Orchestration: `/iterative-improve` skill — closed-loop fix → deploy → re-test cycle
 - Output: Structured JSON with readiness %, per-criterion PASS/FAIL, fixable/tradeoff/false_positive classification
@@ -689,7 +689,7 @@ If discovery appears to improve an existing capability:
 - Fast analytics (<100ms for most operations)
 - MotherDuck cloud for persistent storage
 - Package: `@motherduckdb/mcp-server`
-- Use cases: <private-project> data analysis, evolution pipeline metrics, ad-hoc analytics
+- Use cases: statement-parser data analysis, evolution pipeline metrics, ad-hoc analytics
 - Complements PostgreSQL (OLTP) with OLAP capabilities
 - Integration report: `integrations/mcps/duckdb-motherduck-integration.md`
 
@@ -1385,7 +1385,7 @@ These are **complementary**, not redundant:
 
 **Claw MCP Details** (2026-04-01, PENDING_GO_INSTALL):
 - **Capability**: Deploy native Claude Code tools on any SSH-reachable machine — no open ports, no daemons, no root
-- **Direct use case**: Operate on EC2/staging (<private-project>-v2 at `<staging-host>`) without manual SSH + context transfer
+- **Direct use case**: Operate on EC2/staging (the finance app at `<staging-host>`) without manual SSH + context transfer
 - **Auto-imports**: `claw init --from-ssh` reads `~/.ssh/config` to discover all machines
 - **Blocked on**: Go installation (not present on requiem)
 - **Install path**: `sudo apt install golang-go`, then `go install github.com/opsyhq/claw@latest`
@@ -1430,7 +1430,7 @@ When a capability is integrated, add it here:
 - Key tools: `execute_code` (run Python on cloud GPU), `connect` (attach to existing Colab session), notebook editing (create/modify .ipynb)
 - Free tier: T4 GPU with idle timeout; Pro/Pro+ available ($10-50/month)
 - Auth: Google account OAuth — one-time setup required before use
-- Use cases: ML training runs, <private-project>-gacha asset generation, image-gen-mcp enhancement
+- Use cases: ML training runs, the gacha game asset generation, image-gen-mcp enhancement
 - **Status**: Approved (74.75/100) but deferred to `PENDING_AUTH` — add to workspace `.mcp.json` after completing OAuth setup
 - Integration target: add to `~/claudeworkspace/.mcp.json` after auth test
 
@@ -1452,7 +1452,7 @@ When a capability is integrated, add it here:
   2. **Lazy-loaded API docs**: on-demand documentation loaded only when needed (avoids context bloat)
   3. **Quirks database**: catalog of known model failure modes specific to the domain
 - Portable beyond GDScript: Rust async lifetimes, Solidity, emerging MCPs, any thin-data domain
-- Primary application: Godot 4 / GDScript for games pipeline (<private-project>-gacha, autonomous-gamedev)
+- Primary application: Godot 4 / GDScript for games pipeline (the gacha game, autonomous-gamedev)
 - Full technique: `library/techniques/thin-training-data-compensation.md`
 - Applied skill: `~/.claude/skills/godot-development/SKILL.md`
 
@@ -1614,14 +1614,14 @@ These capabilities are approved but cannot be integrated immediately due to miss
 
 | MCP | Status | Blocker | Adoption Trigger |
 |-----|--------|---------|------------------|
-| next-devtools | **APPROVED** (87.25/100) | Requires Next.js 16+ | After upgrading <private-project>-v2 to Next.js 16 |
+| next-devtools | **APPROVED** (87.25/100) | Requires Next.js 16+ | After upgrading the finance app to Next.js 16 |
 
 **Details**:
 - Official Vercel package for Next.js development tools
 - Runtime diagnostics via `/_next/mcp` endpoint
 - Automated Next.js 16 upgrades with codemods
 - Cache Components setup automation
-- Current blocker: <private-project>-v2 uses Next.js 15.1.3
+- Current blocker: the finance app uses Next.js 15.1.3
 - Package: `next-devtools-mcp@latest`
 - Evaluation: `pipeline/evaluation/completed/next-devtools-mcp-evaluation.md`
 
@@ -2837,3 +2837,200 @@ Projects outside `claude-evolution/` that the evolution pipeline regularly recei
 2. Check the "Investigation Reports", "Blog-Idea Sources", and "Already-Evaluated Items" sections for prior coverage
 3. If genuinely novel, evaluate normally; then add to the hub's appropriate section
 4. If duplicate of prior coverage, skip and note in evaluation
+
+---
+
+## Backlog Integration Tranche — 2026-07-19
+
+Documentation-only integrations from the reattached approved backlog (items approved
+2026-06-23 → 2026-07-08 while the integration step was disconnected). Each entry below
+has a full technique note and a verification report; nothing here installed tools or
+changed runtime config.
+
+### Deterministic SOP Workflows for High-Risk Recurring Tasks
+
+Pattern from agentic-sop-to-work: decompose recurring ops work into single-tool steps
+with per-step command/schema/trace gates, emit DRAFT outputs, require explicit approval
+before side effects. Note: `library/techniques/deterministic-sop-workflows-2026-06-16.md`.
+Score: 73.5/100.
+
+**Redundancy triggers**: "deterministic SOP", "SOP to workflow", "agentic-sop-to-work", "gated workflow steps", "single-tool steps", "draft outputs approval", "hermetic step gates", "recurring ops task automation safety"
+
+### Build with Claude — Monitored Claude Code Extension Index
+
+`https://github.com/davepoon/buildwithclaude` (MIT, 3k+ stars): curated catalog of
+Claude Code skills, agents, commands, hooks, plugins, MCP servers, and marketplaces.
+Registered as a **monitored discovery/reference source** for the capability-discoverer
+and heartbeat scans — check it before implementing a new skill/agent from scratch, and
+before evaluating a "new" community capability that may already be cataloged there.
+Nothing is auto-installed from it. Score: 80.5/100.
+
+**Redundancy triggers**: "buildwithclaude", "build with claude", "davepoon", "claude code catalog", "skill marketplace index", "curated claude skills list", "claude code extension directory", "community skills catalog"
+
+### ctx — Task-Scoped Skill/MCP Recommendation (evaluation candidate)
+
+`https://github.com/stevesolun/ctx`: recommends a minimal task-relevant bundle of
+skills/agents/MCP servers from a large installed graph. Approval-gated dry-run
+evaluation plan documented; not adopted for automated use. Note:
+`library/techniques/context-recommendation-ctx-2026-06-17.md`. Score: 80.5/100.
+
+**Redundancy triggers**: "ctx recommender", "task-scoped skills", "skill recommendation tool", "capability bundle selection", "which skills to load", "context recommendation", "minimal capability bundle"
+
+### oh-my-pi Harness Patterns — Hash-Anchored Edits / Summarized Reads / LSP-First
+
+Extracted harness-design patterns (not a tool adoption): hash-anchored edit addressing,
+summary-first file reads with full-read escalation, LSP-first symbol navigation,
+deduplicated search windows. Note:
+`library/techniques/hash-anchored-edits-summarized-reads-2026-06-17.md`. Score: 82.5/100.
+
+**Redundancy triggers**: "oh-my-pi", "hash anchored edits", "summarized reads", "LSP-first context", "edit anchor hash", "summary-first file read", "token efficient editing harness"
+
+### Polygraph Litmus — MCP Pre-Integration Behavioral Safety Gate
+
+Procedure: before proposing any third-party MCP server, gather Litmus-style behavioral
+evidence — tool-output injection, permission/egress, canary data handling, adversarial
+inputs — in a sandbox. README review alone is insufficient. Note:
+`library/techniques/mcp-litmus-safety-gate-2026-06-17.md`. Score: 71.75/100.
+
+**Redundancy triggers**: "litmus", "polygraph litmus", "MCP behavioral testing", "MCP safety gate", "tool output injection test", "MCP canary test", "MCP pre-integration checks", "MCP server vetting"
+
+### Context-Rent Memory Governance (token-warden)
+
+Method: every standing rule/memory pays token rent; benchmark candidate rules against a
+frozen task suite and retain only rules whose measured savings exceed carrying cost.
+Quantified companion to the prune-constraints principle and weekly bloat check. Note:
+`library/techniques/token-warden-context-rent-2026-06-18.md`. Score: 71.5/100.
+
+**Redundancy triggers**: "context rent", "token warden", "memory governance", "rule carrying cost", "rules that pay rent", "benchmark rules frozen suite", "evict stale rules", "claude md rule cost"
+
+### Claude Code Artifacts for Agent Work Handoff
+
+Guidance: repo markdown stays the system of record; publish a Claude Code artifact
+rendering when the audience is a human reviewing visually (PR walkthroughs, incident
+reports, checklists, dashboards, owner-facing summaries). Doc: `docs/agent-reporting.md`.
+Score: 79.2/100.
+
+**Redundancy triggers**: "artifacts in claude code", "artifact handoff", "shareable session report", "PR walkthrough artifact", "incident report page", "agent reporting artifact", "live report page"
+
+### Anthropic API response_inclusion + Code-Execution Cell Limits
+
+Official API features: `response_inclusion` trims web_search/web_fetch result blocks
+returned to context (API-layer sibling of local spill-to-file); code_execution cells are
+killed at 90s — checkpoint long work across cells. Note:
+`library/techniques/claude-api-response-inclusion-2026-06-25.md`. Score: 84.5/100.
+
+**Redundancy triggers**: "response_inclusion", "response inclusion", "web_search_20260318", "web_fetch_20260318", "code_execution_20260521", "90 second cell limit", "code execution cell timeout", "web tool result trimming"
+
+### Agent Containment Checklist (Anthropic official)
+
+Checklist for unattended runs from "How We Contain Claude": credentials outside the
+sandbox, workspace-only writes, deny-by-default egress, OS sandbox/VM for high-risk
+work, hard limits instead of approval prompts (approval fatigue is measurable). Note:
+`library/techniques/agent-containment-2026-06-25.md`. Score: 81.5/100.
+
+**Redundancy triggers**: "how we contain claude", "agent containment", "containment checklist", "approval fatigue", "egress deny by default", "credentials outside sandbox", "hard limits not prompts", "unattended agent safety"
+
+### Transcript Bloat Analysis Recipe (claude-session-analyzer)
+
+Optional read-only recipe: run claude-session-analyzer on copied/redacted transcript
+samples to attribute runtime token cost per skill, per session, and to standing context;
+feed findings into bloat sweeps and prune-constraints audits. Note:
+`library/techniques/claude-session-analyzer-token-bloat-2026-06-25.md`. Score: 74/100.
+
+**Redundancy triggers**: "claude-session-analyzer", "session analyzer", "transcript token analysis", "per-skill token cost", "standing context share", "transcript bloat", "session cost breakdown"
+
+### Agent Containment — Defense-in-Depth Design Note
+
+Design argument companion to the containment checklist: every single layer (prompts,
+approvals, sandbox scope) fails in a known way, so containment = independent stacked
+layers; proposals saying "the agent will be instructed not to X" without a structural
+layer are approval-gated, not autonomous. Note:
+`library/techniques/agent-containment-defense-in-depth.md`. Score: 82.5/100.
+
+**Redundancy triggers**: "defense in depth agents", "layered containment", "instructions are not boundaries", "structural boundary vs prompt", "approval prompt weakness", "containment layers"
+
+### Domain-Expertise Planning Layer for Agent Sessions
+
+From Anthropic's Claude Code usage study (humans plan / agents execute; expertise per
+instruction drives delegation efficiency): before delegating execution, plans must state
+explicit domain constraints, decision ownership (agent-owned vs reserved), and evidence
+of completion. Note: `library/techniques/domain-expertise-planning-for-agents.md`.
+Score: 85/100.
+
+**Redundancy triggers**: "domain expertise planning", "decision ownership", "reserved decisions", "claude code expertise study", "constraints before delegation", "evidence of completion planning", "planning layer agents"
+
+### Flow-Next Pattern — Specs, Re-Anchored Workers, Receipts
+
+Extracted workflow loop: repo-owned durable specs → workers periodically re-anchored
+from spec + repo state (not growing transcripts) → adversarial review of spec-vs-diff
+(never the worker's self-report) → evidence receipts per step. Plugin not installed.
+Note: `library/techniques/flow-next-reanchored-workers-receipts.md`. Score: 76.8/100.
+
+**Redundancy triggers**: "flow-next", "flow next", "repo-owned spec", "re-anchored workers", "worker reanchoring", "evidence receipts", "adversarial review spec diff", "durable spec workflow"
+
+### git-lazy-mount — Lazy Checkout for Very Large Repos
+
+Evaluation candidate: FUSE-based lazily-materialized checkout + sgrep-routed search for
+disposable agent sandboxes on very large repos; benchmark claims unverified locally;
+not for primary working copies. Note:
+`library/techniques/git-lazy-mount-large-repos.md`. Score: 71.5/100.
+
+**Redundancy triggers**: "git-lazy-mount", "lazy checkout", "lazy clone large repo", "FUSE repo mount", "sgrep", "large repo cold start", "disposable sandbox checkout"
+
+### Managed Agents — MCP Tunnels / Self-Hosted Sandboxes / Spill-to-File
+
+Official capability record: MCP tunnels to private-network servers, self-hosted
+sandboxes for Managed Agents, active-session MCP/tool config updates, automatic
+spill-to-file for tool outputs >100K tokens. Documentation only; any tunnel experiment
+against private infra stays approval-gated. Note:
+`library/techniques/managed-agents-mcp-tunnels-2026-05-19.md`. Score: 82/100.
+
+**Redundancy triggers**: "MCP tunnel", "managed agents tunnel", "private network MCP", "self-hosted sandbox managed agents", "spill to file 100K", "tool output spill", "mid-session MCP config", "dynamic tool configuration"
+
+### Claude Code v2.1.193 / v2.1.195 Operational Changes
+
+Recorded from the official changelog (capability record only — nothing enabled):
+
+| Change | Version | Operational relevance |
+|--------|---------|----------------------|
+| Hook matchers with hyphenated identifiers exact-match (was substring) | 2.1.195 | Hooks matching MCP servers by bare name silently stop firing — rewrite as explicit patterns like `mcp__brave-search__.*`; audit checklist in `library/techniques/claude-code-hooks-2026-06.md` |
+| MCP auth helper reconnects on 401/403 | 2.1.193 | Transient MCP auth failures self-heal; local auth-retry workarounds are now dead scaffolding candidates |
+| Background agent reliability fixes | 2.1.193/195 | Fewer orphaned background tasks in long orchestrator sessions |
+| Background shells reaped under memory pressure | 2.1.193/195 | Long-lived background shells may be killed on constrained hosts — do not park critical state in an idle shell |
+| `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | 2.1.193/195 | Opt-out env var for terminal mouse handling (tmux copy-mode friction) |
+| `autoMode.classifyAllShell` | 2.1.193/195 | **NOT enabled — requires sandbox testing before any enablement** (April 2026 env-var incident protocol: behavioral side effects must be tested, not read about) |
+
+Score: 80.8/100.
+
+**Redundancy triggers**: "v2.1.193", "v2.1.195", "hook matcher exact match", "hyphenated hook matcher", "mcp auth reconnect 401", "background shell memory pressure", "CLAUDE_CODE_DISABLE_MOUSE_CLICKS", "classifyAllShell", "autoMode classify all shell"
+
+### Ocarina — Deterministic MCP Playbooks + Testing
+
+YAML playbooks that drive MCP tool calls without an LLM in the loop: reproducible,
+token-free, diffable. Adopted documentation-first as an optional MCP evaluation harness
+(playbooks = fixed call sequences; testing = playbooks + assertions for replayable
+smoke/regression tests, sandbox-only). Notes:
+`library/techniques/mcp-deterministic-playbooks-ocarina.md`,
+`library/techniques/deterministic-mcp-server-testing-ocarina-2026-06-29.md`.
+Scores: 78.25/100, 76.5/100.
+
+**Redundancy triggers**: "ocarina", "deterministic MCP playbook", "YAML MCP playbook", "MCP replay testing", "MCP assertions", "no-LLM tool driving", "MCP smoke test harness", "reproducible MCP testing"
+
+### Claude Code Hook Matcher Exact-Match Audit (2.1.x)
+
+Compatibility note + audit checklist for the 2.1.195 exact-match fix: find hyphenated
+matchers, rewrite implicit server-prefix intent as explicit `mcp__server__.*` patterns,
+empirically verify hooks still fire, sweep obsolete auth workarounds. Note:
+`library/techniques/claude-code-hooks-2026-06.md`. Score: 72.25/100.
+
+**Redundancy triggers**: "hook matcher audit", "hook stopped firing", "hook substring match", "mcp__ wildcard matcher", "hook exact match 2.1.195", "silent hook failure"
+
+### MCP Server Security Evaluation Template (Capframe + battery)
+
+Evaluation template at `pipeline/evaluation/templates/mcp-server-security.md`: every
+third-party MCP server proposal must record a Capframe leaderboard check
+(https://capframe.ai/leaderboard — external authority-hygiene signal; not-listed is not
+a pass), static config review, Litmus-style behavioral evidence, and optionally an
+Ocarina playbook. Score: 74.5/100.
+
+**Redundancy triggers**: "capframe", "capframe leaderboard", "MCP risk signal", "MCP server security template", "authority hygiene", "MCP evaluation checklist", "third-party MCP vetting"

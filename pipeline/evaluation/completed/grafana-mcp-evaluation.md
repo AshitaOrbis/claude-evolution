@@ -23,6 +23,6 @@ Codex MCP unavailable during evaluation. Claude-only assessment.
 
 ## Decision: FUTURE (64.5/100)
 
-**Rationale**: Excellent MCP (official, well-designed, token-efficient) but requires a Grafana instance we don't operate. Zero immediate value without the platform. If we adopt Grafana for <private-project> monitoring, this becomes a strong 80+ candidate.
+**Rationale**: Excellent MCP (official, well-designed, token-efficient) but requires a Grafana instance we don't operate. Zero immediate value without the platform. If we adopt Grafana for the finance app monitoring, this becomes a strong 80+ candidate.
 
 **Routing**: Move to `pipeline/future/` with adoption trigger note.

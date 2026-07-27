@@ -145,8 +145,8 @@ BlenderMCP connects Blender (open-source 3D creation suite) to Claude AI through
 
 **Current projects**:
 - **Games pipeline**: Web-based games (NOT Unity/Unreal/3D)
-- **<private-project>**: Data processing (no 3D)
-- **<private-project>**: SaaS web app (no 3D)
+- **The statement parser**: Data processing (no 3D)
+- **The finance app**: SaaS web app (no 3D)
 - **Revenue pipeline**: Digital products (no 3D assets)
 
 **Conclusion**: ZERO 3D modeling use cases in active projects.

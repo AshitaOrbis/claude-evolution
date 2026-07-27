@@ -17,7 +17,7 @@ User asked to look into `github.com/Intelligent-Internet/psql_bm25s` — a Postg
 - **Three consistency modes**: `realtime` (synchronous stats update), `eventual` (async), `manual` (explicit refresh) — designed for mutable workloads with INSERT/UPDATE/DELETE
 - **Hybrid search ready**: C-backed helpers for BM25/vector late-fusion without requiring a hard vector extension dependency (could pair with pgvector)
 - **Multi-field indexing** with query-time weight tuning — useful for structured documents
-- **Primary workspace use case**: <private-project> v2 (AWS + PostgreSQL) if scenario/project search is ever needed; no existing search feature in v2
+- **Primary workspace use case**: the finance app (AWS + PostgreSQL) if scenario/project search is ever needed; no existing search feature in v2
 - **Historical nanochat**: Not applicable — corpus is parquet files, no PostgreSQL layer
 - **Project is by Intelligent-Internet** — same org behind the Zenith long-running agent harness investigated 2026-05-08
 
@@ -33,7 +33,7 @@ Hybrid BM25+vector search (combining with pgvector) is a well-supported pattern:
 
 ## Relevance to Workspace
 
-**<private-project> v2** (PostgreSQL): If search over scenarios, CIP project names, or bond terms is ever needed, this is a better-fit than rolling custom `ts_vector` logic. Currently v2 has no search feature, so this is a "when we need it" backlog item. The hybrid BM25+vector mode would pair well with pgvector if semantic search over scenario descriptions is ever required.
+**The finance app** (PostgreSQL): If search over scenarios, CIP project names, or bond terms is ever needed, this is a better-fit than rolling custom `ts_vector` logic. Currently v2 has no search feature, so this is a "when we need it" backlog item. The hybrid BM25+vector mode would pair well with pgvector if semantic search over scenario descriptions is ever required.
 
 **Historical Nanochat**: No PostgreSQL layer, all data in parquet shards — not applicable.
 
@@ -43,6 +43,6 @@ Hybrid BM25+vector search (combining with pgvector) is a well-supported pattern:
 
 ## Recommended Actions
 
-1. Add to <private-project> v2 backlog as a search capability option for when scenario/project search is needed
+1. Add to the finance app backlog as a search capability option for when scenario/project search is needed
 2. Note the Intelligent-Internet org for future monitoring (active, quality releases)
-3. No immediate integration needed — no current <private-project> search requirement
+3. No immediate integration needed — no current search requirement in the finance app

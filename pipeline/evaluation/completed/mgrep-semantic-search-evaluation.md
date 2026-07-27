@@ -61,7 +61,7 @@
 
 ## Empirical Testing Results
 
-**Test Codebase**: <private-project>-v2 (~3,300 files)
+**Test Codebase**: the finance app (~3,300 files)
 **Report**: `~/claudeworkspace/claude-evolution/reports/mgrep-vs-grep-comparison.md`
 
 ### Semantic Query Performance

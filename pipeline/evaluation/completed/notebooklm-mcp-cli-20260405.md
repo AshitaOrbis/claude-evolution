@@ -17,7 +17,7 @@
 
 **Value proposition**: NotebookLM's core differentiator is source-grounded citations — it only answers from uploaded documents and cites exact passages. This is orthogonal to what Exa/Brave provide (open web search). Useful for:
 - Uploading research papers and querying against them during genealogy research
-- Building persistent knowledge bases per project (<private-project> docs, blog research, etc.)
+- Building persistent knowledge bases per project (the finance app docs, blog research, etc.)
 - Source-grounded citation extraction for Ashita Orbis posts
 
 **Risk factors**:

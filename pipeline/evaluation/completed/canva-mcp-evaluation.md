@@ -28,7 +28,7 @@
 1. **Subscription requirement**: Does this require Canva Pro ($12.95/mo) or Enterprise tier? Free tier limitations?
 2. **Token overhead**: What is the average token cost per design generation operation? How are designs returned (base64, URLs, design specs)?
 3. **Use case validation**: Where would we actually use this?
-   - Revenue pipeline: Product marketing materials for <private-project>?
+   - Revenue pipeline: Product marketing materials for the statement parser?
    - Games pipeline: Asset generation for games?
    - Evolution system: Documentation diagrams (unlikely)?
 4. **MCP installation**: Is the MCP server publicly available? Installation method (npm, pip, binary)?

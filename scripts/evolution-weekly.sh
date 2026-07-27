@@ -63,10 +63,14 @@ claude -p \
     --max-turns 40 \
     --allowed-tools Read Write Glob Grep \
     -- "Execute HEARTBEAT-WEEKLY.md. Current date: $(date -I). Generate weekly report." \
-    >> "$LOG_FILE" 2>&1
+    >> "$LOG_FILE" 2>&1 || log "WARNING: weekly analysis phase exited nonzero (see log)."
 
-# Cleanup stale evaluations
+# Cleanup stale evaluations. Soft-fail (no stale items is normal), but a real
+# mv error is logged rather than swallowed.
 log "Cleaning up stale pipeline items..."
-find pipeline/evaluation/pending -name "*.json" -mtime +14 -exec mv -t pipeline/evaluation/completed/ {} + 2>/dev/null || true
+if ! find pipeline/evaluation/pending -name "*.json" -mtime +14 \
+        -exec mv -t pipeline/evaluation/completed/ {} + 2>>"$LOG_FILE"; then
+    log "WARNING: stale-evaluation cleanup reported an error (see log)."
+fi
 
 log "Weekly heartbeat completed"

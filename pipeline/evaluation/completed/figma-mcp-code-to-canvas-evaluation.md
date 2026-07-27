@@ -48,14 +48,14 @@ Codex scored 87.5, Claude 76.25. Key disagreement:
 - **Registry update**: Add to new "Design Tools" section or under "UI Quality & Design"
 - **Concerns**:
   - Free tier: 6 calls/month is very restrictive for iterative work
-  - Only useful with active Figma usage (<private-project>-v2 has some Figma work)
+  - Only useful with active Figma usage (the finance app has some Figma work)
   - Code→Figma direction only (not bidirectional design sync)
 - **Status recommendation**: FUTURE — Approved but adopt when we establish a regular design review workflow in Figma. Similar treatment to Grafana/Terraform MCPs.
 
 ## Adoption Triggers
 
 - Regular design→dev→persona test pipeline involving Figma
-- <private-project>-v2 UI redesign requiring designer collaboration
+- The finance app UI redesign requiring designer collaboration
 - Need for visual QA beyond persona testing (export to Figma for designer review)
 
 ## Redundancy Triggers

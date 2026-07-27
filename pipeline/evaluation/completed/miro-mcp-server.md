@@ -73,8 +73,8 @@ Claude Code, AWS Kiro, GitHub Copilot, Gemini CLI, Windsurf, Cursor, Lovable, Re
 ## Current Applicability
 
 **Our projects**:
-- <private-project> v2: No Miro usage currently
-- <private-project>: Solo development, no team workflows
+- The finance app: No Miro usage currently
+- The statement parser: Solo development, no team workflows
 - Games pipeline: No visual planning tools
 
 **Status**: **FUTURE** - Approved for integration IF we adopt Miro for team collaboration

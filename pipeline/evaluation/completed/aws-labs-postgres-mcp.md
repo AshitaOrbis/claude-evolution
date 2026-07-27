@@ -44,7 +44,7 @@ Official AWS Labs MCP server for Aurora Postgres with **natural language to SQL*
   3. Built-in Aurora docs and best practices
   4. 8k stars vs 22 stars
 - Comparison needed: NL→SQL value vs token overhead
-- Use case: <private-project> data analysis, <private-project>-v2 queries
+- Use case: statement-parser data analysis, the finance app queries
 
 ## Comparison: AWS Labs vs T1nker vs psql CLI
 
@@ -114,7 +114,7 @@ Database Operations section says:
 
 **Rationale**: Scores above 70, BUT current psql CLI works well. NL→SQL advantage unclear without usage data.
 
-**Adoption Trigger**: If <private-project> or <private-project>-v2 involves heavy ad-hoc queries where NL→SQL saves time.
+**Adoption Trigger**: If the statement parser or the finance app involves heavy ad-hoc queries where NL→SQL saves time.
 
 **Integration Path** (when triggered):
 1. Docker setup for MCP server

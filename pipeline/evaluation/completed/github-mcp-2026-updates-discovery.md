@@ -152,7 +152,7 @@ Official GitHub MCP Server received major updates in January 2026: consolidated 
 ### Our Current Usage Pattern
 
 **Questions to assess**:
-- Do we actively use GitHub Projects? (check `<private-project>-v2`, `claude-evolution`)
+- Do we actively use GitHub Projects? (check `<private-app>`, `claude-evolution`)
 - Do we have pain points with gh CLI? (error-prone, verbose)
 - Do we need enterprise OAuth features? (multi-user, per-request tokens)
 - Is structured API access valuable? (vs string parsing gh CLI output)
@@ -170,7 +170,7 @@ Official GitHub MCP Server received major updates in January 2026: consolidated 
 ## Next Steps
 
 1. **Usage audit**: Check if we use GitHub Projects in active repos
-   - `<private-project>-v2`: Project boards?
+   - `<private-app>`: Project boards?
    - `claude-evolution`: Tracking in Projects?
    - `games/*`: Project management?
 
@@ -245,7 +245,7 @@ This is a **VERSION UPDATE** (not new capability), documenting improvements to e
 ### Current Usage Audit
 ```bash
 # Checked repositories:
-# <private-project>-v2: No GitHub Projects usage
+# <private-app>: No GitHub Projects usage
 # claude-evolution: No GitHub Projects usage (tracking in registry files)
 # games/*: No GitHub Projects usage
 # Result: ZERO Projects usage across all active repos

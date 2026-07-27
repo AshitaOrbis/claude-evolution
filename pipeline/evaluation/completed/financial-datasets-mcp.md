@@ -86,7 +86,7 @@ Requires API key from financialdatasets.ai (pricing unclear).
 ☑ **Evaluate further** - Score 71/100 barely exceeds approval threshold (70+)
 
 ### Conditional Integration:
-- **IF** <private-project> needs stock analysis: Integrate
+- **IF** the statement parser needs stock analysis: Integrate
 - **IF** Revenue pipeline needs market research: Integrate
 - **IF NOT** needed now: DEFER to future
 
@@ -110,7 +110,7 @@ Requires API key from financialdatasets.ai (pricing unclear).
 ## Use Cases (Our Stack)
 
 ### Potentially Relevant:
-1. **<private-project>**:
+1. **The statement parser**:
    - Enrich transaction data with company fundamentals
    - Calculate cost basis using historical prices
    - Validate ticker symbols
@@ -126,7 +126,7 @@ Requires API key from financialdatasets.ai (pricing unclear).
    - Fundamental analysis automation
 
 ### NOT Currently Relevant:
-- <private-project> v1/v2: Real estate, not stock market
+- The finance app: Real estate, not stock market
 
 ---
 
@@ -170,8 +170,8 @@ Requires API key from financialdatasets.ai (pricing unclear).
 ### Use Case Analysis
 
 **Current projects check**:
-- ❌ <private-project> v1/v2: Real estate, not stock market
-- ⚠️ <private-project>: Parses brokerage PDFs (transactions), not fundamentals
+- ❌ The finance app: Real estate, not stock market
+- ⚠️ The statement parser: Parses brokerage PDFs (transactions), not fundamentals
 - ❌ Revenue pipeline: B2B SaaS, not financial market analysis
 - ❌ Games pipeline: No financial data needs
 - ❌ Claude evolution: No financial analysis use case
@@ -198,7 +198,7 @@ Requires API key from financialdatasets.ai (pricing unclear).
 **Rationale**: Scores 65/100, below approval threshold (70+). Novel capability but NO active use case in our stack. User doesn't trade stocks or manage portfolios.
 
 **Defer to future if**:
-1. <private-project> needs historical prices for cost basis calculations
+1. The statement parser needs historical prices for cost basis calculations
 2. Revenue pipeline adds financial market research
 3. Personal finance tools emerge in project pipeline
 4. We adopt Rube MCP (may already include financial APIs)

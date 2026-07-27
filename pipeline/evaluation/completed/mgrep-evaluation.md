@@ -10,7 +10,7 @@
 
 ## Discovery Context
 
-**User reported test results** (<private-project>-v2):
+**User reported test results** (the finance app):
 - Query: "rate calculation formula" → mgrep found `rate-calculations.ts` (96.9% match), Grep missed primary file
 - Query: "API error handling" → mgrep found `api-client.ts` (92.8% match), Grep found seed files (wrong)
 

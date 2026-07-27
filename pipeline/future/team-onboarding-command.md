@@ -23,7 +23,7 @@ Current gap: When onboarding a new contributor to a project that heavily uses Cl
 
 **Potential use cases**:
 1. **claude-evolution project**: Generate a guide covering evolution pipeline, subagent patterns, hook integrations
-2. **<private-project>-v2**: Generate a guide covering AWS deployment, PostgreSQL, iterative-improve workflow
+2. **The finance app**: Generate a guide covering AWS deployment, PostgreSQL, iterative-improve workflow
 3. **Workspace-wide**: Generate a high-level guide for any new device/session context
 
 ---

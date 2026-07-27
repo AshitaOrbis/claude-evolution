@@ -20,7 +20,7 @@ MCP server consolidating sales, marketing, and business data from **325+ sources
 
 ## Stack Match Analysis
 
-**Use Case Match**: ⚠️ **PARTIAL** - Relevant for <private-project> (financial data) and revenue pipeline analytics
+**Use Case Match**: ⚠️ **PARTIAL** - Relevant for the statement parser (financial data) and revenue pipeline analytics
 **Current Gap**: We query analytics data manually or via separate APIs
 **Novel Capability**: Multi-source consolidation with NL queries
 
@@ -46,7 +46,7 @@ MCP server consolidating sales, marketing, and business data from **325+ sources
   1. Do we need marketing analytics data? (Facebook Ads, GA4, etc.)
   2. Cost: Windsor.ai subscription required?
   3. Overlap with Rube MCP (500+ apps)?
-  4. Use case: <private-project>? Revenue pipeline? <private-project> analytics?
+  4. Use case: the statement parser? Revenue pipeline? The finance app analytics?
 
 ## Comparison: Windsor AI vs Rube vs DuckDB
 
@@ -69,7 +69,7 @@ MCP server consolidating sales, marketing, and business data from **325+ sources
 
 ## Use Case Analysis
 
-### <private-project> (Current Project)
+### The statement parser (current project)
 - ❌ Not relevant: Focuses on brokerage statements (PDFs), not marketing data
 - Alternative: DuckDB MCP for CSV/Excel analysis (already integrated)
 
@@ -78,7 +78,7 @@ MCP server consolidating sales, marketing, and business data from **325+ sources
 - Use case: Analyze campaign performance, ROAS, spend by channel
 - Value: If revenue projects involve paid advertising or e-commerce
 
-### <private-project>-v2
+### The finance app
 - ⚠️ **MAYBE**: Depends if we add marketing features
 - Current: Financial projections (no marketing analytics)
 - Future: If we add user acquisition tracking, Windsor AI becomes relevant
@@ -106,7 +106,7 @@ Windsor.ai website shows:
 
 1. **Validate use case**: Do we need marketing analytics data?
    - Revenue pipeline projects: Check if paid ads/e-commerce involved
-   - <private-project>-v2: Future marketing features planned?
+   - The finance app: Future marketing features planned?
 2. **Research pricing**: Windsor.ai subscription cost for MCP access
 3. **Compare alternatives**:
    - Direct API calls to Facebook Ads, GA4, etc. (more tokens)
@@ -118,14 +118,14 @@ Windsor.ai website shows:
 **CONDITIONAL APPROVAL** (score: 74.5/100):
 - ✅ Approve IF: Revenue pipeline needs marketing analytics
 - ❌ Reject IF: No marketing analytics use case + subscription cost too high
-- 🔄 FUTURE IF: Marketing features added to <private-project> or revenue projects
+- 🔄 FUTURE IF: Marketing features added to the finance app or revenue projects
 
 ---
 
 ## Evaluation
 
 **Date**: 2026-02-06
-**Context**: Revenue pipeline focuses on product development, not marketing analytics. <private-project> = financial data (not ad campaigns).
+**Context**: Revenue pipeline focuses on product development, not marketing analytics. The statement parser = financial data (not ad campaigns).
 
 ### Scoring
 

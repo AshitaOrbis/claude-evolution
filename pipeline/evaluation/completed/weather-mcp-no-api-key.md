@@ -118,8 +118,8 @@ uvx weather-mcp
 ## Use Cases (Our Stack)
 
 ### Current Projects:
-- ❓ **<private-project>**: Real estate - could add weather data to property analysis
-- ❓ **<private-project>**: Not directly relevant
+- ❓ **The finance app**: Real estate - could add weather data to property analysis
+- ❓ **The statement parser**: Not directly relevant
 - ❌ **Games pipeline**: Possible for themed games (weather-based mechanics)
 
 ### General Use Cases:
@@ -197,7 +197,7 @@ Variance: 2.25 points (consensus achieved)
 **Adoption Trigger**: IF any project needs weather data → integrate immediately
 
 **Why FUTURE not APPROVE NOW**:
-- No current use case (<private-project> v2, <private-project> don't need weather)
+- No current use case (the finance app, the statement parser don't need weather)
 - Unknown data source reliability (need to verify before production use)
 - MCP tool count matters for Tool Search Tool efficiency
 - Better to integrate when needed vs speculatively
@@ -209,8 +209,8 @@ Variance: 2.25 points (consensus achieved)
 - Low maintenance burden
 
 **Current projects don't need weather**:
-- <private-project> v2: Real estate cashflow modeling (not weather-dependent)
-- <private-project>: PDF to Excel conversion (not weather-dependent)
+- The finance app: Real estate cashflow modeling (not weather-dependent)
+- The statement parser: PDF to Excel conversion (not weather-dependent)
 - Revenue pipeline: General SaaS apps (weather not core feature)
 
 **Future scenarios where weather becomes relevant**:

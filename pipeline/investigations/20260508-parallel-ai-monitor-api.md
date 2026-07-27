@@ -32,7 +32,7 @@ Without the actual blog post, it's not possible to confirm whether this is an AP
 
 - **claude-evolution pipeline**: High potential relevance if the Monitor API tracks Parallel-Task/Search call metrics — would directly support the MAB experiment (which needs per-source quality signals).
 - **Hermes**: If Hermes delegates tasks to Parallel AI tools, Monitor API would help attribute costs to Hermes-originated runs.
-- **<private-project> / other apps**: Lower relevance unless those pipelines use Parallel AI tools directly.
+- **The finance app / other apps**: Lower relevance unless those pipelines use Parallel AI tools directly.
 
 ## Recommended Actions
 

@@ -106,9 +106,9 @@ This MCP provides **Snowflake-specific AI features** that generic SQL access doe
 ## Use Cases
 
 ### Relevant to Our Stack:
-- ❌ <private-project> v2 uses PostgreSQL (not Snowflake)
+- ❌ The finance app uses PostgreSQL (not Snowflake)
 - ❓ Future data analytics projects may need enterprise warehouse
-- ❓ <private-project> project: Could use Snowflake for storing processed statements
+- ❓ The statement parser project: Could use Snowflake for storing processed statements
 
 ### Strong Use Cases Elsewhere:
 - Enterprise data analytics
@@ -145,7 +145,7 @@ Existing capabilities:
 **CRITICAL**: We don't use Snowflake.
 
 Current stack:
-- <private-project> v2: PostgreSQL on AWS RDS
+- The finance app: PostgreSQL on AWS RDS
 - Revenue pipeline: SQLite/PostgreSQL
 - No data warehouse, no Snowflake account
 
@@ -179,8 +179,8 @@ Variance: 3.5 points (consensus achieved)
 - No blocker except platform adoption
 
 **Current projects don't need Snowflake**:
-- <private-project> v2: PostgreSQL sufficient (relational data, not warehouse scale)
-- <private-project>: Could use Snowflake but PostgreSQL cheaper for MVP
+- The finance app: PostgreSQL sufficient (relational data, not warehouse scale)
+- The statement parser: Could use Snowflake but PostgreSQL cheaper for MVP
 - Revenue pipeline: SQLite/PostgreSQL sufficient
 
 **Future scenarios where Snowflake becomes relevant**:

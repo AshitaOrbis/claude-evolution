@@ -18,10 +18,10 @@
     },
     "total": 75.0,
     "decision": "APPROVED",
-    "reasoning": "This is a technique/pattern integration (not a new MCP) — the valuable extract is the three-component architecture: language spec + lazy-loaded docs + quirks database. Integration is easy (85): document in library/techniques/ and apply to games pipeline GDScript skill. Token efficiency (70) improved by lazy-loading API docs rather than front-loading context. Capability expansion (75): genuinely useful for the games pipeline (<private-project>-gacha, autonomous-gamedev use GDScript/Godot 4), plus portable to any niche domain. Maintenance burden is very low (85): stable pattern, one-time documentation update. Community validation moderate (60): HN discussion, open-source project, not a high-star repo. Direct applicability to existing Godot 4 games pipeline work is the decisive factor.",
+    "reasoning": "This is a technique/pattern integration (not a new MCP) — the valuable extract is the three-component architecture: language spec + lazy-loaded docs + quirks database. Integration is easy (85): document in library/techniques/ and apply to games pipeline GDScript skill. Token efficiency (70) improved by lazy-loading API docs rather than front-loading context. Capability expansion (75): genuinely useful for the games pipeline (the gacha game, autonomous-gamedev use GDScript/Godot 4), plus portable to any niche domain. Maintenance burden is very low (85): stable pattern, one-time documentation update. Community validation moderate (60): HN discussion, open-source project, not a high-star repo. Direct applicability to existing Godot 4 games pipeline work is the decisive factor.",
     "integration_targets": [
       "Document in library/techniques/thin-training-data-compensation.md",
-      "Apply to games/development/projects/ — create GDScript quirks database for <private-project>-gacha",
+      "Apply to games/development/projects/ — create GDScript quirks database for the gacha game",
       "Create ~/.claude/skills/godot-development/ skill using the three-component pattern",
       "Add to registry under Technique section"
     ],
