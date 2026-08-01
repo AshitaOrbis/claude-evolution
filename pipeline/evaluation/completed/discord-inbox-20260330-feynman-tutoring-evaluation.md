@@ -35,3 +35,5 @@ Could be useful for educational applications or as a reference implementation fo
 **Reasoning**: Feynman is an educational tutoring framework with no relevance to Claude Code capability evolution. The discovery note provides minimal information — no star count, no description of what the agent actually does beyond the Feynman technique name. The Claude Code evolution system does not build tutoring applications. Even if the framework were excellent, there is no integration path: we don't maintain educational agents, don't have tutoring use cases, and the agent taxonomy (capability discovery, evaluation, integration, orchestration) has no tutoring layer. The very low community validation score reflects the absence of any signal beyond a single Discord mention.
 
 **Re-evaluation trigger**: None — domain mismatch is fundamental, not addressable by more information.
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260330-feynman-tutoring-evaluation.md` (owner-interest lens)

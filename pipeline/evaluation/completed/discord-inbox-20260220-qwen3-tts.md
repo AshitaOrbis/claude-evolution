@@ -22,3 +22,5 @@ To be evaluated by the standard pipeline.
 **Reason**: Qwen3-TTS is a text-to-speech model by Alibaba (9.2k stars). Not relevant to Claude Code capability system — specialized speech synthesis, no MCP integration, no agent development relevance.
 **Date**: 2026-03-08
 **Auto-triaged**: Yes (batch evaluation)
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260220-qwen3-tts.md` (owner-interest lens)

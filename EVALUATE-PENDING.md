@@ -34,7 +34,49 @@ total = (complexity * 0.20) + (token_efficiency * 0.25) + (capability * 0.25) + 
 |-------|----------|--------|
 | 70+ | **APPROVED** | Move to `pipeline/integration/` |
 | 50-69 | **NEEDS_RESEARCH** | Flag for manual review, keep in pending |
-| <50 | **REJECTED** | Move to `pipeline/evaluation/completed/` with reason |
+| <50 | **REJECTED** | Owner-interest check below, *then* move to `pipeline/evaluation/completed/` |
+
+## Owner-Interest Override (MANDATORY before any REJECTED)
+
+The criteria above answer one question: *does this improve the Claude Code evolution
+system?* That is the right question for this repo and the only question it can answer.
+It is not the only question the workspace has.
+
+In March and April 2026 this pipeline filed three repos the owner had personally shared
+in Discord #general and then closed all three — Qwen3-TTS at 10/100, AIRI at 15/100,
+Open-LLM-VTuber at 27.5/100, each reasoned as "irrelevant to Claude Code". The scores were
+right. Three months later the workspace was running a radio station whose product is
+synthesized voice, and AIRI had passed 44,000 stars as the flagship of the avatar space.
+Rejection was terminal and single-domain, so nothing ever resurfaced them.
+
+**So: never close a reject without screening it first.**
+
+Two ways to read the screen, depending on the tools you have:
+
+1. **Look at the record.** Pending items are pre-screened before you see them. A record
+   carrying an `## Owner Interest (pre-screen)` section has already matched — that
+   section names the domains and the projects they serve.
+2. **Run the lens yourself**, if you have Bash:
+   ```bash
+   python3 lib/owner_interest_lens.py gate pipeline/evaluation/pending/<item>
+   ```
+
+Then:
+
+- **No match** — close it as normal.
+- **Match** — set `"decision": "REVIEW"` and write the item to
+  `pipeline/evaluation/review/` instead of `completed/`. Keep the score and reasoning
+  exactly as you scored them; you are not being asked to re-score anything, only not to
+  close it. Copy the matched domains and the project they serve into the record.
+
+Domains live in `config/owner-interests.yaml` — vtuber/avatar, speech (TTS-STT), radio,
+Understanding-AI/education, agent harnesses, psychometrics, inference economics, games.
+
+This override applies **only to rejects**. Approvals and research flags are untouched.
+A `REJECTED_BY_HUMAN` decision is final and is never reopened.
+
+A deterministic sweep runs after every evaluation batch and will catch a reject you
+closed that should have gone to review — so a miss here is visible, not silent.
 
 
 ## Empirical Safety Check (MANDATORY for env vars and config changes)

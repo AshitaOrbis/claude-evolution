@@ -201,3 +201,5 @@ Claude Code (primary agent)
 - Monitor MSF MCP best practices for ecosystem trends
 
 **Action**: Move to `archive/rejected/microsoft-agent-framework-rejected.md` with lessons-learned section
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/microsoft-agent-framework-rejected.md` (owner-interest lens)

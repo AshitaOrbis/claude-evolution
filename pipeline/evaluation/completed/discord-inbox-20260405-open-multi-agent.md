@@ -31,3 +31,5 @@ Could provide patterns or inspiration for agent coordination, team workflows, or
   "reasoning": "Registry already covers multi-agent orchestration comprehensively (Task tool + 15+ subagents + evolution-orchestrator). External orchestration platforms have precedent rejection: Claude Flow (51.75/100) rejected for 75% overlap with existing stack. Very sparse description — no evidence of novel patterns not already present. Redundancy triggers: 'multi-agent swarm', 'agent orchestration platform'. Reconsideration trigger: if repo shows uniquely novel coordination algorithm (consensus, HNSW memory, etc.) not in current stack."
 }
 ```
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260405-open-multi-agent.md` (owner-interest lens)

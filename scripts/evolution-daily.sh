@@ -90,6 +90,17 @@ claude -p \
     >> "$LOG_FILE" 2>&1 || log "WARNING: discovery phase exited nonzero (see log)."
 
 # Phase 2: Evaluate pending items
+# Pre-screen first: the evaluation agent here runs without Bash, so it cannot invoke
+# the owner-interest lens itself. Stamping the pending records is how the override
+# reaches it; the sweep after Phase 2 is what actually enforces the outcome.
+mapfile -t PENDING_FILES < <(find pipeline/evaluation/pending -maxdepth 1 -type f \
+    \( -name '*.md' -o -name '*.json' \) 2>/dev/null)
+if [[ ${#PENDING_FILES[@]} -gt 0 ]]; then
+    log "Pre-screening ${#PENDING_FILES[@]} pending item(s) through the owner-interest lens..."
+    python3 lib/owner_interest_lens.py stamp --apply "${PENDING_FILES[@]}" >> "$LOG_FILE" 2>&1 \
+        || log "WARNING: owner-interest pre-screen failed; continuing."
+fi
+
 log "Phase 2: Running evaluations..."
 EVAL_RC=0
 EVAL_OUTPUT=$(claude -p \
@@ -121,6 +132,17 @@ print(d.get("evaluated", 0))
 ' 2>/dev/null || echo "0")
 
 log "Evaluated: $EVAL_COUNT items"
+
+# Owner-interest gate (backstop). The prompt override in EVALUATE-PENDING.md can be
+# ignored; this cannot. Any reject just closed that lands in a domain the owner works
+# in is reopened into pipeline/evaluation/review/ instead of staying closed. Registry
+# row 145 — three owner-shared repos were closed as "irrelevant to Claude Code" and
+# never resurfaced. Idempotent, no LLM, scoped to the last week of records.
+log "Running owner-interest gate over recent rejects..."
+GATE_OUTPUT=$(python3 lib/owner_interest_lens.py sweep --apply --since-days 7 2>&1) \
+    || log "WARNING: owner-interest gate failed — rejects from this run are UNSCREENED."
+echo "$GATE_OUTPUT" >> "$LOG_FILE"
+log "Owner-interest gate: ${GATE_OUTPUT%%$'\n'*}"
 
 # Phase 3: Integrate approved items (autonomous mode only)
 if [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]]; then

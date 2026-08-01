@@ -35,3 +35,5 @@ N/A — Cannot assess redundancy without technical substance to compare.
 ## Decision
 
 **REJECTED (34.5)** — SaaS product with no evidence of technical substance behind the "agent swarm coordinator" label. No integration path. If a GitHub repo or technical spec surfaces in the future, re-evaluate. Monitor for re-submission if the product ships open-source tooling.
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260315-soft-machine-evaluation.md` (owner-interest lens)

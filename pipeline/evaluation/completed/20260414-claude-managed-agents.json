@@ -1,5 +1,5 @@
 {
-  "title": "Claude Managed Agents — Fully Managed Cloud Agent Harness (Beta)",
+  "title": "Claude Managed Agents \u2014 Fully Managed Cloud Agent Harness (Beta)",
   "source": "https://platform.claude.com/docs/en/managed-agents/overview",
   "type": "technique",
   "description": "Official Anthropic managed infrastructure for running Claude as an autonomous agent. Core concepts: Agent (model + system prompt + tools + MCP servers), Environment (cloud container with pre-installed packages, network rules), Session (running agent instance), Events (SSE-streamed user/tool messages). Built-in tools: Bash, file operations, web search, MCP server connections. Removes need to build custom agent loops, sandboxes, or tool execution layers. Supports stateful sessions with persistent file systems and conversation history. Server-side prompt caching and compaction built-in. Research-preview sub-features: outcomes, multiagent, memory. Announced April 8, 2026 with `managed-agents-2026-04-01` beta header. Distinct from Claude Code (code editor), Claude Cowork (consumer knowledge work).",
@@ -19,8 +19,8 @@
     "managed agent API"
   ],
   "priority": "HIGH",
-  "redundancy_check": "NOVEL — existing Task subagents run locally within the Claude Code session. Managed Agents provides cloud-hosted, containerized, long-running agent execution (minutes to hours) with server-side infrastructure. Complementary, not redundant. Relevant for external API-based automation beyond heartbeat cron jobs.",
-  "notes": "Requires ANTHROPIC_API_KEY (not Max plan keychain). Rate limits: 60 create/min, 600 read/min. Key question: does this enable external agent hosting that's cheaper/simpler than our current EC2+Claude approach? Sub-features (outcomes, multiagent, memory) in research preview — request access form at claude.com/form/claude-managed-agents. Most relevant for building external agentic services, not internal Claude Code workflows.",
+  "redundancy_check": "NOVEL \u2014 existing Task subagents run locally within the Claude Code session. Managed Agents provides cloud-hosted, containerized, long-running agent execution (minutes to hours) with server-side infrastructure. Complementary, not redundant. Relevant for external API-based automation beyond heartbeat cron jobs.",
+  "notes": "Requires ANTHROPIC_API_KEY (not Max plan keychain). Rate limits: 60 create/min, 600 read/min. Key question: does this enable external agent hosting that's cheaper/simpler than our current EC2+Claude approach? Sub-features (outcomes, multiagent, memory) in research preview \u2014 request access form at claude.com/form/claude-managed-agents. Most relevant for building external agentic services, not internal Claude Code workflows.",
   "evaluation": {
     "scores": {
       "integration_complexity": 0,
@@ -31,11 +31,15 @@
     },
     "total": 49.75,
     "decision": "REJECTED",
-    "reasoning": "Research confirmed (2026-04-15): Managed Agents API requires ANTHROPIC_API_KEY — same auth blocker as `ant` CLI. Max plan keychain does NOT work. The API 'operates under standard Claude API token pricing' (per modemguides.com), meaning every session call is billed at API rates beyond our Max subscription. Integration complexity = 0 (impossible without additional paid API subscription). Capability expansion revised to 40: the feature is genuinely novel (cloud-hosted containerized long-running agents) but zero value if we can't access it without additional cost. Total = 49.75 → REJECTED. Revisit if: (1) Anthropic adds OAuth support for Managed Agents, (2) Max plan is extended to cover API calls, or (3) a cost-effective access tier is announced.",
+    "reasoning": "Research confirmed (2026-04-15): Managed Agents API requires ANTHROPIC_API_KEY \u2014 same auth blocker as `ant` CLI. Max plan keychain does NOT work. The API 'operates under standard Claude API token pricing' (per modemguides.com), meaning every session call is billed at API rates beyond our Max subscription. Integration complexity = 0 (impossible without additional paid API subscription). Capability expansion revised to 40: the feature is genuinely novel (cloud-hosted containerized long-running agents) but zero value if we can't access it without additional cost. Total = 49.75 \u2192 REJECTED. Revisit if: (1) Anthropic adds OAuth support for Managed Agents, (2) Max plan is extended to cover API calls, or (3) a cost-effective access tier is announced.",
     "research_questions": [
       "Future: Does Anthropic extend Max plan to cover Managed Agents API calls, or announce a free-tier access path?"
     ],
-    "research_note": "2026-04-15: RESOLVED. Confirmed — ANTHROPIC_API_KEY required, Max plan keychain bypassed. Managed Agents is an API-tier product. Previous NEEDS_RESEARCH blocker is now a confirmed rejection blocker."
+    "research_note": "2026-04-15: RESOLVED. Confirmed \u2014 ANTHROPIC_API_KEY required, Max plan keychain bypassed. Managed Agents is an API-tier product. Previous NEEDS_RESEARCH blocker is now a confirmed rejection blocker.",
+    "owner_interest_reopen": {
+      "date": "2026-07-29",
+      "review_record": "pipeline/evaluation/review/20260414-claude-managed-agents.md"
+    }
   },
   "evaluated_at": "2026-04-15"
 }

@@ -27,3 +27,5 @@ Open-source framework for creating virtual tuber (VTuber) applications powered b
   "reasoning": "No relevance to Claude Code evolution system. VTuber character animation and voice generation is out-of-domain for coding workflows. Cannot be integrated into the development pipeline. No reconsideration trigger."
 }
 ```
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260408-open-llm-vtuber.md` (owner-interest lens)

@@ -22,3 +22,5 @@ To be evaluated by the standard pipeline.
 **Reason**: Airi is an AI virtual character/VTuber framework (moeru-ai). While it mentions MCP integration, its purpose (game-playing, voice synthesis, avatar animation) is irrelevant to Claude Code capability system.
 **Date**: 2026-03-08
 **Auto-triaged**: Yes (batch evaluation)
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260226-airi.md` (owner-interest lens)

@@ -38,3 +38,5 @@ Potential relevance to Psyche framework. However, the Psyche project already use
 **Rejection Rationale**: The Psyche framework already implements a thorough psychometric approach. Generative Psychometrics is primarily a research paradigm without clear tooling or integration paths. Zero community validation (no GitHub, no stars, website-only). The concept is interesting but offers no actionable integration for Claude Code workflows at this time. If the project releases open-source tools or a published paper with concrete methodologies applicable to persona testing, re-evaluate.
 
 **Re-evaluation trigger**: If generativepsychometrics.com releases an open-source tool, API, or published paper with concrete implementation guidance for AI behavioral measurement.
+
+**Owner-Interest Reopen**: 2026-07-29 → `pipeline/evaluation/review/discord-inbox-20260321-generative-psychometrics-evaluation.md` (owner-interest lens)
