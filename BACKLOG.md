@@ -188,3 +188,21 @@ symlink → later write through it, TOCTOU swap, or any write funneled through
 
 Until one of these lands, unattended runs should follow the container/account
 guidance in SECURITY.md rather than trusting the prompt-level rules.
+
+---
+
+## Approval gate: two divergent copies of `check-pending-approvals.sh`
+
+Noted 2026-08-02 during the bq-020 executor truth-ledger work (out of scope
+there, deliberately not fixed).
+
+`claude-evolution/scripts/check-pending-approvals.sh` (427 lines) and
+`claude-evolution-ops/scripts/check-pending-approvals.sh` (392 lines) have
+diverged by 699 diff lines. The copy that actually runs is the **ops** one —
+`evolution-daily-heartbeat.sh:35` invokes it from the 4 AM cron. The copy
+sitting beside the executor is therefore not the gate the executor's proposals
+flow through, which makes reasoning about approval authority from this repo
+alone unsound.
+
+Do NOT merge the repos to fix this. Decide which copy is canonical, make the
+other a thin caller or delete it, and record the decision here.

@@ -1,7 +1,7 @@
 # Existing Capabilities Registry
 
 > **Purpose**: Check against this BEFORE researching any discovery to catch redundancy early.
-> **Last Updated**: 2026-07-26 (66 integrations: weekly /insights pass — 0 integrated directly (approval-gated); 1 CLAUDE.md rule routed to pending-approval (subagent spawn-time Write/effort grants, 72.75); 2 deferred (publish-guard hook 67.25 — blocked on the pending allow-list ruling; bug-history regression harness 60.75 — overlaps pending treetrace pilot). Cron /insights generation failed a 3rd consecutive week on the unapproved variadic --mcp-config fix (proposal 20260719, pending since 07-20); recovered in-run by manual equals-form generation of a fresh Account-B report (07-01→07-26). Prior: 2-proposal pass on 2026-07-19)
+> **Last Updated**: 2026-08-02 (66 integrations: weekly /insights pass — 0 integrated directly (approval-gated); 1 skill improvement routed to pending-approval (binding-inputs ratification gate for fable-research-pipeline, 78.25); 1 deferred (commit-scope staged-file guard 64.0 — fold into the publish-guard hook if the allow-list ruling approves it); 14 duplicates. Cron /insights generation failed a 4th consecutive week on the unapproved variadic --mcp-config fix (proposal 20260719, pending since 07-20); recovered in-run again by equals-form generation of a fresh Account-B report (07-01→08-02; window overlaps last week's — window control is inside the pending fix). Prior: 1-proposal pass on 2026-07-26)
 
 ## How to Use This Document
 
