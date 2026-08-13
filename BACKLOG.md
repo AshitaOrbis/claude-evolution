@@ -28,8 +28,8 @@ Deployed format instruction to all three prompts in `~/.claude/skills/publicatio
 **Disposition corrected**: 2026-08-12 (`claude.approval_gate_not_published_04`)
 
 > **Status honesty.** This section previously read IMPLEMENTED / ALL DONE while
-> naming programs that were not in this repository at all. They existed in a
-> private operational checkout, so a reader cloning this repo and enabling
+> naming programs that were not in this repository at all. They are not included
+> in this repository, so a reader cloning this repo and enabling
 > autonomous mode believed a safeguard was present that the published bytes
 > could not run. What each part's status actually is, in THIS tree, is stated
 > below, and `publish.sh` now fails the publish if any executable named by the
@@ -53,8 +53,7 @@ For env var and config integrations:
 
 **2. Automated approval flow (Discord)** — **NOT IN THIS REPOSITORY**
 A chat-bot round trip (post "APPROVAL NEEDED", read a reaction, apply on approve)
-lives in the maintainer's private operational checkout and is wired to a private
-server; it is not published here and nothing in this tree calls it. The shipped
+is not included in this repository, and nothing in this tree calls it. The shipped
 approval mechanism is the file-based one, and it is the whole gate here:
 - The integration agent stops and writes `pipeline/pending-approval/{item}.proposal.md`
 - A human reads it and moves the record to `pipeline/integration/` to approve
@@ -151,8 +150,8 @@ Cleanup round addressing all persistent issues from Round 2.
 
 2. **Automated chat approval flow** - NOT IN THIS REPOSITORY
    - The bot round trip (post an approval request, read the response, apply on approve)
-     runs against a private chat server from a private operational checkout
-   - It is not published here and no file in this tree invokes it
+     is not included in this repository
+   - No file in this tree invokes it
    - What ships here is the file-based gate: propose into `pipeline/pending-approval/`,
      a human moves the record to `pipeline/integration/` to approve, nothing auto-applies
 

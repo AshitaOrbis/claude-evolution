@@ -53,8 +53,8 @@ instead of letting it through unchecked. See [SECURITY.md](SECURITY.md).
 
 **Scope of this repository.** The pipeline, its prompts, the wrapper scripts, the
 hook, and the published corpus all live here and run from a clone. One piece does
-not: the maintainer's chat-bot approval round trip, which talks to a private
-server and is not published. What ships here is the file-based approval gate —
+not: the maintainer's chat-bot approval round trip, which is not included in
+this repository. What ships here is the file-based approval gate —
 proposals wait in `pipeline/pending-approval/` until a human moves them — and
 `BACKLOG.md` marks that split explicitly. Nothing in this tree calls a program it
 does not carry; the publish tooling fails the release if that ever stops being true.
