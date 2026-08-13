@@ -34,7 +34,8 @@ For each item:
 
 **Instead:** When an integration requires env vars, shell config, or system-level changes:
 1. Write the proposed change to `pipeline/pending-approval/` as a `.proposal.md` file
-2. Post to Discord #evolution with the exact change and why
+2. Include the exact change and why, in full, in that file — it is the only thing a
+   reviewer will read
 3. Stop. Do NOT apply. Count it as "status": "pending_approval" in output JSON
 
 ## Approval Gate
@@ -50,9 +51,15 @@ Integrations that touch the following MUST go through the approval gate:
 
 1. Write a proposal file: `pipeline/pending-approval/{item-name}.proposal.md`
 2. Include: what changes, where, why, and the exact content to add/modify
-3. Post to Discord via `discord/webhook-post.sh` with title "APPROVAL NEEDED: {item}" and orange color (15105570)
-4. Do NOT apply the change. Move the integration record to `pipeline/pending-approval/` instead of `pipeline/verification/`
-5. A human will review and either apply manually or trigger a follow-up integration
+3. Do NOT apply the change. Move the integration record to `pipeline/pending-approval/` instead of `pipeline/verification/`
+4. A human reviews the proposal and either applies it manually or moves the record
+   to `pipeline/integration/` to approve it
+
+The gate is the filesystem, not a notification: a proposal sits in
+`pipeline/pending-approval/` until a person moves it. This repository ships no
+approval poller and no chat integration, so nothing here can mark a proposal
+approved on its own. If your deployment adds a notification channel, it is a
+convenience on top of this gate — never a substitute for it.
 
 ## Sandbox Test (for config/env integrations)
 
@@ -68,15 +75,16 @@ Include the full JSON output in the proposal file under `"sandbox_test_results"`
 - If `"passed": false` -> set `"status": "blocked_harmful"`, move to `pipeline/evaluation/completed/` with failure reason. Do NOT propose.
 - If `"passed": true` -> proceed to proposal (write to `pipeline/pending-approval/`)
 
-## Posting Approval Requests
+## What a Proposal Must Contain
 
-When writing a proposal to `pipeline/pending-approval/`, also post to Discord:
+The proposal file is the entire handoff to the human — write it as though nothing
+else will be read:
 
-```bash
-discord/webhook-post-approval.sh "Item Title" "Type: env-var\nChange: export VAR=value\nSandbox: PASSED" pipeline/pending-approval/item-name.proposal.json
-```
-
-This captures the Discord message ID in the proposal file for the approval checker to poll.
+- **Title** and item type (env-var, settings, MCP, hook, …)
+- **Exact change**: the literal lines to add or modify, and the target file
+- **Why**, in two sentences
+- **Sandbox test result**: the full JSON from `scripts/sandbox-test-integration.sh`
+- **Rollback**: how to undo it
 
 ## Safety Rules
 

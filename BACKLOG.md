@@ -20,43 +20,52 @@ Deployed format instruction to all three prompts in `~/.claude/skills/publicatio
 - Codex has native web search independent of MCP (controlled by `search = true` in config.toml)
 - `gemini-3.1-pro-preview` has persistent capacity issues from CLI; omitting the `-m` flag uses the available default model
 
-## Integration Sandbox Testing + Discord Approval Gate (IMPLEMENTED 2026-04-13)
+## Integration Sandbox Testing + Approval Gate (PARTIALLY SHIPPED — see status per part)
 
 **Added**: 2026-04-13
 **Priority**: High
 **Triggered by**: CLAUDE_CODE_SUBPROCESS_ENV_SCRUB incident (12 days of broken permissions)
+**Disposition corrected**: 2026-08-12 (`claude.approval_gate_not_published_04`)
+
+> **Status honesty.** This section previously read IMPLEMENTED / ALL DONE while
+> naming programs that were not in this repository at all. They existed in a
+> private operational checkout, so a reader cloning this repo and enabling
+> autonomous mode believed a safeguard was present that the published bytes
+> could not run. What each part's status actually is, in THIS tree, is stated
+> below, and `publish.sh` now fails the publish if any executable named by the
+> control-plane docs is missing from it.
 
 ### Problem
-The integration step (`INTEGRATE-APPROVED.md`) runs autonomously at 6 AM and can modify system files without human review. On 2026-04-01 it added an env var to `~/.bashrc` that broke all Claude session permissions.
+The integration step (`INTEGRATE-APPROVED.md`) runs autonomously and can modify system files without human review. On 2026-04-01 it added an env var to `~/.bashrc` that broke all Claude session permissions.
 
-### Immediate Fix (DONE)
-- Added system file guard to `INTEGRATE-APPROVED.md` (NEVER modify ~/.bashrc, ~/.profile, etc.)
-- Added approval gate: high-impact integrations write to `pipeline/pending-approval/` and post to Discord
-- Created `pipeline/pending-approval/` directory
+### Immediate Fix (SHIPPED)
+- System file guard in `INTEGRATE-APPROVED.md` (NEVER modify ~/.bashrc, ~/.profile, etc.)
+- Approval gate: high-impact integrations stop and write a proposal to `pipeline/pending-approval/` instead of applying
+- `scripts/evolution-daily.sh` refuses `EVOLUTION_AUTONOMOUS=1` outright when the sandbox test harness is absent
 
-### Remaining Work (ALL DONE 2026-04-13)
-
-**1. Sandbox test harness** (`scripts/sandbox-test-integration.sh`)
-For env var and config integrations, the heartbeat should:
-- Spawn a subprocess with the proposed env var set
-- Run `claude -p --max-turns 2 --dangerously-skip-permissions -- "echo hello"` in that environment
-- Verify the output contains "hello" (not permission errors)
-- Report pass/fail in the proposal file
+**1. Sandbox test harness** (`scripts/sandbox-test-integration.sh`) — **SHIPPED**
+For env var and config integrations:
+- Spawns a subprocess with the proposed env var set
+- Runs `claude -p --max-turns 2 --dangerously-skip-permissions` on a trivial Bash task in that environment
+- Verifies the output contains the expected marker (not permission errors)
+- Reports structured pass/fail JSON for the proposal file
 - This catches the exact failure mode from the April incident
 
-**2. Discord approval flow**
-Currently: webhook-post.sh posts one-way to Discord (no response mechanism).
-Needed: The sentinel bot (Orchestrator) should:
-- Watch for "APPROVAL NEEDED" embeds in #evolution
-- Surface them as actionable items (reaction-based approval?)
-- Or: write approval status to a file that the next heartbeat checks
-- Simplest: user manually moves file from `pipeline/pending-approval/` to `pipeline/integration/` to approve
+**2. Automated approval flow (Discord)** — **NOT IN THIS REPOSITORY**
+A chat-bot round trip (post "APPROVAL NEEDED", read a reaction, apply on approve)
+lives in the maintainer's private operational checkout and is wired to a private
+server; it is not published here and nothing in this tree calls it. The shipped
+approval mechanism is the file-based one, and it is the whole gate here:
+- The integration agent stops and writes `pipeline/pending-approval/{item}.proposal.md`
+- A human reads it and moves the record to `pipeline/integration/` to approve
+- Nothing auto-applies. There is no approval poller in this tree, by design
 
-**3. Evaluation sandbox**
-The evaluation step (`EVALUATE-PENDING.md`) should also test behavioral impact, not just read changelogs:
-- For env vars: test in subprocess (same as integration sandbox)
-- For settings changes: verify against `claude doctor` output
-- Flag any evaluation that claims "zero impact" without empirical test
+**3. Evaluation sandbox** — **SHIPPED (prompt-level)**
+`EVALUATE-PENDING.md` requires an empirical safety test for env var/config items:
+- For env vars: test in a subprocess via the sandbox harness above
+- A failed test forces `integration_complexity = 0`, which auto-rejects the item
+- Explicitly warns against trusting changelog descriptions without testing
+- Note this is a prompt rule enforced by the evaluating agent, not by the wrapper
 
 
 ## Pre-Flight Holdout Safety Gate (DONE 2026-04-15)
@@ -133,23 +142,22 @@ Cleanup round addressing all persistent issues from Round 2.
 - **Fact-checker dataset 9+3 → 15+5** with zero failures using medium reasoning effort + serial execution
 - 16 tests passing (added severity None regression test)
 
-### Implementation Summary (2026-04-13)
+### Implementation Summary (2026-04-13, statuses corrected 2026-08-12)
 
-All three backlog items implemented:
-
-1. **Sandbox test harness** (`scripts/sandbox-test-integration.sh`) - DONE
-   - Tests env vars in isolated subprocess
+1. **Sandbox test harness** (`scripts/sandbox-test-integration.sh`) - SHIPPED HERE
+   - Tests env vars in an isolated subprocess
    - Catches permission override, sandbox failure, and crash
    - Verified: ENV_SCRUB=1 returns `passed: false`, NO_FLICKER=1 returns `passed: true`
 
-2. **Discord approval flow** - DONE
-   - `discord/webhook-post-approval.sh` posts orange embeds with approval instructions, captures message ID
-   - `scripts/check-pending-approvals.sh` polls #evolution-chat for approve/reject keywords
-   - Wired into heartbeat as Step 0.9 (before evaluation)
-   - Re-notifies after 3 days of no response
+2. **Automated chat approval flow** - NOT IN THIS REPOSITORY
+   - The bot round trip (post an approval request, read the response, apply on approve)
+     runs against a private chat server from a private operational checkout
+   - It is not published here and no file in this tree invokes it
+   - What ships here is the file-based gate: propose into `pipeline/pending-approval/`,
+     a human moves the record to `pipeline/integration/` to approve, nothing auto-applies
 
-3. **Evaluation sandbox** - DONE
-   - `EVALUATE-PENDING.md` now requires empirical safety test for env var/config items
+3. **Evaluation sandbox** - SHIPPED HERE (prompt-level)
+   - `EVALUATE-PENDING.md` requires an empirical safety test for env var/config items
    - Failed test forces `integration_complexity = 0`, auto-rejecting the item
    - Explicitly warns against trusting changelog descriptions without testing
 
@@ -191,18 +199,19 @@ guidance in SECURITY.md rather than trusting the prompt-level rules.
 
 ---
 
-## Approval gate: two divergent copies of `check-pending-approvals.sh`
+## Approval gate: two divergent copies of the approval poller
 
-Noted 2026-08-02 during the bq-020 executor truth-ledger work (out of scope
-there, deliberately not fixed).
+Noted 2026-08-02 during the executor truth-ledger work (out of scope there,
+deliberately not fixed). Rewritten 2026-08-12 so it stops pointing readers at
+files this repository does not carry (`claude.approval_gate_not_published_04`).
 
-`claude-evolution/scripts/check-pending-approvals.sh` (427 lines) and
-`claude-evolution-ops/scripts/check-pending-approvals.sh` (392 lines) have
-diverged by 699 diff lines. The copy that actually runs is the **ops** one —
-`evolution-daily-heartbeat.sh:35` invokes it from the 4 AM cron. The copy
-sitting beside the executor is therefore not the gate the executor's proposals
-flow through, which makes reasoning about approval authority from this repo
-alone unsound.
+The chat-based approval poller is one of the components that is **not published
+here** (see the sandbox/approval section above). Two copies of it exist in the
+maintainer's private checkouts and have diverged by ~700 diff lines; the one that
+actually runs on the schedule is not the one that sits beside the executor, so
+approval authority cannot be reasoned about from either copy alone.
 
-Do NOT merge the repos to fix this. Decide which copy is canonical, make the
-other a thin caller or delete it, and record the decision here.
+Consequence for a reader of this repository: nothing here polls for approvals, and
+the file-based gate above is the whole mechanism. Consequence privately: decide
+which copy is canonical and make the other a thin caller — do not merge the
+checkouts. Tracked in the private backlog, not here, because neither file ships.

@@ -25,36 +25,38 @@
 #   - exit 2  -> BLOCK the tool call; stderr is fed back to the agent as the
 #                reason. (We also emit the structured JSON deny form on stdout
 #                for forward-compatibility.)
+#   - ANY OTHER exit code is a *non-blocking* error in Claude Code: the tool
+#     runs anyway. So this hook must never merely crash — see FAIL CLOSED.
+#
+# FAIL CLOSED (claude.write_hook_parse_failopen_01, 2026-08-12)
+#   Every path that ends without a decision is a decision to allow. This hook
+#   therefore:
+#     - installs an EXIT trap that converts any unexpected non-zero exit into a
+#       deny (exit 2) before Claude Code can read it as "non-blocking error";
+#     - uses ONLY bash builtins until its two required dependencies (jq,
+#       realpath) are confirmed present, so a stripped PATH denies rather than
+#       dying at line 1 with 127;
+#     - denies on unreadable/absent/non-object payloads, on a tool_name this
+#       hook does not recognise, and on a matched event carrying no target path.
+#   REQUIRED DEPENDENCIES: `jq` and GNU `realpath` (coreutils, `-m` support).
+#   Both are declared in README.md / SECURITY.md. Missing either one is a deny.
 #
 # LIMITATION (read SECURITY.md)
 #   A path denylist is strictly weaker than removing the Write tool. It cannot
-#   catch every indirect write: e.g. a symlink inside the repo that points at a
-#   sensitive target (we resolve symlinks on existing paths, but a write that
-#   *creates* a new symlink, or a TOCTOU swap, can still slip an indirect write
-#   through), or a write funneled through an allowed tool we don't gate (Bash).
+#   catch every indirect write: e.g. a TOCTOU swap between this check and the
+#   write itself, or a write funneled through an allowed tool we don't gate
+#   (Bash). Symlinks ARE handled: a symlinked leaf is denied outright and every
+#   existing intermediate component is resolved before the containment test.
 #   The robust fix remains: strip Write from the web-fetching phases and have
 #   the wrapper persist agent stdout. That is deferred (BACKLOG.md / SECURITY.md).
 
 set -euo pipefail
 
-# ---------------------------------------------------------------------------
-# The project root this hook protects. Writes must stay within this tree.
-# Resolved portably from the hook's own location (.claude/hooks/ -> project
-# root), so the repo can be cloned anywhere with no hardcoded paths. Prefer
-# $CLAUDE_PROJECT_DIR (exported by Claude Code) when present, since it is the
-# authoritative project root for the run.
-# ---------------------------------------------------------------------------
-HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [[ -n "${CLAUDE_PROJECT_DIR:-}" && -d "$CLAUDE_PROJECT_DIR" ]]; then
-  PROJECT_ROOT="$(cd "$CLAUDE_PROJECT_DIR" && pwd)"
-else
-  PROJECT_ROOT="$(cd "$HOOK_DIR/../.." && pwd)"
-fi
-
 deny() {
   # $1 = human-readable reason
   local reason="$1"
-  # Structured deny (forward-compatible PreToolUse stdout protocol).
+  # Structured deny (forward-compatible PreToolUse stdout protocol). Best-effort:
+  # the dependable channel is stderr + exit 2 below, which needs no dependency.
   if command -v jq >/dev/null 2>&1; then
     jq -cn --arg r "$reason" '{
       hookSpecificOutput: {
@@ -69,39 +71,108 @@ deny() {
   exit 2
 }
 
+# Any exit that is neither an explicit allow (0) nor an explicit deny (2) is an
+# unexpected failure — an unset variable, a dead dependency, a syntax error in a
+# future edit. Claude Code would treat it as a non-blocking error and run the
+# tool, so convert it into a block here.
+hook_fail_closed() {
+  local rc=$?
+  if [[ $rc -ne 0 && $rc -ne 2 ]]; then
+    echo "BLOCKED by block-sensitive-writes.sh: hook aborted (exit $rc) -- failing closed" >&2
+    exit 2
+  fi
+}
+trap hook_fail_closed EXIT
+# A signal death would otherwise bypass the EXIT trap and surface as a non-2 exit,
+# i.e. an allow. SIGKILL cannot be caught by anything (see SECURITY.md, "residual
+# fail-open surface"), but a catchable termination denies.
+trap 'deny "hook terminated before it could check the write target"' TERM INT HUP
+
 # ---------------------------------------------------------------------------
-# Read the hook payload from stdin and extract the tool + target path.
+# The project root this hook protects. Writes must stay within this tree.
+# Resolved portably from the hook's own location (.claude/hooks/ -> project
+# root), so the repo can be cloned anywhere with no hardcoded paths. Prefer
+# $CLAUDE_PROJECT_DIR (exported by Claude Code) when present, since it is the
+# authoritative project root for the run.
+#
+# `cd` and `pwd` are bash builtins: this runs before the dependency check on
+# purpose, so a stripped PATH cannot crash the hook into a fail-open exit.
 # ---------------------------------------------------------------------------
-PAYLOAD="$(cat 2>/dev/null || echo '{}')"
+HOOK_SELF="${BASH_SOURCE[0]}"
+HOOK_PARENT="${HOOK_SELF%/*}"
+[[ "$HOOK_PARENT" == "$HOOK_SELF" ]] && HOOK_PARENT="."
+HOOK_DIR="$(cd -- "$HOOK_PARENT" 2>/dev/null && pwd -P)" \
+  || deny "cannot resolve the hook's own directory -- refusing to guess the project root"
 
-TOOL_NAME="$(printf '%s' "$PAYLOAD" | jq -r '.tool_name // empty' 2>/dev/null || true)"
-
-# Extract the target path. Write/Edit/MultiEdit use .tool_input.file_path;
-# NotebookEdit uses .tool_input.notebook_path. Fall back across both shapes.
-RAW_PATH="$(printf '%s' "$PAYLOAD" | jq -r '
-  .tool_input.file_path
-  // .tool_input.notebook_path
-  // empty
-' 2>/dev/null || true)"
-
-# If there is no path to inspect (e.g. a tool with no file target slipped past
-# the matcher), allow it -- this hook only governs file writes.
-if [[ -z "$RAW_PATH" ]]; then
-  exit 0
+if [[ -n "${CLAUDE_PROJECT_DIR:-}" && -d "${CLAUDE_PROJECT_DIR}" ]]; then
+  PROJECT_ROOT="$(cd -- "$CLAUDE_PROJECT_DIR" 2>/dev/null && pwd -P)" \
+    || deny "CLAUDE_PROJECT_DIR is set but unreadable ($CLAUDE_PROJECT_DIR)"
+else
+  PROJECT_ROOT="$(cd -- "$HOOK_DIR/../.." 2>/dev/null && pwd -P)" \
+    || deny "cannot resolve the project root from the hook location ($HOOK_DIR)"
 fi
 
 # ---------------------------------------------------------------------------
+# Required dependencies. Both are used to make the ALLOW decision, so neither
+# may be optional: a missing binary must block, never wave the write through.
+# ---------------------------------------------------------------------------
+command -v jq >/dev/null 2>&1 \
+  || deny "required dependency 'jq' is not installed -- cannot parse the hook payload, so no write can be approved (install jq)"
+command -v realpath >/dev/null 2>&1 \
+  || deny "required dependency 'realpath' (GNU coreutils) is not installed -- cannot canonicalize the target path (install coreutils)"
+realpath -m -- / >/dev/null 2>&1 \
+  || deny "'realpath' does not support -m (GNU coreutils required) -- cannot canonicalize a not-yet-existing target path"
+
+# HOME is load-bearing for every denylist rule below.
+[[ -n "${HOME:-}" ]] || deny "HOME is unset -- cannot evaluate the sensitive-path denylist"
+
+# ---------------------------------------------------------------------------
+# Read the hook payload from stdin and extract the tool + target path.
+# Read with a builtin (no `cat`): stdin has no NUL, so -d '' consumes it whole.
+#
+# The -t bound matters for fail-closed: an unbounded read on a stalled stdin would
+# sit until the harness's own hook timeout killed us, and a killed hook is an
+# ALLOW. Timing out here instead produces a deny.
+# ---------------------------------------------------------------------------
+PAYLOAD=""
+read_rc=0
+IFS= read -r -t 5 -d '' PAYLOAD || read_rc=$?
+# rc 1: EOF reached without the (never-present) NUL delimiter — the normal path,
+# PAYLOAD holds everything. rc >128: the timeout elapsed and we have nothing to check.
+[[ $read_rc -le 128 ]] \
+  || deny "timed out reading the hook payload from stdin -- refusing a write whose target was never delivered"
+
+[[ -n "$PAYLOAD" ]] \
+  || deny "empty hook payload on stdin -- cannot determine the write target"
+printf '%s' "$PAYLOAD" | jq -e 'type == "object"' >/dev/null 2>&1 \
+  || deny "hook payload is not a JSON object -- cannot determine the write target"
+
+TOOL_NAME="$(printf '%s' "$PAYLOAD" | jq -er '.tool_name | select(type == "string" and length > 0)' 2>/dev/null)" || TOOL_NAME=""
+
+# Which field carries the target path, per tool. NotebookEdit accepts either
+# shape so a payload-key rename upstream degrades to "checked", not to "allowed".
+# An unrecognized tool that the matcher routed here is denied: this hook cannot
+# vouch for a payload shape it does not know.
+case "$TOOL_NAME" in
+  Write|Edit|MultiEdit) PATH_FILTER='.tool_input.file_path'; PATH_FIELD="file_path" ;;
+  NotebookEdit)         PATH_FILTER='.tool_input.notebook_path // .tool_input.file_path'; PATH_FIELD="notebook_path/file_path" ;;
+  "")  deny "hook payload carries no tool_name -- refusing an unidentified write" ;;
+  *)   deny "unrecognized tool '$TOOL_NAME' routed to the write-confinement hook -- its payload shape is unknown, so its target cannot be checked" ;;
+esac
+
+RAW_PATH="$(printf '%s' "$PAYLOAD" | jq -er "($PATH_FILTER) | select(type == \"string\" and length > 0)" 2>/dev/null)" || RAW_PATH=""
+[[ -n "$RAW_PATH" ]] \
+  || deny "$TOOL_NAME payload has no usable .tool_input.$PATH_FIELD -- refusing a write whose target cannot be inspected"
+
+# ---------------------------------------------------------------------------
 # Resolve the path: expand ~, make relative paths absolute against cwd, and
-# canonicalize. We must NOT require the target to exist (writes create files),
-# so resolve the deepest existing ancestor and re-append the missing tail. This
-# also resolves symlinks on the existing portion (a symlinked *parent dir* that
-# points outside the repo will be caught).
+# canonicalize with realpath -m (resolves symlinks and .. on the existing
+# portion; does not require the target to exist, since writes create files).
 # ---------------------------------------------------------------------------
 
-# Determine the cwd the tool will run in (hook payload carries it; default to
-# the project root, which is where the evolution scripts cd before running).
-TOOL_CWD="$(printf '%s' "$PAYLOAD" | jq -r '.cwd // empty' 2>/dev/null || true)"
-[[ -z "$TOOL_CWD" ]] && TOOL_CWD="$PROJECT_ROOT"
+# The cwd the tool will run in (hook payload carries it). A RELATIVE target with
+# no cwd is unresolvable, so it is denied rather than guessed at.
+TOOL_CWD="$(printf '%s' "$PAYLOAD" | jq -er '.cwd | select(type == "string" and length > 0)' 2>/dev/null)" || TOOL_CWD=""
 
 # Expand a leading ~ (and ~/...) to $HOME.
 case "$RAW_PATH" in
@@ -112,41 +183,32 @@ esac
 # Make relative paths absolute against the tool's cwd.
 case "$RAW_PATH" in
   /*) ABS_PATH="$RAW_PATH" ;;
-  *)  ABS_PATH="$TOOL_CWD/$RAW_PATH" ;;
+  *)
+    [[ -n "$TOOL_CWD" ]] \
+      || deny "relative target '$RAW_PATH' and no cwd in the hook payload -- refusing to guess where it lands"
+    ABS_PATH="$TOOL_CWD/$RAW_PATH"
+    ;;
 esac
 
-# Canonicalize: resolve symlinks/.. on the deepest existing ancestor, then
-# re-append the non-existent tail. Avoids failing on not-yet-created files.
-resolve_path() {
-  local p="$1" existing tail=""
-  existing="$p"
-  while [[ ! -e "$existing" && "$existing" != "/" && -n "$existing" ]]; do
-    tail="/$(basename "$existing")$tail"
-    existing="$(dirname "$existing")"
-  done
-  local resolved
-  if [[ -e "$existing" ]]; then
-    resolved="$(cd "$existing" 2>/dev/null && pwd -P)" || resolved="$existing"
-  else
-    resolved="$existing"
-  fi
-  # Strip a trailing slash from resolved root to avoid '//'.
-  [[ "$resolved" == "/" ]] && resolved=""
-  printf '%s%s' "$resolved" "$tail"
-}
+# A symlinked LEAF is denied outright (claude.write_hook_symlink_file_bypass_02).
+# Writing through a link is never required by this pipeline, and allowing it
+# would make containment depend on where the link happens to point right now.
+if [[ -L "$ABS_PATH" ]]; then
+  deny "target is a symlink ($ABS_PATH) -- writes through links are refused; write to the real path inside the repo instead"
+fi
 
-CANON_PATH="$(resolve_path "$ABS_PATH")"
-
-# Canonicalize HOME and PROJECT_ROOT the same way for reliable prefix tests.
-CANON_HOME="$(cd "$HOME" 2>/dev/null && pwd -P || echo "$HOME")"
-CANON_PROJECT="$(cd "$PROJECT_ROOT" 2>/dev/null && pwd -P || echo "$PROJECT_ROOT")"
+CANON_PATH="$(realpath -m -- "$ABS_PATH")" \
+  || deny "could not canonicalize the target path ($ABS_PATH)"
+CANON_HOME="$(realpath -m -- "$HOME")" || deny "could not canonicalize HOME ($HOME)"
+CANON_PROJECT="$(realpath -m -- "$PROJECT_ROOT")" \
+  || deny "could not canonicalize the project root ($PROJECT_ROOT)"
 
 # ---------------------------------------------------------------------------
 # Denylist checks (run BEFORE the in-tree allow, so a sensitive path that
 # happens to live inside the repo is still blocked).
 # ---------------------------------------------------------------------------
 
-base="$(basename "$CANON_PATH")"
+base="${CANON_PATH##*/}"
 
 # 1. Anything under ~/.claude, or the ~/.claude.json file itself.
 if [[ "$CANON_PATH" == "$CANON_HOME/.claude" || "$CANON_PATH" == "$CANON_HOME/.claude/"* ]]; then

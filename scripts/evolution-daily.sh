@@ -65,13 +65,63 @@ if ! flock -n 9; then
     exit 0
 fi
 
+# Empty MCP set for every headless phase below. Written per run into the private
+# runtime dir so a clone needs no file from outside its own checkout: every
+# `claude -p` call here pins `--strict-mcp-config --mcp-config "$MCP_EMPTY"`,
+# which suppresses whatever ambient .mcp.json the parent directory carries.
+MCP_EMPTY="$RUNTIME_DIR/mcp-empty.json"
+printf '{"mcpServers":{}}\n' > "$MCP_EMPTY"
+
 cd "$EVOLUTION_DIR"
+
+# ---------------------------------------------------------------------------
+# Preflight: refuse to evaluate without the deterministic controls this run
+# claims to apply (claude.owner_interest_gate_absent_03).
+#
+# Both the pre-screen and the post-evaluation backstop call the owner-interest
+# lens. When the lens or its config was absent, both calls soft-failed and the
+# run still ended "Daily heartbeat completed" — a heartbeat reporting health for
+# a run whose only deterministic control never executed, while rejects closed
+# terminally. Missing or unreadable now refuses the run BEFORE evaluation.
+# ---------------------------------------------------------------------------
+OWNER_LENS="lib/owner_interest_lens.py"
+OWNER_LENS_CONFIG="config/owner-interests.yaml"
+preflight_missing=()
+[[ -r "$OWNER_LENS" ]]        || preflight_missing+=("$OWNER_LENS")
+[[ -r "$OWNER_LENS_CONFIG" ]] || preflight_missing+=("$OWNER_LENS_CONFIG")
+command -v python3 &>/dev/null || preflight_missing+=("python3 (interpreter)")
+if [[ ${#preflight_missing[@]} -gt 0 ]]; then
+    log "ERROR: the owner-interest gate is unavailable — missing or unreadable: ${preflight_missing[*]}"
+    log "       Refusing the WHOLE run, discovery included — not just the evaluation phase."
+    log "       Evaluation would close rejects unscreened, which is the exact failure this gate"
+    log "       exists to prevent (see EVALUATE-PENDING.md, 'Owner-Interest Override'); running"
+    log "       discovery first and aborting after it would spend a full model run to reach the"
+    log "       same refusal. No pipeline state was touched (only this log and the run lock)."
+    log "       Restore the file(s), or remove the gate from this wrapper AND from EVALUATE-PENDING.md."
+    exit 1
+fi
 
 # Tool allowlists.
 # Review-gated default: agents get no Bash, and integration is skipped.
 # EVOLUTION_AUTONOMOUS=1 restores fully autonomous behavior (see SECURITY.md).
 AUTONOMOUS="${EVOLUTION_AUTONOMOUS:-0}"
 if [[ "$AUTONOMOUS" == "1" ]]; then
+    # Autonomous mode is the only mode that lets an agent write to your live Claude
+    # Code config, and the empirical safety test is what stands between a changelog
+    # claim and a 12-day permission outage. Refuse the mode outright when that
+    # component is absent rather than letting the integration prompt call a program
+    # that is not there (claude.approval_gate_not_published_04).
+    autonomous_missing=()
+    [[ -r scripts/sandbox-test-integration.sh ]] || autonomous_missing+=("scripts/sandbox-test-integration.sh")
+    if [[ ${#autonomous_missing[@]} -gt 0 ]]; then
+        log "ERROR: EVOLUTION_AUTONOMOUS=1 but the integration safety components are unavailable: ${autonomous_missing[*]}"
+        log "       Refusing to run autonomously. INTEGRATE-APPROVED.md requires the sandbox test before"
+        log "       any env-var or config change is proposed; without it the safeguard is a claim, not a control."
+        log "       Re-run in the default review-gated mode (unset EVOLUTION_AUTONOMOUS), or restore the file."
+        exit 1
+    fi
+    # Proposals wait here for a human; create it rather than failing on missing output state.
+    mkdir -p pipeline/pending-approval
     log "WARNING: EVOLUTION_AUTONOMOUS=1 -- agents run with Bash and integration writes to your Claude Code config. See SECURITY.md."
     DISCOVERY_TOOLS=(Read Write Bash Glob Grep WebFetch WebSearch)
     EVAL_TOOLS=(Read Write Bash Glob Grep WebFetch WebSearch)
@@ -83,6 +133,7 @@ fi
 # Phase 1: Discovery
 log "Phase 1: Running capability discovery..."
 claude -p \
+    --strict-mcp-config --mcp-config "$MCP_EMPTY" \
     --model "${DISCOVERY_MODEL:-sonnet}" \
     --max-turns 30 \
     --allowed-tools "${DISCOVERY_TOOLS[@]}" \
@@ -95,15 +146,19 @@ claude -p \
 # reaches it; the sweep after Phase 2 is what actually enforces the outcome.
 mapfile -t PENDING_FILES < <(find pipeline/evaluation/pending -maxdepth 1 -type f \
     \( -name '*.md' -o -name '*.json' \) 2>/dev/null)
+GATE_FAILED=0
 if [[ ${#PENDING_FILES[@]} -gt 0 ]]; then
     log "Pre-screening ${#PENDING_FILES[@]} pending item(s) through the owner-interest lens..."
-    python3 lib/owner_interest_lens.py stamp --apply "${PENDING_FILES[@]}" >> "$LOG_FILE" 2>&1 \
-        || log "WARNING: owner-interest pre-screen failed; continuing."
+    if ! python3 "$OWNER_LENS" stamp --apply "${PENDING_FILES[@]}" >> "$LOG_FILE" 2>&1; then
+        log "ERROR: owner-interest pre-screen FAILED — the ${#PENDING_FILES[@]} pending item(s) reach the evaluator UNSCREENED."
+        GATE_FAILED=1
+    fi
 fi
 
 log "Phase 2: Running evaluations..."
 EVAL_RC=0
 EVAL_OUTPUT=$(claude -p \
+    --strict-mcp-config --mcp-config "$MCP_EMPTY" \
     --model "${EVAL_MODEL:-sonnet}" \
     --max-turns 30 \
     --allowed-tools "${EVAL_TOOLS[@]}" \
@@ -139,16 +194,22 @@ log "Evaluated: $EVAL_COUNT items"
 # row 145 — three owner-shared repos were closed as "irrelevant to Claude Code" and
 # never resurfaced. Idempotent, no LLM, scoped to the last week of records.
 log "Running owner-interest gate over recent rejects..."
-GATE_OUTPUT=$(python3 lib/owner_interest_lens.py sweep --apply --since-days 7 2>&1) \
-    || log "WARNING: owner-interest gate failed — rejects from this run are UNSCREENED."
+GATE_RC=0
+GATE_OUTPUT=$(python3 "$OWNER_LENS" sweep --apply --since-days 7 2>&1) || GATE_RC=$?
 echo "$GATE_OUTPUT" >> "$LOG_FILE"
-log "Owner-interest gate: ${GATE_OUTPUT%%$'\n'*}"
+if [[ $GATE_RC -ne 0 ]]; then
+    log "ERROR: owner-interest gate FAILED (exit $GATE_RC) — rejects from this run are UNSCREENED."
+    GATE_FAILED=1
+else
+    log "Owner-interest gate: ${GATE_OUTPUT%%$'\n'*}"
+fi
 
 # Phase 3: Integrate approved items (autonomous mode only)
 if [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]]; then
     log "Phase 3: Running integrations..."
     INTEG_RC=0
     INTEG_OUTPUT=$(claude -p \
+        --strict-mcp-config --mcp-config "$MCP_EMPTY" \
         --model "${EVAL_MODEL:-sonnet}" \
         --max-turns 35 \
         --allowed-tools Read Write Edit Bash Glob Grep \
@@ -169,6 +230,7 @@ fi
 # but a failure is logged rather than silently discarded.
 log "Phase 4: Generating helpers..."
 claude -p \
+    --strict-mcp-config --mcp-config "$MCP_EMPTY" \
     --model haiku \
     --max-turns 20 \
     --allowed-tools Read Write Glob Grep \
@@ -190,6 +252,14 @@ if [[ -n "${DISCORD_WEBHOOK_URL:-}" ]]; then
             '{embeds: [{title: $title, description: $desc, color: 3447003}]}')" \
             "$DISCORD_WEBHOOK_URL" || log "WARNING: Discord webhook failed (non-fatal)"
     fi
+fi
+
+# A heartbeat that says "completed" after its deterministic control was bypassed is
+# the defect this gate was built to catch, one level up. Report what actually ran.
+if [[ $GATE_FAILED -ne 0 ]]; then
+    log "Daily heartbeat FAILED: the owner-interest gate did not run to completion; this run's rejects are UNSCREENED."
+    log "         Re-run the gate manually once fixed: python3 $OWNER_LENS sweep --apply --since-days 7"
+    exit 1
 fi
 
 log "Daily heartbeat completed"

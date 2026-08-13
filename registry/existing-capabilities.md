@@ -3034,3 +3034,13 @@ a pass), static config review, Litmus-style behavioral evidence, and optionally 
 Ocarina playbook. Score: 74.5/100.
 
 **Redundancy triggers**: "capframe", "capframe leaderboard", "MCP risk signal", "MCP server security template", "authority hygiene", "MCP evaluation checklist", "third-party MCP vetting"
+
+### Procedure-versus-Capability Ceiling Debugging
+
+Evidence-first debugging guidance that separates repairable procedure gaps from
+probable model capability ceilings. It requires stable success criteria, passing
+tool and environment checks, materially different attempts, independent evidence,
+and explicit escalation records before routing to a stronger model or human review.
+Skill: `skills/systematic-debugging/SKILL.md`. Score: 72/100.
+
+**Redundancy triggers**: "procedure gap", "capability ceiling", "systematic debugging", "debug escalation boundary", "stronger model escalation", "repeated procedural churn", "harness capability limit"

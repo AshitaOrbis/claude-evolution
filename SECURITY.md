@@ -67,6 +67,12 @@ repository tree.
   this project (see `scripts/evolution-daily.sh`), so the hook is wired at the
   **project** level, where those runs load it automatically. It applies to
   every `claude -p` invocation in this repo, not just the web-fetching phases.
+- **Required dependencies: `jq` and GNU `realpath` (coreutils).** The hook
+  parses the payload with one and canonicalizes the target with the other, so
+  neither is optional: if either is missing the hook denies the write rather
+  than allowing it unchecked. Install both before enabling any unattended run.
+- Regression suite: `tests/hooks/test-block-sensitive-writes.sh` (run it after
+  any edit to the hook — it covers the fail-closed paths below).
 
 The hook denies writes to:
 
@@ -76,16 +82,48 @@ The hook denies writes to:
 - `~/.ssh` and `~/.config`
 - any absolute or `../`-escaping path **outside** the project tree (writes are
   confined to the repo). It expands `~`, resolves relative paths against the
-  run's cwd, and canonicalizes symlinks on the existing portion of the path.
+  run's cwd, and canonicalizes the target with `realpath -m`, which resolves
+  symlinks on every existing path component.
+- **any target that is itself a symlink**, refused outright. An in-repo link
+  pointing at `~/.claude.json` would otherwise pass the repository-prefix test
+  while the write followed the link outside it.
+
+It also **fails closed** rather than passing a write it could not check. Every
+one of these denies:
+
+- `jq` or `realpath` missing, or `realpath` without `-m` support
+- an empty, unparseable, or non-object payload on stdin
+- a `tool_name` this hook does not recognise (its payload shape is unknown, so
+  its target cannot be located)
+- a matched event whose target path field is absent, empty, or not a string
+- a relative target with no `cwd` in the payload
+- an unbounded stall on stdin: the payload read has a 5-second bound, and hitting
+  it denies rather than waiting for the harness to kill the hook
+- any unexpected abort inside the hook itself: an EXIT trap converts a non-zero,
+  non-deny exit into a deny, because Claude Code treats every exit code other
+  than 2 as a *non-blocking* error and runs the tool anyway; a catchable
+  termination signal (TERM/INT/HUP) denies through the same route
+
+**Residual fail-open surface, outside the hook's control.** The hook is wired with
+a `timeout` in `.claude/settings.json` (currently 20s, comfortably above the
+5s stdin bound plus two dependency probes). If the harness ever kills the hook
+with an uncatchable signal, no trap can run and the resulting exit code is not 2 —
+which the documented contract treats as a non-blocking error, i.e. the write
+proceeds. Nothing inside a hook script can close that; it is named here rather
+than papered over. Do not lower that timeout.
+
+**Do not clone this repository inside `~/.claude`, `~/.config`, or `~/.ssh`.** The
+denylist above is evaluated before the in-tree allow — deliberately, so a sensitive
+path that happens to sit inside the repo is still blocked — so a checkout located
+under one of those directories would have *every* write denied.
 
 **This is a mitigation, not a sandbox.** A path denylist is strictly weaker
 than not granting `Write` at all, and it cannot catch every indirect write:
-e.g. a write that *creates* a new symlink pointing outside the repo (then a
-later write through it), a TOCTOU swap of a path between the check and the
-write, or any write funneled through a tool the hook does not gate (notably
-`Bash` in autonomous mode). The robust fix — strip `Write` from the
-web-fetching phases and have the wrapper persist agent stdout to files — is
-the stronger long-term option and remains **deferred** (see `BACKLOG.md`).
+e.g. a TOCTOU swap of a path between the check and the write, or any write
+funneled through a tool the hook does not gate (notably `Bash` in autonomous
+mode). The robust fix — strip `Write` from the web-fetching phases and have
+the wrapper persist agent stdout to files — is the stronger long-term option
+and remains **deferred** (see `BACKLOG.md`).
 
 ### Autonomous mode (`EVOLUTION_AUTONOMOUS=1`)
 

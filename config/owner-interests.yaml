@@ -1,0 +1,325 @@
+# Owner-interest lens — domain config
+#
+# WHY THIS EXISTS
+# ---------------
+# The evaluation rubric in EVALUATE-PENDING.md scores every discovery against one
+# question: "does this improve the Claude Code evolution system?" That is the right
+# question for this repo and the wrong question for the workspace. On 2026-03-08 and
+# 2026-04-08 the pipeline filed three items the owner had personally shared in
+# Discord #general and then closed all three as "irrelevant to Claude Code":
+#
+#   QwenLM/Qwen3-TTS          10/100  REJECTED  ("no agent development relevance")
+#   moeru-ai/airi             15/100  REJECTED  ("VTuber ... irrelevant to Claude Code")
+#   Open-LLM-VTuber           27.5    REJECTED  ("No reconsideration trigger")
+#
+# By 2026-07 the workspace had a radio station whose product is synthesized voice
+# (Qwen3-TTS), and AIRI had reached 44,887 stars as the flagship of the avatar space.
+# The scores were correct. The closure was not. Rejection was terminal and
+# single-domain: no cross-project routing, no re-surfacing when a relevant project
+# appeared later.
+#
+# This config is the second question the pipeline now asks before closing anything:
+# "does this land in a domain the owner is working in, even if Claude Code has no use
+# for it?" A match does not approve the item and does not change its score. It routes
+# the item to pipeline/evaluation/review/ — an open state — instead of closing it.
+#
+# TUNING PHILOSOPHY
+# -----------------
+# Bias to recall. A false positive costs one glance at a review queue. A false
+# negative cost five months of a 44k-star project sitting closed in a folder.
+#
+# SCORING
+# -------
+#   strong_signals  weight 2 — naming this term is on its own enough to route
+#   signals         weight 1 — needs corroboration from a second term
+#   threshold       default 2 (see default_threshold) — domain matches at score >= threshold
+#   exclude         if any term matches, the domain is vetoed regardless of score
+#
+# Terms match case-insensitively on word boundaries, and separators are elastic:
+# "text-to-speech" also matches "text to speech" and "texttospeech". Each distinct
+# term counts once no matter how often it appears.
+#
+# WHAT GETS SCREENED
+# ------------------
+# The record's title, description, URL, category AND the evaluator's own rejection
+# reasoning. The reasoning is the highest-signal field in practice: a rejection that
+# says "VTuber character animation is out-of-domain for coding workflows" has named
+# the domain in the act of dismissing it.
+#
+# ADDING A DOMAIN: append an entry here. No code change. Run
+#   python3 -m pytest tests/test_owner_interest_lens.py
+# to confirm the config still validates.
+
+version: 1
+default_threshold: 2
+
+domains:
+  - id: avatar-vtuber
+    label: Avatar / VTuber / embodied character
+    why: >-
+      The radio project's roadmap ends in four animated hosts, and the owner has shared
+      avatar repos in Discord three times. This is the domain the 2026-03/04 rejections
+      buried.
+    serves:
+      - tools/vtuber-radio
+    strong_signals:
+      - vtuber
+      - v-tuber
+      - avatar
+      - live2d
+      - vrm
+      - vroid
+      - virtual character
+      - virtual human
+      - digital human
+      - virtual youtuber
+      - blendshape
+      - lip sync
+      - viseme
+      - ai companion
+      - ai waifu
+    signals:
+      - 3d model
+      - rigging
+      - mocap
+      - motion capture
+      - facial animation
+      - character animation
+      - idle animation
+      - expression control
+      - mmd
+      - glb
+      - gltf
+      - three.js
+      - babylon.js
+    exclude:
+      - avatar upload           # the workspace's own profile-picture feature docs
+      - gravatar
+
+  - id: speech-voice
+    label: Speech synthesis / recognition (TTS-STT)
+    why: >-
+      The radio station's entire product is synthesized host voice, and every report
+      this workspace ships has an audio version. Qwen3-TTS was closed as "no agent
+      development relevance" four months before the station existed.
+    serves:
+      - tools/vtuber-radio
+      - tools/article-podcast
+    strong_signals:
+      - tts
+      - stt
+      - text to speech
+      - speech to text
+      - speech synthesis
+      - voice synthesis
+      - voice cloning
+      - voice conversion
+      - speech recognition
+      - asr
+      - edge-tts
+      - elevenlabs
+      - xtts
+      - f5-tts
+      - piper tts
+      - rvc
+      - whisper
+      - faster-whisper
+      - vocoder
+      - neural codec
+    signals:
+      - voice
+      - speech
+      - transcription
+      - diarization
+      - prosody
+      - phoneme
+      - audio model
+      - speech model
+      - wav2vec
+    exclude:
+      - whisper mode            # unrelated CLI/UI feature naming
+
+  - id: radio-audio-streaming
+    label: Radio / audio streaming infrastructure
+    why: >-
+      tools/vtuber-radio runs a live station. Anything about streaming audio, playlist
+      scheduling, or now-playing metadata is directly usable there.
+    serves:
+      - tools/vtuber-radio
+    strong_signals:
+      - icecast
+      - liquidsoap
+      - shoutcast
+      - internet radio
+      - audio streaming
+      - live stream audio
+      - hls audio
+      - now playing metadata
+    signals:
+      - playlist
+      - scheduling
+      - broadcast
+      - streaming
+      - ffmpeg
+      - audio pipeline
+      - loudness
+      - crossfade
+
+  - id: uai-education
+    label: Understanding AI / explanation and education
+    why: >-
+      The Understanding AI project ships a wiki and a compendium that explain AI to
+      non-specialists. Explainer craft, interactive teaching, and visualization
+      technique are the raw material for it.
+    serves:
+      - research/understanding-ai-compendium
+    strong_signals:
+      - explainer
+      - interactive explanation
+      - explorable explanation
+      - distill.pub
+      - pedagogy
+      - curriculum
+      - textbook
+      - visual explanation
+      - learning path
+    signals:
+      - educational
+      - teaching
+      - tutorial series
+      - beginner guide
+      - intuition building
+      - mental model
+      - visualization
+      - interactive article
+    exclude:
+      - api tutorial
+
+  - id: agent-harness
+    label: Agent harnesses and runtimes (non-Claude-Code)
+    why: >-
+      The rubric scores whether something plugs into Claude Code. A competing or
+      adjacent harness usually does not — and is exactly the thing worth reading
+      before building the next orchestration layer here.
+    serves:
+      - orchestration
+      - session-management
+    # Threshold 3, not 2. "agent framework" and "multi-agent" are ambient vocabulary
+    # in this repo — they appear in the rejection reasoning of items that have nothing
+    # to do with agent harnesses ("react-bits is not an agent framework"). Terms that
+    # a rejection can use in passing are weak here; only distinctive ones are decisive.
+    threshold: 3
+    strong_signals:
+      - agent harness
+      - agentic loop
+      - agent runtime
+      - agent sandbox
+      - agent scaffold
+      - computer use
+      - autonomous agent
+      - swarm
+    signals:
+      - agent framework
+      - multi-agent
+      - agent orchestration
+      - tool calling loop
+      - task decomposition
+      - planner executor
+      - agent memory
+      - long horizon
+      - sandbox runtime
+      - subagent
+
+  - id: psychometrics
+    label: Psychometrics / personality measurement
+    why: >-
+      The psyche project is a 39-instrument battery over a 1.47M-word corpus. Anything
+      about measuring persons — validated instruments, IRT, corpus-derived traits —
+      is directly on that line and reads as pure noise to a coding-tools rubric.
+    serves:
+      - psyche
+    strong_signals:
+      - psychometric
+      - big five
+      - hexaco
+      - ipip
+      - item response theory
+      - personality assessment
+      - personality inventory
+      - factor analysis
+      - construct validity
+      - likert
+    signals:
+      - questionnaire
+      - self-report
+      - trait
+      - persona modeling
+      - psychological profile
+      - survey instrument
+      - reliability alpha
+
+  - id: inference-economics
+    label: Inference economics / cost and margin structure
+    why: >-
+      inference-margins is a live research project on what serving a token actually
+      costs. Hardware pricing, utilization, batching economics, and capex disclosures
+      are its primary sources.
+    serves:
+      - research/inference-margins
+    strong_signals:
+      - inference cost
+      - cost per token
+      - serving cost
+      - gpu utilization
+      - inference economics
+      - unit economics
+      - gross margin
+      - token pricing
+      - gpu pricing
+      - capex
+      - opex
+      - tco
+    signals:
+      - throughput
+      - batching
+      - kv cache
+      - datacenter
+      - power draw
+      - electricity
+      - h100
+      - h200
+      - b200
+      - tpu
+      - rental price
+      - depreciation
+
+  - id: games
+    label: Game development
+    why: >-
+      games/ is an active pipeline (ww2-gacha, autochess, slime-survivor, veilbreak).
+      Engine tooling, generation, and genre technique are usable there and score zero
+      against Claude Code.
+    serves:
+      - games
+    strong_signals:
+      - godot
+      - gdscript
+      - unity engine
+      - unreal engine
+      - game engine
+      - autobattler
+      - autochess
+      - gacha
+      - roguelike
+      - visual novel
+      - sprite sheet
+      - tilemap
+    signals:
+      - game
+      - gameplay
+      - level design
+      - procedural generation
+      - game design
+      - player retention
+      - shader
+      - pixel art

@@ -37,6 +37,28 @@ The system runs on cron (daily discovery, evaluation, and integration) so your d
 > mode, read [SECURITY.md](SECURITY.md) for the threat model and sandboxing
 > recommendations.
 
+## Requirements
+
+| Tool | Why |
+|------|-----|
+| Claude Code CLI (`claude`) | runs every phase |
+| `bash` 4.0+ | the wrappers use `mapfile` and other bash-4 builtins (macOS ships bash 3.2 as `/bin/bash` — install a newer one) |
+| `jq` | parses the write-confinement hook's payload, builds JSON |
+| GNU `realpath` (coreutils) | canonicalizes write targets for the same hook |
+| `python3` | the owner-interest gate (`lib/owner_interest_lens.py`) |
+
+`jq` and `realpath` are **not optional**: the `PreToolUse` write-confinement hook
+denies every write it cannot check, so a host missing either one blocks the run
+instead of letting it through unchecked. See [SECURITY.md](SECURITY.md).
+
+**Scope of this repository.** The pipeline, its prompts, the wrapper scripts, the
+hook, and the published corpus all live here and run from a clone. One piece does
+not: the maintainer's chat-bot approval round trip, which talks to a private
+server and is not published. What ships here is the file-based approval gate —
+proposals wait in `pipeline/pending-approval/` until a human moves them — and
+`BACKLOG.md` marks that split explicitly. Nothing in this tree calls a program it
+does not carry; the publish tooling fails the release if that ever stops being true.
+
 ## Quick Start
 
 ```bash
@@ -121,14 +143,23 @@ claude-evolution/
 │   │   └── daily/               # Daily discovery reports
 │   ├── evaluation/              # Scoring and decisions
 │   │   ├── pending/             # Awaiting evaluation
-│   │   └── completed/           # Evaluated items
+│   │   ├── completed/           # Evaluated items (a verdict was recorded)
+│   │   ├── review/              # Rejected, but in a domain worth a second look
+│   │   └── stale/               # Aged out of pending UNEVALUATED (never a verdict)
 │   ├── integration/             # Items being integrated
 │   └── verification/            # Testing new capabilities
 ├── registry/
 │   └── existing-capabilities.md # Redundancy checking registry
 ├── scripts/
 │   ├── evolution-daily.sh       # Daily heartbeat (discovery + evaluation + integration)
-│   └── evolution-weekly.sh      # Weekly analysis and cleanup
+│   ├── evolution-weekly.sh      # Weekly analysis and stale-item quarantine
+│   ├── sandbox-test-integration.sh  # Empirical env-var/config safety test
+│   └── test-public-config.sh    # Portability + privacy scan over reference-config/
+├── lib/
+│   └── owner_interest_lens.py   # Owner-interest gate (screens every rejection)
+├── config/
+│   └── owner-interests.yaml     # Domains the gate screens against
+├── tests/                       # pytest suite + shell regression suites
 ├── helpers/                     # Auto-generated reusable patterns
 ├── examples/                    # Example discoveries and evaluations
 ├── .env.example                 # Configuration template
