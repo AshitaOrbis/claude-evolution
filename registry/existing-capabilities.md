@@ -2828,9 +2828,9 @@ Projects outside `claude-evolution/` that the evolution pipeline regularly recei
 
 | Project | Hub | Status |
 |---------|-----|--------|
-| **Historical Nanochat** | [`library/projects/historical-nanochat.md`](../library/projects/historical-nanochat.md) | **Active training** on requiem 3090. Run `governed_v4_d22_r30_parallel_family` at step 10,000, val BPB 1.2406, ETA ~2026-05-10. Hub indexes 5 investigation reports + 3 blog-ideas + 1 completed evaluation + 1 technique cross-reference. Open problems: multi-family corpus dynamics (BLOCKING), OCRonos-Vintage preprocessing (UNEVALUATED), rights audit, provenance bug. |
+| **Historical Nanochat** | [`library/projects/historical-nanochat.md`](../library/projects/historical-nanochat.md) | **Active training** on requiem 3090. Run `governed_v4_d22_r30_parallel_family` at step 10,000, val BPB 1.2406, ETA ~2026-05-10. Hub indexes 6 investigation reports + 3 blog-ideas + 1 completed evaluation + 1 technique cross-reference. Methodology now includes the Mr. Chatterbox comparison, an SFT provenance and era-purity gate, and a period-native dialogue/QA experiment with a separated modern-synthetic control. Open problems: multi-family corpus dynamics (BLOCKING), OCRonos-Vintage preprocessing (UNEVALUATED), rights audit, provenance bug. |
 
-**Redundancy triggers**: "historical-nanochat", "historical_nanochat", "historical nanochat", "time-locked LLM", "pre-1913 corpus", "nanochat training", "governed_v4", "Phase-0-lite", "OCRonos-Vintage", "talkie-lm", "Pleias OCR", "Karpathy nanochat", "615M params d22", "Chinchilla r=30", "diverse corpus training dynamics", "shard-flip divergence", "parallel-shard dataloader", "REWIRE pretraining"
+**Redundancy triggers**: "historical-nanochat", "historical_nanochat", "historical nanochat", "time-locked LLM", "pre-1913 corpus", "nanochat training", "governed_v4", "Phase-0-lite", "OCRonos-Vintage", "talkie-lm", "Pleias OCR", "Karpathy nanochat", "615M params d22", "Chinchilla r=30", "diverse corpus training dynamics", "shard-flip divergence", "parallel-shard dataloader", "REWIRE pretraining", "Mr. Chatterbox", "SFT provenance and era-purity gate", "period-native dialogue/QA", "modern synthetic SFT contamination"
 
 **When a new discovery mentions historical-nanochat**:
 1. Read `library/projects/historical-nanochat.md` first

@@ -1,16 +1,36 @@
 {
-  "title": "Enable Prompt Caching 1H (ENABLE_PROMPT_CACHING_1H=1)",
-  "type": "env-var",
-  "source_item": "pipeline/integration/enable-prompt-caching-1h-v2.1.108.md",
-  "proposed_change": "export ENABLE_PROMPT_CACHING_1H=1",
-  "target_file": "~/.bashrc",
-  "reason": "Explicitly guarantees 1-hour prompt cache TTL for all Claude Code sessions. Fixes silent bug where DISABLE_TELEMETRY users were silently getting 5-min TTL instead of 1hr. Makes cache TTL explicit and reliable rather than implicit. Official Anthropic v2.1.108 feature.",
-  "secondary_usage": "Heartbeat cron invocations: ENABLE_PROMPT_CACHING_1H=1 claude -p --exclude-dynamic-system-prompt-sections '...'",
-  "debug_var": "FORCE_PROMPT_CACHING_5M=1 \u2014 forces 5-min TTL for testing cache expiry behavior",
   "evaluation_score": 80.7,
-  "evaluated_at": "2026-04-15",
-  "status": "pending_approval",
-  "created_at": "2026-04-16",
+  "options": [
+    {
+      "effect": "Verify current behavior, then let the owner make the shell-profile edit outside this executor if the flag still adds value.",
+      "id": "manual_apply_after_check",
+      "label": "Check and apply manually"
+    },
+    {
+      "effect": "Leave the approved integration record and surfaced marker in place without changing global configuration.",
+      "id": "defer",
+      "label": "Defer"
+    },
+    {
+      "effect": "Retire the integration if current defaults or version drift have removed its incremental value.",
+      "id": "close",
+      "label": "Close without change"
+    }
+  ],
+  "previous_approval": {
+    "approved_at": "2026-06-02T13:00:16Z",
+    "approved_by_human": true,
+    "scope": "preserved unchanged in the integration queue; autonomous execution remains prohibited for the global target"
+  },
+  "proposed_change": "If the owner confirms the setting is still needed and supported by the installed Claude Code version, manually add `export ENABLE_PROMPT_CACHING_1H=1` to the chosen shell startup configuration. This proposal does not modify any shell configuration.",
+  "reason": "The approved integration is an env-var change targeting ~/.bashrc. Both the autonomous executor's config-class guard and the canonical method's System File Guard require this global shell-profile change to be surfaced rather than applied autonomously.",
+  "recommendation": "Confirm the current Claude Code version still honors this flag and that one-hour caching is not already the effective default, then apply the export manually only if it remains necessary.",
+  "risk_note": "medium \u2014 a shell-profile export affects future sessions globally, and the April 2026 feature flag may have changed or become unnecessary in later Claude Code releases",
+  "source_item": "pipeline/integration/enable-prompt-caching-1h.json",
+  "target_file": "~/.bashrc",
+  "title": "Apply the approved prompt-cache TTL setting manually or close it",
+  "type": "env-var",
   "approved_by_human": true,
-  "approved_at": "2026-06-02T13:00:16Z"
+  "approved_at": "2026-08-13T12:51:29Z",
+  "decided_via": "approvalctl (canonical store)"
 }
