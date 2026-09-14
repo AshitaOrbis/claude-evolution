@@ -114,33 +114,54 @@ if ! mkdir -p "$STALE_DIR"; then
     log "ERROR: could not create $STALE_DIR — stale items left in pending/ (they stay in the queue, which is the safe side)."
     CLEANUP_ERRORS=$((CLEANUP_ERRORS + 1))
 else
-    while IFS= read -r -d '' stale; do
-        stale_base="$(basename "$stale")"
-        dest="$STALE_DIR/$stale_base"
-        # Collision-safe: never let one quarantined record replace another.
-        if [[ -e "$dest" ]]; then
-            dest="$STALE_DIR/${stale_base%.json}.$(date +%Y%m%dT%H%M%S).$$.json"
-        fi
-        # mv -n exits 0 when it declines to clobber, so confirm the move landed.
-        if mv -n -- "$stale" "$dest" 2>>"$LOG_FILE" && [[ -e "$dest" && ! -e "$stale" ]]; then
-            # Metadata is written only after the move is confirmed, never before.
-            if jq -cn \
-                --arg at "$(date -Iseconds)" \
-                --arg src "$stale" \
-                --arg dst "$dest" \
-                '{quarantined_at: $at, source: $src, dest: $dst,
-                  reason: "stale: >14 days in pipeline/evaluation/pending",
-                  evaluated: false, decision: null}' >> "$STALE_LOG"; then
-                STALE_COUNT=$((STALE_COUNT + 1))
+    # Checked enumeration (claude.weekly_quarantine_partial_scan_09): the previous
+    # version only ever matched *.json (the daily queue and owner-interest tooling
+    # both support .md pending records too, so those aged out silently and forever),
+    # and it discarded `find`'s own exit status into /dev/null inside a process
+    # substitution, so a missing/unreadable pending/ directory looked identical to
+    # "scanned it, found nothing stale". A real temp file makes the exit status
+    # inspectable, and both suffixes are now enumerated.
+    STALE_LIST_TMP="$(mktemp)"
+    STALE_FIND_ERR_TMP="$(mktemp)"
+    if find pipeline/evaluation/pending -maxdepth 1 -type f \
+            \( -name '*.json' -o -name '*.md' \) -mtime +14 -print0 \
+            > "$STALE_LIST_TMP" 2>"$STALE_FIND_ERR_TMP"; then
+        while IFS= read -r -d '' stale; do
+            stale_base="$(basename "$stale")"
+            dest="$STALE_DIR/$stale_base"
+            # Collision-safe: never let one quarantined record replace another.
+            # Preserve the ORIGINAL suffix (.json or .md), not a hardcoded .json.
+            if [[ -e "$dest" ]]; then
+                stale_ext="${stale_base##*.}"
+                stale_stem="${stale_base%.*}"
+                dest="$STALE_DIR/${stale_stem}.$(date +%Y%m%dT%H%M%S).$$.${stale_ext}"
+            fi
+            # mv -n exits 0 when it declines to clobber, so confirm the move landed.
+            if mv -n -- "$stale" "$dest" 2>>"$LOG_FILE" && [[ -e "$dest" && ! -e "$stale" ]]; then
+                # Metadata is written only after the move is confirmed, never before.
+                if jq -cn \
+                    --arg at "$(date -Iseconds)" \
+                    --arg src "$stale" \
+                    --arg dst "$dest" \
+                    '{quarantined_at: $at, source: $src, dest: $dst,
+                      reason: "stale: >14 days in pipeline/evaluation/pending",
+                      evaluated: false, decision: null}' >> "$STALE_LOG"; then
+                    STALE_COUNT=$((STALE_COUNT + 1))
+                else
+                    log "ERROR: moved $stale -> $dest but could not record it in $STALE_LOG"
+                    CLEANUP_ERRORS=$((CLEANUP_ERRORS + 1))
+                fi
             else
-                log "ERROR: moved $stale -> $dest but could not record it in $STALE_LOG"
+                log "ERROR: could not quarantine stale item $stale (left in pending/)"
                 CLEANUP_ERRORS=$((CLEANUP_ERRORS + 1))
             fi
-        else
-            log "ERROR: could not quarantine stale item $stale (left in pending/)"
-            CLEANUP_ERRORS=$((CLEANUP_ERRORS + 1))
-        fi
-    done < <(find pipeline/evaluation/pending -maxdepth 1 -type f -name "*.json" -mtime +14 -print0 2>/dev/null)
+        done < "$STALE_LIST_TMP"
+    else
+        log "ERROR: could not enumerate pipeline/evaluation/pending for stale items: $(cat "$STALE_FIND_ERR_TMP")"
+        log "       An unreadable/missing pending directory is a scan failure, not zero stale items."
+        CLEANUP_ERRORS=$((CLEANUP_ERRORS + 1))
+    fi
+    rm -f "$STALE_LIST_TMP" "$STALE_FIND_ERR_TMP"
 fi
 
 if [[ $STALE_COUNT -gt 0 ]]; then

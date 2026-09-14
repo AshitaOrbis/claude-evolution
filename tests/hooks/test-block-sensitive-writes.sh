@@ -185,6 +185,23 @@ check 2 "chained symlink leaf"              "$(payload Write file_path "$PROJ/ch
 check 2 "file under a symlinked directory"  "$(payload Write file_path "$PROJ/linked-dir/loot.md" "$PROJ")"
 check 2 "relative symlink leaf"             "$(payload Write file_path "link-to-outside-file" "$PROJ")"
 
+# ---------------------------------------------------------------------------
+echo ""
+echo "--- Control-plane self-bypass (claude.write_hook_self_bypass_01 et al) ---"
+check 2 "overwrite the hook itself"        "$(payload Write file_path "$PROJ/.claude/hooks/block-sensitive-writes.sh" "$PROJ")"
+check 2 "overwrite .claude/settings.json"  "$(payload Write file_path "$PROJ/.claude/settings.json" "$PROJ")"
+check 2 "write elsewhere under .claude/"   "$(payload Write file_path "$PROJ/.claude/agents/new.md" "$PROJ")"
+check 2 "overwrite scripts/evolution-daily.sh" "$(payload Write file_path "$PROJ/scripts/evolution-daily.sh" "$PROJ")"
+check 2 "write a new file under scripts/"  "$(payload Write file_path "$PROJ/scripts/new-helper.sh" "$PROJ")"
+check 2 "overwrite lib/owner_interest_lens.py" "$(payload Edit file_path "$PROJ/lib/owner_interest_lens.py" "$PROJ")"
+check 2 "write under config/"              "$(payload Write file_path "$PROJ/config/owner-interests.yaml" "$PROJ")"
+check 2 "write under tests/"               "$(payload Write file_path "$PROJ/tests/new_test.py" "$PROJ")"
+check 2 "write under .git/ (not just hooks)" "$(payload Write file_path "$PROJ/.git/config" "$PROJ")"
+check 2 "overwrite root CLAUDE.md"         "$(payload Write file_path "$PROJ/CLAUDE.md" "$PROJ")"
+check 2 "overwrite root SECURITY.md"       "$(payload Edit file_path "$PROJ/SECURITY.md" "$PROJ")"
+check 2 "overwrite EVALUATE-PENDING.md"    "$(payload Write file_path "$PROJ/EVALUATE-PENDING.md" "$PROJ")"
+check 0 "legitimate write to pipeline/ still allowed" "$(payload Write file_path "$PROJ/pipeline/evaluation/pending/new.json" "$PROJ")"
+
 echo ""
 echo "=== $PASS passed, $FAIL failed ==="
 [[ $FAIL -eq 0 ]]

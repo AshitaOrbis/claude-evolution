@@ -5,6 +5,9 @@
 # Private patterns (used by test-public-config.sh)
 scripts/.private-patterns
 
+# Owner-interest lens local routing overlay (claude.public_private_project_names_06)
+config/*.local.yaml
+
 # Runtime
 logs/
 tmp/

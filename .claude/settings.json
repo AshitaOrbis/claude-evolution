@@ -1,5 +1,5 @@
 {
-  "$comment": "evo-1 security mitigation. PreToolUse write-confinement hook for the discovery/evaluation agents (the `claude -p` runs driven by HEARTBEAT-DAILY.md / EVALUATE-PENDING.md). These agents hold Write + WebFetch and read attacker-controllable internet content; a prompt-injection payload could steer a write to a sensitive path. The discovery/eval agents are NOT defined as agent-frontmatter files -- they are `claude -p` invocations that cd into this project, so the hook is wired here at the project level rather than in agent frontmatter. See .claude/hooks/block-sensitive-writes.sh and SECURITY.md (interim mitigation; full Write-stripping wrapper deferred).",
+  "$comment": "evo-1 security mitigation. PreToolUse write-confinement hook for the discovery/evaluation agents (the `claude -p` runs driven by HEARTBEAT-DAILY.md / EVALUATE-PENDING.md). These agents hold Write + WebFetch and read attacker-controllable internet content; a prompt-injection payload could steer a write to a sensitive path. The discovery/eval agents are NOT defined as agent-frontmatter files -- they are `claude -p` invocations that cd into this project, so the hook is wired here at the project level rather than in agent frontmatter. See .claude/hooks/block-sensitive-writes.sh and SECURITY.md (interim mitigation; full Write-stripping wrapper deferred). Command is double-quoted (claude.write_hook_space_path_02 / claude.write_hook_space_path_failopen_02): unquoted, a checkout path containing a space is word-split before the hook script starts, its EXIT trap never runs, and Claude Code treats the non-2 launch failure as non-blocking -- i.e. every write proceeds unchecked. A second PreToolUse hook (Read|Glob|Grep) guards the read side of the same threat model (claude.read_web_exfil_01): discovery/evaluation agents hold Read+Glob+Grep in the same session as WebFetch/WebSearch with no prior technical confinement on what local content could enter the model context or a network-tool argument. See .claude/hooks/block-sensitive-reads.sh.",
   "hooks": {
     "PreToolUse": [
       {
@@ -7,7 +7,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/block-sensitive-writes.sh",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/block-sensitive-writes.sh\"",
+            "timeout": 20
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/block-sensitive-reads.sh\"",
             "timeout": 20
           }
         ]

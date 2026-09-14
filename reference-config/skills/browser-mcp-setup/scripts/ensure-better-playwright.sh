@@ -47,16 +47,40 @@ fi
 # Stale or invalid PID file, or server not responding - clean up
 rm -f "$PID_FILE"
 
-# Kill any orphaned listeners on our port (validated PIDs only)
+# Verify a PID is actually a Better Playwright server before touching it: a
+# positive-integer PID that is LISTENING on our port is not proof of identity
+# (claude.browser_port_kill_05). Match the pinned package name in its own
+# /proc/<pid>/cmdline -- an unrelated dev server, database proxy, or browser
+# endpoint that merely happens to occupy this port must never be killed.
+is_better_playwright_pid() {
+    local pid="$1" cmdline
+    [[ "$pid" =~ ^[1-9][0-9]*$ ]] || return 1
+    cmdline="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null)" || return 1
+    [[ -n "$cmdline" ]] || return 1
+    [[ "$cmdline" == *"better-playwright-mcp3"* ]]
+}
+
+# Kill only VERIFIED orphaned Better Playwright listeners on our port. An
+# unverified occupant refuses startup with a diagnostic instead of being
+# killed -- "is a positive integer and listening here" is not identity.
 mapfile -t orphan_pids < <(lsof -nP -tiTCP:"$PORT" -sTCP:LISTEN 2>/dev/null || true)
 killed_any=0
+unverified_pids=()
 for pid in "${orphan_pids[@]}"; do
-    if [[ "$pid" =~ ^[1-9][0-9]*$ ]]; then
-        echo "Killing orphaned process on port $PORT (PID: $pid)"
+    if is_better_playwright_pid "$pid"; then
+        echo "Killing orphaned Better Playwright process on port $PORT (PID: $pid, verified via /proc/$pid/cmdline)"
         kill "$pid" 2>/dev/null || true
         killed_any=1
+    elif [[ "$pid" =~ ^[1-9][0-9]*$ ]]; then
+        unverified_pids+=("$pid")
     fi
 done
+if (( ${#unverified_pids[@]} > 0 )); then
+    echo "ERROR: port $PORT is occupied by process(es) that do not look like a Better Playwright" >&2
+    echo "       server (PID(s): ${unverified_pids[*]}). Refusing to kill an unidentified process." >&2
+    echo "       Stop it yourself, or start Better Playwright on a different port." >&2
+    exit 1
+fi
 if (( killed_any )); then
     sleep 1
 fi

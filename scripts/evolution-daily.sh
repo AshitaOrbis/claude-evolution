@@ -90,6 +90,21 @@ preflight_missing=()
 [[ -r "$OWNER_LENS" ]]        || preflight_missing+=("$OWNER_LENS")
 [[ -r "$OWNER_LENS_CONFIG" ]] || preflight_missing+=("$OWNER_LENS_CONFIG")
 command -v python3 &>/dev/null || preflight_missing+=("python3 (interpreter)")
+# File readability is necessary but not sufficient (claude.owner_interest_config_preflight_02):
+# a missing PyYAML install or a readable-but-empty/malformed config both pass the checks above
+# and then fail INSIDE the stamp/sweep calls below, by which point Phase 2 has already started
+# on unscreened records. Import the real module and load the real config here, the same way the
+# gate itself will, so an unusable gate is refused before anything is evaluated.
+if [[ ${#preflight_missing[@]} -eq 0 ]]; then
+    if ! preflight_import_err="$(python3 -c '
+import sys
+sys.path.insert(0, ".")
+from lib.owner_interest_lens import load_config
+load_config()
+' 2>&1)"; then
+        preflight_missing+=("lib/owner_interest_lens.py failed to import or its config failed to load: ${preflight_import_err//$'\n'/ }")
+    fi
+fi
 if [[ ${#preflight_missing[@]} -gt 0 ]]; then
     log "ERROR: the owner-interest gate is unavailable — missing or unreadable: ${preflight_missing[*]}"
     log "       Refusing the WHOLE run, discovery included — not just the evaluation phase."
@@ -147,12 +162,27 @@ claude -p \
 mapfile -t PENDING_FILES < <(find pipeline/evaluation/pending -maxdepth 1 -type f \
     \( -name '*.md' -o -name '*.json' \) 2>/dev/null)
 GATE_FAILED=0
+BACKSTOP_FAILED=0
 if [[ ${#PENDING_FILES[@]} -gt 0 ]]; then
     log "Pre-screening ${#PENDING_FILES[@]} pending item(s) through the owner-interest lens..."
     if ! python3 "$OWNER_LENS" stamp --apply "${PENDING_FILES[@]}" >> "$LOG_FILE" 2>&1; then
-        log "ERROR: owner-interest pre-screen FAILED — the ${#PENDING_FILES[@]} pending item(s) reach the evaluator UNSCREENED."
+        log "ERROR: owner-interest pre-screen FAILED — the ${#PENDING_FILES[@]} pending item(s) would reach the evaluator UNSCREENED."
         GATE_FAILED=1
     fi
+fi
+
+# claude.owner_lens_precheck_continues_04 (bq-1399): a failed pre-screen used to set
+# GATE_FAILED and fall straight into Phase 2 anyway, so the mandatory control was
+# diagnostic rather than preventative -- the evaluator could still close unscreened
+# records, and only the FINAL exit code (after the damage) reflected the failure.
+# Abort here, before any record is touched. No pipeline state has changed yet: the
+# pre-screen only stamps records that DID succeed, and the failed one(s) are exactly
+# what this refuses to hand to the evaluator.
+if [[ $GATE_FAILED -ne 0 ]]; then
+    log "Daily heartbeat FAILED: the owner-interest pre-screen did not complete — refusing to run"
+    log "         Phase 2 against unscreened pending item(s). No records were evaluated this run."
+    log "         Re-run once fixed: python3 $OWNER_LENS stamp --apply <pending files>"
+    exit 1
 fi
 
 log "Phase 2: Running evaluations..."
@@ -204,8 +234,117 @@ else
     log "Owner-interest gate: ${GATE_OUTPUT%%$'\n'*}"
 fi
 
+# ---------------------------------------------------------------------------
+# Deterministic backstop for the empirical safety check (claude.review_gate_tool_mismatch_03
+# / claude.eval_mandatory_test_unavailable_05 / claude.review_mode_safety_check_unavailable_07).
+# EVALUATE-PENDING.md asks the evaluator to run scripts/sandbox-test-integration.sh
+# before approving an env-var/config item, but the default review-gated evaluator has
+# no Bash and cannot invoke it -- and Phase 3 (the only phase that writes into your
+# live Claude Code config) runs ONLY in autonomous mode. This does not run the test on
+# the evaluator's behalf (that would need a structured-record redesign, tracked in
+# BACKLOG.md); it is a narrower, deterministic net: before handing an approved item to
+# the Bash-holding integration agent, require the evaluator's own recorded pass
+# evidence for anything that looks like an env/config change. No evidence means no
+# autonomous integration of THAT item, regardless of what its evaluation record claims.
+# ---------------------------------------------------------------------------
+# The evaluator records a pass as the verbatim sentence "Passed empirical safety test"
+# (EVALUATE-PENDING.md). An unanchored substring match accepted "Not passed empirical
+# safety test" as that sentence (claude-evolution review, 2026-09-14). A pass now needs
+# the sentence to stand on its own, and a recorded failure or unavailability voids it.
+# Exit 0 = pass evidence present; anything else = none (an unreadable record included).
+has_recorded_safety_pass() {
+    python3 - "$1" <<'EVIDENCE'
+import json, re, sys
+path = sys.argv[1]
+try:
+    raw = open(path, encoding="utf-8").read()
+except OSError:
+    sys.exit(2)
+def strings(value):
+    stack, found = [value], []
+    while stack:
+        item = stack.pop()
+        if isinstance(item, str):
+            found.append(item)
+        elif isinstance(item, dict):
+            stack.extend(item.values())
+        elif isinstance(item, list):
+            stack.extend(item)
+    return found
+
+texts = []
+if path.endswith(".json"):
+    try:
+        texts = strings(json.loads(raw))
+    except ValueError:
+        sys.exit(1)
+else:
+    # A Markdown record carries its evaluation as fielded prose ("**Reasoning**: ...")
+    # or as a fenced JSON object; both are read, so the format never decides the verdict.
+    texts.append(raw)
+    for block in re.findall(r"```json[ \t]*\n(.*?)```", raw, re.S):
+        try:
+            texts.extend(strings(json.loads(block)))
+        except ValueError:
+            pass
+blob = "\n".join(texts)
+if re.search(r"failed\s+(the\s+)?empirical\s+safety\s+test|empirical\s+safety\s+test\s+required[^\n]*unavailable", blob, re.I):
+    sys.exit(1)
+# One field label may precede the sentence ("**Reasoning**:", "reasoning":); nothing else may.
+LABEL = re.compile(r"^(?:reasoning|reason|rationale|notes?|result|verdict|evaluation)\s*:\s*", re.I)
+for sentence in re.split(r"[.!?;\n]+", blob):
+    text = re.sub(r"[\s*_`>#\"',-]+", " ", sentence).strip()
+    if LABEL.sub("", text).strip().lower() == "passed empirical safety test":
+        sys.exit(0)
+sys.exit(1)
+EVIDENCE
+}
+
+# Returns nonzero when any unverified item is still in pipeline/integration/ afterwards
+# (unreadable, or its quarantine move failed): Phase 3 must then not run at all.
+verify_config_items_before_autonomous_integration() {
+    local f matched=0 unverified=0 stuck=0 dest
+    local kw='env var|export |settings\.json|\.bashrc|\.profile|CLAUDE_CODE_|sandbox|permission|\.mcp\.json|mcpServers'
+    shopt -s nullglob
+    for f in pipeline/integration/*.json pipeline/integration/*.md; do
+        if [[ ! -r "$f" ]]; then
+            log "ERROR: $f cannot be read, so it cannot be screened -- refusing autonomous integration this run."
+            stuck=$((stuck + 1))
+            continue
+        fi
+        if grep -qiE -- "$kw" "$f" 2>/dev/null; then
+            matched=$((matched + 1))
+            if ! has_recorded_safety_pass "$f"; then
+                log "ERROR: $f proposes an env-var/config change but carries no recorded pass of the"
+                log "       empirical safety test -- refusing autonomous integration of this item."
+                mkdir -p pipeline/evaluation/review
+                dest="pipeline/evaluation/review/UNVERIFIED-$(basename "$f")"
+                # An earlier quarantine with the same name must not keep this item in place.
+                if [[ -e "$dest" ]]; then
+                    dest="pipeline/evaluation/review/UNVERIFIED-$(date -u +%Y%m%dT%H%M%SZ)-$$-$(basename "$f")"
+                fi
+                if [[ ! -e "$dest" ]] && mv -n -- "$f" "$dest" && [[ -e "$dest" && ! -e "$f" ]]; then
+                    log "       moved to $dest for human review instead of integrating it unverified."
+                else
+                    log "       could not move $f out of pipeline/integration/ -- autonomous integration is REFUSED for this run."
+                    stuck=$((stuck + 1))
+                fi
+                unverified=$((unverified + 1))
+            fi
+        fi
+    done
+    shopt -u nullglob
+    if [[ $matched -gt 0 ]]; then
+        log "Config-item safety backstop: $matched env/config item(s) inspected, $unverified without recorded pass evidence."
+    fi
+    [[ $stuck -eq 0 ]]
+}
+
 # Phase 3: Integrate approved items (autonomous mode only)
-if [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]]; then
+if [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]] && ! verify_config_items_before_autonomous_integration; then
+    BACKSTOP_FAILED=1
+    log "Phase 3: SKIPPED — an unverified env/config item could not be taken out of pipeline/integration/."
+elif [[ "$AUTONOMOUS" == "1" && $EVAL_RC -eq 0 ]]; then
     log "Phase 3: Running integrations..."
     INTEG_RC=0
     INTEG_OUTPUT=$(claude -p \
@@ -256,6 +395,10 @@ fi
 
 # A heartbeat that says "completed" after its deterministic control was bypassed is
 # the defect this gate was built to catch, one level up. Report what actually ran.
+if [[ $BACKSTOP_FAILED -ne 0 ]]; then
+    log "Daily heartbeat FAILED: autonomous integration was refused because an unverified env/config item could not be quarantined; check pipeline/integration/ by hand."
+    exit 1
+fi
 if [[ $GATE_FAILED -ne 0 ]]; then
     log "Daily heartbeat FAILED: the owner-interest gate did not run to completion; this run's rejects are UNSCREENED."
     log "         Re-run the gate manually once fixed: python3 $OWNER_LENS sweep --apply --since-days 7"

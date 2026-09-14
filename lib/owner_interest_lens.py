@@ -100,9 +100,38 @@ def _compile_terms(terms: Iterable[str]) -> tuple[tuple[str, re.Pattern[str]], .
     return tuple((str(t), _term_pattern(str(t))) for t in (terms or []))
 
 
+def _local_overlay_path(cfg_path: Path) -> Path:
+    """Path to an optional, gitignored per-host override sitting next to a config.
+
+    ``owner-interests.yaml`` -> ``owner-interests.local.yaml``. Mirrors the
+    existing ``scripts/.private-patterns`` convention in this repo: the
+    published file stays generic and safe to publish, and the real routing
+    targets live only in an untracked file on machines that need them
+    (claude.public_private_project_names_06 / bq-1266). Domain matching
+    (``strong_signals`` / ``signals`` / ``exclude`` / ``threshold``) is never
+    overlaid -- only the ``serves`` and ``why`` routing metadata, which is the
+    part that named private internal paths.
+    """
+    return cfg_path.with_name(cfg_path.stem + ".local" + cfg_path.suffix)
+
+
+def _load_overlay_domains(cfg_path: Path) -> dict[str, dict[str, Any]]:
+    overlay_path = _local_overlay_path(cfg_path)
+    if not overlay_path.is_file():
+        return {}
+    overlay_raw = yaml.safe_load(overlay_path.read_text(encoding="utf-8")) or {}
+    out: dict[str, dict[str, Any]] = {}
+    for entry in overlay_raw.get("domains") or []:
+        domain_id = str(entry.get("id", "")).strip()
+        if domain_id:
+            out[domain_id] = entry
+    return out
+
+
 def load_config(path: str | Path | None = None) -> LensConfig:
     cfg_path = Path(path) if path else DEFAULT_CONFIG_PATH
     raw = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+    overlay = _load_overlay_domains(cfg_path)
 
     default_threshold = int(raw.get("default_threshold", 2))
     domains: list[Domain] = []
@@ -121,12 +150,17 @@ def load_config(path: str | Path | None = None) -> LensConfig:
         if not strong and not weak:
             raise ValueError(f"{cfg_path}: domain {domain_id!r} has no signals")
 
+        override = overlay.get(domain_id, {})
+        serves = override.get("serves", entry.get("serves"))
+        why = override.get("why", entry.get("why", ""))
+        label = override.get("label", entry.get("label", domain_id))
+
         domains.append(
             Domain(
                 id=domain_id,
-                label=str(entry.get("label", domain_id)),
-                why=" ".join(str(entry.get("why", "")).split()),
-                serves=tuple(str(s) for s in entry.get("serves") or ()),
+                label=str(label),
+                why=" ".join(str(why).split()),
+                serves=tuple(str(s) for s in serves or ()),
                 threshold=int(entry.get("threshold", default_threshold)),
                 strong=strong,
                 weak=weak,
@@ -459,29 +493,125 @@ def _stamp_original(record: Record, review_path: Path, today: str) -> None:
         record.path.write_text(record.raw.rstrip("\n") + "\n" + note, encoding="utf-8")
 
 
+def _review_record_source(review_path: Path) -> str | None:
+    """Read back which source record an existing review file names, if any."""
+    try:
+        text = review_path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    m = re.search(r"\*\*Source record\*\*: `([^`]+)`", text)
+    return m.group(1) if m else None
+
+
 def route_to_review(
     result: GateResult,
     review_dir: Path = DEFAULT_REVIEW_DIR,
     today: str | None = None,
     apply: bool = False,
 ) -> Path:
-    """Write the REVIEW record and stamp the original. Idempotent."""
+    """Write the REVIEW record and stamp the original. Idempotent.
+
+    Collision-safe (claude.owner_interest_review_collision_04 / bq-1264): both
+    `.json` and `.md` sources are accepted, so `foo.json` and `foo.md` used to
+    collide on one `<stem>.md` review filename -- whichever routed second saw
+    the file already existed and returned immediately, leaving its own reject
+    closed with no review record and no stamp. If the existing file names a
+    DIFFERENT source, this now disambiguates by format instead. If it names
+    the SAME source but that source was never stamped -- an apply that wrote
+    the review record and then died before `_stamp_original` ran -- this
+    repairs the stamp instead of treating the file's mere existence as proof
+    nothing is left to do.
+    """
     today = today or date.today().isoformat()
+    src_rel = _rel(result.record.path)
     review_path = review_dir / (result.record.path.stem + ".md")
     if not apply:
         return review_path
     review_dir.mkdir(parents=True, exist_ok=True)
+
+    # Take the first candidate that is free or already names THIS source. One
+    # fallback was not enough: routing `dup.md.json`, then `dup.json`, then
+    # `dup.md` found the fallback taken by another source and stamped `dup.md` as
+    # reopened to a record that was never its own (claude-evolution review,
+    # 2026-09-14). Every candidate is now checked for identity, not existence.
+    stem, fmt = result.record.path.stem, result.record.fmt
+    names = [f"{stem}.md", f"{stem}.{fmt}.md"] + [f"{stem}.{fmt}.{n}.md" for n in range(2, 1000)]
+    for name in names:
+        candidate = review_dir / name
+        if not candidate.exists() or _review_record_source(candidate) == src_rel:
+            review_path = candidate
+            break
+    else:
+        raise RuntimeError(f"no free review filename for {src_rel} in {review_dir}")
+
     if review_path.exists():
+        if not result.record.reopened_to:
+            _stamp_original(result.record, review_path, today)
         return review_path
+
     review_path.write_text(render_review_record(result, today), encoding="utf-8")
     _stamp_original(result.record, review_path, today)
     return review_path
 
 
+PENDING_STAMP_KEY = "owner_interest_pre_screen"
+
+
 def stamp_pending(path: str | Path, config: LensConfig, apply: bool = False) -> list[DomainMatch]:
-    """Annotate a pending discovery so the evaluator sees the lens before scoring."""
+    """Annotate a pending discovery so the evaluator sees the lens before scoring.
+
+    Format-aware and atomic (claude.owner_lens_json_corruption_02 /
+    claude.owner_gate_json_failopen_03 / bq-1397 / bq-1210): a `.json` pending
+    record gets a structured ``owner_interest_pre_screen`` field, parsed and
+    validated by a round-trip before an atomic replace. Unconditionally
+    appending the Markdown block used for `.md` records to a `.json` file
+    made it invalid JSON before the evaluator or the sweep ever parsed it.
+    """
     path = Path(path)
     raw = path.read_text(encoding="utf-8")
+
+    if path.suffix == ".json":
+        try:
+            data = json.loads(raw)
+        except (json.JSONDecodeError, ValueError) as exc:
+            # Never write a structured field into a file we cannot safely
+            # round-trip. A read-only pass still reports what the lens would flag;
+            # an apply pass FAILS, because returning matches here let `stamp
+            # --apply` print "stamped" and exit 0 for a record it never stamped.
+            if apply:
+                raise ValueError(f"{path}: malformed JSON; not stamped") from exc
+            return screen(_strip_lens_annotations(raw), config)
+        if not isinstance(data, dict):
+            if apply:
+                raise ValueError(f"{path}: JSON is not an object; not stamped")
+            return []
+
+        already_stamped = isinstance(data.get(PENDING_STAMP_KEY), dict)
+        # Never let the lens's own annotation feed back into its own scoring on
+        # a re-stamp attempt (mirrors _strip_lens_annotations for Markdown).
+        scan_data = {k: v for k, v in data.items() if k != PENDING_STAMP_KEY}
+        matches = screen(" ".join(_strings(scan_data)), config)
+        if not apply or not matches or already_stamped:
+            return matches
+
+        data[PENDING_STAMP_KEY] = {
+            "note": (
+                "This item matches owner-interest domains. If the Claude Code rubric scores it "
+                "below the reject threshold, it must NOT be closed: set decision to REVIEW and "
+                "move it to pipeline/evaluation/review/. See config/owner-interests.yaml."
+            ),
+            "domains": [
+                {"id": m.domain.id, "score": m.score, "serves": list(m.domain.serves)}
+                for m in matches
+            ],
+        }
+        serialized = json.dumps(data, indent=2) + "\n"
+        json.loads(serialized)  # validate before it ever touches the real path
+        tmp_path = path.with_name(path.name + ".tmp")
+        tmp_path.write_text(serialized, encoding="utf-8")
+        tmp_path.replace(path)
+        return matches
+
     matches = screen(_strip_lens_annotations(raw), config)
     if not apply or not matches or STAMP_HEADING in raw:
         return matches
@@ -525,6 +655,24 @@ def sweep(
     already = 0
     skipped_ineligible = 0
     errors: list[dict[str, str]] = []
+
+    if not directory.is_dir():
+        # A missing/unreadable directory is not "nothing to screen" -- it is a
+        # scan that never happened. Recording it in `errors` (rather than just
+        # returning early) means callers that already gate on `errors` being
+        # non-empty catch this the same way they catch a malformed record.
+        errors.append({"path": _rel(directory), "error": "NotADirectoryError: completed-items directory is missing or not a directory"})
+        return {
+            "dir": _rel(directory),
+            "applied": apply,
+            "since_days": since_days,
+            "scanned": scanned,
+            "routed_to_review": len(routed),
+            "already_reopened": already,
+            "not_a_reject": skipped_ineligible,
+            "errors": errors,
+            "items": routed,
+        }
 
     for path in sorted(directory.glob("*")):
         if path.suffix not in {".md", ".json"} or not path.is_file():
@@ -598,11 +746,19 @@ def _cmd_gate(args: argparse.Namespace, config: LensConfig) -> int:
 
 
 def _cmd_stamp(args: argparse.Namespace, config: LensConfig) -> int:
+    failed = 0
     for p in args.paths:
-        matches = stamp_pending(p, config, apply=args.apply)
+        try:
+            matches = stamp_pending(p, config, apply=args.apply)
+        except (OSError, ValueError) as exc:
+            # An unstamped record is unscreened, not screened-and-clean: say so and
+            # exit nonzero so the caller's pre-screen gate refuses to continue.
+            print(f"{_rel(Path(p))}: NOT stamped — {exc}", file=sys.stderr)
+            failed += 1
+            continue
         state = "stamped" if (matches and args.apply) else ("would stamp" if matches else "no match")
         print(f"{_rel(Path(p))}: {state} — {', '.join(m.domain.id for m in matches) or '—'}")
-    return 0
+    return 1 if failed else 0
 
 
 def _cmd_sweep(args: argparse.Namespace, config: LensConfig) -> int:
@@ -626,7 +782,11 @@ def _cmd_sweep(args: argparse.Namespace, config: LensConfig) -> int:
             print(f"  {item['path']}  →  {domains}")
         for err in report["errors"]:
             print(f"  ! {err['path']}: {err['error']}", file=sys.stderr)
-    return 0
+    # A record the sweep could not parse, or a directory it could not scan, is
+    # unscreened -- not screened-and-clean. Reporting exit 0 here is exactly
+    # the fail-open health-reporting class this gate exists to eliminate: the
+    # deterministic backstop looked healthy while a reject sat unreviewed.
+    return 1 if report["errors"] else 0
 
 
 def main(argv: Sequence[str] | None = None) -> int:

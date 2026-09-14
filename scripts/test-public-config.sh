@@ -17,6 +17,25 @@ set -euo pipefail
 # The defect this replaces: the pattern file being absent printed SKIPPED,
 # incremented nothing, and the run ended "ALL TESTS PASSED" — a green
 # publication clearance from a scanner whose leak detection was switched off.
+#
+# ENUMERATION AND REGEX FAILURES ARE SCAN FAILURES, NOT ZERO MATCHES
+# (claude.privacy_scan_walk_failopen_08 / claude.publication_scan_partial_green_05)
+#   - REFERENCE_DIR is preflighted: missing, unreadable, or unsearchable is a
+#     hard failure. A scanner that cannot enumerate its input has looked at
+#     nothing, not found nothing.
+#   - File enumeration runs through a checked `find` (its exit status is
+#     captured via a real temp file, never lost inside a `<(...)` process
+#     substitution) and requires at least one file, so a `find` failure or an
+#     empty corpus can no longer look identical to "scanned everything, found
+#     nothing to flag".
+#   - The corpus now covers *.sh, *.py, *.json, *.yaml, *.yml alongside *.md —
+#     previously every test here only ever looked at Markdown, so an
+#     executable leak in a copied shell script (e.g. a browser-helper .sh) was
+#     invisible to all four privacy/portability checks.
+#   - grep exit 2 (an invalid extended regex — e.g. a malformed
+#     scripts/.private-patterns line) is now a scan FAILURE distinct from
+#     grep exit 1 (no match). The previous `|| true` collapsed both into
+#     "nothing found".
 
 usage() {
     cat <<'USAGE'
@@ -42,6 +61,62 @@ done
 REFERENCE_DIR="$(dirname "$0")/../reference-config"
 ERRORS=0
 
+# Preflight the scan target itself. A find that silently walks nothing must
+# not look like a clean pass (claude.privacy_scan_walk_failopen_08).
+if [ ! -d "$REFERENCE_DIR" ] || [ ! -r "$REFERENCE_DIR" ] || [ ! -x "$REFERENCE_DIR" ]; then
+    echo "FAIL: $REFERENCE_DIR is missing, unreadable, or unsearchable -- refusing to report a scan that never ran." >&2
+    exit 1
+fi
+
+# Checked enumeration into a real file: a NUL-delimited find result whose exit
+# status is inspected, not a process substitution whose failure bash cannot see.
+FILELIST_TMP="$(mktemp)"
+FIND_ERR_TMP="$(mktemp)"
+cleanup_scan_tmp() { rm -f "$FILELIST_TMP" "$FIND_ERR_TMP"; }
+trap cleanup_scan_tmp EXIT
+
+if ! find "$REFERENCE_DIR" -type f \
+        \( -name '*.md' -o -name '*.sh' -o -name '*.py' -o -name '*.json' -o -name '*.yaml' -o -name '*.yml' \) \
+        -print0 > "$FILELIST_TMP" 2>"$FIND_ERR_TMP"; then
+    echo "FAIL: find over $REFERENCE_DIR exited nonzero -- treating as a scan failure, not zero matches:" >&2
+    cat "$FIND_ERR_TMP" >&2
+    exit 1
+fi
+mapfile -d '' -t SCAN_FILES < "$FILELIST_TMP"
+if [ "${#SCAN_FILES[@]}" -eq 0 ]; then
+    echo "FAIL: zero files found under $REFERENCE_DIR (*.md/*.sh/*.py/*.json/*.yaml/*.yml) -- a scanner with nothing to scan cannot clear a publication." >&2
+    exit 1
+fi
+
+# grep_or_fail <grep-flags> <pattern> <file>
+# Prints matches (if any) on stdout. A grep exit 2 (invalid regex) increments
+# the global ERRORS counter and prints a diagnostic instead of being silently
+# swallowed as "no match" -- the distinction claude.publication_scan_partial_green_05
+# named: exit 1 (no match) and exit 2 (the scanner itself is broken) are not
+# the same outcome.
+# Returns 0 when the scan itself ran cleanly (whether or not it matched --
+# check the printed output for that) and 1 when the pattern itself is invalid.
+# Deliberately does NOT touch $ERRORS itself: this runs inside the subshell a
+# caller's `matches=$(grep_or_fail ...)` creates, and a variable assignment
+# made inside that subshell is invisible to the parent shell once it exits --
+# the caller must increment $ERRORS itself based on this function's own exit
+# status, not rely on a side effect that a subshell can never deliver.
+grep_or_fail() {
+    local flags="$1" pattern="$2" file="$3" out rc
+    set +e
+    out="$(grep $flags -- "$pattern" "$file" 2>&1)"
+    rc=$?
+    set -e
+    if [ "$rc" -eq 2 ]; then
+        echo "FAIL: pattern is not a valid extended regex -- cannot scan $file: $out" >&2
+        return 1
+    fi
+    if [ "$rc" -eq 0 ]; then
+        printf '%s\n' "$out"
+    fi
+    return 0
+}
+
 if [ "$GENERIC_ONLY" -eq 1 ]; then
     echo "=== Portability Test: reference-config/  [--generic-only: PARTIAL] ==="
 else
@@ -56,15 +131,19 @@ echo ""
 # Tilde paths are flagged unless they start with a dot-directory (~/.claude/...
 # is the intended portable form) or are the documented ~/your-project placeholder.
 echo "--- Test 1: No hardcoded private paths ---"
-while IFS= read -r -d '' f; do
-    # shellcheck disable=SC2088  # literal tilde pattern intended, not expansion
-    matches=$(grep -nE -- '(/home/[^/[:space:]]+|~/[A-Za-z0-9_-][^/[:space:]]*)' "$f" | grep -v -- '~/your-project' || true)
-    if [ -n "$matches" ]; then
-        echo "FAIL: $f contains private paths:"
-        echo "$matches"
+# shellcheck disable=SC2088  # literal tilde pattern intended, not expansion
+for f in "${SCAN_FILES[@]}"; do
+    if matches=$(grep_or_fail '-nE' '(/home/[^/[:space:]]+|~/[A-Za-z0-9_-][^/[:space:]]*)' "$f"); then
+        matches=$(printf '%s\n' "$matches" | grep -v -- '~/your-project' || true)
+        if [ -n "$matches" ]; then
+            echo "FAIL: $f contains private paths:"
+            echo "$matches"
+            ERRORS=$((ERRORS + 1))
+        fi
+    else
         ERRORS=$((ERRORS + 1))
     fi
-done < <(find "$REFERENCE_DIR" -name "*.md" -type f -print0)
+done
 
 # Tests 2-3 need the gitignored private-patterns file. In publication mode its
 # absence is a hard failure: a scanner that cannot read its own input has not
@@ -96,14 +175,17 @@ else
         echo "FAIL: .private-patterns line 1 (project patterns) is empty"
         ERRORS=$((ERRORS + 1))
     else
-        while IFS= read -r -d '' f; do
-            matches=$(grep -niE -- "$PRIVATE_PROJECTS" "$f" || true)
-            if [ -n "$matches" ]; then
-                echo "FAIL: $f references private project:"
-                echo "$matches"
+        for f in "${SCAN_FILES[@]}"; do
+            if matches=$(grep_or_fail '-niE' "$PRIVATE_PROJECTS" "$f"); then
+                if [ -n "$matches" ]; then
+                    echo "FAIL: $f references private project:"
+                    echo "$matches"
+                    ERRORS=$((ERRORS + 1))
+                fi
+            else
                 ERRORS=$((ERRORS + 1))
             fi
-        done < <(find "$REFERENCE_DIR" -name "*.md" -type f -print0)
+        done
     fi
 
     # Test 3: No references to private agents/skills
@@ -113,32 +195,38 @@ else
         echo "FAIL: .private-patterns line 2 (agent patterns) is empty"
         ERRORS=$((ERRORS + 1))
     else
-        while IFS= read -r -d '' f; do
-            matches=$(grep -niE -- "$PRIVATE_AGENTS" "$f" || true)
-            if [ -n "$matches" ]; then
-                echo "FAIL: $f references private agent:"
-                echo "$matches"
+        for f in "${SCAN_FILES[@]}"; do
+            if matches=$(grep_or_fail '-niE' "$PRIVATE_AGENTS" "$f"); then
+                if [ -n "$matches" ]; then
+                    echo "FAIL: $f references private agent:"
+                    echo "$matches"
+                    ERRORS=$((ERRORS + 1))
+                fi
+            else
                 ERRORS=$((ERRORS + 1))
             fi
-        done < <(find "$REFERENCE_DIR" -name "*.md" -type f -print0)
+        done
     fi
 fi
 
 # Test 4: No secrets or credentials (skip security-related agent docs)
 echo "--- Test 4: No secrets/credentials ---"
 SECURITY_DOCS="security-auditor|code-reviewer|api-designer|webmcp-integration"
-while IFS= read -r -d '' f; do
+for f in "${SCAN_FILES[@]}"; do
     basename_f=$(basename "$f")
     if echo "$basename_f" | grep -qiE -- "$SECURITY_DOCS"; then
         continue  # Skip security/auth docs (false positives)
     fi
-    matches=$(grep -niE -- '(api[_-]?key|secret|password|bearer|token\s*[:=])' "$f" || true)
-    if [ -n "$matches" ]; then
-        echo "FAIL: $f may contain credentials:"
-        echo "$matches"
+    if matches=$(grep_or_fail '-niE' '(api[_-]?key|secret|password|bearer|token\s*[:=])' "$f"); then
+        if [ -n "$matches" ]; then
+            echo "FAIL: $f may contain credentials:"
+            echo "$matches"
+            ERRORS=$((ERRORS + 1))
+        fi
+    else
         ERRORS=$((ERRORS + 1))
     fi
-done < <(find "$REFERENCE_DIR" -type f -name "*.md" -print0)
+done
 
 # Test 5: SKILL.md frontmatter validation
 echo "--- Test 5: SKILL.md frontmatter ---"

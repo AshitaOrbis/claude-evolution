@@ -85,6 +85,8 @@ Before scoring, if the item proposes an environment variable or configuration ch
 (check description for keywords: "env var", "export", "settings.json", ".bashrc", ".profile",
 "CLAUDE_CODE_", "sandbox", "permission"):
 
+**If you have Bash** (autonomous mode only — check whether `Bash` is in your tool list):
+
 1. Run: `bash scripts/sandbox-test-integration.sh --env "PROPOSED_VAR=value"`
 2. If the test **FAILS**:
    - Set `integration_complexity = 0` (impossible to integrate safely)
@@ -92,8 +94,21 @@ Before scoring, if the item proposes an environment variable or configuration ch
    - Add to reasoning: "FAILED empirical safety test: [failure details from JSON output]"
    - Decision is automatically REJECTED
 3. If the test **PASSES**:
-   - Note in reasoning: "Passed empirical safety test"
+   - Note in reasoning, verbatim and as a sentence of its own: `Passed empirical safety test`
    - Score normally using the criteria above
+
+**If you do NOT have Bash** (the default review-gated mode — claude.review_gate_tool_mismatch_03
+/ claude.eval_mandatory_test_unavailable_05 / claude.review_mode_safety_check_unavailable_07):
+you cannot run this check, and you must not write "Passed empirical safety test" or otherwise
+imply the test ran — narrating the command, or repeating a changelog's own safety claim, is
+not empirical evidence. Set `decision: NEEDS_RESEARCH` regardless of the other scores, with
+reasoning "Empirical safety test required for an env/config change but unavailable without
+Bash in review-gated mode." The item stays in `pipeline/evaluation/pending/` for a human, or an
+autonomous re-run with Bash, to test properly. `scripts/evolution-daily.sh` additionally runs a
+deterministic backstop before any autonomous integration: an approved env/config item is pulled
+back out of `pipeline/integration/` unless its record carries `Passed empirical safety test` as
+a sentence of its own and records no failed or unavailable safety test, regardless of what this
+evaluation says. If such an item cannot be pulled out, the whole integration phase is refused.
 
 Never trust changelog descriptions for behavioral impact claims.
 Test empirically. The April 2026 incident happened because "zero workflow impact"
@@ -101,7 +116,12 @@ was scored from a changelog read, not from running the actual change.
 
 ## Output
 
-Move each evaluated item to `pipeline/evaluation/completed/` with added fields:
+Add these fields to every evaluated item, then route it by its `decision` — **no
+other destination is permitted** (claude.evaluation_routing_conflict_06 / bq-1401:
+an earlier version of this section told you to move every item to `completed/`
+regardless of decision, contradicting the Decision Thresholds table above; that
+silently pulled approvals out of the integration queue and research flags out of
+pending):
 
 ```json
 {
@@ -120,6 +140,13 @@ Move each evaluated item to `pipeline/evaluation/completed/` with added fields:
   }
 }
 ```
+
+| Decision | Destination |
+|---|---|
+| **APPROVED** | `pipeline/integration/` |
+| **NEEDS_RESEARCH** | stays in `pipeline/evaluation/pending/` (flagged, not moved) |
+| **REJECTED**, no owner-interest match | `pipeline/evaluation/completed/` |
+| **REJECTED**, owner-interest match | `pipeline/evaluation/review/` (see Owner-Interest Override above; do not also write it to `completed/`) |
 
 Output a JSON summary as the final line:
 ```json

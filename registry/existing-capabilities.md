@@ -1,7 +1,7 @@
 # Existing Capabilities Registry
 
 > **Purpose**: Check against this BEFORE researching any discovery to catch redundancy early.
-> **Last Updated**: 2026-08-02 (66 integrations: weekly /insights pass — 0 integrated directly (approval-gated); 1 skill improvement routed to pending-approval (binding-inputs ratification gate for fable-research-pipeline, 78.25); 1 deferred (commit-scope staged-file guard 64.0 — fold into the publish-guard hook if the allow-list ruling approves it); 14 duplicates. Cron /insights generation failed a 4th consecutive week on the unapproved variadic --mcp-config fix (proposal 20260719, pending since 07-20); recovered in-run again by equals-form generation of a fresh Account-B report (07-01→08-02; window overlaps last week's — window control is inside the pending fix). Prior: 1-proposal pass on 2026-07-26)
+> **Last Updated**: 2026-07-26 (66 integrations: weekly /insights pass — 0 integrated directly (approval-gated); 1 CLAUDE.md rule routed to pending-approval (subagent spawn-time Write/effort grants, 72.75); 2 deferred (publish-guard hook 67.25 — blocked on the pending allow-list ruling; bug-history regression harness 60.75 — overlaps pending treetrace pilot). Cron /insights generation failed a 3rd consecutive week on the unapproved variadic --mcp-config fix (proposal 20260719, pending since 07-20); recovered in-run by manual equals-form generation of a fresh Account-B report (07-01→07-26). Prior: 2-proposal pass on 2026-07-19)
 
 ## How to Use This Document
 
@@ -2828,9 +2828,9 @@ Projects outside `claude-evolution/` that the evolution pipeline regularly recei
 
 | Project | Hub | Status |
 |---------|-----|--------|
-| **Historical Nanochat** | [`library/projects/historical-nanochat.md`](../library/projects/historical-nanochat.md) | **Active training** on requiem 3090. Run `governed_v4_d22_r30_parallel_family` at step 10,000, val BPB 1.2406, ETA ~2026-05-10. Hub indexes 6 investigation reports + 3 blog-ideas + 1 completed evaluation + 1 technique cross-reference. Methodology now includes the Mr. Chatterbox comparison, an SFT provenance and era-purity gate, and a period-native dialogue/QA experiment with a separated modern-synthetic control. Open problems: multi-family corpus dynamics (BLOCKING), OCRonos-Vintage preprocessing (UNEVALUATED), rights audit, provenance bug. |
+| **Historical Nanochat** | [`library/projects/historical-nanochat.md`](../library/projects/historical-nanochat.md) | **Active training** on requiem 3090. Run `governed_v4_d22_r30_parallel_family` at step 10,000, val BPB 1.2406, ETA ~2026-05-10. Hub indexes 5 investigation reports + 3 blog-ideas + 1 completed evaluation + 1 technique cross-reference. Open problems: multi-family corpus dynamics (BLOCKING), OCRonos-Vintage preprocessing (UNEVALUATED), rights audit, provenance bug. |
 
-**Redundancy triggers**: "historical-nanochat", "historical_nanochat", "historical nanochat", "time-locked LLM", "pre-1913 corpus", "nanochat training", "governed_v4", "Phase-0-lite", "OCRonos-Vintage", "talkie-lm", "Pleias OCR", "Karpathy nanochat", "615M params d22", "Chinchilla r=30", "diverse corpus training dynamics", "shard-flip divergence", "parallel-shard dataloader", "REWIRE pretraining", "Mr. Chatterbox", "SFT provenance and era-purity gate", "period-native dialogue/QA", "modern synthetic SFT contamination"
+**Redundancy triggers**: "historical-nanochat", "historical_nanochat", "historical nanochat", "time-locked LLM", "pre-1913 corpus", "nanochat training", "governed_v4", "Phase-0-lite", "OCRonos-Vintage", "talkie-lm", "Pleias OCR", "Karpathy nanochat", "615M params d22", "Chinchilla r=30", "diverse corpus training dynamics", "shard-flip divergence", "parallel-shard dataloader", "REWIRE pretraining"
 
 **When a new discovery mentions historical-nanochat**:
 1. Read `library/projects/historical-nanochat.md` first
@@ -3034,13 +3034,3 @@ a pass), static config review, Litmus-style behavioral evidence, and optionally 
 Ocarina playbook. Score: 74.5/100.
 
 **Redundancy triggers**: "capframe", "capframe leaderboard", "MCP risk signal", "MCP server security template", "authority hygiene", "MCP evaluation checklist", "third-party MCP vetting"
-
-### Procedure-versus-Capability Ceiling Debugging
-
-Evidence-first debugging guidance that separates repairable procedure gaps from
-probable model capability ceilings. It requires stable success criteria, passing
-tool and environment checks, materially different attempts, independent evidence,
-and explicit escalation records before routing to a stronger model or human review.
-Skill: `skills/systematic-debugging/SKILL.md`. Score: 72/100.
-
-**Redundancy triggers**: "procedure gap", "capability ceiling", "systematic debugging", "debug escalation boundary", "stronger model escalation", "repeated procedural churn", "harness capability limit"

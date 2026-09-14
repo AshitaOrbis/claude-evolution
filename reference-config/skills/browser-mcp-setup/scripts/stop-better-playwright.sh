@@ -19,27 +19,50 @@ list_port_pids() {
     lsof -nP -tiTCP:"$PORT" -sTCP:LISTEN 2>/dev/null || true
 }
 
-# Function to kill process(es) on port; returns 0 if anything was stopped
+# Verify a PID is actually a Better Playwright server before touching it: a
+# positive-integer PID listening on our port is not proof of identity
+# (claude.browser_stop_port_kill_06). Match the pinned package name in its
+# own /proc/<pid>/cmdline.
+is_better_playwright_pid() {
+    local pid="$1" cmdline
+    [[ "$pid" =~ ^[1-9][0-9]*$ ]] || return 1
+    cmdline="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null)" || return 1
+    [[ -n "$cmdline" ]] || return 1
+    [[ "$cmdline" == *"better-playwright-mcp3"* ]]
+}
+
+# Function to kill VERIFIED Better Playwright process(es) on the port; returns
+# 0 if anything was stopped. An unverified occupant is reported and left
+# untouched rather than killed -- a stale/reused PID or a port collision must
+# never let this script terminate an unrelated dev server or database proxy.
 kill_port_process() {
     local pid found=1
     local -a pids
+    local -a unverified=()
     mapfile -t pids < <(list_port_pids)
     for pid in "${pids[@]}"; do
-        if [[ "$pid" =~ ^[1-9][0-9]*$ ]]; then
-            echo "Stopping process on port $PORT (PID: $pid)..."
+        if is_better_playwright_pid "$pid"; then
+            echo "Stopping process on port $PORT (PID: $pid, verified via /proc/$pid/cmdline)..."
             kill "$pid" 2>/dev/null || true
             found=0
+        elif [[ "$pid" =~ ^[1-9][0-9]*$ ]]; then
+            unverified+=("$pid")
         fi
     done
     if (( found == 0 )); then
         sleep 1
-        # Force kill anything still listening
+        # Force kill anything of OURS still listening -- re-verify, do not
+        # broaden to "anything on the port" on the second pass either.
         mapfile -t pids < <(list_port_pids)
         for pid in "${pids[@]}"; do
-            if [[ "$pid" =~ ^[1-9][0-9]*$ ]]; then
+            if is_better_playwright_pid "$pid"; then
                 kill -9 "$pid" 2>/dev/null || true
             fi
         done
+    fi
+    if (( ${#unverified[@]} > 0 )); then
+        echo "NOTE: port $PORT is also occupied by unidentified process(es) (PID: ${unverified[*]});" >&2
+        echo "      left untouched -- they do not look like a Better Playwright server." >&2
     fi
     return $found
 }

@@ -174,15 +174,24 @@ could direct a write to `~/.claude.json`, `.env`, `.git/hooks/`, etc. Path-
 scoped `--allowed-tools` rules and `permissions.deny` settings were tested and
 did **not** reliably constrain `claude -p` writes (see SECURITY.md).
 
-**Interim mitigation (IMPLEMENTED 2026-06-22)**: a `PreToolUse`
-write-confinement hook (`.claude/hooks/block-sensitive-writes.sh`, wired in
-`.claude/settings.json` for `Write|Edit|MultiEdit|NotebookEdit`) blocks
+**Interim mitigation (IMPLEMENTED 2026-06-22, denylist widened 2026-09-04)**: a
+`PreToolUse` write-confinement hook (`.claude/hooks/block-sensitive-writes.sh`,
+wired in `.claude/settings.json` for `Write|Edit|MultiEdit|NotebookEdit`) blocks
 (exit 2) any write whose resolved target is on the sensitive-path denylist
 (`~/.claude`, `~/.claude.json`, `.env`/`.env.*`, `.git/hooks/`, `~/.ssh`,
-`~/.config`) or lands outside the repo tree. This is weaker than removing
-`Write` — it is a path denylist, so it cannot catch every indirect write (new
-symlink → later write through it, TOCTOU swap, or any write funneled through
-`Bash` in autonomous mode). The robust fix below is still the target.
+`~/.config`) or lands outside the repo tree. As of 2026-09-04 it ALSO denies
+writes to the pipeline's own in-repo control plane before the generic in-tree
+allow — `.claude/**`, `scripts/**`, `lib/**`, `config/**`, `tests/**`, `.git/**`,
+and the root prompt/policy files — closing the specific "the hook authorized
+overwriting itself and the next cron run's code" gap
+(claude.write_hook_self_bypass_01 and siblings). A companion `PreToolUse` read
+hook (`.claude/hooks/block-sensitive-reads.sh`, matcher `Read|Glob|Grep`) was
+also added for the read side of the same threat model
+(claude.read_web_exfil_01: Read/Glob/Grep sit in the same session as
+WebFetch/WebSearch with no prior confinement on what local content could enter
+the model context). Neither is the robust fix: both remain a denylist, so
+neither catches a TOCTOU swap or any write/read funneled through `Bash` in
+autonomous mode. The robust fix below is still the target.
 
 **Robust fix options** (pick one, validate against a real run):
 - Remove `Write` from the web-fetching phases; have each agent emit its

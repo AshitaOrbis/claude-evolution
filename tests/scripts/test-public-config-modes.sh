@@ -109,6 +109,50 @@ OUT="$(run --nonsense)"; RC=$?
 OUT="$(run --help)"; RC=$?
 [[ $RC -eq 0 ]]; want "--help exits 0" $?
 
+# ---------------------------------------------------------------------------
+echo ""
+echo "--- Enumeration failures are scan failures, not zero matches (claude.privacy_scan_walk_failopen_08) ---"
+rm -rf "$FIX/reference-config"
+OUT="$(run)"; RC=$?
+[[ $RC -ne 0 ]]; want "missing reference-config/ exits nonzero" $?
+! grep -q 'ALL TESTS PASSED' <<< "$OUT"; want "missing reference-config/ never prints ALL TESTS PASSED" $?
+mkdir -p "$FIX/reference-config"
+OUT="$(run)"; RC=$?
+[[ $RC -ne 0 ]]; want "empty (zero-file) reference-config/ exits nonzero" $?
+! grep -q 'ALL TESTS PASSED' <<< "$OUT"; want "empty reference-config/ never prints ALL TESTS PASSED" $?
+cat > "$FIX/reference-config/clean.md" <<'MD'
+# Reference config
+
+Put skills in ~/.claude/skills/ and clone into ~/your-project.
+MD
+
+# ---------------------------------------------------------------------------
+echo ""
+echo "--- Non-Markdown leaks are now caught (claude.publication_scan_partial_green_05) ---"
+mkdir -p "$FIX/reference-config/skills/browser-mcp-setup/scripts"
+cat > "$FIX/reference-config/skills/browser-mcp-setup/scripts/leaky.sh" <<'SH'
+#!/bin/sh
+echo "home is /home/someuser/notes"
+SH
+OUT="$(run --generic-only)"; RC=$?
+[[ $RC -ne 0 ]]; want "a private path inside a .sh reference script now fails the scan" $?
+grep -q 'leaky.sh' <<< "$OUT"; want "the failure names the offending .sh file" $?
+rm -rf "$FIX/reference-config/skills/browser-mcp-setup"
+
+# ---------------------------------------------------------------------------
+echo ""
+echo "--- An invalid regex in .private-patterns is a scan FAILURE, not a silent no-match ---"
+printf 'privateproj
+[unterminated
+' > "$FIX/scripts/.private-patterns"
+OUT="$(run)"; RC=$?
+[[ $RC -ne 0 ]]; want "invalid ERE in .private-patterns exits nonzero" $?
+! grep -q 'ALL TESTS PASSED' <<< "$OUT"; want "invalid ERE never prints ALL TESTS PASSED" $?
+grep -qi 'not a valid extended regex' <<< "$OUT"; want "the failure names it as an invalid pattern, not a clean scan" $?
+printf 'privateproj
+privateagent
+' > "$FIX/scripts/.private-patterns"
+
 echo ""
 echo "=== $PASS passed, $FAIL failed ==="
 [[ $FAIL -eq 0 ]]

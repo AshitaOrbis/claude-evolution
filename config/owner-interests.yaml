@@ -57,11 +57,11 @@ domains:
   - id: avatar-vtuber
     label: Avatar / VTuber / embodied character
     why: >-
-      The radio project's roadmap ends in four animated hosts, and the owner has shared
-      avatar repos in Discord three times. This is the domain the 2026-03/04 rejections
-      buried.
+      Avatar, VTuber, and embodied-character work matches a domain the maintainer works
+      in outside this repository. This is the domain the 2026-03/04 rejections buried
+      (see the regression cases in tests/test_owner_interest_lens.py).
     serves:
-      - tools/vtuber-radio
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - vtuber
       - v-tuber
@@ -99,12 +99,12 @@ domains:
   - id: speech-voice
     label: Speech synthesis / recognition (TTS-STT)
     why: >-
-      The radio station's entire product is synthesized host voice, and every report
-      this workspace ships has an audio version. Qwen3-TTS was closed as "no agent
-      development relevance" four months before the station existed.
+      Speech synthesis and recognition match a domain the maintainer works in outside
+      this repository, including audio deliverables built from written reports.
+      Qwen3-TTS was closed as "no agent development relevance" four months before that
+      work existed.
     serves:
-      - tools/vtuber-radio
-      - tools/article-podcast
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - tts
       - stt
@@ -142,10 +142,10 @@ domains:
   - id: radio-audio-streaming
     label: Radio / audio streaming infrastructure
     why: >-
-      tools/vtuber-radio runs a live station. Anything about streaming audio, playlist
-      scheduling, or now-playing metadata is directly usable there.
+      Live audio streaming, playlist scheduling, and now-playing metadata match a
+      domain the maintainer works in outside this repository (a live station).
     serves:
-      - tools/vtuber-radio
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - icecast
       - liquidsoap
@@ -168,11 +168,11 @@ domains:
   - id: uai-education
     label: Understanding AI / explanation and education
     why: >-
-      The Understanding AI project ships a wiki and a compendium that explain AI to
-      non-specialists. Explainer craft, interactive teaching, and visualization
-      technique are the raw material for it.
+      Explainer craft, interactive teaching, and educational visualization technique
+      match a domain the maintainer works in outside this repository (a public-
+      education writing project explaining AI to non-specialists).
     serves:
-      - research/understanding-ai-compendium
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - explainer
       - interactive explanation
@@ -202,8 +202,7 @@ domains:
       adjacent harness usually does not — and is exactly the thing worth reading
       before building the next orchestration layer here.
     serves:
-      - orchestration
-      - session-management
+      - "(configure in config/owner-interests.local.yaml)"
     # Threshold 3, not 2. "agent framework" and "multi-agent" are ambient vocabulary
     # in this repo — they appear in the rejection reasoning of items that have nothing
     # to do with agent harnesses ("react-bits is not an agent framework"). Terms that
@@ -233,11 +232,11 @@ domains:
   - id: psychometrics
     label: Psychometrics / personality measurement
     why: >-
-      The psyche project is a 39-instrument battery over a 1.47M-word corpus. Anything
-      about measuring persons — validated instruments, IRT, corpus-derived traits —
-      is directly on that line and reads as pure noise to a coding-tools rubric.
+      Validated personality/psychometric instruments, item response theory, and
+      corpus-derived trait measurement match a domain the maintainer works in outside
+      this repository, and read as pure noise to a coding-tools rubric.
     serves:
-      - psyche
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - psychometric
       - big five
@@ -261,11 +260,11 @@ domains:
   - id: inference-economics
     label: Inference economics / cost and margin structure
     why: >-
-      inference-margins is a live research project on what serving a token actually
-      costs. Hardware pricing, utilization, batching economics, and capex disclosures
-      are its primary sources.
+      Inference cost structure — hardware pricing, utilization, batching economics,
+      capex/opex disclosures — matches a live cost-of-serving research project the
+      maintainer works on outside this repository.
     serves:
-      - research/inference-margins
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - inference cost
       - cost per token
@@ -296,11 +295,11 @@ domains:
   - id: games
     label: Game development
     why: >-
-      games/ is an active pipeline (ww2-gacha, autochess, slime-survivor, veilbreak).
-      Engine tooling, generation, and genre technique are usable there and score zero
-      against Claude Code.
+      Engine tooling, generation, and genre technique match an active game-development
+      pipeline the maintainer works on outside this repository, and score zero against
+      a Claude Code rubric.
     serves:
-      - games
+      - "(configure in config/owner-interests.local.yaml)"
     strong_signals:
       - godot
       - gdscript

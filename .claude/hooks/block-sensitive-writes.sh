@@ -238,6 +238,33 @@ if [[ "$CANON_PATH" == "$CANON_HOME/.config" || "$CANON_PATH" == "$CANON_HOME/.c
   deny "write to ~/.config -- user-config / autostart tampering ($CANON_PATH)"
 fi
 
+# 6. The pipeline's own enforcement and executable control plane. The generic
+#    in-tree allow below trusts every path inside the repo, which previously
+#    included this hook itself, .claude/settings.json, scripts/, lib/, config/,
+#    tests/, and the root prompt/policy files that scripts/evolution-daily.sh
+#    executes on this run or the next cron run (claude.write_hook_self_bypass_01,
+#    claude.write_guard_control_plane_02, claude.write_hook_control_plane_rce_01,
+#    claude.write_hook_self_disable_01). A prompt-injected agent with Write and
+#    no Bash could otherwise replace this hook with an allow-all body, rewrite
+#    scripts/evolution-daily.sh or lib/owner_interest_lens.py for execution on
+#    the next run, or edit .claude/settings.json to unwire the hook entirely.
+#    Denied here, before the generic in-tree allow, regardless of nesting depth.
+#    (This narrows the interim mitigation; it does not close the broader,
+#    still-open "Confine Agent Writes Without Bash" gap in BACKLOG.md -- a
+#    Bash-driven write in autonomous mode or a TOCTOU swap are untouched by a
+#    path denylist of any shape.)
+for _cp_prefix in ".claude" scripts lib config tests .git; do
+  if [[ "$CANON_PATH" == "$CANON_PROJECT/$_cp_prefix" || "$CANON_PATH" == "$CANON_PROJECT/$_cp_prefix/"* ]]; then
+    deny "write to the pipeline's own control plane ($_cp_prefix/) -- this hook, the wrapper scripts, the owner-interest lens, config, tests, and git metadata are not agent-writable targets ($CANON_PATH)"
+  fi
+done
+for _cp_file in CLAUDE.md SECURITY.md BACKLOG.md README.md HEARTBEAT-DAILY.md HEARTBEAT-WEEKLY.md \
+                EVALUATE-PENDING.md INTEGRATE-APPROVED.md GENERATE-HELPERS.md GENERATE-HELPERS-WEEKLY.md; do
+  if [[ "$CANON_PATH" == "$CANON_PROJECT/$_cp_file" ]]; then
+    deny "write to a root policy/prompt file ($_cp_file) -- these are executable policy for the next agent run, not agent-writable output ($CANON_PATH)"
+  fi
+done
+
 # ---------------------------------------------------------------------------
 # Containment check: the write must land INSIDE the project tree. Anything else
 # (absolute path elsewhere, or a relative path that climbed out via ..) is
