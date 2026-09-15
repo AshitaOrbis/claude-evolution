@@ -116,6 +116,38 @@ if [[ ${#preflight_missing[@]} -gt 0 ]]; then
     exit 1
 fi
 
+# ---------------------------------------------------------------------------
+# Preflight: every configured PreToolUse guard must resolve to an executable
+# file BEFORE any agent starts (claude.read_hook_missing_public_01).
+#
+# .claude/settings.json registers a Read|Glob|Grep guard alongside the write
+# guard. When the script it names is absent the shell returns 127, and Claude
+# Code's PreToolUse contract treats every hook failure other than exit 2 as
+# NON-BLOCKING: the tool runs unguarded and the transcript says nothing. The
+# guard cannot fail closed from inside itself -- it never starts, so its own
+# EXIT trap never runs. This is the last point at which the run can refuse, and
+# the phases below hold Read, Glob, Grep, WebFetch and WebSearch together.
+# ---------------------------------------------------------------------------
+HOOK_CHECK="scripts/check-hook-commands.py"
+if [[ ! -r "$HOOK_CHECK" ]]; then
+    log "ERROR: $HOOK_CHECK is missing or unreadable — the configured PreToolUse guards"
+    log "       cannot be resolved, so this run cannot show that they will actually run."
+    log "       Refusing the WHOLE run: an unverifiable guard is not a guard."
+    exit 1
+fi
+if ! hook_preflight_out="$(CLAUDE_PROJECT_DIR="$PWD" python3 "$HOOK_CHECK" 2>&1)"; then
+    log "ERROR: a configured PreToolUse guard does not resolve to an executable file:"
+    while IFS= read -r hook_preflight_line; do
+        [[ -n "$hook_preflight_line" ]] && log "       $hook_preflight_line"
+    done <<< "$hook_preflight_out"
+    log "       Refusing the WHOLE run, discovery included. Claude Code treats a hook that"
+    log "       cannot start as non-blocking, so the agents below would hold Read, Glob,"
+    log "       Grep, WebFetch and WebSearch with the advertised filter silently absent."
+    log "       Restore the guard script(s) named above, or remove the hook entry from"
+    log "       .claude/settings.json AND the claim from SECURITY.md."
+    exit 1
+fi
+
 # Tool allowlists.
 # Review-gated default: agents get no Bash, and integration is skipped.
 # EVOLUTION_AUTONOMOUS=1 restores fully autonomous behavior (see SECURITY.md).

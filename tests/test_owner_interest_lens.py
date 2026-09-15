@@ -981,3 +981,118 @@ def test_three_sources_sharing_a_stem_each_keep_their_own_review_record(
             f"{name} is stamped to a review record that belongs to another source"
         )
 
+
+
+# ----------------------------------------------- unreadable corpora (bq-2485)
+#
+# claude.owner_sweep_unreadable_dir_green_03 (GPT Pro 2026-09-15): the preflight
+# checked is_dir(), which answers "is this a directory" and not "can its contents
+# be listed". A populated directory whose listing permission is gone passed it,
+# Path.glob("*") swallowed the PermissionError and yielded nothing, and the sweep
+# returned scanned=0 with errors=[] and exit 0 -- so scripts/evolution-daily.sh
+# read a permissions regression as a healthy, empty mandatory review while the
+# rejects inside sat uninspected. The missing-directory control already worked;
+# these cases pin the unreadable one, and pin that an actually-empty readable
+# directory is still a clean zero.
+
+_needs_unprivileged = pytest.mark.skipif(
+    os.geteuid() == 0,
+    reason="running as root: mode 000 does not block enumeration, so the case cannot be simulated",
+)
+
+
+@_needs_unprivileged
+def test_sweep_reports_an_unreadable_completed_dir_as_an_error(
+    tmp_path: Path, config: LensConfig
+) -> None:
+    completed = tmp_path / "completed"
+    completed.mkdir()
+    (completed / "hit.md").write_text(MD_BULLET, encoding="utf-8")
+    os.chmod(completed, 0o000)
+    try:
+        report = sweep(completed, config, tmp_path / "review", apply=False)
+    finally:
+        os.chmod(completed, 0o700)
+
+    assert report["errors"], "an unreadable corpus must not report a clean, empty sweep"
+    assert report["scanned"] == 0
+    assert report["routed_to_review"] == 0
+    joined = " ".join(e["error"] for e in report["errors"])
+    assert "could not be enumerated" in joined, joined
+    assert "PermissionError" in joined, joined
+
+
+@_needs_unprivileged
+def test_cmd_sweep_returns_nonzero_for_an_unreadable_completed_dir(
+    tmp_path: Path, capsys
+) -> None:
+    """The exit code is what scripts/evolution-daily.sh branches on."""
+    import argparse
+
+    from lib.owner_interest_lens import _cmd_sweep
+
+    completed = tmp_path / "completed"
+    completed.mkdir()
+    (completed / "hit.md").write_text(MD_BULLET, encoding="utf-8")
+    os.chmod(completed, 0o000)
+    args = argparse.Namespace(
+        dir=str(completed),
+        review_dir=str(tmp_path / "review"),
+        apply=True,
+        since_days=None,
+        json=False,
+    )
+    try:
+        rc = _cmd_sweep(args, load_config())
+    finally:
+        os.chmod(completed, 0o700)
+    capsys.readouterr()
+    assert rc != 0, "a corpus the sweep could not inspect must not report success"
+
+
+@_needs_unprivileged
+def test_sweep_reports_an_unreadable_record_as_an_error(
+    tmp_path: Path, config: LensConfig
+) -> None:
+    """A listable directory holding one unreadable record: the rest still screens."""
+    completed = tmp_path / "completed"
+    completed.mkdir()
+    (completed / "hit.md").write_text(MD_BULLET, encoding="utf-8")
+    locked = completed / "locked.md"
+    locked.write_text(MD_BULLET, encoding="utf-8")
+    os.chmod(locked, 0o000)
+    try:
+        report = sweep(completed, config, tmp_path / "review", apply=False)
+    finally:
+        os.chmod(locked, 0o600)
+
+    assert report["scanned"] == 2, "both records were seen; one of them could not be read"
+    assert report["routed_to_review"] == 1, "the readable reject must still be routed"
+    assert any("locked.md" in e["path"] for e in report["errors"]), report["errors"]
+
+
+def test_sweep_on_an_empty_readable_dir_is_still_a_clean_zero(
+    tmp_path: Path, config: LensConfig
+) -> None:
+    """The fix must not turn a genuinely empty corpus into a failure."""
+    completed = tmp_path / "completed"
+    completed.mkdir()
+
+    report = sweep(completed, config, tmp_path / "review", apply=False)
+    assert report["errors"] == []
+    assert report["scanned"] == 0
+    assert report["routed_to_review"] == 0
+
+
+def test_sweep_skips_a_broken_symlink_without_claiming_it_was_screened(
+    tmp_path: Path, config: LensConfig
+) -> None:
+    """A dangling entry is an entry that could not be inspected, not an absent one."""
+    completed = tmp_path / "completed"
+    completed.mkdir()
+    (completed / "hit.md").write_text(MD_BULLET, encoding="utf-8")
+    (completed / "gone.md").symlink_to(tmp_path / "nowhere.md")
+
+    report = sweep(completed, config, tmp_path / "review", apply=False)
+    assert report["scanned"] == 1, "a dangling link is not a screened record"
+    assert report["routed_to_review"] == 1

@@ -67,6 +67,30 @@ printf '{"mcpServers":{}}\n' > "$MCP_EMPTY"
 
 cd "$EVOLUTION_DIR"
 
+# ---------------------------------------------------------------------------
+# Preflight: every configured PreToolUse guard must resolve to an executable
+# file BEFORE the agent starts (claude.read_hook_missing_public_01). The weekly
+# agent holds Write, so the write guard is the one that matters here, but the
+# failure mode is the same for either: a hook command that does not exist makes
+# the shell return 127, and Claude Code treats every PreToolUse failure other
+# than exit 2 as NON-BLOCKING, so the tool runs unguarded and silently. The
+# guard cannot fail closed from inside itself, because it never starts.
+# ---------------------------------------------------------------------------
+HOOK_CHECK="scripts/check-hook-commands.py"
+if [[ ! -r "$HOOK_CHECK" ]]; then
+    log "ERROR: $HOOK_CHECK is missing or unreadable — the configured PreToolUse guards cannot be resolved."
+    log "       Refusing the run: an unverifiable guard is not a guard."
+    exit 1
+fi
+if ! hook_preflight_out="$(CLAUDE_PROJECT_DIR="$PWD" python3 "$HOOK_CHECK" 2>&1)"; then
+    log "ERROR: a configured PreToolUse guard does not resolve to an executable file:"
+    while IFS= read -r hook_preflight_line; do
+        [[ -n "$hook_preflight_line" ]] && log "       $hook_preflight_line"
+    done <<< "$hook_preflight_out"
+    log "       Refusing the run: the weekly agent holds Write with the advertised filter absent."
+    exit 1
+fi
+
 # Weekly analysis: review the week's discoveries and integrations.
 # Read/Write/Glob/Grep only -- the weekly report needs no Bash or web access.
 log "Running weekly analysis..."

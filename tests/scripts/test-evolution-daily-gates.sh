@@ -45,6 +45,19 @@ chmod +x "$FIX/scripts/evolution-daily.sh"
 printf '#!/bin/sh\necho {"passed": true}\n' > "$FIX/scripts/sandbox-test-integration.sh"
 chmod +x "$FIX/scripts/sandbox-test-integration.sh"
 
+# The configured PreToolUse guards and the resolver the wrapper preflights with
+# (claude.read_hook_missing_public_01). The wrapper refuses to launch an agent
+# whose advertised guard is not there to run, so a fixture checkout that omits
+# them is refused before Phase 1 -- which is the point, but it is not the state
+# these gate-sequencing cases are about.
+mkdir -p "$FIX/.claude/hooks"
+cp "$REPO_ROOT/.claude/settings.json" "$FIX/.claude/settings.json"
+cp "$REPO_ROOT/scripts/check-hook-commands.py" "$FIX/scripts/check-hook-commands.py"
+for hook_src in "$REPO_ROOT"/.claude/hooks/*.sh; do
+  cp "$hook_src" "$FIX/.claude/hooks/"
+  chmod +x "$FIX/.claude/hooks/$(basename "$hook_src")"
+done
+
 # Fake `claude`: records every invocation (joined args) as one line, does nothing else.
 CALL_LOG="$WORK/claude-calls.log"
 cat > "$BIN/claude" <<STUB

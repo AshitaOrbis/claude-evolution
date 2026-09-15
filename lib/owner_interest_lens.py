@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from dataclasses import dataclass, field
@@ -656,12 +657,7 @@ def sweep(
     skipped_ineligible = 0
     errors: list[dict[str, str]] = []
 
-    if not directory.is_dir():
-        # A missing/unreadable directory is not "nothing to screen" -- it is a
-        # scan that never happened. Recording it in `errors` (rather than just
-        # returning early) means callers that already gate on `errors` being
-        # non-empty catch this the same way they catch a malformed record.
-        errors.append({"path": _rel(directory), "error": "NotADirectoryError: completed-items directory is missing or not a directory"})
+    def _report() -> dict[str, Any]:
         return {
             "dir": _rel(directory),
             "applied": apply,
@@ -674,15 +670,53 @@ def sweep(
             "items": routed,
         }
 
-    for path in sorted(directory.glob("*")):
-        if path.suffix not in {".md", ".json"} or not path.is_file():
+    if not directory.is_dir():
+        # A missing directory is not "nothing to screen" -- it is a scan that
+        # never happened. Recording it in `errors` (rather than just returning
+        # early) means callers that already gate on `errors` being non-empty
+        # catch this the same way they catch a malformed record.
+        errors.append({"path": _rel(directory), "error": "NotADirectoryError: completed-items directory is missing or not a directory"})
+        return _report()
+
+    # Enumerate with an operation that REPORTS a listing failure
+    # (claude.owner_sweep_unreadable_dir_green_03). is_dir() above answers
+    # "is this a directory", not "can its contents be listed": a directory
+    # whose search/read permission is gone passes it, and Path.glob("*")
+    # suppressed the resulting PermissionError and yielded nothing. The sweep
+    # then returned scanned=0 with errors=[] and _cmd_sweep exited 0, so
+    # scripts/evolution-daily.sh read a permissions regression as a healthy,
+    # empty mandatory review while the rejects inside sat uninspected.
+    try:
+        with os.scandir(directory) as scan:
+            candidates = sorted(scan, key=lambda entry: entry.name)
+    except OSError as exc:
+        errors.append(
+            {
+                "path": _rel(directory),
+                "error": f"{type(exc).__name__}: completed-items directory could not be enumerated: {exc}",
+            }
+        )
+        return _report()
+
+    for entry in candidates:
+        path = Path(entry.path)
+        if path.suffix not in {".md", ".json"}:
             continue
-        if cutoff is not None and path.stat().st_mtime < cutoff:
+        # Per-entry stat can fail on its own (a dangling symlink, a file whose
+        # directory lost search permission between the listing and now). That
+        # is a record that could not be inspected, not a record that is absent.
+        try:
+            if not entry.is_file():
+                continue
+            if cutoff is not None and entry.stat().st_mtime < cutoff:
+                continue
+        except OSError as exc:
+            errors.append({"path": _rel(path), "error": f"{type(exc).__name__}: {exc}"})
             continue
         scanned += 1
         try:
             record = parse_record(path)
-        except Exception as exc:  # a malformed record must not stop the sweep
+        except Exception as exc:  # a malformed or unreadable record must not stop the sweep
             errors.append({"path": _rel(path), "error": f"{type(exc).__name__}: {exc}"})
             continue
 
@@ -707,17 +741,7 @@ def sweep(
         elif result.state == "UNCHANGED":
             skipped_ineligible += 1
 
-    return {
-        "dir": _rel(directory),
-        "applied": apply,
-        "since_days": since_days,
-        "scanned": scanned,
-        "routed_to_review": len(routed),
-        "already_reopened": already,
-        "not_a_reject": skipped_ineligible,
-        "errors": errors,
-        "items": routed,
-    }
+    return _report()
 
 
 # --------------------------------------------------------------------------- cli

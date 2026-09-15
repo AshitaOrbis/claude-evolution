@@ -189,7 +189,16 @@ hook (`.claude/hooks/block-sensitive-reads.sh`, matcher `Read|Glob|Grep`) was
 also added for the read side of the same threat model
 (claude.read_web_exfil_01: Read/Glob/Grep sit in the same session as
 WebFetch/WebSearch with no prior confinement on what local content could enter
-the model context). Neither is the robust fix: both remain a denylist, so
+the model context). The read hook was registered in the published
+`.claude/settings.json` before the script itself was published, so a fresh
+public checkout ran the configured command, got exit 127, and — per the
+`PreToolUse` contract, where any exit other than 2 is non-blocking — read
+unguarded while the settings advertised a filter
+(`claude.read_hook_missing_public_01`, GPT Pro 2026-09-15). Fixed 2026-09-15:
+the guard and its suites are published, `scripts/check-hook-commands.py`
+resolves every configured hook command, and `scripts/evolution-daily.sh`
+refuses the whole run when one does not resolve. Neither hook is the robust
+fix: both remain a denylist, so
 neither catches a TOCTOU swap or any write/read funneled through `Bash` in
 autonomous mode. The robust fix below is still the target.
 

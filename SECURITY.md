@@ -125,6 +125,47 @@ mode). The robust fix — strip `Write` from the web-fetching phases and have
 the wrapper persist agent stdout to files — is the stronger long-term option
 and remains **deferred** (see `BACKLOG.md`).
 
+#### Interim mitigation: PreToolUse read-confinement hook (implemented)
+
+The discovery and evaluation phases hold `Read`, `Glob` and `Grep` in the same
+session as `WebFetch` and `WebSearch`. A prompt injection in fetched web content
+can therefore ask the agent to read a local secret and place it in a network
+tool's argument or in the discovery report, with no `Bash` and no write outside
+the repo required (`claude.read_web_exfil_01`). The companion hook closes the
+first step of that chain.
+
+- Hook script: `.claude/hooks/block-sensitive-reads.sh`
+- Wiring: `.claude/settings.json` (`PreToolUse` matcher `Read|Glob|Grep`)
+- Required dependencies: `jq` and GNU `realpath`, same as the write hook, and
+  missing either one denies rather than allows
+- Regression suite: `tests/hooks/test-block-sensitive-reads.sh`
+
+It is deliberately narrower than the write hook: reading a file is not code
+execution, so in-repo control-plane paths stay readable (agents legitimately read
+`CLAUDE.md`, `SECURITY.md` and the registry). It denies the same HOME
+dotfile/credential surface the write hook denies, plus anything resolving outside
+the project tree. It carries the same fail-closed traps, and the same residual
+uncatchable-signal surface described above.
+
+**A configured guard that is not present is not a guard — and Claude will not
+say so** (`claude.read_hook_missing_public_01`). A hook command that does not
+exist makes the shell return 127, and the `PreToolUse` contract treats every
+failure other than exit 2 as *non-blocking*: the tool runs, unguarded, silently.
+The guard cannot fail closed from inside itself, because it never starts. Two
+things follow, and both are enforced rather than documented:
+
+- `scripts/check-hook-commands.py` resolves every command configured in
+  `.claude/settings.json` to an existing executable file, and
+  `scripts/evolution-daily.sh` runs it as a preflight and **refuses the whole
+  run** — discovery included — when any command does not resolve. A command
+  still carrying an unexpanded variable is treated as unresolved rather than
+  assumed fine.
+- `tests/hooks/test-settings-hook-resolution.sh` is a clean-checkout suite: it
+  resolves every configured command against the checkout it is run from, and
+  drives a sensitive-read fixture through the *configured command string* to
+  prove the denial actually happens. Run it on a fresh clone after any change
+  to the hook wiring or to what this repository publishes.
+
 ### Autonomous mode (`EVOLUTION_AUTONOMOUS=1`)
 
 Restores the original fully autonomous behavior: agents get Bash, and the

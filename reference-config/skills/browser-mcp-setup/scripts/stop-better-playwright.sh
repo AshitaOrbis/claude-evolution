@@ -67,14 +67,25 @@ kill_port_process() {
     return $found
 }
 
-# Try to kill by PID file first (validated content only)
+# Try to kill by PID file first -- but only after verifying the occupant, the
+# same way the port sweep does (claude.browser_stop_stale_pid_kill_04). This
+# branch used to require only a positive integer that `kill -0` answered for,
+# which is proof that SOME process holds that pid, not that it is ours: after a
+# crash or a reboot a stale better-playwright.pid routinely names a pid the
+# kernel has since handed to something else, and this branch signalled it
+# before the verified port sweep below ever ran. A stale file is removed; its
+# occupant is left running and reported.
 if [[ -f "$PID_FILE" ]]; then
     PID=""
     read -r PID < "$PID_FILE" || true
-    if [[ "$PID" =~ ^[1-9][0-9]*$ ]] && kill -0 "$PID" 2>/dev/null; then
-        echo "Stopping Better Playwright (PID: $PID)..."
+    if is_better_playwright_pid "$PID"; then
+        echo "Stopping Better Playwright (PID: $PID, verified via /proc/$PID/cmdline)..."
         kill "$PID" 2>/dev/null || true
         sleep 0.5
+    elif [[ "$PID" =~ ^[1-9][0-9]*$ ]] && kill -0 "$PID" 2>/dev/null; then
+        echo "NOTE: $PID_FILE names live PID $PID, which does not look like a Better Playwright" >&2
+        echo "      server -- its /proc/$PID/cmdline does not carry the pinned package name." >&2
+        echo "      Left untouched; removing the stale PID file." >&2
     fi
     rm -f "$PID_FILE"
 fi

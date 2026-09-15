@@ -35,11 +35,27 @@ cleanup() { chmod -R u+rwX "$WORK" 2>/dev/null; rm -rf "$WORK"; }
 trap cleanup EXIT
 
 # --- a throwaway checkout: scripts/ + the pipeline dirs the cleanup touches ---
+# The configured PreToolUse guards and the resolver the wrapper preflights with
+# (claude.read_hook_missing_public_01): the wrapper refuses to launch an agent
+# whose advertised guard is not there to run, so a fixture checkout needs a
+# complete, executable guard set before the cases below mean anything.
+install_guard_fixture() { # install_guard_fixture <repo-root>
+  local repo="$1" hook_src
+  mkdir -p "$repo/.claude/hooks" "$repo/scripts"
+  cp "$REPO_ROOT/.claude/settings.json" "$repo/.claude/settings.json"
+  cp "$REPO_ROOT/scripts/check-hook-commands.py" "$repo/scripts/check-hook-commands.py"
+  for hook_src in "$REPO_ROOT"/.claude/hooks/*.sh; do
+    cp "$hook_src" "$repo/.claude/hooks/"
+    chmod +x "$repo/.claude/hooks/$(basename "$hook_src")"
+  done
+}
+
 make_repo() {
   local repo="$1"
   mkdir -p "$repo/scripts" "$repo/pipeline/evaluation/pending" \
            "$repo/pipeline/evaluation/completed" "$repo/logs"
   cp "$SCRIPT_SRC" "$repo/scripts/evolution-weekly.sh"
+  install_guard_fixture "$repo"
 }
 
 # A `claude` that does nothing: the analysis phase is not under test here, and a

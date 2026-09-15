@@ -32,10 +32,19 @@ set -euo pipefail
 #     previously every test here only ever looked at Markdown, so an
 #     executable leak in a copied shell script (e.g. a browser-helper .sh) was
 #     invisible to all four privacy/portability checks.
-#   - grep exit 2 (an invalid extended regex — e.g. a malformed
-#     scripts/.private-patterns line) is now a scan FAILURE distinct from
-#     grep exit 1 (no match). The previous `|| true` collapsed both into
-#     "nothing found".
+#   - ONLY grep exit 0 (matched) and exit 1 (did not match) are results. Every
+#     other status is a scan FAILURE: exit 2 (an invalid extended regex — e.g. a
+#     malformed scripts/.private-patterns line), exit 127 (grep not on PATH), a
+#     signal death such as 137, anything else. Accepting only 2 as a failure and
+#     letting the rest fall through to "no matches" is how a complete
+#     publication-mode run over a leaking corpus printed ALL TESTS PASSED with no
+#     grep installed (claude.public_scan_abnormal_exit_green_02).
+#   - The same rule binds the EXCEPTION filters — the `~/your-project` path
+#     allowance and the security-doc skip. In a filter position a `|| true` on a
+#     failed grep means "no findings survived", which is the scanner's own
+#     blindness reported as a clean result.
+#   - The tools every check runs through are preflighted. A scanner missing the
+#     program it scans with has not cleared anything.
 
 usage() {
     cat <<'USAGE'
@@ -48,6 +57,25 @@ Usage: test-public-config.sh [--generic-only]
   -h, --help       This message.
 USAGE
 }
+
+# Dependency preflight (claude.public_scan_abnormal_exit_green_02). Most checks
+# below are a `grep` invocation, and a grep that cannot execute exits 127 — which
+# the previous grep_or_fail passed through as "the scan ran and found nothing".
+# The list is EVERY external program this script runs, not only the detectors:
+# with only `head` missing, the frontmatter check misread valid files as lacking
+# frontmatter and the run still ended in a zero exit (Astra fix-verification,
+# 2026-09-15). Name the missing tool and refuse; this runs before the first
+# external call so a missing tool cannot produce a misleading diagnostic first.
+missing_tools=()
+for tool in grep find sed basename dirname head cat rm mktemp; do
+    command -v "$tool" >/dev/null 2>&1 || missing_tools+=("$tool")
+done
+if [ "${#missing_tools[@]}" -ne 0 ]; then
+    echo "FAIL: required tool(s) not found on PATH: ${missing_tools[*]}" >&2
+    echo "      Refusing to report a scan that cannot run -- a scanner missing a program it" >&2
+    echo "      runs has looked at nothing, not found nothing." >&2
+    exit 1
+fi
 
 GENERIC_ONLY=0
 while [[ $# -gt 0 ]]; do
@@ -104,17 +132,58 @@ fi
 grep_or_fail() {
     local flags="$1" pattern="$2" file="$3" out rc
     set +e
+    # shellcheck disable=SC2086  # $flags is a deliberate list of grep flags
     out="$(grep $flags -- "$pattern" "$file" 2>&1)"
     rc=$?
     set -e
-    if [ "$rc" -eq 2 ]; then
-        echo "FAIL: pattern is not a valid extended regex -- cannot scan $file: $out" >&2
-        return 1
-    fi
-    if [ "$rc" -eq 0 ]; then
-        printf '%s\n' "$out"
-    fi
-    return 0
+    case "$rc" in
+        0)
+            printf '%s\n' "$out"
+            return 0
+            ;;
+        1)
+            # The scan ran and matched nothing. The only clean non-match.
+            return 0
+            ;;
+        2)
+            echo "FAIL: pattern is not a valid extended regex -- cannot scan $file: $out" >&2
+            return 1
+            ;;
+        *)
+            echo "FAIL: grep exited $rc scanning $file -- the scanner itself failed, so this is" >&2
+            echo "      NOT 'no matches'. 127 means grep is not on PATH; a status above 128 means" >&2
+            echo "      it was killed by a signal. Output: $out" >&2
+            return 1
+            ;;
+    esac
+}
+
+# filter_out <pattern> -- drop stdin lines matching <pattern>, or FAIL.
+# Exception filters sit in the same fail-open position as the scans themselves:
+# `grep -v ... || true` turns a grep that could not run into "no findings
+# survived the exception list", which reads exactly like a clean file. Only
+# exit 0 (some lines survived) and exit 1 (none did) are results here too.
+filter_out() {
+    local pattern="$1" out rc
+    set +e
+    out="$(grep -v -- "$pattern" 2>&1)"
+    rc=$?
+    set -e
+    case "$rc" in
+        0)
+            printf '%s\n' "$out"
+            return 0
+            ;;
+        1)
+            # Every line was an allowed exception. Nothing survives; that is a result.
+            return 0
+            ;;
+        *)
+            echo "FAIL: the path-exception filter could not run (grep exited $rc): $out" >&2
+            echo "      Refusing to treat an unrunnable filter as 'nothing left to report'." >&2
+            return 1
+            ;;
+    esac
 }
 
 if [ "$GENERIC_ONLY" -eq 1 ]; then
@@ -134,11 +203,15 @@ echo "--- Test 1: No hardcoded private paths ---"
 # shellcheck disable=SC2088  # literal tilde pattern intended, not expansion
 for f in "${SCAN_FILES[@]}"; do
     if matches=$(grep_or_fail '-nE' '(/home/[^/[:space:]]+|~/[A-Za-z0-9_-][^/[:space:]]*)' "$f"); then
-        matches=$(printf '%s\n' "$matches" | grep -v -- '~/your-project' || true)
         if [ -n "$matches" ]; then
-            echo "FAIL: $f contains private paths:"
-            echo "$matches"
-            ERRORS=$((ERRORS + 1))
+            if ! matches=$(printf '%s\n' "$matches" | filter_out '~/your-project'); then
+                echo "FAIL: $f: private-path findings could not be filtered, so they are reported unfiltered."
+                ERRORS=$((ERRORS + 1))
+            elif [ -n "$matches" ]; then
+                echo "FAIL: $f contains private paths:"
+                echo "$matches"
+                ERRORS=$((ERRORS + 1))
+            fi
         fi
     else
         ERRORS=$((ERRORS + 1))
@@ -214,8 +287,20 @@ echo "--- Test 4: No secrets/credentials ---"
 SECURITY_DOCS="security-auditor|code-reviewer|api-designer|webmcp-integration"
 for f in "${SCAN_FILES[@]}"; do
     basename_f=$(basename "$f")
-    if echo "$basename_f" | grep -qiE -- "$SECURITY_DOCS"; then
+    # The security-doc exception is a filter too: a grep that could not run must
+    # not decide whether a file is exempt. Exit 0 = exempt, 1 = not exempt,
+    # anything else = the exception could not be evaluated, so the file is
+    # scanned anyway AND the run is failed.
+    set +e
+    printf '%s\n' "$basename_f" | grep -qiE -- "$SECURITY_DOCS"
+    skip_rc=$?
+    set -e
+    if [ "$skip_rc" -eq 0 ]; then
         continue  # Skip security/auth docs (false positives)
+    elif [ "$skip_rc" -ne 1 ]; then
+        echo "FAIL: the security-doc exception filter could not run for $basename_f (grep exited $skip_rc);"
+        echo "      scanning it anyway and failing the run rather than guessing the exemption."
+        ERRORS=$((ERRORS + 1))
     fi
     if matches=$(grep_or_fail '-niE' '(api[_-]?key|secret|password|bearer|token\s*[:=])' "$f"); then
         if [ -n "$matches" ]; then
@@ -230,17 +315,45 @@ done
 
 # Test 5: SKILL.md frontmatter validation
 echo "--- Test 5: SKILL.md frontmatter ---"
+# A check that could not run is not a check that passed: status 1 is "no
+# frontmatter" (a warning, as before), and anything else means head or grep
+# failed, which is a scan failure rather than a verdict about the file.
 while IFS= read -r -d '' f; do
-    if ! head -1 "$f" | grep -q "^---"; then
+    set +e
+    head -1 "$f" | grep -q "^---"
+    frontmatter_status=("${PIPESTATUS[@]}")
+    set -e
+    # The PIPELINE's status cannot tell these apart: under `pipefail` a head that
+    # dies WITHOUT writing anything leaves grep with empty input, grep exits 1,
+    # and 1 is the rightmost nonzero status -- so a reader that never ran read as
+    # "this file has no frontmatter" (Astra verification round 2, 2026-09-15).
+    # Each stage answers for itself.
+    if [ "${frontmatter_status[0]}" -ne 0 ]; then
+        echo "FAIL: could not read the first line of $f (head exited ${frontmatter_status[0]}) --"
+        echo "      an unavailable structural check is not a passed one."
+        ERRORS=$((ERRORS + 1))
+    elif [ "${frontmatter_status[1]}" -eq 1 ]; then
         echo "WARN: $f missing frontmatter (---)"
+    elif [ "${frontmatter_status[1]}" -ne 0 ]; then
+        echo "FAIL: could not scan the first line of $f (grep exited ${frontmatter_status[1]}) --"
+        echo "      an unavailable structural check is not a passed one."
+        ERRORS=$((ERRORS + 1))
     fi
 done < <(find "$REFERENCE_DIR/skills" -name "SKILL.md" -type f -print0 2>/dev/null)
 
 # Test 6: Agent .md files have required structure
 echo "--- Test 6: Agent definition structure ---"
 while IFS= read -r -d '' f; do
-    if ! grep -q "^#" "$f"; then
+    set +e
+    grep -q "^#" "$f"
+    headers_rc=$?
+    set -e
+    if [ "$headers_rc" -eq 1 ]; then
         echo "WARN: $f has no markdown headers"
+    elif [ "$headers_rc" -ne 0 ]; then
+        echo "FAIL: could not scan $f for headers (exit $headers_rc) -- an unavailable structural"
+        echo "      check is not a passed one."
+        ERRORS=$((ERRORS + 1))
     fi
 done < <(find "$REFERENCE_DIR/agents" -name "*.md" -type f -print0 2>/dev/null)
 
